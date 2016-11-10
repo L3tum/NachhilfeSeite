@@ -13,10 +13,10 @@ session_start();
 </head>
 
 
-<body>
+<body style="background-color: darkgray">
 <div style="position: fixed; z-index: -99; width: 100%; height: 100%">
     <iframe frameborder="0" height="100%" width="100%"
-            src="https://youtube.com/embed/YEwlfJdTldw?autoplay=1&controls=0&showinfo=0&autohide=1&vq=hd720">
+            src="https://youtube.com/embed/YEwlfJdTldw?autoplay=1&controls=0&showinfo=0&autohide=1&vq=hd720&loop=1&playlist=YEwlfJdTldw">
     </iframe>
 </div>
 <div class="container" align="center">
@@ -26,10 +26,6 @@ session_start();
 
     <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/YEwlfJdTldw?autoplay=1" frameborder="0" allowfullscreen></iframe> -->
 
-    <script src="js/vendor/jquery.min.js"></script>
-    <script src="js/vendor/what-input.min.js"></script>
-    <script src="js/foundation.min.js"></script>
-    <script>$(document).foundation();</script>
     <div class="form-group">
         <form action="index.php" method="post">
             <label for="vorname">Vorname:</label>
@@ -56,6 +52,10 @@ session_start();
         </form>
     </div>
 </div>
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/what-input.min.js"></script>
+<script src="js/foundation.min.js"></script>
+<script>$(document).foundation();</script>
 </body>
 </html>
 
