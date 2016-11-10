@@ -25,7 +25,7 @@ session_start();
     <link rel="stylesheet" href="CSS/video.css"/>
 
     <div class="fullscreen-bg">
-        <video width="640" height="360" id="player1" preload="none">
+        <video width="640" height="360" id="player1" preload="none" class="fullscreen-bg__video">
             <source type="video/youtube" src="https://www.youtube.com/embed/YEwlfJdTldw?autoplay=1"/>
         </video>
     </div>
