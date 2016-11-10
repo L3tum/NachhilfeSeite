@@ -20,35 +20,35 @@ session_start();
     </iframe>
 </div>
 <div class="container" align="left">
-    <h1 style="color: deeppink;">HEEEEEY</h1>
-    <h2>Spectacular Mountain</h2>
-    <p><a href="https://www.donaldjtrump.com/">Visit Gymnasium-Lohmar.com!</a></p>
+    <h1 style="color: deeppink; background-color: whitesmoke">HEEEEEY</h1>
+    <h2 style="background-color: whitesmoke" >Spectacular Mountain</h2>
+    <p><a style="background-color: whitesmoke" href="https://www.donaldjtrump.com/">Visit Gymnasium-Lohmar.com!</a></p>
 
     <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/YEwlfJdTldw?autoplay=1" frameborder="0" allowfullscreen></iframe> -->
 
     <div class="form-group">
         <form action="index.php" method="post">
-            <label for="vorname">Vorname:</label>
-            <input class="form-control" type="text" name="vorname"/><br/>
+            <label style="background-color: whitesmoke" for="vorname">Vorname:</label>
+            <input style="background-color: whitesmoke" class="form-control" type="text" name="vorname"/><br/>
 
-            <label for="vorname">Name:</label>
-            <input class="form-control" type="text" name="name"/><br/>
+            <label style="background-color: whitesmoke" for="vorname">Name:</label>
+            <input style="background-color: whitesmoke" class="form-control" type="text" name="name"/><br/>
 
-            <label for="vorname">Passwort:</label>
-            <input class="form-control" type="password" name="passwort"/><br/>
+            <label style="background-color: whitesmoke" for="vorname">Passwort:</label>
+            <input style="background-color: whitesmoke" class="form-control" type="password" name="passwort"/><br/>
 
-            <label for="vorname">Passwort bestätigen:</label>
-            <input class="form-control" type="password" name="passwortBestaetigt"/><br/>
+            <label style="background-color: whitesmoke" for="vorname">Passwort bestätigen:</label>
+            <input style="background-color: whitesmoke" class="form-control" type="password" name="passwortBestaetigt"/><br/>
 
-            <label for="vorname">Telefonnummer:</label>
-            <input class="form-control" type="tel" name="telefon"/><br/>
+            <label style="background-color: whitesmoke" for="vorname">Telefonnummer:</label>
+            <input style="background-color: whitesmoke" class="form-control" type="tel" name="telefon"/><br/>
 
-            <label for="vorname">Email:</label>
-            <input class="form-control" type="email" name="email"/><br/>
+            <label style="background-color: whitesmoke" for="vorname">Email:</label>
+            <input style="background-color: whitesmoke" class="form-control" type="email" name="email"/><br/>
 
-            <label for="vorname">Männlich:</label>
-            <input class="form-control" type="checkbox" name="maennlich"/><br/>
-            <input class="form-control" type="submit" name="submit" value="Fuck off"/>
+            <label style="background-color: whitesmoke" for="vorname">Männlich:</label>
+            <input style="background-color: whitesmoke" class="form-control" type="checkbox" name="maennlich"/><br/>
+            <input style="background-color: whitesmoke" class="form-control" type="submit" name="submit" value="Fuck off"/>
         </form>
     </div>
 </div>
