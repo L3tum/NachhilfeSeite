@@ -3,34 +3,36 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
 <head>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nachhilfe</title>
+    <link rel="stylesheet" href="css/foundation.css" />
 </head>
 
 <div class="container" align="center">
-<h1 style="color: deeppink;">HEEEEEY</h1>
-
-<h2>Spectacular Mountain</h2>
-<body background="pics/tr2.jpg">
-<p><a href="https://www.donaldjtrump.com/">Visit Gymnasium-Lohmar.com!</a></p>
-</body>
+    <body background="pics/tr2.jpg">
+        <script src="js/vendor/jquery.min.js"></script>
+        <script src="js/vendor/what-input.min.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>$(document).foundation();</script>
+        <h1 style="color: deeppink;">HEEEEEY</h1>
+        <h2>Spectacular Mountain</h2>
+        <p><a href="https://www.donaldjtrump.com/">Visit Gymnasium-Lohmar.com!</a></p>
+    </body>
     
-<form action="index.php" method="post">
-    Vorname: <input type="text" name="username"/><br/>
-    Name: <input type="text" name="username"/><br/>
-    Passwort: <input type="password" name="passwort"/><br/>
-    Passwort bestätigen: <input type="password" name="passwortBestaetigt"/><br/>
-    Telefonnummer: <input type="tel" name="tel"/><br/>
-    Email: <input type="email" name="email" /><br/>
-    Männlich: <input type="checkbox" name="m"/><br/>
-    <input type="submit" name="submit" value="Fuck off"/>
-</form>
+    <form action="index.php" method="post">
+        Vorname: <input type="text" name="username"/><br/>
+        Name: <input type="text" name="username"/><br/>
+        Passwort: <input type="password" name="passwort"/><br/>
+        Passwort bestätigen: <input type="password" name="passwortBestaetigt"/><br/>
+        Telefonnummer: <input type="tel" name="tel"/><br/>
+        Email: <input type="email" name="email" /><br/>
+        Männlich: <input type="checkbox" name="m"/><br/>
+        <input type="submit" name="submit" value="Fuck off"/>
+    </form>
 </div>
 </html>
 
