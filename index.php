@@ -13,7 +13,7 @@ session_start();
 </head>
 
 <div class="container" align="center">
-    <body background="pics/tr2.jpg">
+    <body>
         <script src="js/vendor/jquery.min.js"></script>
         <script src="js/vendor/what-input.min.js"></script>
         <script src="js/foundation.min.js"></script>
@@ -25,13 +25,13 @@ session_start();
     </body>
     
     <form action="index.php" method="post">
-        Vorname: <input type="text" name="username"/><br/>
-        Name: <input type="text" name="username"/><br/>
+        Vorname: <input type="text" name="vorname"/><br/>
+        Name: <input type="text" name="name"/><br/>
         Passwort: <input type="password" name="passwort"/><br/>
         Passwort bestätigen: <input type="password" name="passwortBestaetigt"/><br/>
-        Telefonnummer: <input type="tel" name="tel"/><br/>
+        Telefonnummer: <input type="tel" name="telefon"/><br/>
         Email: <input type="email" name="email" /><br/>
-        Männlich: <input type="checkbox" name="m"/><br/>
+        Männlich: <input type="checkbox" name="maennlich"/><br/>
         <input type="submit" name="submit" value="Fuck off"/>
     </form>
 </div>
@@ -39,7 +39,7 @@ session_start();
 
 <?php
 
-if(isset($_POST['submit'], $_POST['username'], $_POST['email'], $_POST['passwort'], $_POST['passwortBestaetigt'], $_POST['tel']) && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['passwort'] && $_POST['passwortBestaetigt'] && !empty($_POST['tel']))) {
+if(isset($_POST['submit'], $_POST['vorname'], $_POST['name'], $_POST['email'], $_POST['passwort'], $_POST['passwortBestaetigt'], $_POST['tel']) && !empty($_POST['vorname']) && !empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['passwort'] && $_POST['passwortBestaetigt'] && !empty($_POST['tel']))) {
     $passwortverschlusselt;
     $bestaetigtPasswortVerschluesselt;
     $passwortverschlusselt = crypt($_POST['passwort'], "WAS IST DAS FUER EINE SCHEISSE DU ARSCHLOCH FUCK OFF");
@@ -49,11 +49,11 @@ if(isset($_POST['submit'], $_POST['username'], $_POST['email'], $_POST['passwort
     if($passwortverschlusselt !== $bestaetigtPasswortVerschluesselt){
         echo "FEHLER DU ARSCH<br/>";
     }
-    mail($_POST['email'], $_POST['username'], $_POST['username']." ".$_POST['email']." ".$_POST['passwort']." ".$_POST['tel']);
-    echo "Crypt: ".crypt($_POST['username'].$_POST['email'].$_POST['passwort'].$_POST['passwortBestaetigt'].$_POST['tel'], $_POST['email'].session_id());
+    mail($_POST['email'], $_POST['name'], $_POST['vorname']." ".$_POST['email']." ".$_POST['passwort']." ".$_POST['tel']);
+    echo "Crypt: ".crypt($_POST['vorname'].$_POST['name'].$_POST['email'].$_POST['passwort'].$_POST['passwortBestaetigt'].$_POST['tel'], $_POST['email'].session_id());
     var_dump($passwortverschlusselt, $bestaetigtPasswortVerschluesselt);
 }
-if(isset($_POST['submit'])){
+else if(isset($_POST['submit'])){
     echo "FEHLER DU ARSCH<br/>";
 }
 ?>
