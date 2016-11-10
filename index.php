@@ -12,13 +12,14 @@ session_start();
     <link rel="stylesheet" href="css/foundation.css"/>
 </head>
 
+
+<body>
+<div style="position: fixed; z-index: -99; width: 100%; height: 100%">
+    <iframe frameborder="0" height="100%" width="100%"
+            src="https://youtube.com/embed/YEwlfJdTldw?autoplay=1&controls=0&showinfo=0&autohide=1&vq=hd720">
+    </iframe>
+</div>
 <div class="container" align="center">
-    <body>
-    <div style="position: fixed; z-index: -99; width: 100%; height: 100%">
-        <iframe frameborder="0" height="100%" width="100%"
-                src="https://youtube.com/embed/YEwlfJdTldw?autoplay=1&controls=0&showinfo=0&autohide=1">
-        </iframe>
-    </div>
     <h1 style="color: deeppink;">HEEEEEY</h1>
     <h2>Spectacular Mountain</h2>
     <p><a href="https://www.donaldjtrump.com/">Visit Gymnasium-Lohmar.com!</a></p>
@@ -54,8 +55,8 @@ session_start();
             <input class="form-control" type="submit" name="submit" value="Fuck off"/>
         </form>
     </div>
-    </body>
 </div>
+</body>
 </html>
 
 <?php
