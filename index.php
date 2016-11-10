@@ -10,6 +10,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Nachhilfe</title>
     <link rel="stylesheet" href="css/foundation.css"/>
+    <link rel="stylesheet" href="CSS/testing.css"/>
 </head>
 
 
@@ -20,8 +21,8 @@ session_start();
     </iframe>
 </div>
 <div class="container" align="left">
-    <h1 style="color: deeppink; background-color: whitesmoke">HEEEEEY</h1>
-    <h2 style="background-color: whitesmoke" >Spectacular Mountain</h2>
+    <h1 style="color: deeppink">HEEEEEY</h1>
+    <h2 style="background-color: whitesmoke; width: 6%">Spectacular Mountain</h2>
     <p><a style="background-color: whitesmoke" href="https://www.donaldjtrump.com/">Visit Gymnasium-Lohmar.com!</a></p>
 
     <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/YEwlfJdTldw?autoplay=1" frameborder="0" allowfullscreen></iframe> -->
