@@ -1,0 +1,9 @@
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(www\.Nachhilfe\.Gymnasium-Lohmar\.sex)(:80)? [NC]
+RewriteRule ^(.*) http://Nachhilfe.Gymnasium-Lohmar.sex/$1 [R=301,L]
+DirectoryIndex index.php
+Redirect temp seite1.php DonaldJTrump.com
+order deny,allow
