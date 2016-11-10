@@ -14,25 +14,16 @@ session_start();
 
 <div class="container" align="center">
     <body>
+    <div style="position: fixed; z-index: -99; width: 100%; height: 100%">
+        <iframe frameborder="0" height="100%" width="100%"
+                src="https://youtube.com/embed/YEwlfJdTldw?autoplay=1&controls=0&showinfo=0&autohide=1">
+        </iframe>
+    </div>
     <h1 style="color: deeppink;">HEEEEEY</h1>
     <h2>Spectacular Mountain</h2>
     <p><a href="https://www.donaldjtrump.com/">Visit Gymnasium-Lohmar.com!</a></p>
 
     <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/YEwlfJdTldw?autoplay=1" frameborder="0" allowfullscreen></iframe> -->
-
-    <script src="mediaelement-and-player.min.js"></script>
-    <link rel="stylesheet" href="mediaelementplayer.css"/>
-    <link rel="stylesheet" href="CSS/video.css"/>
-
-    <div class="fullscreen-bg">
-        <video width="640" height="360" id="player1" preload="none" class="fullscreen-bg__video">
-            <source type="video/youtube" src="https://www.youtube.com/embed/YEwlfJdTldw?autoplay=1"/>
-        </video>
-    </div>
-
-    <script>
-        var player = new MediaElementPlayer('#player1');
-    </script>
 
     <script src="js/vendor/jquery.min.js"></script>
     <script src="js/vendor/what-input.min.js"></script>
