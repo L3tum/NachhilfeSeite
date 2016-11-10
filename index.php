@@ -19,7 +19,7 @@ session_start();
             src="https://youtube.com/embed/YEwlfJdTldw?autoplay=1&controls=0&showinfo=0&autohide=1&vq=hd720&loop=1&playlist=YEwlfJdTldw">
     </iframe>
 </div>
-<div class="container" align="center">
+<div class="container" align="left">
     <h1 style="color: deeppink;">HEEEEEY</h1>
     <h2>Spectacular Mountain</h2>
     <p><a href="https://www.donaldjtrump.com/">Visit Gymnasium-Lohmar.com!</a></p>
