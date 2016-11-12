@@ -1,5 +1,10 @@
 <Files ~ "^\.(htaccess|htpasswd)$">
 deny from all
 </Files>
+ErrorDocument 400 error.php
+ErrorDocument 402 error.php
+ErrorDocument 403 error.php
+ErrorDocument 405 error.php
+ErrorDocument 406 error.php
 DirectoryIndex index.php
 order deny,allow
