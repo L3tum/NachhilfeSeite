@@ -20,7 +20,8 @@ session_start();
             src="https://youtube.com/embed/YEwlfJdTldw?autoplay=1&controls=0&showinfo=0&autohide=1&vq=hd720&loop=1&playlist=YEwlfJdTldw">
     </iframe>
 </div>
-<div class="container" align="left">
+<div id="root" class="container" align="left">
+    <script src="index.js"></script>
     <h1 style="color: deeppink">HEEEEEY</h1>
     <h2 style="background-color: whitesmoke; width: 6%">Spectacular Mountain</h2>
     <p><a style="background-color: whitesmoke" href="https://www.donaldjtrump.com/">Visit Gymnasium-Lohmar.com!</a></p>
@@ -49,14 +50,19 @@ session_start();
 
             <label style="background-color: whitesmoke" for="vorname">Männlich:</label>
             <input style="background-color: whitesmoke" class="form-control" type="checkbox" name="maennlich"/><br/>
-            <input style="background-color: whitesmoke" class="form-control" type="submit" name="submit" value="Fuck off"/>
+            <input style="background-color: whitesmoke" class="form-control" type="submit" name="submit"
+                   value="Fuck off"/>
         </form>
     </div>
 </div>
-<script src="js/vendor/jquery.min.js"></script>
-<script src="js/vendor/what-input.min.js"></script>
-<script src="js/foundation.min.js"></script>
-<script>$(document).foundation();</script>
+<div>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/what-input.min.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>$(document).foundation();</script>
+</div>
 </body>
 </html>
 
