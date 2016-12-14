@@ -26,7 +26,7 @@ function loadConfig() {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel(pages, sass, javascript, images, copy), styleGuide));
+ gulp.series(clean, gulp.parallel(pages, sass, javascript, images, copy, htaccess), styleGuide));
 
 // Build the site, run the server, and watch for file changes
 gulp.task('default',
@@ -130,6 +130,11 @@ function reload(done) {
   done();
 }
 
+function htaccess() {
+  return gulp.src('src/.htaccess')
+      .pipe(gulp.dest('dist/'));
+}
+
 // Watch for changes to static assets, pages, Sass, and JavaScript
 function watch() {
   gulp.watch(PATHS.assets, copy);
@@ -141,4 +146,5 @@ function watch() {
   gulp.watch('src/assets/img/**/*').on('all', gulp.series(images, browser.reload));
   gulp.watch('src/assets/php/**/*').on('all', gulp.series(browser.reload));
   gulp.watch('src/styleguide/**').on('all', gulp.series(styleGuide, browser.reload));
+  gulp.watch('src/.htaccess').on('all', gulp.series(htaccess, browser.reload));
 }
