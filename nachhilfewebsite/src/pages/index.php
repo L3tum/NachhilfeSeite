@@ -6,10 +6,8 @@
  * Time: 21:03
  */
 
-$request_uri = $_SERVER["REQUEST_URI"];
-if(file_exists($request_uri + ".php")) {
-    echo "EXISTS!";
-}
+Config::set("basepath", "nachhilfewebsite/");
+
 
 //print_r($_SERVER);
     ?>
