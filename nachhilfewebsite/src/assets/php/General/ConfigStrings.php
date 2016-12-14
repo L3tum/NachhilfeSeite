@@ -6,7 +6,7 @@
  * Date: 07.12.2016
  * Time: 22:10
  */
-class Config{
+class ConfigStrings{
 
     private static $registry = Array();
 
@@ -20,4 +20,6 @@ class Config{
         }
         return false;
     }
+
+
 }

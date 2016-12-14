@@ -1,10 +1,4 @@
-DirectoryIndex index.php
-
 RewriteEngine on
-
-RewriteBase /MYBASEPATH
-
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule ^(.*)$ index.php [QSA]
+RewriteRule ^(.*)$ index.php [NC,L,QSA]

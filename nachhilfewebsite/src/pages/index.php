@@ -6,8 +6,27 @@
  * Time: 21:03
  */
 
-Config::set("basepath", "nachhilfewebsite/");
+$basepath = "nachhilfewebsite/";
+
+include "assets/php/general/ConfigStrings.php";
+include "assets/php/general/Route.php";
+
+ConfigStrings::set("basepath", "nachhilfewebsite/dist");
+
+Route::init();
+
+Route::add('',function(){
+    //Do something
+    echo 'Welcome :-)';
+});
 
 
+Route::add('/test',function(){
+    //Do something
+    echo 'Welcome :-)';
+});
+
+
+Route::run();
 //print_r($_SERVER);
     ?>
