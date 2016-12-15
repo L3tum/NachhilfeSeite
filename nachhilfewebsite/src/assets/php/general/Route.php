@@ -22,7 +22,6 @@ class Route{
             if(self::$path  == ConfigStrings::get("basepath")) {
 
                 self::$path = self::$path . "/";
-                echo self::$path;
             }
         }else{
             self::$path = '';

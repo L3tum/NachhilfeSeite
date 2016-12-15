@@ -15,7 +15,7 @@ Route::init();
 
 Route::add('',function(){
     //Do something
-    echo 'Welcome :-)';
+    include "welcome.php";
 });
 
 
