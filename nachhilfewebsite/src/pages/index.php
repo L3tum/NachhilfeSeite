@@ -6,8 +6,6 @@
  * Time: 21:03
  */
 
-$basepath = "nachhilfewebsite/";
-
 include "assets/php/general/ConfigStrings.php";
 include "assets/php/general/Route.php";
 
@@ -21,7 +19,7 @@ Route::add('',function(){
 });
 
 
-Route::add('/test',function(){
+Route::add('test',function(){
     //Do something
     echo 'Welcome :-)';
 });

@@ -18,6 +18,12 @@ class Route{
 
         if(isset($parsed_url['path'])){
             self::$path = trim($parsed_url['path'],'/');
+
+            if(self::$path  == ConfigStrings::get("basepath")) {
+
+                self::$path = self::$path . "/";
+                echo self::$path;
+            }
         }else{
             self::$path = '';
         }
@@ -45,9 +51,9 @@ class Route{
 
         foreach(self::$routes as $route){
 
-            if(Config::get('basepath')){
+            if(ConfigStrings::get('basepath')){
 
-                $route['expression'] = '('.Config::get('basepath').')/'.$route['expression'];
+                $route['expression'] = '('.ConfigStrings::get('basepath').')/'.$route['expression'];
 
             }
 
@@ -57,6 +63,8 @@ class Route{
             //Add 'find string end' automatically
             $route['expression'] = $route['expression'].'$';
 
+            //echo $route['expression'] . "  ";
+            //echo self::$path . "  ";
             //check match
             if(preg_match('#'.$route['expression'].'#',self::$path,$matches)){
 
@@ -64,7 +72,7 @@ class Route{
 
                 array_shift($matches);//Always remove first element. This contains the whole string
 
-                if(Config::get('basepath')){
+                if(ConfigStrings::get('basepath')){
 
                     array_shift($matches);//Remove Basepath
 
