@@ -18,8 +18,14 @@ Route::init();
 
 Route::add('',function(){
     //Do something
-    include "welcome.php";
+    include "special/welcome.php";
 });
+
+Route::add('noDB',function(){
+    //Do something
+    include "special/noDBConnection.php";
+});
+
 
 
 Route::add('test',function(){

@@ -63,3 +63,30 @@
 button {
   border: 1px solid white;
 }
+
+i {
+  &.very-large {
+    font-size: 10em;
+  }
+}
+
+.alert {
+  color: $alert-color;
+
+  &.glow {
+    text-shadow: 0px 0px 14px $alert-color;
+  }
+}
+
+.toast {
+  &.toast-error {
+    background-color: $alert-color;
+  }
+  &.toast-success {
+    background-color: $success-color;
+  }
+  &.toast-warning {
+    background-color: $warning-color;
+  }
+}
+

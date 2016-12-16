@@ -6,11 +6,8 @@ layout: special
         <h1 class="text-center">Willkommen bei der Nachhilfe des Gymnasiums Lohmar !</h1>
     </div>
 </div>
-<div class="row">
 
-</div>
-
-<form data-abide novalidate>
+<form data-abide novalidate id="login-form">
     <div class="row">
 
         <div class="small-12 medium-6 columns small-centered">
