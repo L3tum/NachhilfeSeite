@@ -60,13 +60,11 @@ body {
 
 header {
 
-  .title-bar-title {
-    font-family: 'Rubik', sans-serif;
-    color: white;
-  }
 
-  img {
-    height:50px;
-    width: auto;
+}
+
+@for $index from 1 through 6 {
+  h#{$index}{
+    font-family: 'Rubik', sans-serif;
   }
 }
