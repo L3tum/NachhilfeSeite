@@ -52,19 +52,14 @@
 //Font imports
 @import url('https://fonts.googleapis.com/css?family=Rubik|Work+Sans');
 
-body {
-  //background-color: $primary-color;
-  //background: linear-gradient(277deg, rgba(13,60,92,1) 0%, rgba(0,128,128,1) 100%);
-  background: $primary-color;
-}
-
-header {
-
-
-}
+//General rules
 
 @for $index from 1 through 6 {
   h#{$index}{
     font-family: 'Rubik', sans-serif;
   }
+}
+
+button {
+  border: 1px solid white;
 }
