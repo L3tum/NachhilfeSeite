@@ -11,8 +11,17 @@ layout: noLayout
 
 include "assets/php/general/ConfigStrings.php";
 include "assets/php/general/Route.php";
+include "assets/php/general/Connection.php";
 
 ConfigStrings::set("basepath", "nachhilfewebsite/dist");
+ConfigStrings::set("DSN", "mysql:host=localhost;dbname=nachhilfe");
+ConfigStrings::set("DBUser", "nachhilfeDBUser");
+ConfigStrings::set("DBPass", "nachhilfe");
+
+
+if(!Connection::connect(true)) {
+    exit;
+}
 
 Route::init();
 

@@ -18,7 +18,7 @@ class ConfigStrings{
         if(array_key_exists($key,self::$registry)){
             return self::$registry[$key];
         }
-        return false;
+        return null;
     }
 
 
