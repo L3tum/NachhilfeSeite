@@ -7,18 +7,18 @@
  * Time: 19:38
  */
 
-include __DIR__ . "/ConfigStrings.php";
+include_once  __DIR__ . "/ConfigStrings.php";
 
 class Connection
 {
 
-    public $PDO;
+    public static $PDO;
 
     public static function connect($redirectOnError) {
         if(ConfigStrings::get("DSN") !== null) {
 
             try {
-                $PDO = new PDO(ConfigStrings::get("DSN"),ConfigStrings::get("DBUser"),ConfigStrings::get("DBPass"), array(
+                Connection::$PDO = new PDO(ConfigStrings::get("DSN"),ConfigStrings::get("DBUser"),ConfigStrings::get("DBPass"), array(
                     PDO::ATTR_PERSISTENT => true
                 ));
                 return true;

@@ -7,7 +7,7 @@
  * Time: 22:20
  */
 
-include __DIR__ . "/../general/Connection.php";
+include_once  __DIR__ . "/../general/Connection.php";
 
 class Benutzer
 {
@@ -23,7 +23,18 @@ class Benutzer
     public $idRolle;
 
     public static function get_logged_in_user() {
-        Connection::connect(true);
+        $session_id = session_id();
+        $stmt = Connection::$PDO->prepare("SELECT * FROM Benutzer WHERE sessionID = :sessionID");
+        $stmt->bindParam(':sessionID', $session_id);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_CLASS | PDO::FETCH_CLASSTYPE);
+        if($user !== null) {
+
+        }
         return null;
+    }
+
+    public static function log_user_in($user) {
+
     }
 }

@@ -7,7 +7,7 @@
  * Time: 22:10
  */
 
-include __DIR__ . "/../ConfigStrings.php";
+include_once  __DIR__ . "/ConfigStrings.php";
 
 class Route{
 
