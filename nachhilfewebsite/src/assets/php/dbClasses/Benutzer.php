@@ -27,7 +27,9 @@ class Benutzer
         $stmt = Connection::$PDO->prepare("SELECT * FROM Benutzer WHERE sessionID = :sessionID");
         $stmt->bindParam(':sessionID', $session_id);
         $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_CLASS | PDO::FETCH_CLASSTYPE);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Benutzer');
+        $user = $stmt->fetch();
+        echo var_dump($user);
         if($user !== null) {
 
         }

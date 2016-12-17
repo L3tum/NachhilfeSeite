@@ -7,7 +7,7 @@ layout: special
     </div>
 </div>
 
-<form data-abide novalidate id="login-form">
+<form data-abide novalidate id="login-form" method="post">
     <div class="row">
 
         <div class="small-12 medium-6 columns small-centered">

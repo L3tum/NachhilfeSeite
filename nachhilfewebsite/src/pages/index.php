@@ -24,7 +24,7 @@ if(!Connection::connect(true)) {
 }
 
 if($logged_in_user = Benutzer::get_logged_in_user()) {
-
+    echo 'YEAH';
 }
 
 Route::init();

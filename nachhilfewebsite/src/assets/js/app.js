@@ -15,15 +15,15 @@ class AjaxFormHelper {
             .on("formvalid.zf.abide", function(ev) {
                 ev.preventDefault();
                 console.log("TESTTEST");
-                $me.runAjax(ajaxPath);
+                $me.runAjax(ajaxPath, element);
             });
 
     }
 
-    runAjax(ajaxPath) {
+    runAjax(ajaxPath, element) {
 
-        $.ajax({url: ajaxPath, success: function(result){
-            var $resultObj = JSON.parse(result);
+        $.ajax({url: ajaxPath, dataType : 'json', data : element.serialize(), type : "POST", success: function(result){
+            var $resultObj = result;
             if($resultObj.success == false) {
                 toastr.error($resultObj.errorReason);
             }

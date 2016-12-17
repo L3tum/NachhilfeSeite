@@ -17,6 +17,7 @@ class AjaxFormHelper
     function __construct() {
 
         $this->set_up_defaults();
+
     }
 
     public function set_up_defaults() {
@@ -24,6 +25,7 @@ class AjaxFormHelper
         if(!Connection::connect(false)) {
             $this->return_error("Keine Verbindung zur Datenbank!");
         }
+        session_start();
     }
 
     public function return_error($text) {
@@ -38,5 +40,19 @@ class AjaxFormHelper
         $this->response['success'] = $this->success;
         echo json_encode($this->response);
         exit;
+    }
+
+    public function test_string($string, $pattern, $realname) {
+
+        if(isset($string)) {
+            if(!preg_match($pattern, $string)) {
+                $this->return_error($realname . " entspricht nicht den Kritierien!");
+            }
+            return $string;
+        }
+        else {
+            $this->return_error($realname . " ist nicht gesetzt!");
+        }
+
     }
 }

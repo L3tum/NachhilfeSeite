@@ -5,10 +5,31 @@ layout: noLayout
 <?php
 include_once  __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
 include_once  __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
-
+include_once  __DIR__ . "/../assets/php/general/Connection.php";
 $form_helper = new AjaxFormHelper();
-$form_helper->return_error("TEST");
-//$vorname = $_POST['vorname'];
-//$vorname = $_POST['vorname'];
-//echo Benutzer::get_logged_in_user();
+
+$vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜ*]{1,20}$/", "Vorname");
+$nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜ*]{1,20}$/", "Nachname");
+$password = $form_helper->test_string($_POST['password'], "/^.{1,200}$/", "Passwort");
+
+$stmt = Connection::$PDO->prepare("SELECT * FROM benutzer WHERE vorname = :vorname && name = :name && passwort = :passwort");
+$stmt->bindParam(':vorname', $vorname);
+$stmt->bindParam(':name', $nachname);
+$stmt->bindParam(':passwort', $password);
+$stmt->execute();
+$stmt->setFetchMode(PDO::FETCH_CLASS, 'Benutzer');
+$user = $stmt->fetch();
+
+if(!$user) {
+    $form_helper->return_error("Passwort oder Nutzername falsch!");
+}
+session_regenerate_id();
+$session_id = session_id();
+$stmt = Connection::$PDO->prepare("UPDATE benutzer SET sessionID = :sessionID WHERE idBenutzer = :idBenutzer");
+$stmt->bindParam(':sessionID', $session_id);
+$stmt->bindParam(':idBenutzer', $user->idBenutzer);
+$stmt->execute();
+
+$form_helper->success = true;
+$form_helper->return_json();
 ?>
