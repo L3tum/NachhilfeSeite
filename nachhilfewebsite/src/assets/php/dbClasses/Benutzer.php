@@ -29,11 +29,8 @@ class Benutzer
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Benutzer');
         $user = $stmt->fetch();
-        echo var_dump($user);
-        if($user !== null) {
+        return $user;
 
-        }
-        return null;
     }
 
     public static function log_user_in($user) {

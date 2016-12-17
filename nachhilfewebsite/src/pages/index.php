@@ -23,16 +23,21 @@ if(!Connection::connect(true)) {
     exit;
 }
 
-if($logged_in_user = Benutzer::get_logged_in_user()) {
-    echo 'YEAH';
+$logged_in_user = Benutzer::get_logged_in_user();
+
+if(!$logged_in_user) {
+    include "special/welcome.php";
+    exit;
 }
 
 Route::init();
 
+
 Route::add('',function(){
     //Do something
 
-    include "special/welcome.php";
+    include "main/home.php";
+    
 });
 
 Route::add('noDB',function(){
