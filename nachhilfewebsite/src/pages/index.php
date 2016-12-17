@@ -15,9 +15,7 @@ include_once  "assets/php/general/Connection.php";
 include_once  __DIR__ . "/assets/php/dbClasses/Benutzer.php";
 
 ConfigStrings::set("basepath", "nachhilfewebsite/dist");
-ConfigStrings::set("DSN", "mysql:host=localhost;dbname=nachhilfe");
-ConfigStrings::set("DBUser", "nachhilfeDBUser");
-ConfigStrings::set("DBPass", "nachhilfe");
+
 
 session_start();
 
@@ -29,13 +27,11 @@ if($logged_in_user = Benutzer::get_logged_in_user()) {
 
 }
 
-
-
-
 Route::init();
 
 Route::add('',function(){
     //Do something
+
     include "special/welcome.php";
 });
 

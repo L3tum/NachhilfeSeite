@@ -14,9 +14,16 @@ class AjaxFormHelper
     public $response = Array();
     public $success;
 
+    function __construct() {
+
+        $this->set_up_defaults();
+    }
+
     public function set_up_defaults() {
 
-        Connection::connect(false);
+        if(!Connection::connect(false)) {
+            $this->return_error("Keine Verbindung zur Datenbank!");
+        }
     }
 
     public function return_error($text) {

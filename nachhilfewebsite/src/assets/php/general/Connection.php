@@ -13,21 +13,21 @@ class Connection
 {
 
     public static $PDO;
+    private static $DSN = "mysql:host=localhost;dbname=nachhilfe";
+    private static $DBUser = "nachhilfeDBUser";
+    private static $DBPass = "nachhilfe";
 
     public static function connect($redirectOnError) {
-        if(ConfigStrings::get("DSN") !== null) {
-
-            try {
-                Connection::$PDO = new PDO(ConfigStrings::get("DSN"),ConfigStrings::get("DBUser"),ConfigStrings::get("DBPass"), array(
-                    PDO::ATTR_PERSISTENT => true
-                ));
-                return true;
-            } catch (Exception $e) {
-                if($redirectOnError) {
-                    include "special/noDBConnection.php";
-                }
-                return false;
+        try {
+            self::$PDO = new PDO(self::$DSN, self::$DBUser, self::$DBPass, array(
+                PDO::ATTR_PERSISTENT => true
+            ));
+            return true;
+        } catch (Exception $e) {
+            if($redirectOnError) {
+                include "special/noDBConnection.php";
             }
+            return false;
         }
 
     }
