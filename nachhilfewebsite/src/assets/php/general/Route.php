@@ -6,6 +6,9 @@
  * Date: 07.12.2016
  * Time: 22:10
  */
+
+include __DIR__ . "/../ConfigStrings.php";
+
 class Route{
 
     public static $routes = Array();

@@ -6,6 +6,9 @@
  * Date: 14.12.2016
  * Time: 22:20
  */
+
+include __DIR__ . "/../general/Connection.php";
+
 class Benutzer
 {
 
@@ -18,4 +21,9 @@ class Benutzer
     public $gesperrt;
     public $sessionID;
     public $idRolle;
+
+    public static function get_logged_in_user() {
+        Connection::connect(true);
+        return null;
+    }
 }

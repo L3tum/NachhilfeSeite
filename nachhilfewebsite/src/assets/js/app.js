@@ -13,15 +13,17 @@ toastr.options = {
 }
 
 $(document).foundation();
-$(document)
-    .foundation()
-    .on("forminvalid.zf.abide", function(ev,frm) {
+$(document).foundation();
 
-        switch(ev.target) {
-            case $("#login-form")[0]:
-                toastr.error('Login fehlgeschlagen!');
-                break;
-        }
-        
+
+
+$("#login-form")
+    .on("forminvalid.zf.abide", function(ev) {
+        toastr.error('Login fehlgeschlagen!');
     })
+    .on("submit", function(ev) {
+        ev.preventDefault();
+        $.ajax("ajax/loginForm.php");
+    });
+
 

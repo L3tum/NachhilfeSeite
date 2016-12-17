@@ -6,6 +6,9 @@
  * Date: 16.12.2016
  * Time: 19:38
  */
+
+include __DIR__ . "/ConfigStrings.php";
+
 class Connection
 {
 

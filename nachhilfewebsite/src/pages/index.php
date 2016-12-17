@@ -13,7 +13,11 @@ include "assets/php/general/ConfigStrings.php";
 include "assets/php/general/Route.php";
 include "assets/php/general/Connection.php";
 
+include __DIR__ . "/assets/php/dbClasses/Benutzer.php";
 ConfigStrings::set("basepath", "nachhilfewebsite/dist");
+ConfigStrings::set("PHPIncludePath", $_SERVER['DOCUMENT_ROOT'] . "/nachhilfewebsite/dist/assets/php");
+//include ConfigStrings::get("PHPIncludePath") . "/dbClasses/Benutzer.php";
+
 ConfigStrings::set("DSN", "mysql:host=localhost;dbname=nachhilfe");
 ConfigStrings::set("DBUser", "nachhilfeDBUser");
 ConfigStrings::set("DBPass", "nachhilfe");
@@ -23,6 +27,7 @@ if(!Connection::connect(true)) {
     exit;
 }
 
+Benutzer::get_logged_in_user();
 Route::init();
 
 Route::add('',function(){
