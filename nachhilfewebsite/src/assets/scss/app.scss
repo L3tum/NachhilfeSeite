@@ -124,14 +124,21 @@ header {
   li {
 
     border-bottom: 1px solid $primary-color;
+    padding-bottom: 5px;
+    padding-top: 5px;
 
     &:hover {
       background-color: $secondary-color;
     }
 
+
     a {
       color:white;
       font-size: 1.5em;
+
+      &:focus {
+        outline: 0;
+      }
     }
   }
 

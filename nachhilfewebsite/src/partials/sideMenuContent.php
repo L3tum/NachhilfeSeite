@@ -1,17 +1,20 @@
 <ul class="menu main vertical">
 
-    <li><a href="#">Suche</a></li>
-    <li><a href="#">Termine</a></li>
-    <li><a href="#">Profil</a></li>
-    <li><a href="#">Benachrichtigungen</a></li>
+    <li><a href="home">Home</a></li>
+    <li><a href="suche">Suche</a></li>
+    <li><a href="profil">Profil</a></li>
+    <li><a href="nachrichten">Nachrichten</a></li>
 
     <?php
 
-    if(Benutzer::get_logged_in_user()->has_permission('nachhilfe')) {
-        echo '<li><a href="#">Nachhilfe</a></li>';
+    if(Benutzer::get_logged_in_user()->has_permission('termina')) {
+        echo '<li><a href="termine">Termine</a></li>';
     }
-    else if(Benutzer::get_logged_in_user()->has_permission('administration')) {
-        echo '<li><a href="#">Administration</a></li>';
+    if(Benutzer::get_logged_in_user()->has_permission('nachhilfe')) {
+        echo '<li><a href="nachhilfe">Nachhilfe</a></li>';
+    }
+    if(Benutzer::get_logged_in_user()->has_permission('administration')) {
+        echo '<li><a href="admin">Administration</a></li>';
     }
     ?>
 </ul>

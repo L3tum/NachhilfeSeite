@@ -32,6 +32,15 @@ if(!$logged_in_user) {
 
 Route::init();
 
+Route::add404(function(){
+    //Do something
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    header("Location: http://$host$uri/");
+    exit();
+
+});
+
 
 Route::add('',function(){
     //Do something
@@ -48,6 +57,11 @@ Route::add('noDB',function(){
 
 
 Route::add('test',function(){
+    //Do something
+    echo 'Welcome :-)';
+});
+
+Route::add('suche',function(){
     //Do something
     echo 'Welcome :-)';
 });
