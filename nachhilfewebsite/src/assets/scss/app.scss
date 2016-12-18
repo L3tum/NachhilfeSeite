@@ -61,7 +61,7 @@
 }
 
 button {
-  border: 1px solid white;
+  //border: 1px solid white;
 }
 
 i {
@@ -90,3 +90,26 @@ i {
   }
 }
 
+.vertical-align {
+  &.middle {
+    vertical-align: middle;
+  }
+  &.bottom {
+    vertical-align: bottom;
+  }
+  &.top {
+    vertical-align: top;
+  }
+}
+
+header {
+
+
+
+  .fi-list {
+
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 2.5em;
+  }
+}

@@ -15,9 +15,11 @@
     "tests"
   ],
   "dependencies": {
-    "foundation-sites": "~6.2.3",
-    "motion-ui": "~1.2.2",
-    "notific8": "^4.3.0"
+    "foundation-sites": "~6.3.0",
+    "motion-ui": "~1.2.2"
   },
-  "private": true
+  "private": true,
+  "resolutions": {
+    "what-input": "~2.0.0"
+  }
 }

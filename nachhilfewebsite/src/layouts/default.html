@@ -15,9 +15,15 @@
     <link rel="stylesheet" href="assets/css/app.css">
   </head>
   <body>
+
     {{> header}}
     {{!-- Pages you create in the src/pages/ folder are inserted here when the flattened page is created. --}}
-    {{> body}}
+
+      {{> sideMenu}}
+      <div class="off-canvas-content" data-off-canvas-content>
+      {{> body}}
+      </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
