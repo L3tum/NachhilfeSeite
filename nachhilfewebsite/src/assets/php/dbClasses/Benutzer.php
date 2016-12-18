@@ -8,6 +8,7 @@
  */
 
 include_once  __DIR__ . "/../general/Connection.php";
+include_once  __DIR__ . "/Berechtigung.php";
 
 class Benutzer
 {
@@ -21,6 +22,8 @@ class Benutzer
     public $gesperrt;
     public $sessionID;
     public $idRolle;
+
+    private $permissions;
 
     public static function get_logged_in_user() {
         $session_id = session_id();
@@ -43,12 +46,28 @@ class Benutzer
         $stmt->execute();
     }
 
-    public function get_user_permissions() {
+    private function get_user_permissions() {
 
-        $stmt = Connection::$PDO->prepare("SELECT Berechtigung.* FROM Berechtigung JOIN RollenBerechtigung ON RollenBerechtigung.idRolle = :idRolle JOIN Berechtigung ON Berechtigung.idBerechtigung = RollenBerechtigung.idBerechtigung WHERE sessionID = :sessionID WHERE ");
-        $stmt->bindParam(':sessionID', $session_id);
+        $stmt = Connection::$PDO->prepare("SELECT Berechtigung.* FROM Berechtigung LEFT JOIN RollenBerechtigung ON RollenBerechtigung.idRolle = :idRolle && RollenBerechtigung.idBerechtigung = Berechtigung.idBerechtigung WHERE Berechtigung.idBerechtigung = RollenBerechtigung.idBerechtigung");
+        $stmt->bindParam(':idRolle', $this->idRolle);
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Benutzer');
-        $user = $stmt->fetch();
+
+        $permissions = Array();
+        foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Berechtigung') as $permission) {
+            $permissions[$permission->name] = true;
+        }
+    }
+
+    public function has_permission($permission) {
+
+        if(!isset($this->permissions)) {
+            $this->permissions = $this->get_user_permissions();
+        }
+        if(isset($this->permissions[$permission])) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
