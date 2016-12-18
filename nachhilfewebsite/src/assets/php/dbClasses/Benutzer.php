@@ -33,7 +33,22 @@ class Benutzer
 
     }
 
-    public static function log_user_in($user) {
+    public function log_in() {
 
+        session_regenerate_id();
+        $session_id = session_id();
+        $stmt = Connection::$PDO->prepare("UPDATE benutzer SET sessionID = :sessionID WHERE idBenutzer = :idBenutzer");
+        $stmt->bindParam(':sessionID', $session_id);
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+    }
+
+    public function get_user_permissions() {
+
+        $stmt = Connection::$PDO->prepare("SELECT Berechtigung.* FROM Berechtigung JOIN RollenBerechtigung ON RollenBerechtigung.idRolle = :idRolle JOIN Berechtigung ON Berechtigung.idBerechtigung = RollenBerechtigung.idBerechtigung WHERE sessionID = :sessionID WHERE ");
+        $stmt->bindParam(':sessionID', $session_id);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Benutzer');
+        $user = $stmt->fetch();
     }
 }

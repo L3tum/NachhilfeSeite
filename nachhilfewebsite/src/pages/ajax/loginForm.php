@@ -6,6 +6,7 @@ layout: noLayout
 include_once  __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
 include_once  __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
 include_once  __DIR__ . "/../assets/php/general/Connection.php";
+
 $form_helper = new AjaxFormHelper();
 
 $vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜ*]{1,20}$/", "Vorname");
@@ -23,12 +24,8 @@ $user = $stmt->fetch();
 if(!$user) {
     $form_helper->return_error("Passwort oder Nutzername falsch!");
 }
-session_regenerate_id();
-$session_id = session_id();
-$stmt = Connection::$PDO->prepare("UPDATE benutzer SET sessionID = :sessionID WHERE idBenutzer = :idBenutzer");
-$stmt->bindParam(':sessionID', $session_id);
-$stmt->bindParam(':idBenutzer', $user->idBenutzer);
-$stmt->execute();
+
+$user->log_in();
 
 $form_helper->success = true;
 $form_helper->return_json();
