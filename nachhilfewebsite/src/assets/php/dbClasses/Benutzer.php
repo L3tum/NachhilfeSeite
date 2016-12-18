@@ -56,6 +56,7 @@ class Benutzer
         foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Berechtigung') as $permission) {
             $permissions[$permission->name] = true;
         }
+        return $permissions;
     }
 
     public function has_permission($permission) {

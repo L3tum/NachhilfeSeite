@@ -118,3 +118,21 @@ header {
   top: 41px;
   bottom: 0;
 }
+
+.menu.main {
+
+  li {
+
+    border-bottom: 1px solid $primary-color;
+
+    &:hover {
+      background-color: $secondary-color;
+    }
+
+    a {
+      color:white;
+      font-size: 1.5em;
+    }
+  }
+
+}
