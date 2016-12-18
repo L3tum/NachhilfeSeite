@@ -23,7 +23,7 @@
 @include foundation-drilldown-menu;
 @include foundation-dropdown;
 @include foundation-dropdown-menu;
-@include foundation-flex-video;
+@include foundation-responsive-embed;
 @include foundation-label;
 @include foundation-media-object;
 @include foundation-off-canvas;
@@ -112,4 +112,9 @@ header {
     padding-right: 15px;
     font-size: 2.5em;
   }
+}
+
+.off-canvas {
+  top: 41px;
+  bottom: 0;
 }

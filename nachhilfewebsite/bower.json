@@ -21,5 +21,8 @@
   "private": true,
   "resolutions": {
     "what-input": "~2.0.0"
+  },
+  "devDependencies": {
+    "toastr": "^2.1.3"
   }
 }
