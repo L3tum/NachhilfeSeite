@@ -53,6 +53,17 @@ Route::add('logout',function(){
     Route::redirect_to_root();
 });
 
+Route::add('user/(.*)/edit',function($id){
+    //Do something
+    echo 'Edit user with id '.$id;
+});
+
+Route::add('user/(.*)/view',function($id){
+    //Do something
+    echo 'Show user with id '.$id;
+});
+
+
 Route::add('noDB',function(){
     //Do something
     include "special/noDBConnection.php";

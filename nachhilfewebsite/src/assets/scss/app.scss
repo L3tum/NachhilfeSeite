@@ -65,9 +65,13 @@ button {
 }
 
 i {
-  &.very-large {
-    font-size: 10em;
-  }
+
+  &.small { font-size: 0.8rem; }
+  &.medium { font-size: 1rem; }
+  &.large { font-size: 1.2rem; }
+  &.very-large {  font-size: 1.5rem;  }
+
+
 }
 
 .alert {
@@ -149,11 +153,19 @@ header {
 .off-canvas-content {
 
   margin-top:41px;
-  .row {
-    .columns {
+  >.row {
+    >.columns {
       background-color: scale-color($primary-color, $lightness: 20%);
       padding: -5px;
       border: 10px solid $primary-color;
     }
+  }
+}
+
+.actions.row {
+   .columns button {
+     width:100%;
+     vertical-align: middle;
+     padding: 15px;
   }
 }
