@@ -7,7 +7,7 @@
 
     <?php
 
-    if(Benutzer::get_logged_in_user()->has_permission('termina')) {
+    if(Benutzer::get_logged_in_user()->has_permission('termine')) {
         echo '<li><a href="termine">Termine</a></li>';
     }
     if(Benutzer::get_logged_in_user()->has_permission('nachhilfe')) {
@@ -17,4 +17,5 @@
         echo '<li><a href="admin">Administration</a></li>';
     }
     ?>
+    <li><a href="logout">Logout</a></li>
 </ul>

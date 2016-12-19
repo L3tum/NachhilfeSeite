@@ -100,4 +100,11 @@ class Route{
 
     }
 
+    public static function redirect_to_root() {
+        $host  = $_SERVER['HTTP_HOST'];
+        $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        header("Location: http://$host$uri/");
+        exit();
+    }
+
 }

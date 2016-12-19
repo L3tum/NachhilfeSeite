@@ -33,20 +33,24 @@ if(!$logged_in_user) {
 Route::init();
 
 Route::add404(function(){
-    //Do something
-    $host  = $_SERVER['HTTP_HOST'];
-    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    header("Location: http://$host$uri/");
-    exit();
+
+    Route::redirect_to_root();
+    
 
 });
 
 
 Route::add('',function(){
-    //Do something
+
 
     include "main/home.php";
     
+});
+
+Route::add('logout',function(){
+
+    Benutzer::get_logged_in_user()->log_out();
+    Route::redirect_to_root();
 });
 
 Route::add('noDB',function(){

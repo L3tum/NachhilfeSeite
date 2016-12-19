@@ -104,7 +104,9 @@ i {
 
 header {
 
-
+  position: fixed;
+  top: 0;
+  width: 100%;
 
   .fi-list {
 
@@ -142,4 +144,16 @@ header {
     }
   }
 
+}
+
+.off-canvas-content {
+
+  margin-top:41px;
+  .row {
+    .columns {
+      background-color: scale-color($primary-color, $lightness: 20%);
+      padding: -5px;
+      border: 10px solid $primary-color;
+    }
+  }
 }
