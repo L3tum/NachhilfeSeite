@@ -57,9 +57,13 @@
 @for $index from 1 through 6 {
   h#{$index}{
     font-family: 'Rubik', sans-serif;
+    text-shadow: 3px 2px 4px scale-color($primary-color, $lightness: -20%);
   }
 }
 
+p, a{
+  text-shadow: 3px 2px 4px scale-color($primary-color, $lightness: -20%);
+}
 button {
   //border: 1px solid white;
 }
@@ -125,6 +129,19 @@ header {
   bottom: 0;
 }
 
+.data-label {
+  background-color: $primary-color;
+  border: 1px solid white;
+  box-shadow: 0px 1px 17px -2px rgb(39, 39, 39);
+  padding: 5px;
+  margin-bottom: 1rem;
+  p {
+  margin: 0;
+  }
+  span.blur {
+    filter:blur(4px);
+  }
+}
 .menu.main {
 
   li {
