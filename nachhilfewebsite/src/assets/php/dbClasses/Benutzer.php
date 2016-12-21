@@ -10,6 +10,9 @@
 include_once  __DIR__ . "/../general/Connection.php";
 include_once  __DIR__ . "/Berechtigung.php";
 include_once  __DIR__ . "/Rolle.php";
+include_once  __DIR__ . "/Fach.php";
+include_once  __DIR__ . "/Stufe.php";
+include_once  __DIR__ . "/Verbindung.php";
 
 class Benutzer
 {
@@ -28,6 +31,18 @@ class Benutzer
     private $roleName;
     private static $currentlyLoggedIn;
 
+
+    public static function get_by_id($id) {
+
+        if(isset($id)) {
+            $stmt = Connection::$PDO->prepare("SELECT * FROM Benutzer WHERE idBenutzer = :idBenutzer");
+            $stmt->bindParam(':idBenutzer', $id);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Benutzer');
+            $user = $stmt->fetch();
+            return $user;
+        }
+    }
     public static function get_logged_in_user() {
 
         if(!isset(self::$currentlyLoggedIn)) {
@@ -102,5 +117,35 @@ class Benutzer
         }
         return $this->roleName;
     }
+
+    public function get_offered_subjects() {
+
+        $stmt = Connection::$PDO->prepare("SELECT * FROM fach JOIN angebotenesfach ON angebotenesfach.idBenutzer = :idBenutzer WHERE angebotenesfach.idFach = fach.idFach");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
+    }
+
+    public function get_offered_classes() {
+
+        $stmt = Connection::$PDO->prepare("SELECT * FROM stufe JOIN angebotenestufe ON angebotenestufe.idBenutzer = :idBenutzer WHERE angebotenestufe.idStufe = stufe.idStufe");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Stufe');
+    }
+
+    public function get_tutiution_connections($user) {
+
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfenehmer = :idAndererBenutzer && verbindung.idNachhilfelehrer = :idBenutzer OR verbindung.idNachhilfelehrer = :idAndererBenutzer && verbindung.idNachhilfenehmer = :idBenutzer");
+        $stmt->bindParam(':idAndererBenutzer', $user->idBenutzer);
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
+    }
+
+
 
 }

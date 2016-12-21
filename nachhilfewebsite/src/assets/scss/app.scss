@@ -63,6 +63,10 @@
 
 p, a{
   text-shadow: 3px 2px 4px scale-color($primary-color, $lightness: -20%);
+
+  &.center {
+    text-align: center;
+  }
 }
 button {
   //border: 1px solid white;
@@ -141,6 +145,7 @@ header {
   span.blur {
     filter:blur(4px);
   }
+  
 }
 .menu.main {
 

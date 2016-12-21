@@ -55,12 +55,14 @@ Route::add('logout',function(){
 
 Route::add('user/(.*)/edit',function($id){
     //Do something
-    echo 'Edit user with id '.$id;
+
+
 });
 
 Route::add('user/(.*)/view',function($id){
     //Do something
-    echo 'Show user with id '.$id;
+    $user_to_show_id = $id;
+    include 'main/showUser.php';
 });
 
 

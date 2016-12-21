@@ -1,43 +1,199 @@
-<h2>Aktionen</h2>
-<div class="row actions">
-    <div class="small-12 columns">
-        <button class="button" type="submit" value="Submit">Suchen</button>
-    </div>
-</div>
-
-<div class="row actions">
-    <div class="small-12 columns">
-        <button class="button" type="submit" value="Submit">Benachrichtigungen</button>
-    </div>
-</div>
-
-
 <?php
-if(Benutzer::get_logged_in_user()->get_role() == "Administrator") {
-
+if (isset($user_to_show_id)) {
+    $user = Benutzer::get_by_id($user_to_show_id);
 }
+
+$connections = $user->get_tutiution_connections(Benutzer::get_logged_in_user());
+$user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 ?>
 
-<div class="row actions">
-    <div class="small-12 columns">
-        <button class="button" type="submit" value="Submit">Profil betrachten</button>
-    </div>
-</div>
+<div class="row main" data-equalizer data-equalize-on="medium">
 
-<div class="row actions">
-    <div class="small-12 columns">
-        <button class="button" type="submit" value="Submit">Profil bearbeiten</button>
-    </div>
-</div>
+    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
 
-<div class="row actions">
-    <div class="small-12 columns">
-        <button class="button alert" type="submit" value="Submit">Administration</button>
-    </div>
-</div>
+        <div class="row">
+            <div class="small-12 columns">
+                <h2>Nachhilfe</h2>
 
-<div class="row actions">
-    <div class="small-12 columns">
-        <button class="button alert " type="submit" value="Submit">Nutzer melden</button>
+                <?php
+echo $user->get_role();
+                if($user->get_role() == "Nachhilfenehmer" && !empty($connections)) {
+                    echo '<div class="data-label">
+                    <p>Du nimmst bei dieser Person Nachhilfe!</p>
+                    </div>';
+                }
+                ?>
+
+                <div class="data-label">
+                    <p>Name: <?php echo $user->vorname . " " . $user->name ?></p>
+                </div>
+
+                <div class="data-label">
+                    <p>Rolle: <?php echo $user->get_role() ?></p>
+                </div>
+
+
+                <div class="data-label">
+                    <?php
+
+                    if(!empty($connections) || (Benutzer::get_logged_in_user()->get_role() == "Administrator") || $user_is_me) {
+                        $number = $user->telefonnummer;
+                        echo "<p>Telefonnummer: {$number}</p>";
+                    }
+
+                    else {
+                        echo '<p>Telefonnummer: <span
+                            class="blur">02246 0101010101</span>
+                    </p>';
+                    }
+                    ?>
+
+
+                </div>
+
+                <div class="data-label">
+                    <?php
+
+                    if(!empty($connections) || (Benutzer::get_logged_in_user()->get_role() == "Administrator") || $user_is_me) {
+                        $email = $user->email;
+                        echo "<p>Email: {$email}</p>";
+                    }
+
+                    else {
+                        echo '<p>Email: <span
+                            class="blur">hierist@wirklichnix.de</span>
+                        </p>';
+                    }
+                    ?>
+                </div>
+
+                <?php
+
+                if(empty($connections) && !(Benutzer::get_logged_in_user()->get_role() == "Administrator") && !$user_is_me) {
+
+                    echo '<p>Du kannst die Email und die Telefonnummer eines Nutzers nur sehen, wenn du ihm Nachhilfe gibst oder
+                    bei ihm Nachhilfe nimmst!</p>';
+                }
+                ?>
+
+
+
+            </div>
+
+
+            <div class="small-12 columns">
+
+                <div class="row">
+                    <div class="small-12 columns">
+                        <?php if ($user->get_role() == "Nachhilfelehrer") {
+                            echo "<h3 > Fächer: </h3 >";
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <div class="row">
+
+
+                    <?php
+                    if ($user->get_role() == "Nachhilfelehrer") {
+                        foreach ($user->get_offered_subjects() as $subject) {
+                            $name = $subject->name;
+                            echo
+                            "<div class=\"small-4 columns\">
+                              <div class=\"data-label\">
+                                <p class=\"center\">$name</p>
+                              </div>
+                            </div>";
+                        }
+                    }
+                    ?>
+
+                </div>
+            </div>
+
+
+
+            <div class="small-12 columns">
+
+                <div class="row">
+                    <div class="small-12 columns">
+                        <?php if ($user->get_role() == "Nachhilfelehrer") {
+                            echo "<h3 > Stufen: </h3 >";
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <div class="row">
+
+
+                    <?php
+                    if ($user->get_role() == "Nachhilfelehrer") {
+                        foreach ($user->get_offered_classes() as $class) {
+                            $name = $class->name;
+                            echo
+                            "<div class=\"small-4 columns\">
+                              <div class=\"data-label\">
+                                <p class=\"center\">$name</p>
+                              </div>
+                            </div>";
+                        }
+                    }
+                    ?>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
+
+        <h2>Aktionen</h2>
+
+        <?php
+        if ($user_is_me || Benutzer::get_logged_in_user()->get_role() == "Administrator") {
+
+            echo '        
+        <div class="row actions">
+            <div class="small-12 columns">
+                <button class="button success" type="submit" value="Submit">Profil bearbeiten</button>
+            </div>
+        </div>';
+        }
+
+        if (!($user_is_me)) {
+
+            echo '
+        <div class="row actions">
+            <div class="small-12 columns">
+                <button class="button" type="submit" value="Submit">Nachricht senden</button>
+            </div>
+        </div>';
+
+            echo '
+            
+        <div class="row actions">
+            <div class="small-12 columns">
+                <button class="button alert " type="submit" value="Submit">Nutzer melden</button>
+            </div>
+        </div>';
+
+            if($user->get_role() == "Nachhilfelehrer") {
+
+                echo '        
+        <div class="row actions">
+            <div class="small-12 columns">
+                <button class="button" type="submit" value="Submit">Nachhilfe anfragen</button>
+            </div>
+        </div>';
+            }
+        }
+
+        ?>
+
+
     </div>
 </div>

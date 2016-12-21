@@ -12,7 +12,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css" rel="stylesheet">
     <link href="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/app.css">
+
+    <link rel="stylesheet" href="http://localhost/nachhilfewebsite/dist/assets/css/app.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10, user-scalable=0"/>
   </head>
@@ -31,7 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/1.0.0/anime.min.js"></script>
 
-    <script src="assets/js/app.js"></script>
+    <script src="http://localhost/nachhilfewebsite/dist/assets/js/app.js"></script>
 
   </body>
 </html>
