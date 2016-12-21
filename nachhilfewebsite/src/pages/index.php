@@ -73,14 +73,9 @@ Route::add('noDB',function(){
 
 
 
-Route::add('test',function(){
-    //Do something
-    echo 'Welcome :-)';
-});
-
 Route::add('suche',function(){
     //Do something
-    echo 'Welcome :-)';
+    include 'main/search.php';
 });
 
 

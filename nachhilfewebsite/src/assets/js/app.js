@@ -1,7 +1,7 @@
 
 class AjaxFormHelper {
 
-    constructor(element, invalidError, ajaxPath, success) {
+    constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
 
         var $me = this;
         element
@@ -14,15 +14,22 @@ class AjaxFormHelper {
             })
             .on("formvalid.zf.abide", function(ev) {
                 ev.preventDefault();
-                $me.runAjax(ajaxPath, element, success);
+                $me.runAjax(ajaxPath, element, success, formDataAppend);
 
             });
 
     }
 
-    runAjax(ajaxPath, element, success) {
+    runAjax(ajaxPath, element, success, formDataAppend) {
 
-        $.ajax({url: ajaxPath, dataType : 'json', data : element.serialize(), type : "POST", success: function(result){
+        var formData = new FormData(element[0]);
+
+        if(formDataAppend != 0) {
+                formDataAppend(formData);
+        }
+
+
+        $.ajax({url: ajaxPath, dataType : 'json', data : formData, processData: false, contentType: false, type : "POST", success: function(result){
             var resultObj = result;
             if(resultObj.success == false) {
                 toastr.error(resultObj.errorReason);
@@ -52,18 +59,4 @@ $(document).foundation();
 var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen!", "ajax/loginForm.php", function (result){
     location.reload();
 });
-
-/*
-$("#login-form")
-    .on("forminvalid.zf.abide", function(ev) {
-        toastr.error('Login fehlgeschlagen!');
-    })
-    .on("formvalid.zf.abide", function(ev) {
-        console.log("TESTTEST");
-        var formHelper = new AjaxFormHelper(ev);
-        formHelper.runAjax("ajax/loginForm.php")
-        //ev.preventDefault();
-        //$.ajax("ajax/loginForm.php");
-    });
-*/
 

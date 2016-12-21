@@ -1,9 +1,16 @@
 <?php
+
+include_once  __DIR__ . "/../assets/php/dbClasses/Fach.php";
+
 if (isset($user_to_show_id)) {
     $user = Benutzer::get_by_id($user_to_show_id);
 }
 
 $connections = $user->get_tutiution_connections(Benutzer::get_logged_in_user());
+$connections_key_array = Array();
+foreach($connections as $connection) {
+    $connections_key_array[Fach::get_by_id($connection->idFach)->name] = true;
+}
 $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 ?>
 
@@ -16,7 +23,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <h2>Nachhilfe</h2>
 
                 <?php
-echo $user->get_role();
+                echo $user->get_role();
                 if($user->get_role() == "Nachhilfenehmer" && !empty($connections)) {
                     echo '<div class="data-label">
                     <p>Du nimmst bei dieser Person Nachhilfe!</p>
@@ -99,13 +106,27 @@ echo $user->get_role();
                     if ($user->get_role() == "Nachhilfelehrer") {
                         foreach ($user->get_offered_subjects() as $subject) {
                             $name = $subject->name;
+                            if(isset($connections_key_array[$name])) {
+                                $alert = "alert";
+                            }
+                            else {
+                                $alert = "";
+                            }
                             echo
-                            "<div class=\"small-4 columns\">
-                              <div class=\"data-label\">
+                            "<div class=\"small-4 medium-12 large-4 columns\">
+                              <div class=\"data-label {$alert}\">
                                 <p class=\"center\">$name</p>
                               </div>
                             </div>";
                         }
+                    }
+                    ?>
+
+                    <?php
+
+                    if(!empty($connections)) {
+
+                        echo "<div class=\"small-12 columns\"><p>In den rot markierten Fächern nimmst du bei dieser Person Nachhilfe!</p></div>";
                     }
                     ?>
 
