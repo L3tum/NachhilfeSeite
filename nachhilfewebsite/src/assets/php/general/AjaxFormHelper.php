@@ -11,6 +11,7 @@ include_once __DIR__ . "/Connection.php";
 class AjaxFormHelper
 {
 
+    //response array. Contains all data that should get sent back to JS
     public $response = Array();
     public $success;
 
@@ -22,12 +23,15 @@ class AjaxFormHelper
 
     public function set_up_defaults() {
 
+        //Connect to database
         if(!Connection::connect(false)) {
             $this->return_error("Keine Verbindung zur Datenbank!");
         }
+        //Start the session to do account related things
         session_start();
     }
 
+    //return an error message and success false
     public function return_error($text) {
 
         $this->success = false;
@@ -35,6 +39,7 @@ class AjaxFormHelper
         $this->return_json();
     }
 
+    //return the current response array as json
     public function return_json() {
 
         $this->response['success'] = $this->success;
@@ -42,6 +47,7 @@ class AjaxFormHelper
         exit;
     }
 
+    //Check if the string is set and if it matches the regex pattern. Real name is a human readable name of the variable.
     public function test_string($string, $pattern, $realname) {
 
         if(isset($string)) {

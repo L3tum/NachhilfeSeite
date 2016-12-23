@@ -31,7 +31,7 @@ class Benutzer
     private $roleName;
     private static $currentlyLoggedIn;
 
-
+    //Get a user by his ID
     public static function get_by_id($id) {
 
         if(isset($id)) {
@@ -43,6 +43,8 @@ class Benutzer
             return $user;
         }
     }
+
+    //Get the currently logged in user (if there is one)
     public static function get_logged_in_user() {
 
         if(!isset(self::$currentlyLoggedIn)) {
@@ -59,6 +61,7 @@ class Benutzer
 
     }
 
+    //Set the session id to the current session id
     public function log_in() {
 
         session_regenerate_id();

@@ -1,4 +1,7 @@
 
+//Class that takes an element (form), and sends an ajax request if the form is valid (if it's not valid display invalidError). When the ajax
+//responds with an error message, also display it. When the ajax succeeds call success with the send data as a parameter.
+//If anything else than the form should get attached to the formData object, add something to the formDataAppend method. (files for ex.)
 class AjaxFormHelper {
 
     constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
@@ -20,17 +23,19 @@ class AjaxFormHelper {
 
     }
 
+    //sends the actual ajax request
     runAjax(ajaxPath, element, success, formDataAppend) {
 
         var formData = new FormData(element[0]);
 
+        //Call the formDataAppend method to add custom data to the formData object initialized with the form element
         if(formDataAppend != 0) {
                 formDataAppend(formData);
         }
 
-
+        //Send the ajax request
         $.ajax({url: ajaxPath, dataType : 'json', data : formData, processData: false, contentType: false, type : "POST", success: function(result){
-            var resultObj = result;
+            var resultObj = result; //JSON object
             if(resultObj.success == false) {
                 toastr.error(resultObj.errorReason);
             }
