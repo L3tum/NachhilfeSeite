@@ -55,7 +55,13 @@ Route::add('logout',function(){
 
 Route::add('user/(.*)/edit',function($id){
     //Do something
-
+    $user_to_edit_id = $id;
+    if($user_to_edit_id == Benutzer::get_logged_in_user()->idBenutzer || Benutzer::get_logged_in_user()->has_permission("editEveryUser")) {
+        include 'main/editUser.php';
+    }
+    else {
+        Route::redirect_to_root();
+    }
 
 });
 

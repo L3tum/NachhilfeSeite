@@ -65,3 +65,7 @@ var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen
     location.reload();
 });
 
+var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Login fehlgeschlagen!", "ajax/loginForm.php", function (result){
+    location.reload();
+});
+
