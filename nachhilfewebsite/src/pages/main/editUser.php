@@ -38,14 +38,14 @@ else {
                 </span>
                     </label>
 
-                    <label>Passwort
+                    <label>Neues Passwort
                         <input name="passwort" type="password" id="passwort">
                 <span class="form-error">
                     Das Passwortfeld darf nicht leer sein.
                 </span>
                     </label>
 
-                    <label style="display:none" id="passwort-wiederholung">Passwort Wiederholung
+                    <label style="display:none" id="passwort-wiederholung">Neues Passwort Wiederholung
                         <input name="passwort-wiederholung" type="password" data-equalto="passwort">
                 <span class="form-error">
                     Die Passwörter müssen übereinstimmen.

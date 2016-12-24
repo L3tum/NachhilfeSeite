@@ -12,7 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="<?php echo $root?>dist/assets/css/app.css">
+    <link rel="stylesheet" href="<?php echo $root?>assets/css/app.css">
   </head>
   <body>
 
@@ -24,7 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/1.0.0/anime.min.js"></script>
 
 
-    <script src="<?php echo $root?>dist/assets/js/app.js"></script>
+    <script src="<?php echo $root?>assets/js/app.js"></script>
 
   </body>
 </html>
