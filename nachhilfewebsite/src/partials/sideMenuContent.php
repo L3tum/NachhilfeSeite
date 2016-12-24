@@ -16,13 +16,13 @@
     <?php
 
     if(Benutzer::get_logged_in_user()->has_permission('termine')) {
-        echo '<li><a href="$roottermine">Termine</a></li>';
+        echo "<li><a href='{$root}termine'>Termine</a></li>";
     }
     if(Benutzer::get_logged_in_user()->has_permission('nachhilfe')) {
-        echo '<li><a href="$rootnachhilfe">Nachhilfe</a></li>';
+        echo "<li><a href='{$root}nachhilfe'>Nachhilfe</a></li>";
     }
     if(Benutzer::get_logged_in_user()->has_permission('administration')) {
-        echo '<li><a href="$rootadmin">Administration</a></li>';
+        echo "<li><a href='{$root}admin'>Administration</a></li>";
     }
     ?>
     <li><a href="<?php echo $root?>logout">Logout</a></li>
