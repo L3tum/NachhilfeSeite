@@ -20,7 +20,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
         <div class="row">
             <div class="small-12 columns">
-                <h2>Nachhilfe</h2>
+                <h2>Profil</h2>
 
                 <?php
                 echo $user->get_role();
