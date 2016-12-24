@@ -23,7 +23,6 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <h2>Profil</h2>
 
                 <?php
-                echo $user->get_role();
                 if($user->get_role() == "Nachhilfenehmer" && !empty($connections)) {
                     echo '<div class="data-label">
                     <p>Du nimmst bei dieser Person Nachhilfe!</p>
