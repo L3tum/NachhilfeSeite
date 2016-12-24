@@ -34,7 +34,7 @@ class AjaxFormHelper {
         }
 
         //Send the ajax request
-        $.ajax({url: ajaxPath, dataType : 'json', data : formData, processData: false, contentType: false, type : "POST", success: function(result){
+        $.ajax({url: getRootUrl() + ajaxPath, dataType : 'json', data : formData, processData: false, contentType: false, type : "POST", success: function(result){
             var resultObj = result; //JSON object
             if(resultObj.success == false) {
                 toastr.error(resultObj.errorReason);
@@ -65,8 +65,8 @@ var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen
     location.reload();
 });
 
-var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Login fehlgeschlagen!", "ajax/loginForm.php", function (result){
-    location.reload();
+var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/userEditForm.php", function (result){
+    toastr.success("Änderungen übernommen!");
 });
 
 var userEditPasswordField = $('#user-edit-form input[name="passwort"]');
@@ -82,3 +82,8 @@ userEditPasswordField.on('input', function() {
         userEditPasswordFieldSecondaryContainer.slideDown();
     }
 });
+
+console.log(getRootUrl());
+function getRootUrl() {
+    return $("script[src]").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/')+'/../../';
+}
