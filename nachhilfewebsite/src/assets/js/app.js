@@ -69,3 +69,16 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Login fehlges
     location.reload();
 });
 
+var userEditPasswordField = $('#user-edit-form input[name="passwort"]');
+var userEditPasswordFieldSecondary = $('#user-edit-form input[name="passwort-wiederholung"]');
+var userEditPasswordFieldSecondaryContainer = $('#user-edit-form label#passwort-wiederholung');
+
+userEditPasswordField.on('input', function() {
+    if(userEditPasswordField.val() == "") {
+        userEditPasswordFieldSecondaryContainer.slideUp();
+        userEditPasswordFieldSecondary.val('');
+    }
+    else {
+        userEditPasswordFieldSecondaryContainer.slideDown();
+    }
+});

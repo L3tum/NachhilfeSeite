@@ -37,28 +37,28 @@ else {
                     </label>
 
                     <label>Passwort
-                        <input name="password" type="password">
+                        <input name="passwort" type="password" id="passwort">
                 <span class="form-error">
                     Das Passwortfeld darf nicht leer sein.
                 </span>
                     </label>
 
-                    <label>Passwort Wiederholung
-                        <input name="password" type="password">
+                    <label style="display:none" id="passwort-wiederholung">Passwort Wiederholung
+                        <input name="passwort-wiederholung" type="password" data-equalto="passwort">
                 <span class="form-error">
-                    Das Passwortfeld darf nicht leer sein.
+                    Die Passwörter müssen übereinstimmen.
                 </span>
                     </label>
 
                     <label>Telefonnummer
-                        <input  value="<?php echo $user->telefonnummer?>" name="password" type="tel">
+                        <input  value="<?php echo $user->telefonnummer?>" pattern="^[0-9]{0,15}$" name="telefonnummer" type="tel">
                 <span class="form-error">
-                    Das Feld muss eine gültige Telefonnummer enthalten.
+                    Das Feld muss eine gültige Telefonnummer enthalten, diese darf nur aus Zahlen bestehen.
                 </span>
                     </label>
 
                     <label>Email
-                        <input  value="<?php echo $user->email?>" name="password" type="email">
+                        <input  value="<?php echo $user->email?>" name="email" type="email">
                 <span class="form-error">
                     Das Feld muss eine gültige Email-Adresse enthalten.
                 </span>

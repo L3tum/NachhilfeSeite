@@ -26,7 +26,7 @@ layout: special
             </label>
 
             <label>Passwort
-                <input name="password" type="password" required>
+                <input name="passwort" type="password" required>
                 <span class="form-error">
                     Das Passwortfeld darf nicht leer sein.
                 </span>
