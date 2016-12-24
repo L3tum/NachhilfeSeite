@@ -8,6 +8,7 @@
  */
 
 include_once __DIR__ . "/Connection.php";
+include_once  __DIR__ . "/../dbClasses/Benutzer.php";
 class AjaxFormHelper
 {
 
@@ -60,5 +61,14 @@ class AjaxFormHelper
             $this->return_error($realname . " ist nicht gesetzt!");
         }
 
+    }
+
+    public function get_user_by_external_id($id) {
+        if(!ctype_digit($id)) {
+            $this->return_error("Interner Fehler: ID ist keine Zahl");
+        }
+        else {
+            return Benutzer::get_by_id($id);
+        }
     }
 }

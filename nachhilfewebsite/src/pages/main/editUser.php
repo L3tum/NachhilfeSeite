@@ -21,16 +21,18 @@ else {
         <form data-abide novalidate id="user-edit-form" method="post">
             <div class="row">
 
+                <input type="hidden" name="user-id" value=<?php echo $user->idBenutzer?>>
+
                 <div class="small-12 medium-6 columns">
                     <label>Vorname
-                        <input readonly value="<?php echo $user->vorname?>" name="vorname" type="text" placeholder="Max" required pattern="^[a-zA-ZÄÖÜäöüß]{1,25}$">
+                        <input <?php if(!Benutzer::get_logged_in_user()->has_permission("canEditName")) {echo "readonly";}?> value="<?php echo $user->vorname?>" name="vorname" type="text" placeholder="Max" required pattern="^[a-zA-ZÄÖÜäöüß]{1,25}$">
                 <span class="form-error">
                     Der Vorname darf nicht leer sein und nur aus Bustaben bestehen.
                 </span>
                     </label>
 
                     <label>Nachname
-                        <input readonly value="<?php echo $user->name?>" name="nachname" type="text" placeholder="Mustermann" required pattern="^[a-zA-ZÄÖÜäöüß]{1,25}$">
+                        <input <?php if(!Benutzer::get_logged_in_user()->has_permission("canEditName")) {echo "readonly";}?> value="<?php echo $user->name?>" name="nachname" type="text" placeholder="Mustermann" required pattern="^[a-zA-ZÄÖÜäöüß]{1,25}$">
                 <span class="form-error">
                     Der Nachname darf nicht leer sein und nur aus Bustaben bestehen.
                 </span>

@@ -180,7 +180,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             echo '        
         <div class="row actions">
             <div class="small-12 columns">
-                <button class="button success" type="submit" value="Submit">Profil bearbeiten</button>
+                <a href="' . ConfigStrings::get("root") . "user/" . $user->idBenutzer . "/edit" . '" class="button success" type="submit" value="Submit">Profil bearbeiten</a>
             </div>
         </div>';
         }
@@ -190,7 +190,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             echo '
         <div class="row actions">
             <div class="small-12 columns">
-                <button class="button" type="submit" value="Submit">Nachricht senden</button>
+                <a href="#" class="button" type="submit" value="Submit">Nachricht senden</a>
             </div>
         </div>';
 
@@ -198,7 +198,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             
         <div class="row actions">
             <div class="small-12 columns">
-                <button class="button alert " type="submit" value="Submit">Nutzer melden</button>
+                <a href="#" class="button alert " type="submit" value="Submit">Nutzer melden</a>
             </div>
         </div>';
 
@@ -207,7 +207,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 echo '        
         <div class="row actions">
             <div class="small-12 columns">
-                <button class="button" type="submit" value="Submit">Nachhilfe anfragen</button>
+                <a href="#" class="button" type="submit" value="Submit">Nachhilfe anfragen</a>
             </div>
         </div>';
             }
