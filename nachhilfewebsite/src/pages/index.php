@@ -14,7 +14,13 @@ include_once  "assets/php/general/Route.php";
 include_once  "assets/php/general/Connection.php";
 include_once  __DIR__ . "/assets/php/dbClasses/Benutzer.php";
 
-ConfigStrings::set("basepath", "nachhilfewebsite/dist");
+$root = ConfigStrings::get("root");
+if(!isset($root)) {
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    $root = "http://$host$uri/";
+    ConfigStrings::set("root", $root);
+}
 
 
 session_start();

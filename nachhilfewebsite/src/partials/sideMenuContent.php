@@ -1,8 +1,7 @@
 <ul class="menu main vertical">
 
     <?php
-
-    ConfigStrings::set("basepath", "nachhilfewebsite/dist");
+    
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     $root = "http://$host$uri/";

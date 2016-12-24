@@ -17,7 +17,7 @@ class Route{
 
     public static function init(){
 
-        $parsed_url = parse_url($_SERVER['REQUEST_URI']);//URI zerlegen
+        /*$parsed_url = parse_url($_SERVER['REQUEST_URI']);//URI zerlegen
 
         if(isset($parsed_url['path'])){
             self::$path = trim($parsed_url['path'],'/');
@@ -28,8 +28,8 @@ class Route{
             }
         }else{
             self::$path = '';
-        }
-
+        }*/
+        self::$path = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     }
 
     public static function add($expression,$function){
@@ -53,9 +53,9 @@ class Route{
 
         foreach(self::$routes as $route){
 
-            if(ConfigStrings::get('basepath')){
+            if(ConfigStrings::get('root')){
 
-                $route['expression'] = '('.ConfigStrings::get('basepath').')/'.$route['expression'];
+                $route['expression'] = ConfigStrings::get('root') . $route['expression'];
 
             }
 
