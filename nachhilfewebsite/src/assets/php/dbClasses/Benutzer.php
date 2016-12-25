@@ -148,7 +148,4 @@ class Benutzer
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
     }
-
-
-
 }

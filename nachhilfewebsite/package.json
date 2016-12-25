@@ -9,7 +9,7 @@
   },
   "author": "ZURB <foundation@zurb.com>",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "babel-preset-es2015": "^6.3.13",
     "babel-register": "^6.7.2",
     "browser-sync": "^2.10.0",
@@ -31,7 +31,8 @@
     "panini": "^1.3.0",
     "rimraf": "^2.4.3",
     "style-sherpa": "^1.0.0",
-    "yargs": "^3.8.0"
+    "yargs": "^3.8.0",
+    "particles.js":""
   },
   "repository": {
     "type": "git",

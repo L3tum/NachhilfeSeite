@@ -63,6 +63,19 @@ class AjaxFormHelper
 
     }
 
+    //Check if string exists and matches pattern, otherwise just null. Easier for search form
+    public function test_search_string($string, $pattern, $realname){
+        if(isset($string)) {
+            if(!preg_match($pattern, $string)) {
+                return null;
+            }
+            return $string;
+        }
+        else {
+            return null;
+        }
+    }
+
     public function get_user_by_external_id($id) {
         if(!ctype_digit($id)) {
             $this->return_error("Interner Fehler: ID ist keine Zahl");
