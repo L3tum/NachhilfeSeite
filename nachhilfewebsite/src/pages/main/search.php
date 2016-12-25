@@ -4,91 +4,97 @@
             <div class="small-12 columns">
                 <h1 class="text-center">Willkommen bei der Suche !</h1>
             </div>
-        </div>
 
-<form data-abide novalidate id="search-form" method="post">
-    <div class="row">
+            <div class="small-12 columns">
+                <form data-abide novalidate id="search-form" method="post">
+                    <div class="row">
 
-        <div class="small-12 medium-6 columns small-centered">
-            <br>
-            <label>Vorname
-                <input name="vorname" type="text" placeholder="Max" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
+                        <div class="small-12 medium-6 columns small-centered">
+                            <br>
+                            <label>Vorname
+                                <input name="vorname" type="text" placeholder="Max" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
                 <span class="form-error">
                     Der Vorname ist invalid!
                 </span>
-            </label>
+                            </label>
 
-            <label>Nachname
-                <input name="nachname" type="text" placeholder="Mustermann" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
+                            <label>Nachname
+                                <input name="nachname" type="text" placeholder="Mustermann" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
                 <span class="form-error">
                     Der Nachname ist invalid!
                 </span>
-            </label>
+                            </label>
 
-            <label>Fach
-                <input name="fach" type="text" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
+                            <label>Fach
+                                <input name="fach" type="text" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
                 <span class="form-error">
                     Das Fach ist invalid!
                 </span>
-            </label>
+                            </label>
 
-            <div class="row">
-                <div class="large-12 columns">
-                    <label>Stufen
-                        <select>
-                            <option value="noneStufe">Keine Stufe</option>
-                            <?php
-                                $stmt = Connection::$PDO->prepare("SELECT * FROM stufe");
-                                $stmt->execute();
-                                $stufen = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stufe');
-                                foreach($stufen AS $stufe){
-                                    echo "<option value={$stufe->idStufe}> {$stufe->name}</option>";
-                                }
-                            ?>
-                        </select>
-                    </label>
-                </div>
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <label>Stufen
+                                        <select>
+                                            <option value="noneStufe">Keine Stufe</option>
+                                            <?php
+                                            $stmt = Connection::$PDO->prepare("SELECT * FROM stufe");
+                                            $stmt->execute();
+                                            $stufen = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stufe');
+                                            foreach($stufen AS $stufe){
+                                                echo "<option value={$stufe->idStufe}> {$stufe->name}</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <label>Fächer
+                                        <select>
+                                            <option value="noneFach">Kein Fach</option>
+                                            <?php
+                                            $stmt = Connection::$PDO->prepare("SELECT * FROM fach");
+                                            $stmt->execute();
+                                            $faecher = $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
+                                            foreach($faecher AS $fach){
+                                                echo "<option value={$fach->idFach}> {$fach->name}</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <label>Rollen
+                                        <select>
+                                            <option value="noneRolle">Keine Rolle</option>
+                                            <?php
+                                            $stmt = Connection::$PDO->prepare("SELECT * FROM rolle");
+                                            $stmt->execute();
+                                            $rollen = $stmt->fetchAll(PDO::FETCH_CLASS, 'Rolle');
+                                            foreach($rollen AS $rolle){
+                                                echo "<option value={$rolle->idRolle}> {$rolle->name}</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button class="button" type="submit" value="Submit">Suche starten</button>
+                        </div>
+                </form>
             </div>
-
-            <div class="row">
-                <div class="large-12 columns">
-                    <label>Fächer
-                        <select>
-                            <option value="noneFach">Kein Fach</option>
-                            <?php
-                            $stmt = Connection::$PDO->prepare("SELECT * FROM fach");
-                            $stmt->execute();
-                            $faecher = $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
-                            foreach($faecher AS $fach){
-                                echo "<option value={$fach->idFach}> {$fach->name}</option>";
-                            }
-                            ?>
-                        </select>
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="large-12 columns">
-                    <label>Rollen
-                        <select>
-                            <option value="noneRolle">Keine Rolle</option>
-                            <?php
-                            $stmt = Connection::$PDO->prepare("SELECT * FROM rolle");
-                            $stmt->execute();
-                            $rollen = $stmt->fetchAll(PDO::FETCH_CLASS, 'Rolle');
-                            foreach($rollen AS $rolle){
-                                echo "<option value={$rolle->idRolle}> {$rolle->name}</option>";
-                            }
-                            ?>
-                        </select>
-                    </label>
-                </div>
-            </div>
-
-            <button class="button" type="submit" value="Submit">Suche starten</button>
         </div>
-</form>
+
+
+
+
 
 <?php
     if(isset($_POST['submit'])){
