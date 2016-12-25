@@ -59,8 +59,10 @@
                                             $stmt = Connection::$PDO->prepare("SELECT * FROM fach");
                                             $stmt->execute();
                                             $faecher = $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
+
                                             foreach($faecher AS $fach){
-                                                echo "<option value={$fach->idFach}> {$fach->name}</option>";
+                                                $name = utf8_encode($fach->name);
+                                                echo "<option value={$fach->idFach}> {$name}</option>";
                                             }
                                             ?>
                                         </select>
@@ -93,21 +95,5 @@
         </div>
 
 
-
-
-
-<?php
-    if(isset($_POST['submit'])){
-        echo
-        "
-        <script> 
-        function getResults(){
-        $.getJSON()
-        }
-            
-        </script>
-        ";
-    }
-?>
         </div>
     </div>

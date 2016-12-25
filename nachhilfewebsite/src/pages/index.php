@@ -1,6 +1,7 @@
 ---
 layout: noLayout
 ---
+
 <?php
 /**
  * Created by PhpStorm.
@@ -13,7 +14,6 @@ include_once  "assets/php/general/ConfigStrings.php";
 include_once  "assets/php/general/Route.php";
 include_once  "assets/php/general/Connection.php";
 include_once  __DIR__ . "/assets/php/dbClasses/Benutzer.php";
-
 $root = ConfigStrings::get("root");
 if(!isset($root)) {
     $host  = $_SERVER['HTTP_HOST'];
@@ -88,6 +88,11 @@ Route::add('noDB',function(){
 Route::add('suche',function(){
     //Do something
     include 'main/search.php';
+});
+
+Route::add('notifications',function(){
+    //Do something
+    include 'main/notifications.php';
 });
 
 

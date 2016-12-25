@@ -7,7 +7,7 @@
     <li><a href="<?php echo $root?>home">Home</a></li>
     <li><a href="<?php echo $root?>suche">Suche</a></li>
     <li><a href="<?php echo $root?>user/<?php echo Benutzer::get_logged_in_user()->idBenutzer?>/view">Profil</a></li>
-    <li><a href="<?php echo $root?>nachrichten">Nachrichten</a></li>
+    <li><a href="<?php echo $root?>notifications">Nachrichten</a></li>
 
     <?php
 

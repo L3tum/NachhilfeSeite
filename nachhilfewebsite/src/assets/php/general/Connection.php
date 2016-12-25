@@ -21,7 +21,7 @@ class Connection
     public static function connect($redirectOnError) {
         try {
             self::$PDO = new PDO(self::$DSN, self::$DBUser, self::$DBPass, array(
-                PDO::ATTR_PERSISTENT => true //Keep the connection since we won't use another one
+                PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8" //Keep the connection since we won't use another one
             ));
             return true;
         } catch (Exception $e) {
