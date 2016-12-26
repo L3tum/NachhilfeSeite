@@ -63,10 +63,16 @@
 
 p, a{
   text-shadow: 3px 2px 4px scale-color($primary-color, $lightness: -20%);
+  color: white;
 
   &.center {
     text-align: center;
   }
+}
+
+a:hover {
+
+  color: $secondary-color;
 }
 button {
   //border: 1px solid white;
@@ -223,9 +229,11 @@ header {
       .row {
         padding-right: 15px;
         padding-left: 15px;
+        overflow:hidden;
 
         p {
           margin-bottom: 0;
+          text-overflow: ellipsis;
         }
 
         .notification-header {
