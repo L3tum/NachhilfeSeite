@@ -20,28 +20,88 @@
 
                     <div class="notification">
 
-                        <div class="row">
-                            <div class="small-4 columns">
-                                <p>Hannah Rosa Plötz</p>
+                        <div class="row no-padding left">
 
+                            <div class="small-8 columns">
+
+                                <div class="row no-padding right">
+                                    <div class="small-12 columns notification-header no-padding right">
+                                        <p>Hannah Rosa Plötz</p>
+                                    </div>
+
+                                    <div class="small-12 columns no-padding right">
+                                        <p>Französisch</p>
+                                    </div>
+                                </div>
 
                             </div>
-                            <div class="small-1 columns">
-                                <p>Q1</p>
-                            </div>
 
-                            <div class="small-3 columns">
-                                <p>Französisch</p>
-                            </div>
-
-                            <div class="small-4 columns button-column">
-
-                                <div class="button-group large">
+                            <div class="small-4 columns no-padding both">
+                                <div class="button-group medium ">
                                     <a href="#" class="button success" type="submit" value="Submit"><i class="fi-check"></i></a>
                                     <a href="#" class="button alert" type="submit" value="Submit"><i class="fi-x"></i></a>
                                 </div>
                             </div>
+                        </div>
 
+                    </div>
+                    <div class="notification">
+
+                        <div class="row no-padding left">
+
+                            <div class="small-8 columns">
+
+                                <div class="row no-padding right">
+                                    <div class="small-12 columns notification-header no-padding right">
+                                        <p>Hannah Rosa Plötz</p>
+                                    </div>
+
+                                    <div class="small-12 columns no-padding right">
+                                        <p>Französisch</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="small-4 columns no-padding both">
+                                <div class="button-group medium ">
+                                    <a href="#" class="button success" type="submit" value="Submit"><i class="fi-check"></i></a>
+                                    <a href="#" class="button alert" type="submit" value="Submit"><i class="fi-x"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <?php
+                    
+                        
+                    ?>
+                    ?>
+                    <div class="notification">
+
+                        <div class="row no-padding left">
+
+                            <div class="small-8 columns">
+
+                                <div class="row no-padding right">
+                                    <div class="small-12 columns notification-header no-padding right">
+                                        <p>Hannah Rosa Plötz</p>
+                                    </div>
+
+                                    <div class="small-12 columns no-padding right">
+                                        <p>Französisch</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="small-4 columns no-padding both">
+                                <div class="button-group medium ">
+                                    <a href="#" class="button success" type="submit" value="Submit"><i class="fi-check"></i></a>
+                                    <a href="#" class="button alert" type="submit" value="Submit"><i class="fi-x"></i></a>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

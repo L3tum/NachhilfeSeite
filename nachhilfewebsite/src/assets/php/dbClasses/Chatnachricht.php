@@ -9,8 +9,9 @@
 class Chatnachricht
 {
 
-    public $idBenutzer1;
-    public $idBenutzer2;
+    public $idEmpfänger;
+    public $idSender;
     public $titel;
     public $inhalt;
+    public $gelesen;
 }

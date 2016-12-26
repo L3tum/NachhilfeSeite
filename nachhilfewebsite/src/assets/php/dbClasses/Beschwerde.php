@@ -9,7 +9,7 @@
 class Beschwerde
 {
 
-    public $idBenuter1;
-    public $idBenutzer2;
+    public $idSender;
+    public $idNutzer;
     public $grund;
 }

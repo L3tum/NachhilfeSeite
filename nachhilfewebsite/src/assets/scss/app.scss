@@ -208,7 +208,9 @@ header {
     //background-color: $primary-color;
     //display: table-cell;
     padding-bottom: 15px;
-    height: 600px;
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
     .notification {
       //height: 100px;
@@ -226,14 +228,27 @@ header {
           margin-bottom: 0;
         }
 
+        .notification-header {
+          font-weight: bold;
+          font-size: 20px;
+        }
+
         .button-column {
           padding: 0;
         }
 
         .button-group {
           float: right;
-          margin-bottom: 0;
+          margin-top: 5px;
+
+          .button {
+            margin-right: 5px;
+            margin-top: 0px;
+          }
         }
+
+
+
         a.button {
           margin: 0;
         }
@@ -241,4 +256,17 @@ header {
     }
   }
 
+}
+
+.no-padding {
+  &.left {
+    padding-left:0 !important;
+  }
+  &.right {
+    padding-right:0 !important;
+  }
+  &.both {
+    padding-left:0 !important;
+    padding-right:0 !important;
+  }
 }
