@@ -68,6 +68,15 @@ var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen
 var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/userEditForm.php", function (result){
     toastr.success("Änderungen übernommen!");
 });
+var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result){
+    searchFormHelper.runAjax("ajax/searchForm.php", {users: result}, success, searchFormHelper.append());
+    console.log(getRootUrl() + "ajax/searchForm.php");
+    console.log(result);
+    toastr.success("Suche erfolgreich!");
+});
+var userChooseHelper = new AjaxFormHelper($("#user-choose-form"), "Benutzer nicht vorhanden!", "ajax/userChooseForm.php", function (result){
+    toastr.success("Benutzer abgerufen!");
+});
 
 var userEditPasswordField = $('#user-edit-form input[name="passwort"]');
 var userEditPasswordFieldSecondary = $('#user-edit-form input[name="passwort-wiederholung"]');

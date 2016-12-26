@@ -43,17 +43,6 @@ if($fach != null){
     $otherTable2 = "JOIN angebotenesFach AS t4 ON t1.idBenutzer=t4.idBenutzer JOIN fach AS t5 ON t5.idFach=t4.idFach";
     $params += "t5.name='".$fach."' ";
 }
-if($_POST['verbindung2'] == true){
-    $otherTable3 = "JOIN verbindung AS t6 ON t6.idNachhilfenehmer=t1.idBenutzer";
-    $params += "t6.idNachhilfelehrer='".Benutzer::get_logged_in_user()->idBenutzer."' ";
-}
-else if($_POST['nachhilfegeber'] == true){
-    $otherTable3 = "JOIN verbindung AS t6 ON t6.idNachhilfelehrer=t1.idBenutzer";
-}
-if($_POST['verbindung1'] == true){
-    $otherTable3 = $otherTable3 = "JOIN verbindung AS t6 ON t6.idNachhilfelehrer=t1.idBenutzer";
-    $params = "t6.idNachhilfenehmer='".Benutzer::get_logged_in_user()->idBenutzer."' ";
-}
 $sql = trim($sql, "\s{2,}");
 $params = trim($params);
 $params = str_replace(" ", " AND ", $params);

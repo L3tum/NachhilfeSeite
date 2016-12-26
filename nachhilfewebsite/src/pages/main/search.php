@@ -88,8 +88,31 @@
                                 </div>
                             </div>
 
-                            <button class="button" type="submit" value="Submit">Suche starten</button>
+                            <button class="button" type="submit" value="submit">Suche starten</button>
                         </div>
+                <?php
+                if(isset($users)){
+                    foreach ($users AS $user){
+                        ?>
+                <form data-abide novalidate id="user-choose-form" method="post">
+                    <div class="row">
+                        <div class="small-12 medium-6 columns small-centered">
+                            <br>
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <?php
+                                    echo "<button class='button' type='submit' value={$user->idBenutzer}>{$user->vorname} {$user->name}"
+                                    ?>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <?php
+                    }
+                }
+                ?>
                 </form>
             </div>
         </div>
