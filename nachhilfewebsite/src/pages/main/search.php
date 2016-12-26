@@ -61,8 +61,7 @@
                                             $faecher = $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
 
                                             foreach($faecher AS $fach){
-                                                $name = utf8_encode($fach->name);
-                                                echo "<option value={$fach->idFach}> {$name}</option>";
+                                                echo "<option value={$fach->idFach}> {$fach->name}</option>";
                                             }
                                             ?>
                                         </select>

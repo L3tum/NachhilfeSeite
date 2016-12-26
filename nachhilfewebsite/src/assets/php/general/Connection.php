@@ -14,7 +14,7 @@ class Connection
 
     public static $PDO;
     //Needed to specify details about the connection to the PDO interface
-    private static $DSN = "mysql:host=localhost;dbname=nachhilfe";
+    private static $DSN = "mysql:host=localhost;dbname=nachhilfe;mysql:charset=UTF-8";
     private static $DBUser = "nachhilfeDBUser";
     private static $DBPass = "nachhilfe";
 

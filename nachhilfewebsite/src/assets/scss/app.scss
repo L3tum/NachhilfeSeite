@@ -197,3 +197,48 @@ header {
      padding: 15px;
   }
 }
+
+.notifications {
+
+  //display: table;
+  margin-bottom: 15px;
+  .notifications-inner {
+
+    border: 1px solid white;
+    //background-color: $primary-color;
+    //display: table-cell;
+    padding-bottom: 15px;
+    height: 600px;
+
+    .notification {
+      //height: 100px;
+      background-color: $primary-color;
+      border: 1px solid white;
+      margin: 10px;
+
+
+
+      .row {
+        padding-right: 15px;
+        padding-left: 15px;
+
+        p {
+          margin-bottom: 0;
+        }
+
+        .button-column {
+          padding: 0;
+        }
+
+        .button-group {
+          float: right;
+          margin-bottom: 0;
+        }
+        a.button {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+}
