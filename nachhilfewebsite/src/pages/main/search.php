@@ -85,8 +85,10 @@
                                             ?>
                                         </select>
                                     </label>
+
+                                    <button class="button" type="submit" value="Submit">Suche starten</button>
                                 </div>
-                                <button class="button" type="submit" value="Submit">Suche starten</button>
+
                             </div>
                         </div>
                 </form>

@@ -71,7 +71,7 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
 var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result){
     console.log(getRootUrl() + "ajax/searchForm.php");
     console.log(result);
-    searchFormHelper.runAjax("ajax/searchForm.php", {users: result}, success, searchFormHelper.append());
+    //searchFormHelper.runAjax("ajax/searchForm.php", {users: result}, success, searchFormHelper.append());
     toastr.success("Suche erfolgreich!");
 });
 
