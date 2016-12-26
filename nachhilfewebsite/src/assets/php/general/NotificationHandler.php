@@ -76,7 +76,7 @@ class NotificationHandler
 
                                 <div class='row no-padding right'>
                                     <div class='small-12 columns notification-header no-padding right'>
-                                        <a>{$sender->vorname} {$sender->name}</a>
+                                        <a href='{$userpath} '>{$sender->vorname} {$sender->name}</a>
                                     </div>
 
                                     <div class='small-12 columns no-padding right'>
