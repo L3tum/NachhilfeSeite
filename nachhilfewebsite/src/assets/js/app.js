@@ -92,7 +92,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
                 "<div class='result-box'>"+
                     "<div class='row align-center text-center'>"+
                         "<div class='small-12-centered columns'>"+
-                            "<div class='row no-padding right'>"+
+                            "<div class='row'>"+
                                 "<div class='small-12-centered columns notification-header no-padding align-center text-center'>"+
                                     "<a class='button radius success' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a>"+
                                 "</div>"+
