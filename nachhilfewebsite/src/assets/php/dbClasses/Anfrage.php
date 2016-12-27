@@ -9,8 +9,10 @@
 class Anfrage
 {
 
-    public $idBenutzer1;
-    public $idBenutzer2;
+    public $idSender;
+    public $idEmpfänger;
     public $idFach;
     public $inhalt;
+    
+    
 }

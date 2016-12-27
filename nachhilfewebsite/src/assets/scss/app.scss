@@ -63,10 +63,16 @@
 
 p, a{
   text-shadow: 3px 2px 4px scale-color($primary-color, $lightness: -20%);
+  color: white;
 
   &.center {
     text-align: center;
   }
+}
+
+a:hover {
+
+  color: $secondary-color;
 }
 button {
   //border: 1px solid white;
@@ -195,5 +201,80 @@ header {
      width:100%;
      vertical-align: middle;
      padding: 15px;
+  }
+}
+
+.notifications {
+
+  //display: table;
+  margin-bottom: 15px;
+  .notifications-inner {
+
+    border: 1px solid white;
+    //background-color: $primary-color;
+    //display: table-cell;
+    padding-bottom: 15px;
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .notification {
+      //height: 100px;
+      background-color: $primary-color;
+      border: 1px solid white;
+      margin: 10px;
+
+
+
+      .row {
+        padding-right: 15px;
+        padding-left: 15px;
+        overflow:hidden;
+
+        p {
+          margin-bottom: 0;
+          text-overflow: ellipsis;
+        }
+
+        .notification-header {
+          font-weight: bold;
+          font-size: 20px;
+        }
+
+        .button-column {
+          padding: 0;
+        }
+
+        .button-group {
+          float: right;
+          margin-top: 5px;
+
+          .button {
+            margin-right: 5px;
+            margin-top: 0px;
+          }
+        }
+
+
+
+        a.button {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+}
+
+.no-padding {
+  &.left {
+    padding-left:0 !important;
+  }
+  &.right {
+    padding-right:0 !important;
+  }
+  &.both {
+    padding-left:0 !important;
+    padding-right:0 !important;
   }
 }

@@ -104,7 +104,6 @@ userEditPasswordField.on('input', function() {
     }
 });
 
-console.log(getRootUrl());
 function getRootUrl() {
     return $("script[src]").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/')+'/../../';
 }
