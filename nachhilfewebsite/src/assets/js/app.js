@@ -69,10 +69,25 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
     toastr.success("Änderungen übernommen!");
 });
 var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result){
-    console.log(getRootUrl() + "ajax/searchForm.php");
-    console.log(result);
-    searchFormHelper.runAjax("ajax/searchForm.php", {users: result}, success, searchFormHelper.append());
     toastr.success("Suche erfolgreich!");
+    $('#search-results').empty();
+    $('#search-results').append(
+        "<br><span class='data-label' aria-setsize='48px'>Suchergebnisse:</span><br><br>"
+    );
+    if(result.users.length == 0){
+        $('#search-results').append(
+            "<span class='label'>Leider konnten keine Benutzer mit diesen Kriterien gefunden werden!</span><br>"
+        );
+    }
+    else{
+        var root = getRootUrl();
+        result.users.forEach(function (entry){
+            var windowOpen = "window.open('" + root + "/user/" + entry.idBenutzer.toString() + "/view', '_blank', 'resizable=yes')";
+            $('#search-results').append(
+                "<a class='button expanded round secondary' onclick=\"" + windowOpen + "\">" + entry.vorname + " " + entry.name + "</a><br>"
+            )
+        });
+    }
 });
 
 var userEditPasswordField = $('#user-edit-form input[name="passwort"]');

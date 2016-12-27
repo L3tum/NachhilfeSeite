@@ -25,18 +25,11 @@
                 </span>
                             </label>
 
-                            <label>Fach
-                                <input name="fach" type="text" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
-                <span class="form-error">
-                    Das Fach ist invalid!
-                </span>
-                            </label>
-
                             <div class="row">
                                 <div class="large-12 columns">
                                     <label>Stufen
-                                        <select>
-                                            <option value="noneStufe">Keine Stufe</option>
+                                        <select name="stufen">
+                                            <option value="hallo">Keine Stufe</option>
                                             <?php
                                             $stmt = Connection::$PDO->prepare("SELECT * FROM stufe");
                                             $stmt->execute();
@@ -53,8 +46,8 @@
                             <div class="row">
                                 <div class="large-12 columns">
                                     <label>Fächer
-                                        <select>
-                                            <option value="noneFach">Kein Fach</option>
+                                        <select name="faecher">
+                                            <option value="hallo">Kein Fach</option>
                                             <?php
                                             $stmt = Connection::$PDO->prepare("SELECT * FROM fach");
                                             $stmt->execute();
@@ -73,8 +66,8 @@
                             <div class="row">
                                 <div class="large-12 columns">
                                     <label>Rollen
-                                        <select>
-                                            <option value="noneRolle">Keine Rolle</option>
+                                        <select name="rollen">
+                                            <option value="hallo">Keine Rolle</option>
                                             <?php
                                             $stmt = Connection::$PDO->prepare("SELECT * FROM rolle");
                                             $stmt->execute();
@@ -89,7 +82,17 @@
                                 <button class="button" type="submit" value="Submit">Suche starten</button>
                             </div>
                         </div>
+                    </div>
                 </form>
+                    <div class="row">
+
+                        <div class="small-12 medium-6 columns small-centered">
+                            <br>
+                            <div id="search-results">
+
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
 

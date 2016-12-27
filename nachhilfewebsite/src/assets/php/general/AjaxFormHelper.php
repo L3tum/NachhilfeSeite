@@ -69,11 +69,18 @@ class AjaxFormHelper
             if(!preg_match($pattern, $string)) {
                 return null;
             }
-            return $string;
+            return "'".$string."'";
         }
         else {
             return null;
         }
+    }
+
+    public function test_numeric($number){
+        if(is_numeric($number)){
+            return $number;
+        }
+        return null;
     }
 
     public function get_user_by_external_id($id) {

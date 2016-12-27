@@ -17,37 +17,46 @@ include_once  __DIR__ . "/../assets/php/dbClasses/AngeboteneStufe.php";
 include_once  __DIR__ . "/../assets/php/dbClasses/AngebotenesFach.php";
 
 $form_helper = new AjaxFormHelper();
-
 $vorname = $form_helper->test_search_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Vorname");
 $nachname = $form_helper->test_search_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Nachname");
+$fach = $form_helper->test_numeric($_POST['faecher']);
+$stufe = $form_helper->test_numeric($_POST['stufen']);
+$rolle = $form_helper->test_numeric($_POST['rollen']);
 
-echo $vorname;
+$otherTable = "JOIN angeboteneStufe AS t2 ON t2.idBenutzer=t1.idBenutzer JOIN stufe AS t3 ON t3.idStufe=t2.idStufe ";
+$otherTable2= "JOIN angebotenesFach AS t4 ON t4.idBenutzer=t1.idBenutzer JOIN fach AS t5 ON t5.idFach=t4.idFach ";
+$otherTable3= "JOIN rolle AS t6 ON t6.idRolle=t1.idRolle ";
 
-$sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 :otherTable :otherTable2 :otherTable3 WHERE :params";
-$otherTable = "";
-$otherTable2 = "";
-$otherTable3 = "";
-$params = "";
-if($vorname != null){
-    $params += "t1.vorname='".$vorname."' ";
+$firstParam = " t1.vorname = ".$vorname;
+$secondParam = " AND t1.name = ".$nachname;
+$thirdParam = " AND t2.idStufe = ".$stufe;
+$fourthParam = " AND t4.idFach = ".$fach;
+$fifthParam = " AND t6.idRolle = ".$rolle;
+
+if($vorname == null){
+    $firstParam = " t1.vorname = t1.vorname";
 }
-if($nachname != null){
-    $params += "t1.name='".$nachname."' ";
+if($nachname == null){
+    $secondParam = " AND t1.name = t1.name";
 }
-$sql = trim($sql, "/s{2,}");
-echo $sql;
-$params = trim($params);
-$params = str_replace(" ", " AND ", $params);
-
+if($stufe == null){
+    $otherTable = "";
+    $thirdParam = "";
+}
+if($fach == null){
+    $otherTable2 = "";
+    $fourthParam = "";
+}
+if($rolle == null){
+    $otherTable3 = "";
+    $fifthParam = "";
+}
+$sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 ".$otherTable.$otherTable2.$otherTable3."WHERE".$firstParam.$secondParam.$thirdParam.$fourthParam.$fifthParam;
 $stmt = Connection::$PDO->prepare($sql);
-$stmt->bindParam(':otherTable', $otherTable);
-$stmt->bindParam(':otherTable2', $otherTable2);
-$stmt->bindParam(':otherTable3', $otherTable3);
-$stmt->bindParam(':params', $params);
 $stmt->execute();
-$user = $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');
+$users = $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');
 
 $form_helper->success = true;
-$form_helper->response=$user;
+$form_helper->response['users']=$users;
 $form_helper->return_json();
 ?>
