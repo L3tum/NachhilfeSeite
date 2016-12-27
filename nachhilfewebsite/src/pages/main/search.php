@@ -12,7 +12,7 @@
                         <div class="small-12 medium-6 columns small-centered">
                             <br>
                             <label>Vorname
-                                <input name="vorname" type="text" placeholder="Max" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
+                                <input name="vorname" type="text" placeholder="Max" pattern="^[a-zA-ZÄÖÜäöüß]{0,20}$">
                                 <span class="form-error">
                                     Der Vorname ist invalid!
                                 </span>
@@ -20,7 +20,7 @@
 
                             <label>Nachname
                                 <input name="nachname" type="text" placeholder="Mustermann"
-                                       pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
+                                       pattern="^[a-zA-ZÄÖÜäöüß]{0,20}$">
                                 <span class="form-error">
                                     Der Nachname ist invalid!
                                 </span>

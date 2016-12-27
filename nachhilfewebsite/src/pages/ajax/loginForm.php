@@ -9,8 +9,8 @@ include_once  __DIR__ . "/../assets/php/general/Connection.php";
 
 $form_helper = new AjaxFormHelper();
 
-$vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Vorname");
-$nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Nachname");
+$vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß]{1,20}$/", "Vorname");
+$nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß]{1,20}$/", "Nachname");
 $passwort = $form_helper->test_string($_POST['passwort'], "/^.{1,200}$/", "Passwort");
 
 //Check if there is an existing user with these credentials
