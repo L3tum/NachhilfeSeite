@@ -2,7 +2,7 @@
     <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
         <div class="row">
             <div class="small-12 columns">
-                <h1 class="text-center">Suche</h1>
+                <h2 class="text-left">Suche</h2>
             </div>
 
             <div class="small-12 columns">
@@ -97,7 +97,7 @@
 
         <div class="row">
             <div class="small-12 columns">
-                <h1 class="text-center">Ergebnisse</h1>
+                <h2 class="text-left">Ergebnisse</h2>
             </div>
         </div>
 
