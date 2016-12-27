@@ -56,6 +56,7 @@ $stmt = Connection::$PDO->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');
 
+
 $form_helper->success = true;
 $form_helper->response['users']=$users;
 $form_helper->return_json();

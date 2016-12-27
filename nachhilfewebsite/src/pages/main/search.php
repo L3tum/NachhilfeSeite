@@ -1,8 +1,8 @@
 <div class="row main" data-equalizer data-equalize-on="medium">
-    <div class="small-12 smallmedium-12 medium-6 columns small-centered" data-equalizer-watch>
+    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
         <div class="row">
             <div class="small-12 columns">
-                <h1 class="text-center">Willkommen bei der Suche !</h1>
+                <h1 class="text-center">Suche</h1>
             </div>
 
             <div class="small-12 columns">
@@ -13,16 +13,17 @@
                             <br>
                             <label>Vorname
                                 <input name="vorname" type="text" placeholder="Max" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
-                <span class="form-error">
-                    Der Vorname ist invalid!
-                </span>
+                                <span class="form-error">
+                                    Der Vorname ist invalid!
+                                </span>
                             </label>
 
                             <label>Nachname
-                                <input name="nachname" type="text" placeholder="Mustermann" pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
-                <span class="form-error">
-                    Der Nachname ist invalid!
-                </span>
+                                <input name="nachname" type="text" placeholder="Mustermann"
+                                       pattern="^[a-zA-ZÄÖÜäöüß]{0,25}$">
+                                <span class="form-error">
+                                    Der Nachname ist invalid!
+                                </span>
                             </label>
 
                             <div class="row">
@@ -34,7 +35,7 @@
                                             $stmt = Connection::$PDO->prepare("SELECT * FROM stufe");
                                             $stmt->execute();
                                             $stufen = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stufe');
-                                            foreach($stufen AS $stufe){
+                                            foreach ($stufen AS $stufe) {
                                                 echo "<option value={$stufe->idStufe}> {$stufe->name}</option>";
                                             }
                                             ?>
@@ -53,7 +54,7 @@
                                             $stmt->execute();
                                             $faecher = $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
 
-                                            foreach($faecher AS $fach){
+                                            foreach ($faecher AS $fach) {
                                                 echo "<option value={$fach->idFach}> {$fach->name}</option>";
                                             }
                                             ?>
@@ -71,7 +72,7 @@
                                             $stmt = Connection::$PDO->prepare("SELECT * FROM rolle");
                                             $stmt->execute();
                                             $rollen = $stmt->fetchAll(PDO::FETCH_CLASS, 'Rolle');
-                                            foreach($rollen AS $rolle){
+                                            foreach ($rollen AS $rolle) {
                                                 echo "<option value={$rolle->idRolle}> {$rolle->name}</option>";
                                             }
                                             ?>
@@ -85,18 +86,33 @@
                         </div>
                     </div>
                 </form>
-                    <div class="row">
 
-                        <div class="small-12 medium-6 columns small-centered">
-                            <br>
-                            <div id="search-results">
-
-                            </div>
-                        </div>
-                    </div>
             </div>
         </div>
 
 
-        </div>
     </div>
+
+    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
+
+        <div class="row">
+            <div class="small-12 columns">
+                <h1 class="text-center">Ergebnisse</h1>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="small-12 columns result-boxes">
+                <div class="result-boxes-inner search">
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

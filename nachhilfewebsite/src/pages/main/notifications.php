@@ -7,7 +7,7 @@
 
 <div class="row main" data-equalizer data-equalize-on="medium">
 
-    <div class="small-12 smallmedium-12 medium-6 columns notifications" data-equalizer-watch>
+    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
 
         <div class="row">
             <div class="small-6 columns">
@@ -17,8 +17,8 @@
 
         <div class="row">
 
-            <div class="small-12 columns notifications">
-                <div class="notifications-inner">
+            <div class="small-12 columns result-boxes">
+                <div class="result-boxes-inner">
 
                     <?php
                     $notification_handler->echo_tutiution_requests();
@@ -31,7 +31,7 @@
 
     </div>
 
-    <div class="small-12 smallmedium-12 medium-6 columns notificaion-column" data-equalizer-watch>
+    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
 
         <div class="row">
             <div class="small-6 columns">
@@ -41,8 +41,8 @@
 
         <div class="row">
 
-            <div class="small-12 columns notifications">
-                <div class="notifications-inner">
+            <div class="small-12 columns result-boxes">
+                <div class="result-boxes-inner">
 
                     <?php
                     $notification_handler->echo_chat_messages();

@@ -88,6 +88,10 @@ i {
 
 }
 
+.row.main > .columns{
+  -webkit-box-shadow: inset 1px 1px 3px -1px rgba(0,0,0,0.75);
+}
+
 .alert {
   color: $alert-color;
 
@@ -204,11 +208,11 @@ header {
   }
 }
 
-.notifications {
+.result-boxes {
 
   //display: table;
   margin-bottom: 15px;
-  .notifications-inner {
+  .result-boxes-inner {
 
     border: 1px solid white;
     //background-color: $primary-color;
@@ -218,7 +222,13 @@ header {
     overflow-y: scroll;
     overflow-x: hidden;
 
-    .notification {
+    &.search {
+      border: none;
+      overflow-y: auto;
+      height: 460px;
+    }
+
+    .result-box {
       //height: 100px;
       background-color: $primary-color;
       border: 1px solid white;
@@ -276,5 +286,12 @@ header {
   &.both {
     padding-left:0 !important;
     padding-right:0 !important;
+  }
+}
+
+#send-message-form {
+  textarea {
+    resize: vertical;
+    height: 100px;
   }
 }

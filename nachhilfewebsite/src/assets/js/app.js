@@ -70,21 +70,19 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
 });
 var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result){
     toastr.success("Suche erfolgreich!");
-    $('#search-results').empty();
-    $('#search-results').append(
-        "<br><span class='data-label' aria-setsize='48px'>Suchergebnisse:</span><br><br>"
-    );
+    $('.result-boxes-inner').empty();
+
     if(result.users.length == 0){
-        $('#search-results').append(
-            "<span class='label'>Leider konnten keine Benutzer mit diesen Kriterien gefunden werden!</span><br>"
+        $('.result-boxes-inner').append(
+            "<div class='result-box'><div class='row no-padding left'><div class='small-8 columns'><div class='row no-padding right'><div class='small-12 columns notification-header no-padding right'><p>Kein Nutzer gefunden!</p></div><div class='small-12 columns no-padding right'>  </div></div></div> <div class='small-4 columns no-padding both'> <div class='button-group medium '> </div> </div> </div> </div>"
         );
     }
     else{
         var root = getRootUrl();
         result.users.forEach(function (entry){
-            var windowOpen = "window.open('" + root + "/user/" + entry.idBenutzer.toString() + "/view', '_blank', 'resizable=yes')";
-            $('#search-results').append(
-                "<a class='button expanded round secondary' onclick=\"" + windowOpen + "\">" + entry.vorname + " " + entry.name + "</a><br>"
+            $('.result-boxes-inner').append(
+                //"<a target='_blank' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' class='button expanded round secondary'>" + entry.vorname + " " + entry.name + "</a><br>"
+                "<div class='result-box'><div class='row no-padding left'><div class='small-8 columns'><div class='row no-padding right'><div class='small-12 columns notification-header no-padding right'><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a></div><div class='small-12 columns no-padding right'>  </div></div></div> <div class='small-4 columns no-padding both'> <div class='button-group medium '><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank' class='button success' type='submit' value='Submit'>Profil</a> </div> </div> </div> </div>"
             )
         });
     }

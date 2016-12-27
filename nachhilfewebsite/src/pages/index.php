@@ -95,6 +95,12 @@ Route::add('notifications',function(){
     include 'main/notifications.php';
 });
 
+Route::add('user/(.*)/chatMessagesTo/(.*)',function($id_sender, $id_reciever){
+    
+    
+    include 'main/viewChatMessages.php';
+});
+
 
 Route::run();
 //print_r($_SERVER);

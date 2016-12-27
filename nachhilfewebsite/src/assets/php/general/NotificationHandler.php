@@ -25,7 +25,7 @@ class NotificationHandler
             $sender = Benutzer::get_by_id($anfrage->idSender);
             $fach = Fach::get_by_id($anfrage->idFach);
             $userpath =  $root . "user/" . $sender->idBenutzer . "/view";
-            echo "<div class='notification'>
+            echo "<div class='result-box'>
 
                         <div class='row no-padding left'>
 
@@ -68,7 +68,7 @@ class NotificationHandler
             $sender = Benutzer::get_by_id($chatnachricht->idSender);
 
             $userpath =  $root . "user/" . $sender->idBenutzer . "/view";
-            echo "<div class='notification'>
+            echo "<div class='result-box'>
 
                         <div class='row no-padding left'>
 
