@@ -89,8 +89,18 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
         result.users.forEach(function (entry) {
             $('.result-boxes-inner').append(
                 //"<a target='_blank' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' class='button expanded round secondary'>" + entry.vorname + " " + entry.name + "</a><br>"
-                //"<div class='result-box'><div class='row no-padding left'><div class='small-12-centered columns'><div class='row no-padding right'><div class='small-12-centered columns notification-header no-padding align-center text-center'><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a><a class='button radius success right' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>Profil</a></div></div></div></div></div>"
-                "<div class='result-box'><div class='row no-padding left'><div class='small-12 columns'><div class='row no-padding right'><div class='small-8 columns no-padding both align-center text-center' style='vertical-align:middle;'><a style='vertical-align:middle;' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a></div><div class='small-4 columns no-padding right'>  </div><div class='small-4 columns text-center align-center'> <div class='button-group-centered small-centered'><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank' class='button radius success' type='submit' value='Submit'>Profil</a></div></div></div> </div> </div> </div>"
+                "<div class='result-box'>"+
+                    "<div class='row align-center text-center'>"+
+                        "<div class='small-12-centered columns'>"+
+                            "<div class='row no-padding right'>"+
+                                "<div class='small-12-centered columns notification-header no-padding align-center text-center'>"+
+                                    "<a class='button radius success' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a>"+
+                                "</div>"+
+                            "</div>"+
+                        "</div>"+
+                    "</div>"+
+                "</div>"
+                //"<div class='result-box'><div class='row no-padding left'><div class='small-12 columns'><div class='row no-padding right'><div class='small-8 columns no-padding both align-center text-center' style='vertical-align:middle;'><a style='vertical-align:middle;' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a></div><div class='small-4 columns no-padding right'>  </div><div class='small-4 columns text-center align-center'> <div class='button-group-centered small-centered'><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank' class='button radius success' type='submit' value='Submit'>Profil</a></div></div></div> </div> </div> </div>"
             )
         });
     }
