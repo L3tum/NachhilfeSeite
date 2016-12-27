@@ -82,7 +82,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
         result.users.forEach(function (entry){
             $('.result-boxes-inner').append(
                 //"<a target='_blank' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' class='button expanded round secondary'>" + entry.vorname + " " + entry.name + "</a><br>"
-                "<div class='result-box'><div class='row no-padding left'><div class='small-8 columns'><div class='row no-padding right'><div class='small-12 columns notification-header no-padding right'><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a></div><div class='small-12 columns no-padding right'>  </div></div></div> <div class='small-4 columns no-padding both'> <div class='button-group medium '><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank' class='button success' type='submit' value='Submit'>Profil</a> </div> </div> </div> </div>"
+                "<div class='result-box'><div class='row no-padding'><div class='small-8-centered columns '><div class='row no-padding right'><div class='small-12-centered columns notification-header no-padding right text-center'><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a></div><div class='small-12 columns no-padding right'>  </div></div></div></div></div>"
             )
         });
     }
