@@ -101,6 +101,28 @@ Route::add('user/(.*)/chatMessagesTo/(.*)',function($id_sender, $id_reciever){
     include 'main/viewChatMessages.php';
 });
 
+Route::add('nachhilfeAnfrage/(.*)/view', function($id){
+    $user_anfrage = $id;
+    //Checks if user is self or has rights to see otherwise cant see
+    if($user_anfrage == Benutzer::get_logged_in_user()->idBenutzer || Benutzer::get_logged_in_user()->has_permission("viewAllRequests")){
+        include 'main/viewNachhilfeAnfragen.php';
+    }
+    else{
+        Route::redirect_to_root();
+    }
+});
+
+Route::add('nachhilfeAnfrage/(.*)/make', function($id){
+    $user_anfrage = $id;
+    //Checks if user is self so redirects to view
+    if($user_anfrage == Benutzer::get_logged_in_user()->idBenutzer){
+        include 'main/viewNachhilfeAnfragen.php';
+    }
+    else{
+        include 'main/makeNachhilfeAnfrage.php';
+    }
+});
+
 
 Route::run();
 //print_r($_SERVER);

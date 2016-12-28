@@ -182,6 +182,12 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <a href="' . ConfigStrings::get("root") . "user/" . $user->idBenutzer . "/edit" . '" class="button success" type="submit" value="Submit">Profil bearbeiten</a>
             </div>
         </div>';
+            echo '        
+        <div class="row actions">
+            <div class="small-12 columns">
+                <a href="' . ConfigStrings::get("root") . "nachhilfeAnfrage/" . $user->idBenutzer . "/view" . '" class="button" type="submit" value="Submit">Nachhilfeanfragen aufrufen</a>
+            </div>
+        </div>';
         }
 
         if (!($user_is_me)) {
@@ -206,7 +212,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 echo '        
         <div class="row actions">
             <div class="small-12 columns">
-                <a href="#" class="button" type="submit" value="Submit">Nachhilfe anfragen</a>
+                <a href="' . ConfigStrings::get("root") . "nachhilfeAnfrage/" . $user->idBenutzer . "/make" . '" class="button" type="submit" value="Submit">Nachhilfe anfragen</a>
             </div>
         </div>';
             }

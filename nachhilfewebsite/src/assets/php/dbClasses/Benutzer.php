@@ -13,6 +13,7 @@ include_once  __DIR__ . "/Rolle.php";
 include_once  __DIR__ . "/Fach.php";
 include_once  __DIR__ . "/Stufe.php";
 include_once  __DIR__ . "/Verbindung.php";
+include_once  __DIR__ . "/Anfrage.php";
 
 class Benutzer
 {
@@ -147,5 +148,21 @@ class Benutzer
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
+    }
+
+    public function get_all_tutiution_connections(){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfelehrer = :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
+    }
+
+    public function get_all_anfragen(){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE anfrage.idSender = :idBenutzer OR anfrage.idEmpfänger = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage');
     }
 }
