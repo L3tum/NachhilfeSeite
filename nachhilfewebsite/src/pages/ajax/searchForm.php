@@ -52,6 +52,41 @@ if($rolle == null){
     $fifthParam = "";
 }
 $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 ".$otherTable.$otherTable2.$otherTable3."WHERE".$firstParam.$secondParam.$thirdParam.$fourthParam.$fifthParam;
+$sorting = $_POST['sort'];
+switch($sorting){
+    case "ascVorname":
+        $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t1.vorname ASC";
+        break;
+    case "descVorname":
+        $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t1.vorname DESC";
+        break;
+    case "ascName":
+        $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t1.name ASC";
+        break;
+    case "descName":
+        $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t1.name DESC";
+        break;
+    case "ascFach":
+        if($fach != null) {
+            $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t4.name ASC";
+        }
+        break;
+    case "descFach":
+        if($fach != null) {
+            $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t4.name DESC";
+        }
+        break;
+    case "ascStufe":
+        if($stufe != null) {
+            $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t2.name ASC";
+        }
+        break;
+    case "descStufe":
+        if($stufe != null) {
+            $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t2.name DESC";
+        }
+        break;
+}
 $stmt = Connection::$PDO->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');

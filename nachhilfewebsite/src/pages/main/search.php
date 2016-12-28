@@ -7,6 +7,25 @@
 
             <div class="small-12 columns">
                 <form data-abide novalidate id="search-form" method="post">
+
+
+                    <div class="row no-padding right">
+                        <div class="small-7 columns no-padding right">
+                            <label>Sortieren
+                                <select name="sort">
+                                    <option value="no">Keine Sortierung</option>
+                                    <option value="ascVorname">Vorname alphabetisch aufsteigend</option>
+                                    <option value="descVorname">Vorname alphabetisch absteigend</option>
+                                    <option value="ascName">Nachname alphabetisch aufsteigend</option>
+                                    <option value="descName">Nachname alphabetisch absteigend</option>
+                                    <option value="ascFach">Fach alphabetisch aufsteigend</option>
+                                    <option value="descFach">Fach alphabetisch absteigend</option>
+                                    <option value="ascStufe">Stufe alphabetisch aufsteigend</option>
+                                    <option value="descStufe">Stufe alphabetisch absteigend</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
                     <div class="row">
 
                         <div class="small-12 medium-6 columns small-centered">
