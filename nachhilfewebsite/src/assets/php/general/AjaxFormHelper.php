@@ -65,6 +65,7 @@ class AjaxFormHelper
 
     //Check if string exists and matches pattern, otherwise just null. Easier for search form
     public function test_search_string($string, $pattern, $realname){
+        $string = trim($string, '\'');
         if(isset($string)) {
             if(!preg_match($pattern, $string)) {
                 return null;
@@ -77,6 +78,7 @@ class AjaxFormHelper
     }
 
     public function test_numeric($number){
+        $number = trim($number, '\'');
         if(is_numeric($number)){
             return $number;
         }
