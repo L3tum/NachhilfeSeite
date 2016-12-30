@@ -90,10 +90,34 @@ Route::add('suche/?\??(.*)',function($param1 = null){
     //Do something
     if(isset($param1)){
         $params = explode('&', $param1);
-        $finalParam = array();
         foreach ($params as $param){
             $arr = explode('=', $param);
-            $finalParam[$arr[0]] = $arr[1];
+            switch($arr[0]){
+                case 'vorname':
+                    $vorname_sel = $arr[1];
+                    $setP = true;
+                    break;
+                case 'name':
+                    $name_sel = $arr[1];
+                    $setP = true;
+                    break;
+                case 'stufe':
+                    $stufe_sel = $arr[1];
+                    $setP = true;
+                    break;
+                case 'fach':
+                    $fach_sel = $arr[1];
+                    $setP = true;
+                    break;
+                case 'rolle':
+                    $rolle_sel = $arr[1];
+                    $setP = true;
+                    break;
+                case 'sorting':
+                    $sorting_sel = $arr[1];
+                    $setP = true;
+                    break;
+            }
         }
     }
     include 'main/search.php';

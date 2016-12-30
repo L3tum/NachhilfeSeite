@@ -107,4 +107,9 @@ class Route{
         exit();
     }
 
+    public static function get_root(){
+        $host  = $_SERVER['HTTP_HOST'];
+        $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/ajax');
+        return "http://$host$uri/";
+    }
 }

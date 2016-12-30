@@ -13,8 +13,8 @@ layout: noLayout
 include_once  __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
 include_once  __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
 include_once  __DIR__ . "/../assets/php/general/Connection.php";
-include_once  __DIR__ . "/../assets/php/dbClasses/AngeboteneStufe.php";
-include_once  __DIR__ . "/../assets/php/dbClasses/AngebotenesFach.php";
+include_once  __DIR__ . "/../assets/php/general/ConfigStrings.php";
+include_once  __DIR__ . "/../assets/php/general/Route.php";
 
 $form_helper = new AjaxFormHelper();
 $vorname = $form_helper->test_search_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Vorname");
@@ -23,8 +23,8 @@ $fach = $form_helper->test_numeric($_POST['faecher']);
 $stufe = $form_helper->test_numeric($_POST['stufen']);
 $rolle = $form_helper->test_numeric($_POST['rollen']);
 
-$otherTable = "JOIN angeboteneStufe AS t2 ON t2.idBenutzer=t1.idBenutzer JOIN stufe AS t3 ON t3.idStufe=t2.idStufe ";
-$otherTable2= "JOIN angebotenesFach AS t4 ON t4.idBenutzer=t1.idBenutzer JOIN fach AS t5 ON t5.idFach=t4.idFach ";
+$otherTable = "JOIN angeboteneStufe AS t2 ON t2.idBenutzer=t1.idBenutzer ";
+$otherTable2= "JOIN angebotenesFach AS t4 ON t4.idBenutzer=t1.idBenutzer ";
 $otherTable3= "JOIN rolle AS t6 ON t6.idRolle=t1.idRolle ";
 
 $firstParam = " t1.vorname = ".$vorname;
@@ -33,23 +33,46 @@ $thirdParam = " AND t2.idStufe = ".$stufe;
 $fourthParam = " AND t4.idFach = ".$fach;
 $fifthParam = " AND t6.idRolle = ".$rolle;
 
+$newUrl = Route::get_root();
+$newUrl = $newUrl."suche/?";
 if($vorname == null){
     $firstParam = " t1.vorname = t1.vorname";
 }
+else{
+    $newUrl = $newUrl."vorname=".$_POST['vorname']."&";
+}
 if($nachname == null){
     $secondParam = " AND t1.name = t1.name";
+}
+else{
+    $newUrl = $newUrl."name=".$_POST['nachname']."&";
 }
 if($stufe == null){
     $otherTable = "";
     $thirdParam = "";
 }
+else{
+    $newUrl = $newUrl."stufe=".$_POST['faecher']."&";
+}
 if($fach == null){
     $otherTable2 = "";
     $fourthParam = "";
 }
+else{
+    $newUrl = $newUrl."fach=".$_POST['stufen']."&";
+}
 if($rolle == null){
     $otherTable3 = "";
     $fifthParam = "";
+}
+else{
+    $newUrl = $newUrl."rolle=".$_POST['rollen']."&";
+}
+if(substr($newUrl, -1) == '?'){
+    $newUrl = rtrim($newUrl, '?');
+}
+else if(substr($newUrl, -1) == '&'){
+    $newUrl = rtrim($newUrl, '&');
 }
 $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 ".$otherTable.$otherTable2.$otherTable3."WHERE".$firstParam.$secondParam.$thirdParam.$fourthParam.$fifthParam;
 $sorting = $_POST['sort'];
@@ -91,8 +114,9 @@ $stmt = Connection::$PDO->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');
 
-
 $form_helper->success = true;
+//set url in form helper
+$form_helper->response['newUrl']=$newUrl;
 $form_helper->response['users']=$users;
 $form_helper->return_json();
 ?>

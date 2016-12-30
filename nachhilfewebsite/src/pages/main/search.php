@@ -14,14 +14,14 @@
                             <label>Sortieren
                                 <select name="sort">
                                     <option value="no">Keine Sortierung</option>
-                                    <option value="ascVorname">Vorname alphabetisch aufsteigend</option>
-                                    <option value="descVorname">Vorname alphabetisch absteigend</option>
-                                    <option value="ascName">Nachname alphabetisch aufsteigend</option>
-                                    <option value="descName">Nachname alphabetisch absteigend</option>
-                                    <option value="ascFach">Fach alphabetisch aufsteigend</option>
-                                    <option value="descFach">Fach alphabetisch absteigend</option>
-                                    <option value="ascStufe">Stufe alphabetisch aufsteigend</option>
-                                    <option value="descStufe">Stufe alphabetisch absteigend</option>
+                                    <option value="ascVorname" <?php if(isset($sorting_sel) && $sorting_sel == 'ascVorname'){ echo "selected='selected'";}?>>Vorname alphabetisch aufsteigend</option>
+                                    <option value="descVorname" <?php if(isset($sorting_sel) && $sorting_sel == 'descVorname'){ echo "selected='selected'";}?>>Vorname alphabetisch absteigend</option>
+                                    <option value="ascName" <?php if(isset($sorting_sel) && $sorting_sel == 'ascName'){ echo "selected='selected'";}?>>Nachname alphabetisch aufsteigend</option>
+                                    <option value="descName" <?php if(isset($sorting_sel) && $sorting_sel == 'descName'){ echo "selected='selected'";}?>>Nachname alphabetisch absteigend</option>
+                                    <option value="ascFach <?php if(isset($sorting_sel) && $sorting_sel == 'ascFach'){ echo "selected='selected'";}?>">Fach alphabetisch aufsteigend</option>
+                                    <option value="descFach" <?php if(isset($sorting_sel) && $sorting_sel == 'descFach'){ echo "selected='selected'";}?>>Fach alphabetisch absteigend</option>
+                                    <option value="ascStufe" <?php if(isset($sorting_sel) && $sorting_sel == 'ascStufe'){ echo "selected='selected'";}?>>Stufe alphabetisch aufsteigend</option>
+                                    <option value="descStufe <?php if(isset($sorting_sel) && $sorting_sel == 'descStufe'){ echo "selected='selected'";}?>">Stufe alphabetisch absteigend</option>
                                 </select>
                             </label>
                         </div>
@@ -31,15 +31,14 @@
                         <div class="small-12 medium-6 columns small-centered">
                             <br>
                             <label>Vorname
-                                <input name="vorname" type="text" placeholder="Max" pattern="^[a-zA-ZÄÖÜäöüß]{0,20}$">
+                                <input name="vorname" type="text" placeholder="Max" pattern="^[a-zA-ZÄÖÜäöüß]{0,20}$" <?php if(isset($vorname_sel)){ echo "value='".$vorname_sel."'";}?>>
                                 <span class="form-error">
                                     Der Vorname ist invalid!
                                 </span>
                             </label>
 
                             <label>Nachname
-                                <input name="nachname" type="text" placeholder="Mustermann"
-                                       pattern="^[a-zA-ZÄÖÜäöüß]{0,20}$">
+                                <input name="nachname" type="text" placeholder="Mustermann" pattern="^[a-zA-ZÄÖÜäöüß]{0,20}$" <?php if(isset($name_sel)){ echo "value='".$name_sel."'";}?>>
                                 <span class="form-error">
                                     Der Nachname ist invalid!
                                 </span>
@@ -55,8 +54,13 @@
                                             $stmt->execute();
                                             $stufen = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stufe');
                                             foreach ($stufen AS $stufe) {
-                                                echo "<option value={$stufe->idStufe}> {$stufe->name}</option>";
+                                                echo "<option value={$stufe->idStufe} ";
+                                                if(isset($stufe_sel) && $stufe_sel == $stufe->idStufe){
+                                                    echo "selected='selected'";
+                                                }
+                                                echo "> {$stufe->name}</option>";
                                             }
+                                            $_POST['submit'] = true;
                                             ?>
                                         </select>
                                     </label>
@@ -74,7 +78,11 @@
                                             $faecher = $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
 
                                             foreach ($faecher AS $fach) {
-                                                echo "<option value={$fach->idFach}> {$fach->name}</option>";
+                                                echo "<option value={$fach->idFach} ";
+                                                if(isset($fach_sel) && $fach_sel == $fach->idFach){
+                                                    echo "selected='selected'";
+                                                }
+                                                echo "> {$fach->name}</option>";
                                             }
                                             ?>
                                         </select>
@@ -85,14 +93,18 @@
                             <div class="row">
                                 <div class="large-12 columns">
                                     <label>Rollen
-                                        <select name="rollen">
+                                        <select id="rollen" name="rollen">
                                             <option value="hallo">Keine Rolle</option>
                                             <?php
                                             $stmt = Connection::$PDO->prepare("SELECT * FROM rolle");
                                             $stmt->execute();
                                             $rollen = $stmt->fetchAll(PDO::FETCH_CLASS, 'Rolle');
                                             foreach ($rollen AS $rolle) {
-                                                echo "<option value={$rolle->idRolle}> {$rolle->name}</option>";
+                                                echo "<option value={$rolle->idRolle} ";
+                                                if(isset($rolle_sel) && $rolle_sel == $rolle->idRolle){
+                                                    echo "selected='selected'";
+                                                }
+                                                echo "> {$rolle->name}</option>";
                                             }
                                             ?>
                                         </select>
@@ -105,7 +117,6 @@
                         </div>
                     </div>
                 </form>
-
             </div>
         </div>
 
@@ -124,11 +135,7 @@
 
             <div class="small-12 columns result-boxes">
                 <div class="result-boxes-inner search">
-                    <?php
-                    if(isset($finalParam)){
 
-                    }
-                    ?>
                 </div>
             </div>
 
