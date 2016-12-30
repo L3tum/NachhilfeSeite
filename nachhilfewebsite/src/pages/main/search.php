@@ -124,8 +124,11 @@
 
             <div class="small-12 columns result-boxes">
                 <div class="result-boxes-inner search">
+                    <?php
+                    if(isset($finalParam)){
 
-
+                    }
+                    ?>
                 </div>
             </div>
 

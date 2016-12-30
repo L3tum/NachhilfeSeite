@@ -14,6 +14,7 @@ include_once  "assets/php/general/ConfigStrings.php";
 include_once  "assets/php/general/Route.php";
 include_once  "assets/php/general/Connection.php";
 include_once  __DIR__ . "/assets/php/dbClasses/Benutzer.php";
+
 $root = ConfigStrings::get("root");
 if(!isset($root)) {
     $host  = $_SERVER['HTTP_HOST'];
@@ -59,7 +60,7 @@ Route::add('logout',function(){
     Route::redirect_to_root();
 });
 
-Route::add('user/(.*)/edit',function($id){
+Route::add('user/(.+)/edit',function($id){
     //Do something
     $user_to_edit_id = $id;
     if($user_to_edit_id == Benutzer::get_logged_in_user()->idBenutzer || Benutzer::get_logged_in_user()->has_permission("editEveryUser")) {
@@ -71,7 +72,7 @@ Route::add('user/(.*)/edit',function($id){
 
 });
 
-Route::add('user/(.*)/view',function($id){
+Route::add('user/(.+)/view',function($id){
     //Do something
     $user_to_show_id = $id;
     include 'main/showUser.php';
@@ -85,8 +86,16 @@ Route::add('noDB',function(){
 
 
 
-Route::add('suche',function(){
+Route::add('suche/?\??(.*)',function($param1 = null){
     //Do something
+    if(isset($param1)){
+        $params = explode('&', $param1);
+        $finalParam = array();
+        foreach ($params as $param){
+            $arr = explode('=', $param);
+            $finalParam[$arr[0]] = $arr[1];
+        }
+    }
     include 'main/search.php';
 });
 
@@ -101,14 +110,14 @@ Route::add('user/(.*)/chatMessagesTo/(.*)',function($id_sender, $id_reciever){
     include 'main/viewChatMessages.php';
 });
 
-Route::add('nachhilfeAnfrage/(.*)/make', function($id){
+Route::add('nachhilfeAnfrage/make/(.+)', function($id){
     $user_anfrage = $id;
     //Checks if user is self so redirects to view
     if($user_anfrage == Benutzer::get_logged_in_user()->idBenutzer){
         include 'main/viewChatMessages.php';
     }
     else{
-        include 'main/makeNachhilfeAnfrage.php';
+        include 'main/MakeNachhilfeanfrageGreatAgain.php';
     }
 });
 
