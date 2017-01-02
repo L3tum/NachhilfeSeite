@@ -134,17 +134,6 @@ Route::add('user/(.*)/chatMessagesTo/(.*)',function($id_sender, $id_reciever){
     include 'main/viewChatMessages.php';
 });
 
-Route::add('nachhilfeAnfrage/make/(.+)', function($id){
-    $user_anfrage = $id;
-    //Checks if user is self so redirects to view
-    if($user_anfrage == Benutzer::get_logged_in_user()->idBenutzer){
-        include 'main/viewChatMessages.php';
-    }
-    else{
-        include 'main/MakeNachhilfeanfrageGreatAgain.php';
-    }
-});
-
 
 Route::run();
 //print_r($_SERVER);

@@ -158,11 +158,48 @@ class Benutzer
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
     }
 
+    public function has_tutiution_connection($user_id, $fach){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfelehrer = :idAndererBenutzer AND verbindung.idNachhilfenehmer = :idBenutzer AND verbindung.idFach = :idFach");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->bindParam(':idAndererBenutzer', $user_id);
+        $stmt->bindParam(':idFach', $fach);
+        $stmt->execute();
+
+        $tutiution = $stmt->fetch();
+        if($tutiution != null){
+            return true;
+        }
+        return false;
+    }
+
     public function get_all_anfragen(){
         $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE anfrage.idSender = :idBenutzer OR anfrage.idEmpfänger = :idBenutzer");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage');
+    }
+
+    public function get_anfragen($user_id){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE anfrage.idSender = :idAndererBenutzer AND anfrage.idEmpfänger = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->bindParam(':idAndererBenutzer', $user_id);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage');
+    }
+
+    public function has_anfrage($user_id, $fach){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE anfrage.idSender = :idBenutzer AND anfrage.idEmpfänger = :idAndererBenutzer AND anfrage.idFach = :idFach");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->bindParam(':idAndererBenutzer', $user_id);
+        $stmt->bindParam(':idFach', $fach);
+        $stmt->execute();
+
+        $anfrage = $stmt->fetch();
+        if($anfrage != null){
+            return true;
+        }
+        return false;
     }
 }

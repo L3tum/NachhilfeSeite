@@ -74,9 +74,10 @@ a:hover {
 
   color: $secondary-color;
 }
-button {
+/*button {
   //border: 1px solid white;
 }
+*/
 
 i {
 
@@ -98,6 +99,9 @@ i {
   &.glow {
     text-shadow: 0px 0px 14px $alert-color;
   }
+}
+.primary{
+  color: $primary-color;
 }
 
 .toast {
@@ -158,6 +162,12 @@ header {
   &.alert {
     background-color: $alert-color;
     p {
+      color:white;
+    }
+  }
+  &.secondary {
+    background-color: $secondary-color;
+    p{
       color:white;
     }
   }
@@ -303,5 +313,24 @@ button.round, .button.round {
 .button.expanded {
   td:not(.expander) {
     width: 100%;
+  }
+}
+.labelled {
+  border: 1px solid white;
+  box-shadow: 0px 1px 17px -2px rgb(39, 39, 39);
+  padding: 5px;
+  margin-bottom: 1rem;
+  p {
+    margin: 0;
+  }
+  &.success{
+    border: 1px solid white;
+    background-color: $success-color;
+  }
+  &.warning{
+    background-color: $warning-color;
+  }
+  &.pending{
+    background-color: $primary-color;
   }
 }

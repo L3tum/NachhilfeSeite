@@ -1,6 +1,6 @@
 <?php
 
-include_once  __DIR__ . "/../assets/php/dbClasses/Fach.php";
+include_once __DIR__ . "/../assets/php/dbClasses/Fach.php";
 
 if (isset($user_to_show_id)) {
     $user = Benutzer::get_by_id($user_to_show_id);
@@ -8,9 +8,16 @@ if (isset($user_to_show_id)) {
 
 $connections = $user->get_tutiution_connections(Benutzer::get_logged_in_user());
 $connections_key_array = Array();
-foreach($connections as $connection) {
+foreach ($connections as $connection) {
     $connections_key_array[Fach::get_by_id($connection->idFach)->name] = true;
 }
+
+$anfragen = $user->get_anfragen(Benutzer::get_logged_in_user()->idBenutzer);
+$anfragen_key_array = Array();
+foreach ($anfragen as $anfrage){
+    $anfragen_key_array[Fach::get_by_id($anfrage->idFach)->name] = true;
+}
+
 $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 ?>
 
@@ -23,7 +30,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <h2>Profil</h2>
 
                 <?php
-                if($user->get_role() == "Nachhilfenehmer" && !empty($connections)) {
+                if ($user->get_role() == "Nachhilfenehmer" && !empty($connections)) {
                     echo '<div class="data-label">
                     <p>Du nimmst bei dieser Person Nachhilfe!</p>
                     </div>';
@@ -42,12 +49,10 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <div class="data-label">
                     <?php
 
-                    if(!empty($connections) || (Benutzer::get_logged_in_user()->get_role() == "Administrator") || $user_is_me) {
+                    if (!empty($connections) || (Benutzer::get_logged_in_user()->get_role() == "Administrator") || $user_is_me) {
                         $number = $user->telefonnummer;
                         echo "<p>Telefonnummer: {$number}</p>";
-                    }
-
-                    else {
+                    } else {
                         echo '<p>Telefonnummer: <span
                             class="blur">02246 0101010101</span>
                     </p>';
@@ -60,12 +65,10 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <div class="data-label">
                     <?php
 
-                    if(!empty($connections) || (Benutzer::get_logged_in_user()->get_role() == "Administrator") || $user_is_me) {
+                    if (!empty($connections) || (Benutzer::get_logged_in_user()->get_role() == "Administrator") || $user_is_me) {
                         $email = $user->email;
                         echo "<p>Email: {$email}</p>";
-                    }
-
-                    else {
+                    } else {
                         echo '<p>Email: <span
                             class="blur">hierist@wirklichnix.de</span>
                         </p>';
@@ -75,13 +78,12 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 <?php
 
-                if(empty($connections) && !(Benutzer::get_logged_in_user()->get_role() == "Administrator") && !$user_is_me) {
+                if (empty($connections) && !(Benutzer::get_logged_in_user()->get_role() == "Administrator") && !$user_is_me) {
 
                     echo '<p>Du kannst die Email und die Telefonnummer eines Nutzers nur sehen, wenn du ihm Nachhilfe gibst oder
                     bei ihm Nachhilfe nimmst!</p>';
                 }
                 ?>
-
 
 
             </div>
@@ -103,35 +105,60 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                     <?php
                     if ($user->get_role() == "Nachhilfelehrer") {
+                        $isnot = false;
                         foreach ($user->get_offered_subjects() as $subject) {
                             $name = $subject->name;
-                            if(isset($connections_key_array[$name])) {
-                                $alert = "alert";
-                            }
-                            else {
-                                $alert = "";
-                            }
-                            echo
-                            "<div class=\"small-4 medium-12 large-4 columns\">
-                              <div class=\"data-label {$alert}\">
+
+                            //Check if verbindung
+                            if (isset($connections_key_array[$name])) {
+                                echo
+                                "<div class=\"small-4 medium-12 large-4 columns\">
+                              <div class=\"data-label alert\">
                                 <p class=\"center\">$name</p>
                               </div>
                             </div>";
+                            }
+
+                            //Check if Anfrage
+                            else if(isset($anfragen_key_array[$name])){
+                                echo
+                                "<div class=\"small-4 medium-12 large-4 columns\">
+                              <div class=\"data-label secondary\">
+                                <p class=\"center\">$name</p>
+                              </div>
+                            </div>";
+                            }
+
+                            //Button for Anfrage
+                            else {
+                                $isnot = true;
+                                echo
+                                "<div class=\"small-4 medium-12 large-4 columns\">
+                              <p type=\"button\" id={$subject->idFach} name='fachButton' class='labelled success center'>
+                              {$name}
+                              </p>
+                            </div>";
+                            }
                         }
                     }
                     ?>
 
                     <?php
 
-                    if(!empty($connections)) {
+                    if (!empty($connections)) {
 
                         echo "<div class=\"small-12 columns\"><p>In den rot markierten Fächern nimmst du bei dieser Person Nachhilfe!</p></div>";
+                    }
+                    if(!empty($anfragen)){
+                        echo "<div class=\"small-12 columns\"><p>In den blau markierten Fächern hast du bereits eine Anfrage gesendet!</p></div>";
+                    }
+                    if($isnot){
+                        echo "<div class=\"small-12 columns\"><p>Die grün markierten Felder kannst du anklicken, um Nachhilfe in diesem Fach anzufragen!</p></div>";
                     }
                     ?>
 
                 </div>
             </div>
-
 
 
             <div class="small-12 columns">
@@ -164,7 +191,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -185,7 +212,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             echo '        
         <div class="row actions">
             <div class="small-12 columns">
-                <a href="' . ConfigStrings::get("root") . "nachhilfeAnfrage/" . $user->idBenutzer . "/view" . '" class="button" type="submit" value="Submit">Nachhilfeanfragen aufrufen</a>
+                <a href="' . ConfigStrings::get("root") . "notifications" . '" class="button" type="submit" value="Submit">Nachhilfeanfragen aufrufen</a>
             </div>
         </div>';
         }
@@ -207,14 +234,15 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             </div>
         </div>';
 
-            if($user->get_role() == "Nachhilfelehrer") {
+            if ($user->get_role() == "Nachhilfelehrer") {
 
-                echo '        
+                echo '
         <div class="row actions">
             <div class="small-12 columns">
-                <a href="' . ConfigStrings::get("root") . "nachhilfeAnfrage/" . $user->idBenutzer . "/make" . '" class="button" type="submit" value="Submit">Nachhilfe anfragen</a>
+                    <a id="nachhilfeAnfragenButton" class="button" type="submit" value="Submit">Nachhilfe anfragen</a>
             </div>
-        </div>';
+        </div>
+                        <input type="hidden" id="user_to_show" value="' . $user->idBenutzer . '"/>';
             }
         }
 
