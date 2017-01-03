@@ -19,7 +19,7 @@ include_once  __DIR__ . "/../assets/php/general/ConfigStrings.php";
 $form_helper = new AjaxFormHelper();
 Logger::add($_POST);
 Logger::echo();
-if(!isset($_POST['user']) || !array_key_exists(0, $_POST['faecher'])){
+if(!isset($_POST['user']) || !isset($_POST['faecher'])){
     $form_helper->return_error("Fach oder Benutzer ungültig!");
     exit(0376);
 }
