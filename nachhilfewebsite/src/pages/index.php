@@ -95,28 +95,24 @@ Route::add('suche/?\??(.*)',function($param1 = null){
             switch($arr[0]){
                 case 'vorname':
                     $vorname_sel = $arr[1];
-                    $setP = true;
                     break;
                 case 'name':
                     $name_sel = $arr[1];
-                    $setP = true;
                     break;
                 case 'stufe':
                     $stufe_sel = $arr[1];
-                    $setP = true;
                     break;
                 case 'fach':
                     $fach_sel = $arr[1];
-                    $setP = true;
                     break;
                 case 'rolle':
                     $rolle_sel = $arr[1];
-                    $setP = true;
                     break;
                 case 'sorting':
                     $sorting_sel = $arr[1];
-                    $setP = true;
                     break;
+                case 'ascDesc':
+                    $ascDesc_sel = $arr[1];
             }
         }
     }
@@ -132,6 +128,10 @@ Route::add('user/(.*)/chatMessagesTo/(.*)',function($id_sender, $id_reciever){
     
     
     include 'main/viewChatMessages.php';
+});
+
+Route::add('admin', function(){
+    include 'main/administrator.php';
 });
 
 

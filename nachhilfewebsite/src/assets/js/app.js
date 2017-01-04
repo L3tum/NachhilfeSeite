@@ -179,7 +179,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
         history.pushState(stateObj, "Nachhilfeseite", result.newUrl);
     });
 
-var nachhilfeAnfrageAbuse = new AjaxFormHelperNachhilfeAnfrage($("#nachhilfeAnfragenButton"), "Anfrage fehlgeschlagen!", "ajax/MakeNachhilfeanfrageGreatAgain.php", function (result) {
+var nachhilfeAnfrageAbuse = new AjaxFormHelperNachhilfeAnfrage($("#nachhilfeAnfragenButton"), "Anfrage fehlgeschlagen!", "ajax/nachhilfeAnfrage.php", function (result) {
         toastr.success("Anfrage erfolgreich!");
     });
 
