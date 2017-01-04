@@ -76,7 +76,7 @@ class AjaxFormHelperNachhilfeAnfrage {
     runAjaxNachhilfe(ajaxPath, element, success, data) {
         var faecher = $('[name=fachButton]');
         var selectedFaecher = [];
-        for(var i = 0; i < faecher.length; i++) {
+        for (var i = 0; i < faecher.length; i++) {
             if (faecher[i].value == "true") {
                 selectedFaecher.push(faecher[i].attributes[1].nodeValue);
             }
@@ -104,7 +104,7 @@ class AjaxFormHelperNachhilfeFach {
 
     constructor() {
         var $me = this;
-        $('[name=fachButton]').on("click", function (ev){
+        $('[name=fachButton]').on("click", function (ev) {
             ev.preventDefault();
             $me.runNOW(ev.target);
         })
@@ -185,7 +185,7 @@ var
     });
 
 var
-    nachhilfeAnfrageAbuse = new AjaxFormHelperNachhilfeAnfrage($("#nachhilfeAnfragenButton"), "Anfrage fehlgeschlagen!", "ajax/MakeNachhilfeanfrageGreatAgain.php", function (result) {
+    nachhilfeAnfrageAbuse = new AjaxFormHelperNachhilfeAnfrage($("#nachhilfeAnfragenButton"), "Anfrage fehlgeschlagen!", "ajax/nachhilfeanfrageButton.php", function (result) {
         toastr.success("Anfrage erfolgreich!");
     });
 
