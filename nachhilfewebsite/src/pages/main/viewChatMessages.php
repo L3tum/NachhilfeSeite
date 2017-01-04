@@ -35,23 +35,39 @@ $messages = Chatnachricht::get_all_messages_between($id_sender, $id_reciever);
         <div class="row chat-messages">
 
             <div class="small-12 columns">
+
+                <div class="row chat-messages">
                 <?php
 
                 foreach($messages as $message) {
-                    echo "
-                {$message->inhalt}
-                ";
+
 
                     if($message->idEmpfänger ==  Benutzer::get_logged_in_user()->idBenutzer) {
 
                         echo "
+                        <div class='columns small-8 float-left'>
                         <div class='data-label'>
+                        <p>{$message->inhalt}</p>
+                        </div>
                         </div>
                         ";
+                    }
+                    else {
+
+                        echo "
+                        <div class='columns small-8 float-right'>
+                        <div class='data-label'>
+                        <p>{$message->inhalt}</p>
+                        </div>
+                        </div>
+                        ";
+
                     }
                 }
 
                 ?>
+
+                </div>
             </div>
 
         </div>

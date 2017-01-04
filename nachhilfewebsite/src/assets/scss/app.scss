@@ -334,3 +334,10 @@ button.round, .button.round {
     background-color: $primary-color;
   }
 }
+
+.chat-messages {
+  .data-label {
+    word-wrap: break-word;
+    
+  }
+}
