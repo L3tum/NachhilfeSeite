@@ -76,7 +76,7 @@ class AjaxFormHelperNachhilfeAnfrage {
     runAjaxNachhilfe(ajaxPath, element, success, data) {
         var faecher = $('[name=fachButton]');
         var selectedFaecher = [];
-        for (var i = 0; i < faecher.length; i++) {
+        for(var i = 0; i < faecher.length; i++) {
             if (faecher[i].value == "true") {
                 selectedFaecher.push(faecher[i].attributes[1].nodeValue);
             }
@@ -104,7 +104,7 @@ class AjaxFormHelperNachhilfeFach {
 
     constructor() {
         var $me = this;
-        $('[name=fachButton]').on("click", function (ev) {
+        $('[name=fachButton]').on("click", function (ev){
             ev.preventDefault();
             $me.runNOW(ev.target);
         })
@@ -136,22 +136,17 @@ toastr
     "hideMethod": "fadeOut"
 }
 
-$(document)
+$(document).foundation();
 
-    .foundation();
-
-
-var
-    loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen!", "ajax/loginForm.php", function (result) {
+var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen!", "ajax/loginForm.php", function (result) {
         location.reload();
     });
 
-var
-    userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/userEditForm.php", function (result) {
+var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/userEditForm.php", function (result) {
         toastr.success("Änderungen übernommen!");
     });
-var
-    searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result) {
+
+var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result) {
         toastr.success("Suche erfolgreich!");
         $('.result-boxes-inner').empty();
 
@@ -184,23 +179,19 @@ var
         history.pushState(stateObj, "Nachhilfeseite", result.newUrl);
     });
 
-var
-    nachhilfeAnfrageAbuse = new AjaxFormHelperNachhilfeAnfrage($("#nachhilfeAnfragenButton"), "Anfrage fehlgeschlagen!", "ajax/nachhilfeanfrageButton.php", function (result) {
+var nachhilfeAnfrageAbuse = new AjaxFormHelperNachhilfeAnfrage($("#nachhilfeAnfragenButton"), "Anfrage fehlgeschlagen!", "ajax/MakeNachhilfeanfrageGreatAgain.php", function (result) {
         toastr.success("Anfrage erfolgreich!");
     });
 
-var
-    nachhilfeAnfrageFach = new AjaxFormHelperNachhilfeFach();
+var nachhilfeAnfrageFach = new AjaxFormHelperNachhilfeFach();
 
-var
-    userEditPasswordField = $('#user-edit-form input[name="passwort"]');
-var
-    userEditPasswordFieldSecondary = $('#user-edit-form input[name="passwort-wiederholung"]');
-var
-    userEditPasswordFieldSecondaryContainer = $('#user-edit-form label#passwort-wiederholung');
+var userEditPasswordField = $('#user-edit-form input[name="passwort"]');
 
-userEditPasswordField
-    .on(
+var userEditPasswordFieldSecondary = $('#user-edit-form input[name="passwort-wiederholung"]');
+
+var userEditPasswordFieldSecondaryContainer = $('#user-edit-form label#passwort-wiederholung');
+
+userEditPasswordField.on(
         'input'
         ,
         function () {
@@ -212,11 +203,8 @@ userEditPasswordField
                 userEditPasswordFieldSecondaryContainer.slideDown();
             }
         }
-    )
-;
+    );
 
-function
-
-getRootUrl() {
+function getRootUrl() {
     return $("script[src]").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/') + '/../../';
 }
