@@ -192,8 +192,7 @@ var userEditPasswordFieldSecondary = $('#user-edit-form input[name="passwort-wie
 var userEditPasswordFieldSecondaryContainer = $('#user-edit-form label#passwort-wiederholung');
 
 userEditPasswordField.on(
-        'input'
-        ,
+        'input',
         function () {
             if (userEditPasswordField.val() == "") {
                 userEditPasswordFieldSecondaryContainer.slideUp();
@@ -203,7 +202,9 @@ userEditPasswordField.on(
                 userEditPasswordFieldSecondaryContainer.slideDown();
             }
         }
-    );
+);
+
+
 
 function getRootUrl() {
     return $("script[src]").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/') + '/../../';
