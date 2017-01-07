@@ -353,3 +353,10 @@ button.round, .button.round {
     background-color: $success-color;
   }
 }
+
+.chat-messages {
+  .data-label {
+    word-wrap: break-word;
+
+  }
+}

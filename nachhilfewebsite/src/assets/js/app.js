@@ -130,7 +130,7 @@ class AjaxFormHelperNachhilfeAnfrage {
     runAjaxNachhilfe(ajaxPath, element, success, data) {
         var faecher = $('[name=fachButton]');
         var selectedFaecher = [];
-        for (var i = 0; i < faecher.length; i++) {
+        for(var i = 0; i < faecher.length; i++) {
             if (faecher[i].value == "true") {
                 selectedFaecher.push(faecher[i].attributes[1].nodeValue);
             }
@@ -157,7 +157,7 @@ class AjaxFormHelperNachhilfeFach {
 
     constructor() {
         var $me = this;
-        $('[name=fachButton]').on("click", function (ev) {
+        $('[name=fachButton]').on("click", function (ev){
             ev.preventDefault();
             $me.runNOW(ev.target);
         })
@@ -210,12 +210,12 @@ toastr
 $(document).foundation();
 
 var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen!", "ajax/loginForm.php", function (result) {
-    location.reload();
-});
+        location.reload();
+    });
 
 var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/userEditForm.php", function (result) {
-    toastr.success("Änderungen übernommen!");
-});
+        toastr.success("Änderungen übernommen!");
+    });
 
 var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result) {
     toastr.success("Suche erfolgreich!");
@@ -456,18 +456,19 @@ var userEditPasswordFieldSecondary = $('#user-edit-form input[name="passwort-wie
 var userEditPasswordFieldSecondaryContainer = $('#user-edit-form label#passwort-wiederholung');
 
 userEditPasswordField.on(
-    'input'
-    ,
-    function () {
-        if (userEditPasswordField.val() == "") {
-            userEditPasswordFieldSecondaryContainer.slideUp();
-            userEditPasswordFieldSecondary.val('');
+        'input',
+        function () {
+            if (userEditPasswordField.val() == "") {
+                userEditPasswordFieldSecondaryContainer.slideUp();
+                userEditPasswordFieldSecondary.val('');
+            }
+            else {
+                userEditPasswordFieldSecondaryContainer.slideDown();
+            }
         }
-        else {
-            userEditPasswordFieldSecondaryContainer.slideDown();
-        }
-    }
 );
+
+
 
 function getRootUrl() {
     return $("script[src]").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/') + '/../../';

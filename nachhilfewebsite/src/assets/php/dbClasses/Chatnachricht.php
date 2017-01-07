@@ -17,18 +17,23 @@ class Chatnachricht
 
     public static function get_all_messages_between($senderId, $recieverId, $markRead = true) {
 
-        $stmt = Connection::$PDO->prepare("SELECT * FROM chatnachricht WHERE idSender = :idBenutzer1 OR idSender = :idBenutzer2 OR idEmpfänger = :idBenutzer1 OR idEmpfänger = :idBenutzer2");
-        $stmt->bindParam(':idBenutzer1', $senderId);
-        $stmt->bindParam(':idBenutzer2', $recieverId);
+        $stmt = Connection::$PDO->prepare("SELECT * FROM chatnachricht WHERE idSender = :idBenutzer1S OR idSender = :idBenutzer2S OR idEmpfänger = :idBenutzer1E OR idEmpfänger = :idBenutzer2E");
+        $stmt->bindParam(':idBenutzer1S', $senderId);
+        $stmt->bindParam(':idBenutzer2S', $recieverId);
+
+        $stmt->bindParam(':idBenutzer1E', $senderId);
+        $stmt->bindParam(':idBenutzer2E', $recieverId);
         $stmt->execute();
 
+        $messages = $stmt->fetchAll(PDO::FETCH_CLASS, 'Chatnachricht');
+
         if($markRead) {
-            $stmt = Connection::$PDO->prepare("UPDATE chatnachricht SET gelesen = TRUE WHERE idEmpfänger = :idEmpfänger AND idSender = :idSender");
-            $stmt->bindParam(':idEmpfänger', $recieverId);
+            $stmt = Connection::$PDO->prepare("UPDATE chatnachricht SET gelesen = TRUE WHERE idEmpfänger = :idEmpfaenger AND idSender = :idSender");
+            $stmt->bindParam(':idEmpfaenger', $recieverId);
             $stmt->bindParam(':idSender', $senderId);
             $stmt->execute();
         }
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Chatnachricht');
+        return $messages;
     }
 }
