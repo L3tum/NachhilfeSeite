@@ -12,6 +12,7 @@ $form_helper = new AjaxFormHelper();
 $vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß]{1,20}$/", "Vorname");
 $nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß]{1,20}$/", "Nachname");
 $passwort = $form_helper->test_string($_POST['passwort'], "/^.{1,200}$/", "Passwort");
+$passwort = hash("sha256" , $passwort . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld");
 
 //Check if there is an existing user with these credentials
 $stmt = Connection::$PDO->prepare("SELECT * FROM benutzer WHERE vorname = :vorname && name = :name && passwort = :passwort");

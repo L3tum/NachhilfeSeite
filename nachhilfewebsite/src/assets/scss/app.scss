@@ -104,6 +104,10 @@ i {
   color: $primary-color;
 }
 
+.success{
+  color: $success-color;
+}
+
 .toast {
   &.toast-error {
     background-color: $alert-color;
@@ -322,6 +326,7 @@ button.round, .button.round {
   margin-bottom: 1rem;
   p {
     margin: 0;
+    color:white;
   }
   &.success{
     border: 1px solid white;
@@ -332,5 +337,19 @@ button.round, .button.round {
   }
   &.pending{
     background-color: $primary-color;
+  }
+  &.alter{
+    background-color: red;
+  }
+}
+
+.tablebutton{
+  @include button;
+  margin-bottom: 0px;
+  &.alert{
+    background-color: $alert-color;
+  }
+  &.success{
+    background-color: $success-color;
   }
 }

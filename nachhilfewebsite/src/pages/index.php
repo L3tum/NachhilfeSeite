@@ -134,6 +134,16 @@ Route::add('admin', function(){
     include 'main/administrator.php';
 });
 
+Route::add('role/(.+)/edit', function($param){
+    $idRole = $param;
+    include 'main/editRole.php';
+});
+
+Route::add('role/(.+)/edit', function($param){
+   $idRole = $param;
+    include 'main/viewRole.php';
+});
+
 
 Route::run();
 //print_r($_SERVER);

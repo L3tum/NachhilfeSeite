@@ -38,8 +38,8 @@ if($_POST['passwort'] == "") {
 }
 else {
 
-    $passwort = $form_helper->test_string($_POST['passwort'], "/^.{1,200}$/", "Passwort");
-    $passwortWiederholung = $form_helper->test_string($_POST['passwort-wiederholung'], "/^.{1,200}$/", "Zweites Passwort");
+    $passwort = hash("sha256", $form_helper->test_string($_POST['passwort'], "/^.{1,200}$/", "Passwort") . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld");
+    $passwortWiederholung = hash("sha256", $form_helper->test_string($_POST['passwort-wiederholung'], "/^.{1,200}$/", "Zweites Passwort") . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld");
     if(strcmp($passwort, $passwortWiederholung) !== 0) {
         $form_helper->return_error("Die Passwörter stimmen nicht überein.");
     }

@@ -14,6 +14,7 @@ include_once  __DIR__ . "/Fach.php";
 include_once  __DIR__ . "/Stufe.php";
 include_once  __DIR__ . "/Verbindung.php";
 include_once  __DIR__ . "/Anfrage.php";
+include_once  __DIR__ . "/Qualifikation.php";
 
 class Benutzer
 {
@@ -201,5 +202,11 @@ class Benutzer
             return true;
         }
         return false;
+    }
+
+    public function get_all_qualifications(){
+        $stmt = Connection::$PDO->prepare("SELECT t1.name, t1.beschreibung, t1.idQualifikation FROM qualifikation AS t1 JOIN benutzer AS t2 ON t2.idBenutzer=t1.idBenutzer WHERE t1.idBenutzer=".$this->idBenutzer);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Qualifikation');
     }
 }
