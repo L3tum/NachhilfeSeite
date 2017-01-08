@@ -26,9 +26,6 @@
         if (Benutzer::get_logged_in_user()->has_permission("showAllComplaints")) {
             echo "<a id='show_complaints' class='button warning' type='submit' value='Submit'>Zeige alle Beschwerden</a><br>";
         }
-        if(Benutzer::get_logged_in_user()->has_permission("blockUser")){
-            echo "<a id='blockUserButton' class='button alert' type='submit' value='Submit'>Sperre einen Benutzer</a><br>";
-        }
         ?>
     </div>
     <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>

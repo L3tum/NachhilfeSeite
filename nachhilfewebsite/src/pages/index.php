@@ -135,13 +135,23 @@ Route::add('admin', function(){
 });
 
 Route::add('role/(.+)/edit', function($param){
-    $idRole = $param;
-    include 'main/editRole.php';
+    if(Benutzer::get_logged_in_user()->has_permission("editRole")) {
+        $idRole = $param;
+        include 'main/editRole.php';
+    }
+    else{
+        Route::redirect_to_root();
+    }
 });
 
-Route::add('role/(.+)/edit', function($param){
-   $idRole = $param;
-    include 'main/viewRole.php';
+Route::add('role/(.+)/view', function($param){
+    if(Benutzer::get_logged_in_user()->has_permission("viewRole")) {
+        $idRole = $param;
+        include 'main/viewRole.php';
+    }
+    else{
+        Route::redirect_to_root();
+    }
 });
 
 

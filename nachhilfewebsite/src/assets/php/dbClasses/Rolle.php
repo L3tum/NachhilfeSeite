@@ -13,15 +13,23 @@ class Rolle
     public $name;
     public $beschreibung;
 
+    public static function get_by_id($idRole){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM rolle WHERE rolle.idRolle = :idRolle");
+        $stmt->bindValue(':idRolle', intval($idRole));
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Rolle');
+        $rolle = $stmt->fetch();
+        return $rolle;
+    }
+
     public function get_rechte(){
-        $stmt = Connection::$PDO->prepare("SELECT * FROM berechtigung as t1 JOIN rollenberechtigung as t2 on t2.idBerechtigunge=t1.idBerechtigung WHERE t2.idRolle= :idRolle");
-        $stmt->bindParam(':idRolle', $this->idRolle);
+        $stmt = Connection::$PDO->prepare("SELECT t1.idBerechtigung, t1.name FROM berechtigung as t1 JOIN rollenberechtigung as t2 on t2.idBerechtigung=t1.idBerechtigung WHERE t2.idRolle=".intval($this->idRolle));
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Berechtigung');
     }
     public static function get_rechte_static($idRolle){
-        $stmt = Connection::$PDO->prepare("SELECT * FROM berechtigung as t1 JOIN rollenberechtigung as t2 on t2.idBerechtigunge=t1.idBerechtigung WHERE t2.idRolle= :idRolle");
-        $stmt->bindParam(':idRolle', $idRolle);
+        $stmt = Connection::$PDO->prepare("SELECT * FROM berechtigung as t1 JOIN rollenberechtigung as t2 on t2.idBerechtigung=t1.idBerechtigung WHERE t2.idRolle= :idRolle");
+        $stmt->bindValue(':idRolle', intval($idRolle));
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Berechtigung');
     }

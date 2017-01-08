@@ -17,8 +17,13 @@ include_once __DIR__ . "/../assets/php/dbClasses/Raum.php";
 $form_helper = new AjaxFormHelper();
 if (Benutzer::get_logged_in_user()->has_permission("showAllFreeRooms")) {
     $date = $_POST['date'];
-    $stmt = Connection::$PDO->prepare("SELECT raum.raumNummer FROM raum JOIN stunde ON stunde.raumNummer=raum.raumNummer WHERE NOT stunde.datum= :datum");
-    $stmt->bindParam(':datum', $date);
+    $time = $_POST['time'];
+    $endTime = date("H:i:s", strtotime("+45 minutes", strtotime($time)));
+    $datumsZeit = $date. " ".$time;
+    $newDatumsZeit = $date. " ".$endTime;
+    $stmt = Connection::$PDO->prepare("SELECT raum.raumNummer as raumNummer FROM raum WHERE NOT EXISTS( SELECT * FROM stunde WHERE stunde.raumNummer=raum.raumNummer AND stunde.datum between :datumszeit AND :datumsEndZeit)");
+    $stmt->bindParam(':datumszeit', $datumsZeit);
+    $stmt->bindParam(':datumsEndZeit', $newDatumsZeit);
     if ($stmt->execute() == true) {
         $form_helper->response['raeume'] = $stmt->fetchAll(PDO::FETCH_CLASS, 'Raum');
         $form_helper->success = true;

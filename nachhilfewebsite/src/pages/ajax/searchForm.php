@@ -115,5 +115,6 @@ $form_helper->success = true;
 //set url in form helper
 $form_helper->response['newUrl']=$newUrl;
 $form_helper->response['users']=$users;
+$form_helper->response['canDelete'] = Benutzer::get_logged_in_user()->has_permission("blockUser");
 $form_helper->return_json();
 ?>
