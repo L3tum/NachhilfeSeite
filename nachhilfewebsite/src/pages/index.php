@@ -134,6 +134,26 @@ Route::add('admin', function(){
     include 'main/administrator.php';
 });
 
+Route::add('role/(.+)/edit', function($param){
+    if(Benutzer::get_logged_in_user()->has_permission("editRole")) {
+        $idRole = $param;
+        include 'main/editRole.php';
+    }
+    else{
+        Route::redirect_to_root();
+    }
+});
+
+Route::add('role/(.+)/view', function($param){
+    if(Benutzer::get_logged_in_user()->has_permission("viewRole")) {
+        $idRole = $param;
+        include 'main/viewRole.php';
+    }
+    else{
+        Route::redirect_to_root();
+    }
+});
+
 
 Route::run();
 //print_r($_SERVER);

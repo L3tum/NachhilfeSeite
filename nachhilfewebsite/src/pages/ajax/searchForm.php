@@ -25,8 +25,8 @@ $rolle = $form_helper->test_numeric($_POST['rollen']);
 $sorting = $_POST['sort'];
 $ascDesc = $_POST['ascDesc'];
 
-$otherTable = "JOIN angeboteneStufe AS t2 ON t2.idBenutzer=t1.idBenutzer ";
-$otherTable2= "JOIN angebotenesFach AS t4 ON t4.idBenutzer=t1.idBenutzer ";
+$otherTable = "JOIN angeboteneStufe AS t2 ON t2.idBenutzer=t1.idBenutzer JOIN stufe AS t3 ON t2.idStufe=t3.idStufe ";
+$otherTable2= "JOIN angebotenesFach AS t4 ON t4.idBenutzer=t1.idBenutzer JOIN fach AS t5 ON t5.idFach=t4.idFach ";
 $otherTable3= "JOIN rolle AS t6 ON t6.idRolle=t1.idRolle ";
 
 $firstParam = " t1.vorname = ".$vorname;
@@ -91,12 +91,12 @@ if(isset($sorting) && $sorting != "no") {
             break;
         case "Fach":
             if ($fach != null) {
-                $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t4.name";
+                $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t5.name";
             }
             break;
         case "Stufe":
             if ($stufe != null) {
-                $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t2.name";
+                $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t3.name";
             }
             break;
     }
@@ -115,5 +115,6 @@ $form_helper->success = true;
 //set url in form helper
 $form_helper->response['newUrl']=$newUrl;
 $form_helper->response['users']=$users;
+$form_helper->response['canDelete'] = Benutzer::get_logged_in_user()->has_permission("blockUser");
 $form_helper->return_json();
 ?>

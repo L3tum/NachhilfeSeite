@@ -14,7 +14,7 @@ foreach ($connections as $connection) {
 
 $anfragen = $user->get_anfragen(Benutzer::get_logged_in_user()->idBenutzer);
 $anfragen_key_array = Array();
-foreach ($anfragen as $anfrage){
+foreach ($anfragen as $anfrage) {
     $anfragen_key_array[Fach::get_by_id($anfrage->idFach)->name] = true;
 }
 
@@ -112,48 +112,48 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                             //Check if verbindung
                             if (isset($connections_key_array[$name])) {
                                 echo
-                                "<div class=\"small-4 medium-12 large-4 columns\">
+                                "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label alert\">
                                 <p class=\"center\">$name</p>
                               </div>
                             </div>";
-                            }
-
-                            //Check if Anfrage
-                            else if(isset($anfragen_key_array[$name])){
+                            } //Check if Anfrage
+                            else if (isset($anfragen_key_array[$name])) {
                                 echo
-                                "<div class=\"small-4 medium-12 large-4 columns\">
+                                "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label secondary\">
                                 <p class=\"center\">$name</p>
                               </div>
                             </div>";
-                            }
-
-                            //Button for Anfrage
-                            else {
+                            } //Button for Anfrage
+                            else if (!$user_is_me) {
                                 $isnot = true;
                                 echo
-                                "<div class=\"small-4 medium-12 large-4 columns\">
+                                "<div class=\"small-6 medium-12 large-4 columns\">
                               <p type=\"button\" id={$subject->idFach} name='fachButton' class='labelled success center'>
                               {$name}
                               </p>
                             </div>";
+                            } else {
+                                echo
+                                "<div class=\"small-6 medium-12 large-4 columns\">
+                              <div class=\"data-label\">
+                                <p class=\"center\">$name</p>
+                              </div>
+                            </div>";
                             }
                         }
-                    }
-                    ?>
 
-                    <?php
+                        if (!empty($connections)) {
 
-                    if (!empty($connections)) {
-
-                        echo "<div class=\"small-12 columns\"><p>In den rot markierten Fächern nimmst du bei dieser Person Nachhilfe!</p></div>";
-                    }
-                    if(!empty($anfragen)){
-                        echo "<div class=\"small-12 columns\"><p>In den blau markierten Fächern hast du bereits eine Anfrage gesendet!</p></div>";
-                    }
-                    if($isnot){
-                        echo "<div class=\"small-12 columns\"><p>Die grün markierten Felder kannst du anklicken, um Nachhilfe in diesem Fach anzufragen!</p></div>";
+                            echo "<div class=\"small-12 columns\"><p>In den rot markierten Fächern nimmst du bei dieser Person Nachhilfe!</p></div>";
+                        }
+                        if (!empty($anfragen)) {
+                            echo "<div class=\"small-12 columns\"><p>In den blau markierten Fächern hast du bereits eine Anfrage gesendet!</p></div>";
+                        }
+                        if ($isnot) {
+                            echo "<div class=\"small-12 columns\"><p>Die grün markierten Felder kannst du anklicken, um Nachhilfe in diesem Fach anzufragen!</p></div>";
+                        }
                     }
                     ?>
 
@@ -181,6 +181,34 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                             $name = $class->name;
                             echo
                             "<div class=\"small-4 columns\">
+                              <div class=\"data-label\">
+                                <p class=\"center\">$name</p>
+                              </div>
+                            </div>";
+                        }
+                    }
+                    ?>
+
+                </div>
+            </div>
+
+            <div class="small-12 columns">
+
+                <div class="row">
+                    <div class="small-12 columns">
+                        <h3> Qualifikationen: </h3>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <?php
+                    $quals = $user->get_all_qualifications();
+                    if(isset($quals) && count($quals) > 0) {
+                        foreach ($quals as $qual) {
+                            $name = $qual->name;
+                            echo
+                            "<div class=\"small-6 columns\">
                               <div class=\"data-label\">
                                 <p class=\"center\">$name</p>
                               </div>
@@ -226,14 +254,6 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             </div>
         </div>';
 
-            echo '
-            
-        <div class="row actions">
-            <div class="small-12 columns">
-                <a href="#" class="button alert " type="submit" value="Submit">Nutzer melden</a>
-            </div>
-        </div>';
-
             if ($user->has_permission("give_classes")) {
 
                 echo '
@@ -243,6 +263,23 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             </div>
         </div>
                         <input type="hidden" id="user_to_show" value="' . $user->idBenutzer . '"/>';
+            }
+
+            echo '
+            
+        <div class="row actions">
+            <div class="small-12 columns">
+                <a href="#" class="button alert" type="submit" value="Submit">Nutzer melden</a>
+            </div>
+        </div>';
+
+            if ($user->has_permission("blockUser")) {
+                echo '
+        <div class="row actions">
+            <div class="small-12 columns">
+                    <a id="blockUserButton" class="button alert" type="submit" value="Submit">Benutzer blockieren</a>
+            </div>
+        </div>';
             }
         }
 

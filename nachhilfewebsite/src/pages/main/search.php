@@ -156,7 +156,7 @@
         <div class="row">
 
             <div class="small-12 columns result-boxes">
-                <div class="result-boxes-inner search">
+                <div class="result-boxes-inner search" id="search-results">
 
                 </div>
             </div>

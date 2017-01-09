@@ -34,4 +34,5 @@ layout: special
 
             <button class="button" type="submit" value="Submit">Submit</button>
         </div>
+    </div>
 </form>
