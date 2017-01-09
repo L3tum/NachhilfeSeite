@@ -80,7 +80,7 @@ class NotificationHandler
                                     </div>
 
                                     <div class='small-12 columns no-padding right'>
-                                        <p>{$chatnachricht->titel}</p>
+                                        <p>{$chatnachricht->inhalt}</p>
                                     </div>
                                 </div>
 
@@ -88,7 +88,7 @@ class NotificationHandler
 
                             <div class='small-4 columns no-padding both'>
                                 <div class='button-group medium '>
-                                    <a href='#' class='button success' type='submit' value='Submit'>Lesen</a>
+                                    <a href='" . ConfigStrings::get("root") . "user/" . $sender->idBenutzer . "/chatMessagesTo/" . Benutzer::get_logged_in_user()->idBenutzer . "' class='button success' type='submit' value='Submit'>Lesen</a>
                                 </div>
                             </div>
                         </div>

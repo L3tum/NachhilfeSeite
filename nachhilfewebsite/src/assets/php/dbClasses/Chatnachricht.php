@@ -11,7 +11,6 @@ class Chatnachricht
 
     public $idEmpfänger;
     public $idSender;
-    public $titel;
     public $inhalt;
     public $gelesen;
 

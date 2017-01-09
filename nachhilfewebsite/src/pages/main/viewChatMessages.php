@@ -26,7 +26,8 @@ $messages = Chatnachricht::get_all_messages_between($id_sender, $id_reciever);
         <div class="row">
             <div class="small-12 columns">
                 <form data-abide novalidate id="send-message-form" method="post">
-                    <textarea placeholder="Nachricht.."></textarea>
+                    <input name="reciever" value="<?php echo $sender->idBenutzer ?>" type="hidden">
+                    <textarea name="content" placeholder="Nachricht.."></textarea>
                     <button class="button" type="submit" value="Submit">Nachricht senden</button>
                 </form>
             </div>
