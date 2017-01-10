@@ -215,7 +215,7 @@ class AjaxFormHelperRolle{
         })
     }
     runAjaxRolle(ajaxPath, element, success, formDataAppend){
-        var rollen = $("[name=rollenButton");
+        var rollen = $("[name=rollenButton]");
 
     }
 }
@@ -264,8 +264,19 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
 
 var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden fehlgeschlagen!", "ajax/sendMessage.php", function (result) {
     toastr.success("Nachricht gesendet!");
+    //location.reload();
+});
+
+var sendMessageFormHelper = new AjaxFormHelper($("#request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
+    toastr.success("Nachricht gesendet!");
+    //location.reload();
+}, function(formData) {
+    var $btn = $(document.activeElement);
+    formData.append('response', $btn.attr('value'))
     location.reload();
 });
+
+
 
 var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result) {
     toastr.success("Suche erfolgreich!");

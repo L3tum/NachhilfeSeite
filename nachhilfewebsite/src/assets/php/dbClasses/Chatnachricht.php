@@ -13,6 +13,7 @@ class Chatnachricht
     public $idSender;
     public $inhalt;
     public $gelesen;
+    public $idChatnachricht;
 
     public static function get_all_messages_between($senderId, $recieverId, $markRead = true) {
 

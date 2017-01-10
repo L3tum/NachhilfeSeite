@@ -13,6 +13,6 @@ class Anfrage
     public $idEmpfänger;
     public $idFach;
     public $inhalt;
-    
+    public $idAnfrage;
     
 }
