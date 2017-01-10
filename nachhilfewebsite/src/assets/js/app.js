@@ -6,7 +6,6 @@ class AjaxFormHelper {
     constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
 
         var $me = this;
-        console.log(element);
         if(element[0] != null) {
             element
                 .on("submit", function (ev) {
