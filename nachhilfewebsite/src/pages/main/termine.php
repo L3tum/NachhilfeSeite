@@ -6,8 +6,6 @@
  * Time: 20:43
  */
 
-include_once __DIR__ . "/../assets/php/general/Logger.php";
-
 $user = Benutzer::get_logged_in_user();
 if($user->has_permission("give_classes")){
     $appointments1 = $user->get_all_appointments_as_teacher();
@@ -15,9 +13,6 @@ if($user->has_permission("give_classes")){
 if($user->has_permission("take_classes")){
     $appointments2 = $user->get_all_appointments_as_pupil();
 }
-
-Logger::add($appointments1);
-Logger::add($appointments2);
 
 ?>
 
@@ -28,6 +23,7 @@ Logger::add($appointments2);
             <th>Lehrer</th>
             <th>Schüler</th>
             <th>Datum</th>
+            <th>Raum</th>
             <th>Bestätigt(Schüler)</th>
             <th>Bestätigt(Lehrer)</th>
             <?php
@@ -41,20 +37,21 @@ Logger::add($appointments2);
         <?php
         if($appointments1 != null && count($appointments1) > 0) {
             foreach ($appointments1 as $appointment) {
-                echo "<tr><td>Du</td><td>{$appointment->vorname} {$appointment->name}</td><td>{$appointment->datum}</td>";
-                if ($appointment->bestaetigtSchueler == 0) {
+                $date = date('d.m.Y H:i:s',strtotime($appointment['datum']));
+                echo "<tr><td>Du</td><td>{$appointment['vorname']} {$appointment['name']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
+                if ($appointment['bestaetigtSchueler'] == 0) {
                     echo "<td class='alert'>Nein</td>";
                 } else {
                     echo "<td class='success'>Ja</td>";
                 }
-                if ($appointment->bestaetigtLehrer == 0) {
-                    echo "<td><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment->idStunde}'>Nein</button></td>";
+                if ($appointment['bestaetigtLehrer'] == 0) {
+                    echo "<td><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment['idStunde']}'>Nein</button></td>";
                 } else {
                     echo "<td class='success'>Ja</td>";
                 }
                 if ($user->has_permission("give_classes")) {
-                    if ($appointment->bezahltLehrer == 0) {
-                        echo "<td><button class='tablebutton alert' name='bestaetigen2Button' id='{$appointment->idStunde}'>Nein</button></td>";
+                    if ($appointment['bezahltLehrer'] == 0) {
+                        echo "<td><button class='tablebutton alert' name='bestaetigen2Button' id='{$appointment['idStunde']}'>Nein</button></td>";
                     } else {
                         echo "<td class='success'>Ja</td>";
                     }
@@ -62,24 +59,22 @@ Logger::add($appointments2);
                 echo "</tr>";
             }
         }
-        else{
-            echo "<tr><td>Nichts</td></tr>";
-        }
         if($appointments2 != null && count($appointments2) > 0) {
-            foreach ($appointments1 as $appointment2) {
-                echo "<tr><td>{$appointment->vorname} {$appointment->name}</td><td>Du</td><td>{$appointment->datum}</td>";
-                if ($appointment->bestaetigtSchueler == 0) {
-                    echo "<td><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment->idStunde}'>Nein</button></td>";
+            foreach ($appointments2 as $appointment) {
+                $date = date('d.m.Y H:i:s',strtotime($appointment['datum']));
+                echo "<tr><td>{$appointment['vorname']} {$appointment['name']}</td><td>Du</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
+                if ($appointment['bestaetigtSchueler'] == 0) {
+                    echo "<td><button class='tablebutton alert' name='bestaetigen3Button' id='{$appointment['idStunde']}'>Nein</button></td>";
                 } else {
                     echo "<td class='success'>Ja</td>";
                 }
-                if ($appointment->bestaetigtLehrer == 0) {
+                if ($appointment['bestaetigtLehrer'] == 0) {
                     echo "<td class='alert'>Nein</td>";
                 } else {
                     echo "<td class='success'>Ja</td>";
                 }
                 if ($user->has_permission("give_classes")) {
-                    if ($appointment->bezahltLehrer == 0) {
+                    if ($appointment['bezahltLehrer'] == 0) {
                         echo "<td class='alert'>Nein</td>";
                     } else {
                         echo "<td class='success'>Ja</td>";

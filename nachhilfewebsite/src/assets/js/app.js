@@ -6,7 +6,7 @@ class AjaxFormHelper {
     constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
 
         var $me = this;
-        if(element[0] != null) {
+        if (element[0] != null) {
             element
                 .on("submit", function (ev) {
                     ev.preventDefault();
@@ -104,17 +104,17 @@ var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen
 
 var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/userEditForm.php", function (result) {
     toastr.success("Änderungen übernommen!");
-}, function(formdata){
+}, function (formdata) {
     var rollen = [];
-    $.each($("[name=subjectChoosing]"), function(i, entry){
-        if($(entry).attr('class').includes("success")){
+    $.each($("[name=subjectChoosing]"), function (i, entry) {
+        if ($(entry).attr('class').includes("success")) {
             rollen.push($(entry).attr('id'));
         }
     });
     formdata.append('faecher', JSON.stringify(rollen));
     var stufen = [];
-    $.each($("[name=yearChoosing]"), function(i, entry){
-        if($(entry).attr('class').includes("success")){
+    $.each($("[name=yearChoosing]"), function (i, entry) {
+        if ($(entry).attr('class').includes("success")) {
             stufen.push($(entry).attr('id'));
         }
     });
@@ -129,11 +129,10 @@ var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden 
 var requestResponseFormHelper = new AjaxFormHelper($("#request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
     toastr.success("Nachricht gesendet!");
     location.reload();
-}, function(formData) {
+}, function (formData) {
     var $btn = $(document.activeElement);
     formData.append('response', $btn.attr('value'))
 });
-
 
 
 var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result) {
@@ -153,25 +152,25 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
         if (permission == true) {
             html += "<th>Sperren</th>";
         }
-        if(permission2 == true){
+        if (permission2 == true) {
             html += "<th>Entsperren</th>"
         }
         html += "</th></thead><tbody>";
         result.users.forEach(function (entry) {
             html += "<tr><td>" + entry.vorname + " " + entry.name + "</td><td>" + entry.rollenname + "</td><td><a class='tablebutton success' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "'>Profil</a></td>";
             if (permission == true) {
-                if(entry.gesperrt == null) {
+                if (entry.gesperrt == null) {
                     html += "<td><button class='tablebutton alert' id='" + entry.idBenutzer + "' name='blockUserNow'>Sperren</button></td>";
                 }
-                else{
+                else {
                     html += "<td><p class='alert'>Gesperrt</p></td>";
                 }
             }
-            if(permission2 == true){
-                if(entry.gesperrt == 1) {
+            if (permission2 == true) {
+                if (entry.gesperrt == 1) {
                     html += "<td><button class='tablebutton success' id='" + entry.idBenutzer + "' name='unBlockUserNow'>Entsperren</button></td>"
                 }
-                else{
+                else {
                     html += "<td><p class='success'>Entsperrt</p></td>";
                 }
             }
@@ -187,10 +186,10 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
 
 var editRoleFormHelper = new AjaxFormHelper($("#rolle-edit-form"), "Rolle nicht editierbar!", "ajax/editRoleForm.php", function (result) {
     toastr.success("Rolle erfolgreich editiert!");
-}, function(formdata){
+}, function (formdata) {
     var rollen = [];
-    $.each($("[name=rollenButton]"), function(i, entry){
-        if($(entry).attr('class').includes("success")){
+    $.each($("[name=rollenButton]"), function (i, entry) {
+        if ($(entry).attr('class').includes("success")) {
             rollen.push($(entry).val());
         }
     });
@@ -199,10 +198,10 @@ var editRoleFormHelper = new AjaxFormHelper($("#rolle-edit-form"), "Rolle nicht 
 
 var addRoleFormHelper = new AjaxFormHelper($("#rolle-add-form"), "Rolle nicht hinzufügbar!", "ajax/addRoleForm.php", function (result) {
     toastr.success("Rolle erfolgreich hinzugefügt!");
-}, function(formdata){
+}, function (formdata) {
     var rollen = [];
-    $.each($("[name=rollenAddingButton]"), function(i, entry){
-        if($(entry).attr('class').includes("success")){
+    $.each($("[name=rollenAddingButton]"), function (i, entry) {
+        if ($(entry).attr('class').includes("success")) {
             rollen.push($(entry).val());
         }
     });
@@ -240,13 +239,13 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher})
 });
 
-$(document).on("click", "#add_qual", function(ev){
+$(document).on("click", "#add_qual", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/AddQual.php", function(result){
+    runMyAjax("ajax/AddQual.php", function (result) {
         toastr.success(result.name + " wurde hinzugefügt!");
         document.getElementById("qual_name").value = "";
         document.getElementById("qual_desc").value = "";
-    }, {'name' : $("#qual_name").val(), 'desc' : $("#qual_desc").val(), 'id':$("#user-id").val()})
+    }, {'name': $("#qual_name").val(), 'desc': $("#qual_desc").val(), 'id': $("#user-id").val()})
 });
 
 $(document).on("click", '[name=fachButton]', function (ev) {
@@ -264,7 +263,43 @@ $(document).on("click", '[name=fachButton]', function (ev) {
     }
 });
 
-$(document).on("click", '[name=subjectChoosing]', function(ev){
+$(document).on("click", '[name=bestaetigenButton]', function (ev) {
+    ev.preventDefault();
+    var element = $(ev.target);
+    if(element.hasClass("alert")) {
+        runMyAjax("ajax/confirmHourTeacher.php", function (result) {
+            toastr.success("Stunde bestätigt!");
+            element.removeClass("alert");
+            element.addClass("success");
+        }, {'id': element.attr('id')});
+    }
+});
+
+$(document).on("click", '[name=bestaetigen2Button]', function (ev) {
+    ev.preventDefault();
+    var element = $(ev.target);
+    if(element.hasClass("alert")) {
+        runMyAjax("ajax/confirmHourTeacherPayment.php", function (result) {
+            toastr.success("Bezahlung bestätigt!");
+            element.removeClass("alert");
+            element.addClass("success");
+        }, {'id': element.attr('id')});
+    }
+});
+
+$(document).on("click", '[name=bestaetigen3Button]', function (ev) {
+    ev.preventDefault();
+    var element = $(ev.target);
+    if(element.hasClass("alert")) {
+        runMyAjax("ajax/confirmHourStudent.php", function (result) {
+            toastr.success("Stunde bestätigt!");
+            element.removeClass("alert");
+            element.addClass("success");
+        }, {'id': element.attr('id')});
+    }
+});
+
+$(document).on("click", '[name=subjectChoosing]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
     if (ev.target.className.includes("success")) {
@@ -277,7 +312,7 @@ $(document).on("click", '[name=subjectChoosing]', function(ev){
     }
 });
 
-$(document).on("click", '[name=yearChoosing]', function(ev){
+$(document).on("click", '[name=yearChoosing]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
     if (ev.target.className.includes("success")) {
@@ -290,7 +325,7 @@ $(document).on("click", '[name=yearChoosing]', function(ev){
     }
 });
 
-$(document).on("click", '[name=qualChoosing]', function(ev){
+$(document).on("click", '[name=qualChoosing]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
     if (ev.target.className.includes("success")) {
@@ -335,11 +370,11 @@ $(document).on("click", "[name=blockUserNow]", function (ev) {
         toastr.success(result.name + " wurde gesperrt!");
     }, {'user': $(ev.target).attr('id')})
 });
-$(document).on("click", "[name=unBlockUserNow]", function(ev){
+$(document).on("click", "[name=unBlockUserNow]", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/unblockUser.php", function(result){
+    runMyAjax("ajax/unblockUser.php", function (result) {
         toastr.success(result.name + " wurde entsperrt!");
-    }, {'user' : $(ev.target).attr('id')})
+    }, {'user': $(ev.target).attr('id')})
 });
 
 //Button listeners
@@ -416,12 +451,12 @@ $("#show_roles").on("click", function (ev) {
     );
 });
 
-$(document).on("click", "[name=roleDel]", function(ev){
+$(document).on("click", "[name=roleDel]", function (ev) {
     ev.preventDefault();
     var id = $(ev.target).attr('value');
-   runMyAjax("ajax/deleteRole.php", function(result){
-       toastr.success(result.name + " wurde erfolgreich gelöscht!");
-   }, {'id' : id});
+    runMyAjax("ajax/deleteRole.php", function (result) {
+        toastr.success(result.name + " wurde erfolgreich gelöscht!");
+    }, {'id': id});
 });
 
 var rowsTextArray = [];
@@ -605,18 +640,18 @@ $(document).on("click", 'button[name=deleteBeschwerde]', function (ev) {
     }, {'ID': $(ev.target).attr('id'), 'IDs': $(ev.target).val()});
 });
 
-$("#add_subject").on("click", function(ev){
-   ev.preventDefault();
+$("#add_subject").on("click", function (ev) {
+    ev.preventDefault();
     $("#results").empty();
     var html = "<div class='small-12-centered columns'><input type='text' id='subject_name' name='subject_name' required placeholder='Deutsch'><button class='button' type='submit' name='submitSubject' id='submitSubject'>Submit</button></div>";
     $("#results").append(html);
 });
-$(document).on("click", "#submitSubject", function(ev){
+$(document).on("click", "#submitSubject", function (ev) {
     ev.preventDefault();
-   runMyAjax("ajax/AddSubject.php", function(result){
-       toastr.success(result.name + " wurde erfolgreich hinzugefügt!");
-       $("#results").empty();
-   }, {'subject': $("#subject_name").val()});
+    runMyAjax("ajax/AddSubject.php", function (result) {
+        toastr.success(result.name + " wurde erfolgreich hinzugefügt!");
+        $("#results").empty();
+    }, {'subject': $("#subject_name").val()});
 });
 
 
