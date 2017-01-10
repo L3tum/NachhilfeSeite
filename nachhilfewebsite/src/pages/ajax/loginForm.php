@@ -9,8 +9,8 @@ include_once  __DIR__ . "/../assets/php/general/Connection.php";
 
 $form_helper = new AjaxFormHelper();
 
-$vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß]{1,20}$/", "Vorname");
-$nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß]{1,20}$/", "Nachname");
+$vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Vorname");
+$nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Nachname");
 $passwort = $form_helper->test_string($_POST['passwort'], "/^.{1,200}$/", "Passwort");
 $passwort = hash("sha256" , $passwort . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld");
 
@@ -25,6 +25,10 @@ $user = $stmt->fetch();
 
 if(!$user) {
     $form_helper->return_error("Passwort oder Nutzername falsch!");
+}
+
+if($user->gesperrt==1){
+    $form_helper->return_error("Sie wurden gesperrt!");
 }
 
 //Set the session id

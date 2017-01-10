@@ -6,8 +6,7 @@ class AjaxFormHelper {
     constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
 
         var $me = this;
-        console.log(element);
-        if(element[0] != null) {
+        if (element[0] != null) {
             element
                 .on("submit", function (ev) {
                     ev.preventDefault();
@@ -62,161 +61,6 @@ class AjaxFormHelper {
                 }
             }
         });
-    }
-}
-
-
-
-class AjaxDynamicFormHelper {
-
-    constructor(element, ajaxPath, success, formDataAppend = 0) {
-
-        var $me = this;
-        $(document)
-            .on("submit", element, function (ev) {
-                if(element.length != 0) {
-                    ev.preventDefault();
-                    $me.runAjax(ajaxPath, element, success, formDataAppend);
-                }
-
-            });
-        //No formvalid as it is not working for some reason
-    }
-
-    //sends the actual ajax request
-    runAjax(ajaxPath, element, success, formDataAppend) {
-
-        var formData = new FormData();
-        formData.append('vorname', document.getElementsByName("vorname")[0].value);
-        formData.append('nachname', document.getElementsByName("nachname")[0].value);
-        formData.append('email', document.getElementsByName("email")[0].value);
-        formData.append('rolle', document.getElementById('rollen').value);
-
-        document.getElementsByName("vorname")[0].value = "";
-        document.getElementsByName("nachname")[0].value = "";
-        document.getElementsByName("email")[0].value = "";
-        document.getElementById('rollen').value = 0;
-
-        //Call the formDataAppend method to add custom data to the formData object initialized with the form element
-        if (formDataAppend != 0) {
-            formDataAppend(formData);
-        }
-
-        //Send the ajax request
-        $.ajax({
-            url: getRootUrl() + ajaxPath,
-            dataType: 'json',
-            data: formData,
-            processData: false,
-            contentType: false,
-            type: "POST",
-            success: function (result) {
-                var resultObj = result; //JSON object
-                if (resultObj.success == false) {
-                    toastr.error(resultObj.errorReason);
-                }
-                else {
-                    success(resultObj);
-                }
-            }
-        });
-    }
-}
-
-
-class AjaxFormHelperNachhilfeAnfrage {
-
-    constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
-        var $me = this;
-        element.on("click", function (ev) {
-            ev.preventDefault();
-            $me.runAjaxNachhilfe(ajaxPath, element, success, formDataAppend);
-        }).on("forminvalid.zf.abide", function (ev) {
-            toastr.error(invalidError);
-        })
-    }
-
-    runAjaxNachhilfe(ajaxPath, element, success, data) {
-        var faecher = $('[name=fachButton]');
-        var selectedFaecher = [];
-        for (var i = 0; i < faecher.length; i++) {
-            if (faecher[i].value == "true") {
-                selectedFaecher.push(faecher[i].attributes[1].nodeValue);
-            }
-        }
-        data = {'user': $("#user_to_show").val(), 'faecher': selectedFaecher};
-        $.ajax({
-            url: getRootUrl() + ajaxPath,
-            data: data,
-            type: "POST",
-            dataType: 'json',
-            success: function (result) {
-                var resultObj = result;
-                if (resultObj.success == false) {
-                    toastr.error(resultObj.errorReason);
-                }
-                else {
-                    success(resultObj);
-                }
-            }
-        });
-    }
-}
-class AjaxFormHelperNachhilfeFach {
-
-    constructor() {
-        var $me = this;
-        $('[name=fachButton]').on("click", function (ev) {
-            ev.preventDefault();
-            $me.runNOW(ev.target);
-        })
-    }
-
-    runNOW(element) {
-        if (element.className.includes("success")) {
-            element.className = "labelled warning center";
-            element.value = "true";
-        }
-        else {
-            element.className = "labelled success center";
-            element.value = "false";
-        }
-    }
-}
-
-class AjaxFormHelperRolleRecht{
-    constructor(){
-        var $me = this;
-        $('[name=rollenButton]').on("click", function(ev){
-            ev.preventDefault();
-            $me.runNow(ev.target);
-        })
-    }
-    runNow(element){
-        if(element.className.includes("success")){
-            element.className = "tablebutton alert";
-        }
-        else{
-            element.className = "tablebutton success";
-        }
-    }
-}
-
-class AjaxFormHelperRolle{
-    constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
-        var $me = this;
-        element.on("submit", function (ev) {
-            ev.preventDefault();
-        }).on("forminvalid.zf.abide", function (ev) {
-            toastr.error(invalidError);
-        }).on("formvalid.zf.abide", function(ev){
-            ev.preventDefault();
-            $me.runAjaxRolle(ajaxPath, element, success, formDataAppend);
-        })
-    }
-    runAjaxRolle(ajaxPath, element, success, formDataAppend){
-        var rollen = $("[name=rollenButton");
-
     }
 }
 
@@ -278,56 +122,155 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
     }
     else {
         var root = getRootUrl();
-        var permission;
-        runMyAjax("ajax/getPermissionUser.php", function(result){
-            permission = result.permission;
-        }, {'permission':'blockUser'});
-        var html = "<table><thead><tr><th>Benutzer</th><th>Profil</th>";
-        if(permission){
-            html += "<th>Sperren</th></thead><tbody>";
+        var permission = result.canDelete;
+        var permission2 = result.canUnblockUsers;
+        var html = "<div class='result-box'><div class='small-12-centered columns'><table><thead><tr><th>Benutzer</th><th>Rolle</th><th>Profil</th>";
+        if (permission == true) {
+            html += "<th>Sperren</th>";
         }
-        else{
-            html += "</th></thead><tbody>";
+        if(permission2 == true){
+            html += "<th>Entsperren</th>"
         }
+        html += "</th></thead><tbody>";
         result.users.forEach(function (entry) {
-            $("#search-results").append(
-                //"<a target='_blank' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' class='button expanded round secondary'>" + entry.vorname + " " + entry.name + "</a><br>"
-                "<div class='result-box'>" +
-                "<div class='row align-center text-center'>" +
-                "<div class='small-12-centered columns'>" +
-                "<div class='row'>" +
-                "<div class='small-12-centered columns notification-header no-padding align-center text-center'>" +
-                "<a class='button radius success' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "'>" + entry.vorname + " " + entry.name + "</a>" +
-                "</div>" +
-                "</div>" +
-                "</div>" +
-                "</div>" +
-                "</div>"
-                //"<div class='result-box'><div class='row no-padding left'><div class='small-12 columns'><div class='row no-padding right'><div class='small-8 columns no-padding both align-center text-center' style='vertical-align:middle;'><a style='vertical-align:middle;' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a></div><div class='small-4 columns no-padding right'>  </div><div class='small-4 columns text-center align-center'> <div class='button-group-centered small-centered'><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank' class='button radius success' type='submit' value='Submit'>Profil</a></div></div></div> </div> </div> </div>"
-            )
+            html += "<tr><td>" + entry.vorname + " " + entry.name + "</td><td>" + entry.rollenname + "</td><td><a class='tablebutton success' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "'>Profil</a></td>";
+            if (permission == true) {
+                if(entry.gesperrt == null) {
+                    html += "<td><button class='tablebutton alert' id='" + entry.idBenutzer + "' name='blockUserNow'>Sperren</button></td>";
+                }
+                else{
+                    html += "<td><p class='alert'>Gesperrt</p></td>";
+                }
+            }
+            if(permission2 == true){
+                if(entry.gesperrt == 1) {
+                    html += "<td><button class='tablebutton success' id='" + entry.idBenutzer + "' name='unBlockUserNow'>Entsperren</button></td>"
+                }
+                else{
+                    html += "<td><p class='success'>Entsperrt</p></td>";
+                }
+            }
+            html += "</tr>";
         });
-
+        html += "</tbody></table></div></div>";
+        $("#search-results").append(html);
     }
     var stateObj = {"url": "suche"};
     history.pushState(stateObj, "Nachhilfeseite", result.newUrl);
 });
 
-$(document).on("click", "a[name=blockUserNow]", function(result){
 
-}, {'user' : $(this).attr('id')});
-
-var nachhilfeAnfrage = new AjaxFormHelperNachhilfeAnfrage($("#nachhilfeAnfragenButton"), "Anfrage fehlgeschlagen!", "ajax/nachhilfeAnfrage.php", function (result) {
-    toastr.success("Anfrage erfolgreich!");
+var editRoleFormHelper = new AjaxFormHelper($("#rolle-edit-form"), "Rolle nicht editierbar!", "ajax/editRoleForm.php", function (result) {
+    toastr.success("Rolle erfolgreich editiert!");
+}, function(formdata){
+    var rollen = [];
+    $.each($("[name=rollenButton]"), function(i, entry){
+        if($(entry).attr('class').includes("success")){
+            rollen.push($(entry).val());
+        }
+    });
+    formdata.append('rollen', JSON.stringify(rollen));
 });
 
-var nachhilfeAnfrageFach = new AjaxFormHelperNachhilfeFach();
+var addRoleFormHelper = new AjaxFormHelper($("#rolle-add-form"), "Rolle nicht hinzufügbar!", "ajax/addRoleForm.php", function (result) {
+    toastr.success("Rolle erfolgreich hinzugefügt!");
+}, function(formdata){
+    var rollen = [];
+    $.each($("[name=rollenAddingButton]"), function(i, entry){
+        if($(entry).attr('class').includes("success")){
+            rollen.push($(entry).val());
+        }
+    });
+    formdata.append('rollen', JSON.stringify(rollen));
+});
 
-var registerFormHelper = new AjaxDynamicFormHelper($('#register-form'), "ajax/registerUser.php", function (result) {
-    toastr.success(result.name + " wurde erfolgreich registriert!");
+
+$(document).on("submit", '#register-form', function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/registerUser.php", function (result) {
+        toastr.success(result.name + " wurde erfolgreich registriert!");
+        document.getElementsByName("vorname")[0].value = "";
+        document.getElementsByName("nachname")[0].value = "";
+        document.getElementsByName("email")[0].value = "";
+        document.getElementById('rollen').value = 0;
+    }, {
+        'vorname': document.getElementsByName("vorname")[0].value,
+        'nachname': document.getElementsByName("nachname")[0].value,
+        'email': document.getElementsByName("email")[0].value,
+        'rolle': document.getElementById('rollen').value
+    });
+});
+
+$(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
+    ev.preventDefault();
+    var faecher = $('[name=fachButton]');
+    var selectedFaecher = [];
+    for (var i = 0; i < faecher.length; i++) {
+        if (faecher[i].value == "true") {
+            selectedFaecher.push(faecher[i].attributes[1].nodeValue);
+        }
+    }
+    runMyAjax("ajax/nachhilfeAnfrage.php", function (result) {
+        toastr.success("Anfrage gesendet!");
+    }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher})
+});
+
+$(document).on("click", '[name=fachButton]', function (ev) {
+    ev.preventDefault();
+    var element = $(ev.target);
+    if (element.className.includes("success")) {
+        element.removeClass("success");
+        element.addClass("warning");
+        element.value = "true";
+    }
+    else {
+        element.removeClass("warning");
+        element.addClass("success");
+        element.value = "false";
+    }
+});
+
+$(document).on("click", "[name='rollenButton']", function (ev) {
+    ev.preventDefault();
+    var element = $(ev.target);
+    if (ev.target.className.includes("success")) {
+        element.removeClass("success");
+        element.addClass("alert");
+    }
+    else {
+        element.removeClass("alert");
+        element.addClass("success");
+    }
+});
+
+$(document).on("click", "[name='rollenAddingButton']", function (ev) {
+    ev.preventDefault();
+    var element = $(ev.target);
+    if (ev.target.className.includes("success")) {
+        element.removeClass("success");
+        element.addClass("alert");
+    }
+    else {
+        element.removeClass("alert");
+        element.addClass("success");
+    }
+});
+
+$(document).on("click", "[name=blockUserNow]", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/blockUser.php", function (result) {
+        toastr.success(result.name + " wurde gesperrt!");
+    }, {'user': $(ev.target).attr('id')})
+});
+$(document).on("click", "[name=unBlockUserNow]", function(ev){
+    ev.preventDefault();
+    runMyAjax("ajax/unblockUser.php", function(result){
+        toastr.success(result.name + " wurde entsperrt!");
+    }, {'user' : $(ev.target).attr('id')})
 });
 
 //Button listeners
-$('#register_new_user').off("click").on("click", function (ev) {
+$('#register_new_user').on("click", function (ev) {
     ev.preventDefault();
     $("#results").empty();
     runMyAjax("ajax/getRollen.php", function (result) {
@@ -373,15 +316,16 @@ $('#register_new_user').off("click").on("click", function (ev) {
     });
 });
 
-$("#show_roles").off("click").on("click", function (ev) {
+$("#show_roles").on("click", function (ev) {
     ev.preventDefault();
     $('#results').empty();
 
     runMyAjax("ajax/getRollen.php", function (result) {
-            var html = "";
+            var html = `<div class="row">
+        <div class="small-12 columns">
+            <a class="button success" id="add_role" href="${getRootUrl() + 'role/add'}">Rolle hinzufügen</a>`;
             result.rollen.forEach(function (rolle) {
-                html += `<div class="row">
-<div class="small-12 columns">
+                html += `
 <div class="small-10-centered columns data-label">
                         <div class="small-8 columns">
                             <p class='center'>${rolle.name}</p>
@@ -399,6 +343,14 @@ $("#show_roles").off("click").on("click", function (ev) {
     );
 });
 
+$(document).on("click", "[name=roleDel]", function(ev){
+    ev.preventDefault();
+    var id = $(ev.target).attr('value');
+   runMyAjax("ajax/deleteRole.php", function(result){
+       toastr.success(result.name + " wurde erfolgreich gelöscht!");
+   }, {'id' : id});
+});
+
 var rowsTextArray = [];
 var $rows;
 $("#show_connections").on("click", function (ev) {
@@ -414,7 +366,7 @@ $("#show_connections").on("click", function (ev) {
         $rows = $("#connections tr");
         var i = 0;
         $.each($rows, function () {
-            rowsTextArray[i] = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            rowsTextArray[i] = $(ev.target).text().replace(/\s+/g, ' ').toLowerCase();
             i++;
         });
     });
@@ -470,10 +422,10 @@ $(document).on("click", "a[name='confirm_payment_admin']", function (ev) {
     ev.preventDefault();
     runMyAjax("ajax/confirmPaymentAdmin.php", function (result) {
         toastr.success("Bezahlung bestätigt!");
-        var parent = $("a[name='confirm_payment_admin']").parent();
+        var parent = $(ev.target).parent();
         parent.empty();
         parent.append("<p class='text-center success'>Bezahlt</p>");
-    }, {'idStunde': $("a[name='confirm_payment_admin']").attr('id')});
+    }, {'idStunde': $(ev.target).attr('id')});
 });
 
 $("#show_free_rooms").on("click", function (ev) {
@@ -548,21 +500,21 @@ $(document).on("click", "#datePickButtonTaken", function (ev) {
     runMyAjax("ajax/getTakenRooms.php", function (result) {
         var html = `<div class="small-12-centered columns"><table id='taken_rooms_table'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Datum</th><th>Raum</th></tr></thead><tbody>`;
         result.data.forEach(function (data) {
-            html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName +"</td><td>" + data.datum + "</td><td>" + data.raumNummer + "</td></tr>"
+            html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.datum + "</td><td>" + data.raumNummer + "</td></tr>"
         });
         html += "</tbody></table></div>";
         $("#rooms").append(html);
     }, {'date': $("#datePickerTaken").val(), 'time': $("#timePickerTaken").val() + ":00"});
 });
 
-$("#show_complaints").on("click", function(ev){
+$("#show_complaints").on("click", function (ev) {
     ev.preventDefault();
     $("#results").empty();
-    runMyAjax("ajax/getComplaints.php", function(result){
+    runMyAjax("ajax/getComplaints.php", function (result) {
         var html = `<div class="small-12-centered columns"><table id='taken_rooms_table'><thead><tr><th>Gegen</th><th>Von</th><th>Grund</th><th>Löschen</th></tr></thead><tbody>`;
         var i = 0;
-        result.data.forEach(function(data){
-           html += "<tr><td>" + data.gegenVorname + " " + data.gegenName + "</td><td>" + data.vonVorname + " " + data.vonName + "</td><td>" + data.grund + "</td><td><button class='tablebutton alert' name='deleteBeschwerde' value='" + data.gegenID + "," + data.vonID + "' id='" + i + "'>Löschen</button></td></tr>"
+        result.data.forEach(function (data) {
+            html += "<tr><td>" + data.gegenVorname + " " + data.gegenName + "</td><td>" + data.vonVorname + " " + data.vonName + "</td><td>" + data.grund + "</td><td><button class='tablebutton alert' name='deleteBeschwerde' value='" + data.gegenID + "," + data.vonID + "' id='" + i + "'>Löschen</button></td></tr>"
             i++;
         });
         html += "</tbody></table></div>";
@@ -570,20 +522,15 @@ $("#show_complaints").on("click", function(ev){
     });
 });
 
-$(document).on("click", 'button[name=deleteBeschwerde]', function(ev){
+$(document).on("click", 'button[name=deleteBeschwerde]', function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/deleteComplaint.php", function(result){
+    runMyAjax("ajax/deleteComplaint.php", function (result) {
         toastr.success("Beschwerde gelöscht!");
         var parent = $("#" + result.id).parent();
         parent.empty();
         parent.append("<p class='success'>Gelöscht!</p>");
-    }, {'ID':$(this).attr('id'), 'IDs' : $(this).val()});
+    }, {'ID': $(ev.target).attr('id'), 'IDs': $(ev.target).val()});
 });
-
-var editRoleFormHelper = new AjaxFormHelper("#role-edit-form", "Rolle nicht editierbar!", "ajax/editRoleForm.php", function(result){
-    toastr.success("Rolle erfolgreich editiert!");
-});
-
 
 
 function getCurrentDate() {

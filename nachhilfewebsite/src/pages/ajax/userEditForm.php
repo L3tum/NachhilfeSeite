@@ -23,8 +23,8 @@ if(!($user_to_edit->idBenutzer == $logged_in_user->idBenutzer) && !$logged_in_us
 
 if($logged_in_user->has_permission("canEditName")) {
 
-    $vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜ*]{1,20}$/", "Vorname");
-    $nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜ*]{1,20}$/", "Nachname");
+    $vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜ*]{1,25}$/", "Vorname");
+    $nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜ*]{1,25}$/", "Nachname");
 }
 else {
 

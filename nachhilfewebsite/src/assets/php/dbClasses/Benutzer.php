@@ -28,6 +28,7 @@ class Benutzer
     public $gesperrt;
     public $sessionID;
     public $idRolle;
+    public $rollenname;
 
     private $permissions;
     private $roleName;

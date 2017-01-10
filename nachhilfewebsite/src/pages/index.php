@@ -153,6 +153,15 @@ Route::add('role/(.+)/view', function($param){
     }
 });
 
+Route::add('role/add', function(){
+    if(Benutzer::get_logged_in_user()->has_permission("addRole")){
+        include 'main/addRole.php';
+    }
+    else{
+        Route::redirect_to_root();
+    }
+});
+
 
 Route::run();
 //print_r($_SERVER);

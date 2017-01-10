@@ -41,13 +41,13 @@ if($vorname == null){
     $firstParam = " t1.vorname = t1.vorname";
 }
 else{
-    $newUrl = $newUrl."vorname=".$vorname."&";
+    $newUrl = $newUrl."vorname=".$_POST['vorname']."&";
 }
 if($nachname == null){
     $secondParam = " AND t1.name = t1.name";
 }
 else{
-    $newUrl = $newUrl."name=".$nachname."&";
+    $newUrl = $newUrl."name=".$_POST['nachname']."&";
 }
 if($stufe == null){
     $otherTable = "";
@@ -64,7 +64,6 @@ else{
     $newUrl = $newUrl."fach=".$stufe."&";
 }
 if($rolle == null){
-    $otherTable3 = "";
     $fifthParam = "";
 }
 else{
@@ -80,23 +79,23 @@ if(substr($newUrl, -1) == '?'){
 else if(substr($newUrl, -1) == '&'){
     $newUrl = rtrim($newUrl, '&');
 }
-$sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 ".$otherTable.$otherTable2.$otherTable3."WHERE".$firstParam.$secondParam.$thirdParam.$fourthParam.$fifthParam;
+$sql = "SELECT t1.gesperrt, t1.name, t1.vorname, t1.idBenutzer, t6.name as rollenname FROM benutzer AS t1 ".$otherTable.$otherTable2.$otherTable3."WHERE".$firstParam.$secondParam.$thirdParam.$fourthParam.$fifthParam;
 if(isset($sorting) && $sorting != "no") {
     switch ($sorting) {
         case "Vorname":
-            $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t1.vorname";
+            $sql = "SELECT t1.gesperrt, t1.name, t1.vorname, t1.idBenutzer, t6.name as rollenname FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t1.vorname";
             break;
         case "Name":
-            $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t1.name";
+            $sql = "SELECT t1.gesperrt, t1.name, t1.vorname, t1.idBenutzer, t6.name as rollenname FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t1.name";
             break;
         case "Fach":
             if ($fach != null) {
-                $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t5.name";
+                $sql = "SELECT t1.gesperrt, t1.name, t1.vorname, t1.idBenutzer, t6.name as rollenname FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t5.name";
             }
             break;
         case "Stufe":
             if ($stufe != null) {
-                $sql = "SELECT t1.name, t1.vorname, t1.idBenutzer FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t3.name";
+                $sql = "SELECT t1.gesperrt, t1.name, t1.vorname, t1.idBenutzer, t6.name as rollenname FROM benutzer AS t1 " . $otherTable . $otherTable2 . $otherTable3 . "WHERE" . $firstParam . $secondParam . $thirdParam . $fourthParam . $fifthParam . " ORDER BY t3.name";
             }
             break;
     }
@@ -116,5 +115,6 @@ $form_helper->success = true;
 $form_helper->response['newUrl']=$newUrl;
 $form_helper->response['users']=$users;
 $form_helper->response['canDelete'] = Benutzer::get_logged_in_user()->has_permission("blockUser");
+$form_helper->response['canUnblockUsers'] = Benutzer::get_logged_in_user()->has_permission("unblockUser");
 $form_helper->return_json();
 ?>
