@@ -125,8 +125,7 @@ Route::add('notifications',function(){
 });
 
 Route::add('user/(.*)/chatMessagesTo/(.*)',function($id_sender, $id_reciever){
-    
-    
+
     include 'main/viewChatMessages.php';
 });
 

@@ -6,28 +6,32 @@ class AjaxFormHelper {
     constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
 
         var $me = this;
-        element
-            .on("submit", function (ev) {
-                ev.preventDefault();
-                return false;
-            })
-            .on("forminvalid.zf.abide", function (ev) {
-                toastr.error(invalidError);
-            })
-            .on("formvalid.zf.abide", function (ev) {
-                ev.preventDefault();
-                $me.runAjax(ajaxPath, element, success, formDataAppend);
-
-            });
-        if (ajaxPath == "ajax/searchForm.php") {
-            $(document).on("ready", function (ev) {
-                ev.preventDefault();
-                var url = window.location.href;
-                if (url.includes("?")) {
+        console.log(element);
+        if(element[0] != null) {
+            element
+                .on("submit", function (ev) {
+                    ev.preventDefault();
+                    return false;
+                })
+                .on("forminvalid.zf.abide", function (ev) {
+                    toastr.error(invalidError);
+                })
+                .on("formvalid.zf.abide", function (ev) {
+                    ev.preventDefault();
                     $me.runAjax(ajaxPath, element, success, formDataAppend);
-                }
-            });
+
+                });
+            if (ajaxPath == "ajax/searchForm.php") {
+                $(document).on("ready", function (ev) {
+                    ev.preventDefault();
+                    var url = window.location.href;
+                    if (url.includes("?")) {
+                        $me.runAjax(ajaxPath, element, success, formDataAppend);
+                    }
+                });
+            }
         }
+
     }
 
     //sends the actual ajax request
@@ -61,6 +65,8 @@ class AjaxFormHelper {
     }
 }
 
+
+
 class AjaxDynamicFormHelper {
 
     constructor(element, ajaxPath, success, formDataAppend = 0) {
@@ -68,8 +74,11 @@ class AjaxDynamicFormHelper {
         var $me = this;
         $(document)
             .on("submit", element, function (ev) {
-                ev.preventDefault();
-                $me.runAjax(ajaxPath, element, success, formDataAppend);
+                if(element.length != 0) {
+                    ev.preventDefault();
+                    $me.runAjax(ajaxPath, element, success, formDataAppend);
+                }
+
             });
         //No formvalid as it is not working for some reason
     }
@@ -251,6 +260,11 @@ var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen
 
 var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/userEditForm.php", function (result) {
     toastr.success("Änderungen übernommen!");
+});
+
+var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden fehlgeschlagen!", "ajax/sendMessage.php", function (result) {
+    toastr.success("Nachricht gesendet!");
+    location.reload();
 });
 
 var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result) {
