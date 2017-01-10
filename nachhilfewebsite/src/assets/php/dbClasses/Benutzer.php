@@ -249,4 +249,30 @@ class Benutzer
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Qualifikation');
     }
+
+    public function get_all_appointments_as_teacher(){
+        $stmt = Connection::$PDO->prepare("SELECT stunde.*, t3.idBenutzer as idBenutzer, t3.vorname as vorname, t3.name as name FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN benutzer as t1 ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t3 ON t3.idBenutzer=v.idNachhilfenehmer WHERE v.idNachhilfelehrer = :idBenutzer AND (stunde.datum >= NOW() OR stunde.bezahltLehrer=0)");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function get_all_appointments_as_pupil(){
+        $stmt = Connection::$PDO->prepare("SELECT stunde.*, t1.idBenutzer as idBenutzer, t1.vorname as vorname, t1.name as name FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN benutzer as t1 ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t3 ON t3.idBenutzer=v.idNachhilfenehmer WHERE v.idNachhilfenehmer = :idBenutzer AND (stunde.datum >= NOW() OR stunde.bezahltLehrer=0)");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function has_qual($idQual){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM qualifikation JOIN benutzer ON benutzer.idBenutzer=qualifikation.idBenutzer WHERE qualifikation.idQualifikation = :idQual AND qualifikation.idBenutzer = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->bindParam(':idQual', $idQual);
+        $stmt->execute();
+
+        $anfrage = $stmt->fetch();
+        if ($anfrage != null) {
+            return true;
+        }
+        return false;
+    }
 }

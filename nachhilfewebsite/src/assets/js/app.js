@@ -119,7 +119,6 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
         }
     });
     formdata.append('stufen', JSON.stringify(stufen));
-
 });
 
 var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden fehlgeschlagen!", "ajax/sendMessage.php", function (result) {
@@ -241,6 +240,15 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher})
 });
 
+$(document).on("click", "#add_qual", function(ev){
+    ev.preventDefault();
+    runMyAjax("ajax/AddQual.php", function(result){
+        toastr.success(result.name + " wurde hinzugefügt!");
+        document.getElementById("qual_name").value = "";
+        document.getElementById("qual_desc").value = "";
+    }, {'name' : $("#qual_name").val(), 'desc' : $("#qual_desc").val(), 'id':$("#user-id").val()})
+});
+
 $(document).on("click", '[name=fachButton]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
@@ -270,6 +278,19 @@ $(document).on("click", '[name=subjectChoosing]', function(ev){
 });
 
 $(document).on("click", '[name=yearChoosing]', function(ev){
+    ev.preventDefault();
+    var element = $(ev.target);
+    if (ev.target.className.includes("success")) {
+        element.removeClass("success");
+        element.addClass("alert");
+    }
+    else {
+        element.removeClass("alert");
+        element.addClass("success");
+    }
+});
+
+$(document).on("click", '[name=qualChoosing]', function(ev){
     ev.preventDefault();
     var element = $(ev.target);
     if (ev.target.className.includes("success")) {

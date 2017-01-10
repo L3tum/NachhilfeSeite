@@ -21,7 +21,7 @@ else {
         <form data-abide novalidate id="user-edit-form" method="post">
             <div class="row">
 
-                <input type="hidden" name="user-id" value=<?php echo $user->idBenutzer?>>
+                <input type="hidden" name="user-id" id="user-id" value=<?php echo $user->idBenutzer?>>
 
                 <div class="small-12 medium-6 columns">
                     <label>Vorname
@@ -115,7 +115,12 @@ else {
                             }
                         }
                     }
-
+                    if($user->has_permission("editQuals") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
+                        echo "<label>Qualifikationen</label>";
+                        echo "<input type='text' id='qual_name' name='qual_name' placeholder='Name'>";
+                        echo "<input type='text' id='qual_desc' name='qual_desc' placeholder='Beschreibung'>";
+                        echo "<button class='button success' type='button' id='add_qual' name='add_qual'>Qualifikation Hinzufügen</button>";
+                    }
                     ?>
 
                     <button class="button" type="submit" value="Submit">Submit</button>
