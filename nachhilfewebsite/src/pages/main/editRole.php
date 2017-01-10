@@ -46,15 +46,13 @@ foreach ($rights as $allright) {
                         </thead>
                         <tbody>
                         <?php
-                        $i = 0;
                         foreach ($allrights as $allright){
                             if(array_key_exists($allright->idBerechtigung, $rights_key_array)){
-                                echo "<tr><td class='success'>{$allright->idBerechtigung}</td><td class='success'>{$allright->name}</td><td><button class='tablebutton success' value='{$allright->idBerechtigung}' id='{$i}'>Besitzt</button></td></tr>";
+                                echo "<tr><td class='success'>{$allright->idBerechtigung}</td><td class='success'>{$allright->name}</td><td><button class='tablebutton success' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
                             }
                             else{
-                                echo "<tr><td class='alert'>{$allright->idBerechtigung}</td><td class='alert'>{$allright->name}</td><td><button class='tablebutton alert' value='{$allright->idBerechtigung}' id='{$i}'>Besitzt</button></td></tr>";
+                                echo "<tr><td class='alert'>{$allright->idBerechtigung}</td><td class='alert'>{$allright->name}</td><td><button class='tablebutton alert' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
                             }
-                            $i++;
                         }
                         ?>
                         </tbody>

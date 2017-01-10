@@ -175,6 +175,42 @@ class AjaxFormHelperNachhilfeFach {
     }
 }
 
+class AjaxFormHelperRolleRecht{
+    constructor(){
+        var $me = this;
+        $('[name=rollenButton]').on("click", function(ev){
+            ev.preventDefault();
+            $me.runNow(ev.target);
+        })
+    }
+    runNow(element){
+        if(element.className.includes("success")){
+            element.className = "tablebutton alert";
+        }
+        else{
+            element.className = "tablebutton success";
+        }
+    }
+}
+
+class AjaxFormHelperRolle{
+    constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
+        var $me = this;
+        element.on("submit", function (ev) {
+            ev.preventDefault();
+        }).on("forminvalid.zf.abide", function (ev) {
+            toastr.error(invalidError);
+        }).on("formvalid.zf.abide", function(ev){
+            ev.preventDefault();
+            $me.runAjaxRolle(ajaxPath, element, success, formDataAppend);
+        })
+    }
+    runAjaxRolle(ajaxPath, element, success, formDataAppend){
+        var rollen = $("[name=rollenButton");
+
+    }
+}
+
 function runMyAjax(ajaxPath, success, data = 0) {
     $.ajax({
         url: getRootUrl() + ajaxPath,
@@ -221,25 +257,43 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
     toastr.success("Suche erfolgreich!");
     $("#search-results").empty();
 
-    var html = "<div class='result-box'><div class='small-12-centered columns'>";
-    if(result.users.length == 0){
-        html += "<p class='data-label'>Keine Nutzer gefunden!</p></div></div>";
+    if (result.users.length == 0) {
+        $("#search-results").append(
+            "<div class='result-box'><div class='row no-padding left'><div class='small-8-centered columns'><div class='row no-padding right'><div class='small-12-centered columns notification-header no-padding align-center text-center'><p>Kein Nutzer gefunden!</p></div><div class='small-12 columns no-padding right'>  </div></div></div> <div class='small-4 columns no-padding both'> <div class='button-group medium '> </div> </div> </div> </div>"
+        );
     }
-    else{
-        html += "<table id='search-result-table'><thead><tr><th>Vorname</th><th>Name</th><th>Optionen</th></tr></thead><tbody>";
-        result.users.forEach(function(user){
-            html += "<tr><td>" + user.vorname + "</td><td>" + user.name + "</td>";
-            if(result.canDelete == true){
-                html += "<td><a name='blockUserNow' id='" + user.idBenutzer + "' class='tablebutton alert'>Sperren</a></td></tr>";
-            }
-            else{
-                html += "<td><p>Nichts</p></td></tr>";
-            }
+    else {
+        var root = getRootUrl();
+        var permission;
+        runMyAjax("ajax/getPermissionUser.php", function(result){
+            permission = result.permission;
+        }, {'permission':'blockUser'});
+        var html = "<table><thead><tr><th>Benutzer</th><th>Profil</th>";
+        if(permission){
+            html += "<th>Sperren</th></thead><tbody>";
+        }
+        else{
+            html += "</th></thead><tbody>";
+        }
+        result.users.forEach(function (entry) {
+            $("#search-results").append(
+                //"<a target='_blank' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' class='button expanded round secondary'>" + entry.vorname + " " + entry.name + "</a><br>"
+                "<div class='result-box'>" +
+                "<div class='row align-center text-center'>" +
+                "<div class='small-12-centered columns'>" +
+                "<div class='row'>" +
+                "<div class='small-12-centered columns notification-header no-padding align-center text-center'>" +
+                "<a class='button radius success' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "'>" + entry.vorname + " " + entry.name + "</a>" +
+                "</div>" +
+                "</div>" +
+                "</div>" +
+                "</div>" +
+                "</div>"
+                //"<div class='result-box'><div class='row no-padding left'><div class='small-12 columns'><div class='row no-padding right'><div class='small-8 columns no-padding both align-center text-center' style='vertical-align:middle;'><a style='vertical-align:middle;' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank'>" + entry.vorname + " " + entry.name + "</a></div><div class='small-4 columns no-padding right'>  </div><div class='small-4 columns text-center align-center'> <div class='button-group-centered small-centered'><a href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "' target='_blank' class='button radius success' type='submit' value='Submit'>Profil</a></div></div></div> </div> </div> </div>"
+            )
         });
-        html += "</tbody></table></div></div>";
-    }
-    $("#search-results").append(html);
 
+    }
     var stateObj = {"url": "suche"};
     history.pushState(stateObj, "Nachhilfeseite", result.newUrl);
 });
