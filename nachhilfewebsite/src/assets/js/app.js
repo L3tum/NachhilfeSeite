@@ -6,7 +6,8 @@ class AjaxFormHelper {
     constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
 
         var $me = this;
-        if (element[0] != null) {
+        console.log(element);
+        if(element[0] != null) {
             element
                 .on("submit", function (ev) {
                     ev.preventDefault();
@@ -110,6 +111,17 @@ var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden 
     toastr.success("Nachricht gesendet!");
     location.reload();
 });
+
+var requestResponseFormHelper = new AjaxFormHelper($("#request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
+    toastr.success("Nachricht gesendet!");
+    location.reload();
+}, function(formData) {
+    var $btn = $(document.activeElement);
+    formData.append('response', $btn.attr('value'))
+
+});
+
+
 
 var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result) {
     toastr.success("Suche erfolgreich!");

@@ -45,8 +45,13 @@ class NotificationHandler
 
                             <div class='small-4 columns no-padding both'>
                                 <div class='button-group medium '>
-                                    <a href='#' class='button success' type='submit' value='Submit'><i class='fi-check'></i></a>
-                                    <a href='#' class='button alert' type='submit' value='Submit'><i class='fi-x'></i></a>
+                                    <form data-abide novalidate id=\"request-response-form\" method=\"post\">
+                                    <input type='hidden' name='idRequest' value='" . $anfrage->idAnfrage . "'>
+                                    <input type='hidden' name='idFach' value='" . $anfrage->idFach . "'>
+                                    <input type='hidden' name='idSendingUser' value='" . $sender->idBenutzer . "'>
+                                    <button name='response' class='button success' type='submit' value='acceptRequest'><i class='fi-check'></i></button>
+                                    <button name='response' class='button alert' type='submit' value='denyRequest'><i class='fi-x'></i></button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -133,6 +133,10 @@ Route::add('admin', function(){
     include 'main/administrator.php';
 });
 
+Route::add('tuition', function(){
+    include 'main/tuition.php';
+});
+
 Route::add('role/(.+)/edit', function($param){
     if(Benutzer::get_logged_in_user()->has_permission("editRole")) {
         $idRole = $param;

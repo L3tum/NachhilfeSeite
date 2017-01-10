@@ -13,10 +13,11 @@ class Chatnachricht
     public $idSender;
     public $inhalt;
     public $gelesen;
+    public $idChatnachricht;
 
     public static function get_all_messages_between($senderId, $recieverId, $markRead = true) {
 
-        $stmt = Connection::$PDO->prepare("SELECT * FROM chatnachricht WHERE idSender = :idBenutzer1S OR idSender = :idBenutzer2S OR idEmpfänger = :idBenutzer1E OR idEmpfänger = :idBenutzer2E");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM chatnachricht WHERE idSender = :idBenutzer1S OR idSender = :idBenutzer2S OR idEmpfänger = :idBenutzer1E OR idEmpfänger = :idBenutzer2E ORDER BY datum DESC");
         $stmt->bindParam(':idBenutzer1S', $senderId);
         $stmt->bindParam(':idBenutzer2S', $recieverId);
 

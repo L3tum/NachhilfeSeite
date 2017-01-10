@@ -46,7 +46,7 @@ $messages = Chatnachricht::get_all_messages_between($id_sender, $id_reciever);
                     if($message->idEmpfänger ==  Benutzer::get_logged_in_user()->idBenutzer) {
 
                         echo "
-                        <div class='columns small-8 float-left'>
+                        <div class='columns small-8 float-right'>
                         <div class='data-label'>
                         <p>{$message->inhalt}</p>
                         </div>
@@ -56,7 +56,7 @@ $messages = Chatnachricht::get_all_messages_between($id_sender, $id_reciever);
                     else {
 
                         echo "
-                        <div class='columns small-8 float-right'>
+                        <div class='columns small-8 float-left'>
                         <div class='data-label'>
                         <p>{$message->inhalt}</p>
                         </div>
