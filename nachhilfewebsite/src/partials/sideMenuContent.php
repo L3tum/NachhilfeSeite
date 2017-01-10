@@ -15,7 +15,7 @@
         echo "<li><a href='{$root}termine'>Termine</a></li>";
     }
     if(Benutzer::get_logged_in_user()->has_permission('nachhilfe')) {
-        echo "<li><a href='{$root}nachhilfe'>Nachhilfe</a></li>";
+        echo "<li><a href='{$root}tuition'>Nachhilfe</a></li>";
     }
     if(Benutzer::get_logged_in_user()->has_permission('administration')) {
         echo "<li><a href='{$root}admin'>Administration</a></li>";
