@@ -264,16 +264,16 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
 
 var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden fehlgeschlagen!", "ajax/sendMessage.php", function (result) {
     toastr.success("Nachricht gesendet!");
-    //location.reload();
+    location.reload();
 });
 
-var sendMessageFormHelper = new AjaxFormHelper($("#request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
+var requestResponseFormHelper = new AjaxFormHelper($("#request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
     toastr.success("Nachricht gesendet!");
-    //location.reload();
+    location.reload();
 }, function(formData) {
     var $btn = $(document.activeElement);
     formData.append('response', $btn.attr('value'))
-    location.reload();
+
 });
 
 

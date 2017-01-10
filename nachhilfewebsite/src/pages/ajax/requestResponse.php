@@ -14,6 +14,7 @@ $form_helper = new AjaxFormHelper();
 $request_id = $_POST['idRequest'];
 $sender_id = $_POST['idSendingUser'];;
 $fach_id = $_POST['idFach'];
+
 if(!ctype_digit($request_id)) {
     $this->return_error("Interner Fehler: ID ist keine Zahl");
 }
@@ -26,11 +27,13 @@ if(!ctype_digit($sender_id)) {
 if(!isset($response)) {
     $form_helper->return_error("Interner Fehler!");
 }
+
 else if($response == "acceptRequest") {
     $stmt = Connection::$PDO->prepare("INSERT INTO verbindung (idNachhilfenehmer, idNachhilfelehrer, idFach) VALUES (:idNehmer, :idLehrer, :idFach)");
     $stmt->bindParam(':idNehmer', $sender_id);
     $stmt->bindParam(':idLehrer', Benutzer::get_logged_in_user()->idBenutzer);
     $stmt->bindParam(':idFach', $fach_id);
+    $stmt->execute();
 
     $stmt = Connection::$PDO->prepare("DELETE FROM anfrage WHERE idAnfrage = :idAnfrage");
     $stmt->bindParam(':idAnfrage', $request_id);
@@ -41,3 +44,7 @@ else if($response == "denyRequest") {
     $stmt->bindParam(':idAnfrage', $request_id);
     $stmt->execute();
 }
+
+$form_helper->success = true;
+$form_helper->return_json();
+?>
