@@ -7,14 +7,14 @@
  * Time: 22:20
  */
 
-include_once  __DIR__ . "/../general/Connection.php";
-include_once  __DIR__ . "/Berechtigung.php";
-include_once  __DIR__ . "/Rolle.php";
-include_once  __DIR__ . "/Fach.php";
-include_once  __DIR__ . "/Stufe.php";
-include_once  __DIR__ . "/Verbindung.php";
-include_once  __DIR__ . "/Anfrage.php";
-include_once  __DIR__ . "/Qualifikation.php";
+include_once __DIR__ . "/../general/Connection.php";
+include_once __DIR__ . "/Berechtigung.php";
+include_once __DIR__ . "/Rolle.php";
+include_once __DIR__ . "/Fach.php";
+include_once __DIR__ . "/Stufe.php";
+include_once __DIR__ . "/Verbindung.php";
+include_once __DIR__ . "/Anfrage.php";
+include_once __DIR__ . "/Qualifikation.php";
 
 class Benutzer
 {
@@ -35,9 +35,10 @@ class Benutzer
     private static $currentlyLoggedIn;
 
     //Get a user by his ID
-    public static function get_by_id($id) {
+    public static function get_by_id($id)
+    {
 
-        if(isset($id)) {
+        if (isset($id)) {
             $stmt = Connection::$PDO->prepare("SELECT * FROM Benutzer WHERE idBenutzer = :idBenutzer");
             $stmt->bindParam(':idBenutzer', $id);
             $stmt->execute();
@@ -48,9 +49,10 @@ class Benutzer
     }
 
     //Get the currently logged in user (if there is one)
-    public static function get_logged_in_user() {
+    public static function get_logged_in_user()
+    {
 
-        if(!isset(self::$currentlyLoggedIn)) {
+        if (!isset(self::$currentlyLoggedIn)) {
 
             $session_id = session_id();
             $stmt = Connection::$PDO->prepare("SELECT * FROM Benutzer WHERE sessionID = :sessionID");
@@ -65,7 +67,8 @@ class Benutzer
     }
 
     //Set the session id to the current session id
-    public function log_in() {
+    public function log_in()
+    {
 
         session_regenerate_id();
         $session_id = session_id();
@@ -75,7 +78,8 @@ class Benutzer
         $stmt->execute();
     }
 
-    public function log_out() {
+    public function log_out()
+    {
 
         session_regenerate_id();
         $stmt = Connection::$PDO->prepare("UPDATE benutzer SET sessionID = :sessionID WHERE idBenutzer = :idBenutzer");
@@ -85,7 +89,8 @@ class Benutzer
         $stmt->execute();
     }
 
-    private function get_user_permissions() {
+    private function get_user_permissions()
+    {
 
         $stmt = Connection::$PDO->prepare("SELECT Berechtigung.* FROM Berechtigung LEFT JOIN RollenBerechtigung ON RollenBerechtigung.idRolle = :idRolle && RollenBerechtigung.idBerechtigung = Berechtigung.idBerechtigung WHERE Berechtigung.idBerechtigung = RollenBerechtigung.idBerechtigung");
         $stmt->bindParam(':idRolle', $this->idRolle);
@@ -98,22 +103,23 @@ class Benutzer
         return $permissions;
     }
 
-    public function has_permission($permission) {
+    public function has_permission($permission)
+    {
 
-        if(!isset($this->permissions)) {
+        if (!isset($this->permissions)) {
             $this->permissions = $this->get_user_permissions();
         }
-        if(isset($this->permissions[$permission])) {
+        if (isset($this->permissions[$permission])) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    public function get_role() {
+    public function get_role()
+    {
 
-        if(!isset($this->roleName)) {
+        if (!isset($this->roleName)) {
             $stmt = Connection::$PDO->prepare("SELECT * FROM Rolle WHERE idRolle = :idRolle");
             $stmt->bindParam(':idRolle', $this->idRolle);
             $stmt->execute();
@@ -124,16 +130,42 @@ class Benutzer
         return $this->roleName;
     }
 
-    public function get_offered_subjects() {
+    public function get_offered_subjects()
+    {
 
         $stmt = Connection::$PDO->prepare("SELECT * FROM fach JOIN angebotenesfach ON angebotenesfach.idBenutzer = :idBenutzer WHERE angebotenesfach.idFach = fach.idFach");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
         $stmt->execute();
-        
+
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
     }
 
-    public function get_offered_classes() {
+    public function offers_subject($idSubject)
+    {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM angebotenesfach WHERE angebotenesfach.idFach = " . $idSubject . " AND angebotenesFach.idBenutzer=" . $this->idBenutzer);
+        $stmt->execute();
+
+        $subject = $stmt->fetch();
+        if ($subject != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public function offers_year($idClass)
+    {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM angebotenestufe WHERE angebotenestufe.idStufe = " . $idClass . " AND angebotenestufe.idBenutzer=" . $this->idBenutzer);
+        $stmt->execute();
+
+        $subject = $stmt->fetch();
+        if ($subject != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public function get_offered_classes()
+    {
 
         $stmt = Connection::$PDO->prepare("SELECT * FROM stufe JOIN angebotenestufe ON angebotenestufe.idBenutzer = :idBenutzer WHERE angebotenestufe.idStufe = stufe.idStufe");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
@@ -142,7 +174,8 @@ class Benutzer
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Stufe');
     }
 
-    public function get_tutiution_connections($user) {
+    public function get_tutiution_connections($user)
+    {
 
         $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfenehmer = :idAndererBenutzer && verbindung.idNachhilfelehrer = :idBenutzer OR verbindung.idNachhilfelehrer = :idAndererBenutzer && verbindung.idNachhilfenehmer = :idBenutzer");
         $stmt->bindParam(':idAndererBenutzer', $user->idBenutzer);
@@ -152,7 +185,8 @@ class Benutzer
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
     }
 
-    public function get_all_tutiution_connections(){
+    public function get_all_tutiution_connections()
+    {
         $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfelehrer = :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
         $stmt->execute();
@@ -160,7 +194,8 @@ class Benutzer
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
     }
 
-    public function has_tutiution_connection($user_id, $fach){
+    public function has_tutiution_connection($user_id, $fach)
+    {
         $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfelehrer = :idAndererBenutzer AND verbindung.idNachhilfenehmer = :idBenutzer AND verbindung.idFach = :idFach");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
         $stmt->bindParam(':idAndererBenutzer', $user_id);
@@ -168,13 +203,14 @@ class Benutzer
         $stmt->execute();
 
         $tutiution = $stmt->fetch();
-        if($tutiution != null){
+        if ($tutiution != null) {
             return true;
         }
         return false;
     }
 
-    public function get_all_anfragen(){
+    public function get_all_anfragen()
+    {
         $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE anfrage.idSender = :idBenutzer OR anfrage.idEmpfänger = :idBenutzer");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
         $stmt->execute();
@@ -182,7 +218,8 @@ class Benutzer
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage');
     }
 
-    public function get_anfragen($user_id){
+    public function get_anfragen($user_id)
+    {
         $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE anfrage.idSender = :idAndererBenutzer AND anfrage.idEmpfänger = :idBenutzer");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
         $stmt->bindParam(':idAndererBenutzer', $user_id);
@@ -191,7 +228,8 @@ class Benutzer
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage');
     }
 
-    public function has_anfrage($user_id, $fach){
+    public function has_anfrage($user_id, $fach)
+    {
         $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE anfrage.idSender = :idBenutzer AND anfrage.idEmpfänger = :idAndererBenutzer AND anfrage.idFach = :idFach");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
         $stmt->bindParam(':idAndererBenutzer', $user_id);
@@ -199,14 +237,15 @@ class Benutzer
         $stmt->execute();
 
         $anfrage = $stmt->fetch();
-        if($anfrage != null){
+        if ($anfrage != null) {
             return true;
         }
         return false;
     }
 
-    public function get_all_qualifications(){
-        $stmt = Connection::$PDO->prepare("SELECT t1.name, t1.beschreibung, t1.idQualifikation FROM qualifikation AS t1 JOIN benutzer AS t2 ON t2.idBenutzer=t1.idBenutzer WHERE t1.idBenutzer=".$this->idBenutzer);
+    public function get_all_qualifications()
+    {
+        $stmt = Connection::$PDO->prepare("SELECT t1.name, t1.beschreibung, t1.idQualifikation FROM qualifikation AS t1 JOIN benutzer AS t2 ON t2.idBenutzer=t1.idBenutzer WHERE t1.idBenutzer=" . $this->idBenutzer);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Qualifikation');
     }

@@ -66,6 +66,58 @@ else {
                 </span>
                     </label>
 
+                    <?php
+                    if($user->has_permission("editUserRole") == true){
+                        echo "<label>Rolle
+                        <select id='rollenSelector' name='rollenSelector'>";
+                            $rollen = Rolle::get_all_roles();
+                            foreach ($rollen as $rolle){
+                                echo "<option id='{$rolle->idRolle}' value='{$rolle->idRolle}'>{$rolle->name}</option>";
+                            }
+                        echo "</select>
+                        </label>";
+                    }
+                    if($user->has_permission("editSubjects") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
+                        echo "<label>Fächer</label>";
+                        $subjects = Fach::get_all_subjects();
+                        $user_to_edit = Benutzer::get_by_id($user_to_edit_id);
+                        $subject_key_array = Array();
+                        foreach ($subjects as $subject){
+                            if($user_to_edit->offers_subject($subject->idFach)){
+                                $subject_key_array[$subject->idFach] = true;
+                            }
+                        }
+                        foreach ($subjects as $subject){
+                            if(array_key_exists($subject->idFach, $subject_key_array)){
+                                echo "<button class='button success' id='{$subject->idFach}' name='subjectChoosing'>{$subject->name}</button><br>";
+                            }
+                            else{
+                                echo "<button class='button alert' id='{$subject->idFach}' name='subjectChoosing'>{$subject->name}</button><br>";
+                            }
+                        }
+                    }
+                    if($user->has_permission("editYears") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
+                        echo "<label>Stufen</label>";
+                        $subjects = Stufe::get_all_years();
+                        $user_to_edit = Benutzer::get_by_id($user_to_edit_id);
+                        $subject_key_array = Array();
+                        foreach ($subjects as $subject){
+                            if($user_to_edit->offers_year($subject->idStufe)){
+                                $subject_key_array[$subject->idStufe] = true;
+                            }
+                        }
+                        foreach ($subjects as $subject){
+                            if(array_key_exists($subject->idStufe, $subject_key_array)){
+                                echo "<button class='button success' id='{$subject->idStufe}' name='yearChoosing'>{$subject->name}</button><br>";
+                            }
+                            else{
+                                echo "<button class='button alert' id='{$subject->idStufe}' name='yearChoosing'>{$subject->name}</button><br>";
+                            }
+                        }
+                    }
+
+                    ?>
+
                     <button class="button" type="submit" value="Submit">Submit</button>
                 </div>
 

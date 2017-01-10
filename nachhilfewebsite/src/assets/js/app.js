@@ -104,6 +104,22 @@ var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen
 
 var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/userEditForm.php", function (result) {
     toastr.success("Änderungen übernommen!");
+}, function(formdata){
+    var rollen = [];
+    $.each($("[name=subjectChoosing]"), function(i, entry){
+        if($(entry).attr('class').includes("success")){
+            rollen.push($(entry).attr('id'));
+        }
+    });
+    formdata.append('faecher', JSON.stringify(rollen));
+    var stufen = [];
+    $.each($("[name=yearChoosing]"), function(i, entry){
+        if($(entry).attr('class').includes("success")){
+            stufen.push($(entry).attr('id'));
+        }
+    });
+    formdata.append('stufen', JSON.stringify(stufen));
+
 });
 
 var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden fehlgeschlagen!", "ajax/sendMessage.php", function (result) {
@@ -117,7 +133,6 @@ var requestResponseFormHelper = new AjaxFormHelper($("#request-response-form"), 
 }, function(formData) {
     var $btn = $(document.activeElement);
     formData.append('response', $btn.attr('value'))
-
 });
 
 
@@ -135,7 +150,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
         var root = getRootUrl();
         var permission = result.canDelete;
         var permission2 = result.canUnblockUsers;
-        var html = "<div class='result-box'><div class='small-12-centered columns'><table><thead><tr><th>Benutzer</th><th>Rolle</th><th>Profil</th>";
+        var html = "<table><thead><tr><th>Benutzer</th><th>Rolle</th><th>Profil</th>";
         if (permission == true) {
             html += "<th>Sperren</th>";
         }
@@ -163,7 +178,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
             }
             html += "</tr>";
         });
-        html += "</tbody></table></div></div>";
+        html += "</tbody></table>";
         $("#search-results").append(html);
     }
     var stateObj = {"url": "suche"};
@@ -229,7 +244,7 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
 $(document).on("click", '[name=fachButton]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
-    if (element.className.includes("success")) {
+    if (ev.target.className.includes("success")) {
         element.removeClass("success");
         element.addClass("warning");
         element.value = "true";
@@ -238,6 +253,32 @@ $(document).on("click", '[name=fachButton]', function (ev) {
         element.removeClass("warning");
         element.addClass("success");
         element.value = "false";
+    }
+});
+
+$(document).on("click", '[name=subjectChoosing]', function(ev){
+    ev.preventDefault();
+    var element = $(ev.target);
+    if (ev.target.className.includes("success")) {
+        element.removeClass("success");
+        element.addClass("alert");
+    }
+    else {
+        element.removeClass("alert");
+        element.addClass("success");
+    }
+});
+
+$(document).on("click", '[name=yearChoosing]', function(ev){
+    ev.preventDefault();
+    var element = $(ev.target);
+    if (ev.target.className.includes("success")) {
+        element.removeClass("success");
+        element.addClass("alert");
+    }
+    else {
+        element.removeClass("alert");
+        element.addClass("success");
     }
 });
 
@@ -541,6 +582,20 @@ $(document).on("click", 'button[name=deleteBeschwerde]', function (ev) {
         parent.empty();
         parent.append("<p class='success'>Gelöscht!</p>");
     }, {'ID': $(ev.target).attr('id'), 'IDs': $(ev.target).val()});
+});
+
+$("#add_subject").on("click", function(ev){
+   ev.preventDefault();
+    $("#results").empty();
+    var html = "<div class='small-12-centered columns'><input type='text' id='subject_name' name='subject_name' required placeholder='Deutsch'><button class='button' type='submit' name='submitSubject' id='submitSubject'>Submit</button></div>";
+    $("#results").append(html);
+});
+$(document).on("click", "#submitSubject", function(ev){
+    ev.preventDefault();
+   runMyAjax("ajax/AddSubject.php", function(result){
+       toastr.success(result.name + " wurde erfolgreich hinzugefügt!");
+       $("#results").empty();
+   }, {'subject': $("#subject_name").val()});
 });
 
 
