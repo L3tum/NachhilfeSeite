@@ -9,7 +9,7 @@ else if(Benutzer::get_logged_in_user()->has_permission("take_classes")) {
     $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idNachhilfenehmer == :id");
     $stmt->bindParam(':id', Benutzer::get_logged_in_user()->idBenutzer);
     $stmt->execute();
-    $connections = $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
+    $connections2 = $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
 }
 else {
     Route::redirect_to_root();
@@ -47,11 +47,11 @@ else {
                             <div class='small-8 columns'>
 
                                 <div class='row no-padding right'>
-                                    <div class='small-12 columns notification-header no-padding right'>
+                                    <div class='small-8 columns notification-header no-padding right'>
                                         <a href='{$userpath} '>{$otherUser->vorname} {$otherUser->name}</a>
                                     </div>
 
-                                    <div class='small-12 columns no-padding right'>
+                                    <div class='small-4 columns no-padding right'>
                                         <p>{$fach->name}</p>
                                     </div>
                                 </div>

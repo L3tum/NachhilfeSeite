@@ -269,11 +269,11 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             
         <div class="row actions">
             <div class="small-12 columns">
-                <a href="#" class="button alert" type="submit" value="Submit">Nutzer melden</a>
+                <a class="button alert" type="submit" name="' . $user->idBenutzer . '" id="alerting">Nutzer melden</a>
             </div>
         </div>';
 
-            if ($user->has_permission("blockUser")) {
+            if (Benutzer::get_logged_in_user()->has_permission("blockUser")) {
                 echo '
         <div class="row actions">
             <div class="small-12 columns">

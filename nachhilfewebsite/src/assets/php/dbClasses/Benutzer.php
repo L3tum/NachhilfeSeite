@@ -275,4 +275,11 @@ class Benutzer
         }
         return false;
     }
+
+    public function get_connection_other(){
+        $stmt = Connection::$PDO->prepare("SELECT t1.idBenutzer as einsID, t1.vorname as einsvorname, t1.name as einsname, t2.idBenutzer as zweiID, t2.vorname as zweivorname, t2.name as zweiname FROM benutzer as t1 JOIN verbindung ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t2 ON t2.idBenutzer=v.idNachhilfenehmer WHERE IS NOT(v.IdNachhilfenehmer = :idBenutzer OR v.idNachhilfelehrer= :idBenutzer)");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

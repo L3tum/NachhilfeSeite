@@ -248,6 +248,28 @@ $(document).on("click", "#add_qual", function (ev) {
     }, {'name': $("#qual_name").val(), 'desc': $("#qual_desc").val(), 'id': $("#user-id").val()})
 });
 
+$(document).on("click", "#alerting", function(ev){
+    ev.preventDefault();
+    var element = $(ev.target);
+    element.parent().append("<input type='text' id='reasoning'><br><button class='button alert' id='submitting'>Submit</button>");
+});
+
+$(document).on("click", "#submitting", function(ev){
+    ev.preventDefault();
+    runMyAjax("ajax/reportUser.php", function(result){
+        toastr.success("Benutzer gemeldet!");
+    }, {'reason' : $("#reasoning").val(), 'id' : $("#alerting").attr('name')})
+});
+
+
+$(document).on("click", "[name=refuseButton]", function(ev){
+    ev.preventDefault();
+    var element = $(ev.target);
+    runMyAjax("ajax/deleteRequest.php", function(result){
+        toastr.success("Anfrage abgelehnt!");
+    }, {'id' : element.attr('id')});
+});
+
 $(document).on("click", '[name=fachButton]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);

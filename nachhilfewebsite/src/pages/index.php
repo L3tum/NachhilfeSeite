@@ -175,6 +175,10 @@ Route::add('termine', function(){
     }
 });
 
+Route::add('appointment', function(){
+   include 'main/appointment.php';
+});
+
 
 Route::run();
 //print_r($_SERVER);
