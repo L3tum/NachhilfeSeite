@@ -5,6 +5,9 @@
         if (Benutzer::get_logged_in_user()->has_permission("registerNewUser")) {
             echo "<a id='register_new_user' class='button' type='submit' value='Submit'>Registriere neuen Benutzer</a><br>";
         }
+        if (Benutzer::get_logged_in_user()->has_permission("addNewSubject")) {
+            echo "<a id='add_subject' class='button' type='submit' value='Submit'>Füge ein Fach hinzu</a><br>";
+        }
         if (Benutzer::get_logged_in_user()->has_permission("showAllRoles")) {
             echo "<a id='show_roles' class='button' type='submit' value='Submit'>Zeige alle Rollen</a><br>";
         }

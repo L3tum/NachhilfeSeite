@@ -14,7 +14,7 @@ class Rolle
     public $beschreibung;
 
     public static function get_by_id($idRole){
-        $stmt = Connection::$PDO->prepare("SELECT * FROM rolle WHERE rolle.idRolle = :idRolle");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM rolle WHERE rolle.idRolle = ".intval($idRole));
         $stmt->bindValue(':idRolle', intval($idRole));
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Rolle');
@@ -32,5 +32,11 @@ class Rolle
         $stmt->bindValue(':idRolle', intval($idRolle));
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Berechtigung');
+    }
+    public static function get_all_roles(){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM rolle");
+        $stmt->execute();
+        $rolle = $stmt->fetchAll(PDO::FETCH_CLASS, 'Rolle');
+        return $rolle;
     }
 }
