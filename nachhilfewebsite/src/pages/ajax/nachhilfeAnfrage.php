@@ -12,16 +12,13 @@ layout: noLayout
 include_once  __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
 include_once  __DIR__ . "/../assets/php/general/Route.php";
 include_once  __DIR__ . "/../assets/php/general/Connection.php";
-include_once  __DIR__ . "/../assets/php/general/Logger.php";
 include_once  __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
 include_once  __DIR__ . "/../assets/php/general/ConfigStrings.php";
 
 $form_helper = new AjaxFormHelper();
-Logger::add($_POST);
-Logger::echo();
 if(!isset($_POST['user']) || !isset($_POST['faecher'])){
     $form_helper->return_error("Fach oder Benutzer ungültig!");
-    exit(0376);
+    exit();
 }
 $user = $_POST['user'];
 $faecher = $_POST['faecher'];
@@ -29,10 +26,10 @@ $faecher = $_POST['faecher'];
 foreach ($faecher as $fach) {
     if (Benutzer::get_logged_in_user()->has_anfrage($user, $fach)) {
         $form_helper->return_error("Du hast bereits eine Anfrage geschickt!");
-        exit(0376);
+        exit();
     } else if (Benutzer::get_logged_in_user()->has_tutiution_connection($user, $fach)) {
         $form_helper->return_error("Du hast bereits eine Nachhilfeverbindung mit diesem Benutzer!");
-        exit(0376);
+        exit();
     }
     $stmt = Connection::$PDO->prepare("INSERT INTO anfrage (anfrage.idSender, anfrage.idEmpfänger, anfrage.idFach) VALUES( :idSender , :idEmpfaenger , :idFach )");
     $stmt->bindParam(':idSender', Benutzer::get_logged_in_user()->idBenutzer);
