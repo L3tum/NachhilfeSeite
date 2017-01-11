@@ -93,7 +93,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 <div class="row">
                     <div class="small-12 columns">
-                        <?php if ($user->has_permission("giveClasses")) {
+                        <?php if ($user->has_permission("giveClasses") && count($user->get_offered_subjects()) > 0) {
                             echo "<h3 > Fächer: </h3 >";
                         }
                         ?>
@@ -165,7 +165,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 <div class="row">
                     <div class="small-12 columns">
-                        <?php if ($user->has_permission("giveClasses")) {
+                        <?php if ($user->has_permission("giveClasses") && count($user->get_offered_classes()) > 0) {
                             echo "<h3 > Stufen: </h3 >";
                         }
                         ?>
@@ -196,7 +196,11 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 <div class="row">
                     <div class="small-12 columns">
-                        <h3> Qualifikationen: </h3>
+                        <?php
+                        if($user->has_permission("giveClasses") && count($user->get_all_qualifications()) > 0) {
+                            echo "<h3> Qualifikationen: </h3>";
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="row">
