@@ -14,7 +14,7 @@
     if(Benutzer::get_logged_in_user()->has_permission('termine')) {
         echo "<li><a href='{$root}termine'>Termine</a></li>";
     }
-    if(Benutzer::get_logged_in_user()->has_permission('nachhilfe')) {
+    if(Benutzer::get_logged_in_user()->has_permission('giveClasses') || Benutzer::get_logged_in_user()->has_permission('takeClasses')) {
         echo "<li><a href='{$root}tuition'>Nachhilfe</a></li>";
     }
     if(Benutzer::get_logged_in_user()->has_permission('administration')) {

@@ -26,7 +26,11 @@ else {
                 <h2>Nachhilfe</h2>
                 </div>
             <div class="small-8 columns">
+
+
                 <?php
+                if(isset($connections) && !empty($connections)) {
+                    echo '<h4>Du gibst Nachhilfe für:</h4>';
                     foreach ($connections as $connection) {
 
 
@@ -65,6 +69,55 @@ else {
 
                     </div>";
                     }
+                }
+
+                if(isset($connections2) && !empty($connections2)) {
+                    echo '<h4>Du nimmst Nachhilfe bei:</h4>';
+                    foreach ($connections2 as $connection) {
+
+
+                        if($connection->idNachhilfenehmer == Benutzer::get_logged_in_user()->idBenutzer) {
+                            $otherUser = Benutzer::get_by_id($connection->idNachhilfelehrer);
+                            $userpath =  $root . "user/" . $connection->idNachhilfelehrer . "/view";
+                        }
+                        else {
+                            $otherUser = Benutzer::get_by_id($connection->idNachhilfenehmer);
+                            $userpath =  $root . "user/" . $connection->idNachhilfenehmer . "/view";
+                        }
+                        $fach = Fach::get_by_id($connection->idFach);
+
+                        echo "<div class='result-box'>
+
+                        <div class='row no-padding left'>
+
+                            <div class='small-8 columns'>
+
+                                <div class='row no-padding right'>
+                                    <div class='small-8 columns notification-header no-padding right'>
+                                        <a href='{$userpath} '>{$otherUser->vorname} {$otherUser->name}</a>
+                                    </div>
+
+                                    <div class='small-4 columns no-padding right'>
+                                        <p>{$fach->name}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class='small-4 columns no-padding both'>
+
+                            </div>
+                        </div>
+
+                    </div>";
+                    }
+                }
+
+                if((!isset($connections2) || empty($connections2)) && (!isset($connections) || empty($connections))) {
+                    echo '<h3>Bisher keine Verbindungen!</h3>';
+                }
+
+
                 ?>
 
             </div>
