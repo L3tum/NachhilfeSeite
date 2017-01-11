@@ -33,6 +33,7 @@ class Benutzer
 
     private $permissions;
     private $roleName;
+    private $roleID;
     private static $currentlyLoggedIn;
 
     //Get a user by his ID
@@ -129,6 +130,18 @@ class Benutzer
             $this->roleName = $rolle->name;
         }
         return $this->roleName;
+    }
+
+    public function get_role_id(){
+        if (!isset($this->roleID)) {
+            $stmt = Connection::$PDO->prepare("SELECT * FROM Rolle WHERE idRolle = :idRolle");
+            $stmt->bindParam(':idRolle', $this->idRolle);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Rolle');
+            $rolle = $stmt->fetch();
+            $this->roleID = $rolle->idRolle;
+        }
+        return $this->roleID;
     }
 
     public function get_offered_subjects()
