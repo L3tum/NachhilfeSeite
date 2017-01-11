@@ -255,7 +255,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             echo '
         <div class="row actions">
             <div class="small-12 columns">
-                <a href="#" class="button" type="submit" value="Submit">Nachricht senden</a>
+                <a href="' . ConfigStrings::get("root"). "user/" . $user->idBenutzer . "/chatMessagesTo/" . Benutzer::get_logged_in_user()->idBenutzer .  '" class="button" type="submit" value="Submit">Nachricht senden</a>
             </div>
         </div>';
 
