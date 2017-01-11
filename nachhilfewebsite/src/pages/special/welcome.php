@@ -12,14 +12,14 @@ layout: special
 
         <div class="small-12 medium-6 columns small-centered">
             <label>Vorname
-                <input name="vorname" type="text" placeholder="Max" required pattern="^[a-zA-ZÄÖÜäöüß]{1,20}$">
+                <input name="vorname" type="text" placeholder="Max" required pattern="^[a-zA-ZÄÖÜäöüß ]{1,20}$">
                 <span class="form-error">
                     Der Vorname darf nicht leer sein oder aus mehr als 20 Buchstaben bestehen.
                 </span>
             </label>
 
             <label>Nachname
-                <input name="nachname" type="text" placeholder="Mustermann" required pattern="^[a-zA-ZÄÖÜäöüß]{1,20}$">
+                <input name="nachname" type="text" placeholder="Mustermann" required pattern="^[a-zA-ZÄÖÜäöüß ]{1,20}$">
                 <span class="form-error">
                     Der Nachname darf nicht leer sein oder aus mehr als 20 Buchstaben bestehen.
                 </span>

@@ -17,8 +17,8 @@ include_once  __DIR__ . "/../assets/php/general/ConfigStrings.php";
 include_once  __DIR__ . "/../assets/php/general/Route.php";
 
 $form_helper = new AjaxFormHelper();
-$vorname = $form_helper->test_search_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Vorname");
-$nachname = $form_helper->test_search_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Nachname");
+$vorname = $form_helper->test_search_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß ]{1,25}$/", "Vorname");
+$nachname = $form_helper->test_search_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß ]{1,25}$/", "Nachname");
 $fach = $form_helper->test_numeric($_POST['faecher']);
 $stufe = $form_helper->test_numeric($_POST['stufen']);
 $rolle = $form_helper->test_numeric($_POST['rollen']);
