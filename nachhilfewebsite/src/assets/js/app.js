@@ -513,10 +513,10 @@ $("#show_roles").on("click", function (ev) {
                             <p class='center'>${rolle.name}</p>
                              </div>
                                 <div class="small-2 columns">
-                                    <a href="${getRootUrl() + 'role/' + rolle.idRolle + '/view'}" class="labelled warning" value="${rolle.idRolle}" name="roleChange">Anzeigen</a>
+                                    <a href="${getRootUrl() + 'role/' + rolle.idRolle + '/view'}" class="button warning no-margin-bottom small" value="${rolle.idRolle}" name="roleChange">Anzeigen</a>
                                 </div>
                                 <div class="small-2 columns">
-                                    <a class="labelled alter" value="${rolle.idRolle}" name="roleDel">Löschen</a>
+                                    <a class="button alert no-margin-bottom small" value="${rolle.idRolle}" name="roleDel">Löschen</a>
                                     </div>
 </div></div></div>`;
             });
