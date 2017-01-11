@@ -25,14 +25,14 @@ else {
 
                 <div class="small-12 medium-6 columns">
                     <label>Vorname
-                        <input <?php if(!Benutzer::get_logged_in_user()->has_permission("canEditName")) {echo "readonly";}?> value="<?php echo $user->vorname?>" name="vorname" type="text" placeholder="Max" required pattern="^[a-zA-ZÄÖÜäöüß]{1,25}$">
+                        <input <?php if(!Benutzer::get_logged_in_user()->has_permission("canEditName")) {echo "readonly";}?> value="<?php echo $user->vorname?>" name="vorname" type="text" placeholder="Max" required pattern="^[a-zA-ZÄÖÜäöüß ]{1,25}$">
                 <span class="form-error">
                     Der Vorname darf nicht leer sein und nur aus Bustaben bestehen.
                 </span>
                     </label>
 
                     <label>Nachname
-                        <input <?php if(!Benutzer::get_logged_in_user()->has_permission("canEditName")) {echo "readonly";}?> value="<?php echo $user->name?>" name="nachname" type="text" placeholder="Mustermann" required pattern="^[a-zA-ZÄÖÜäöüß]{1,25}$">
+                        <input <?php if(!Benutzer::get_logged_in_user()->has_permission("canEditName")) {echo "readonly";}?> value="<?php echo $user->name?>" name="nachname" type="text" placeholder="Mustermann" required pattern="^[a-zA-ZÄÖÜäöüß ]{1,25}$">
                 <span class="form-error">
                     Der Nachname darf nicht leer sein und nur aus Bustaben bestehen.
                 </span>
@@ -67,7 +67,7 @@ else {
                     </label>
 
                     <?php
-                    if($user->has_permission("editUserRole") == true){
+                    if(Benutzer::get_logged_in_user()->has_permission("editUserRole") == true){
                         echo "<label>Rolle
                         <select id='rollenSelector' name='rollenSelector'>";
                             $rollen = Rolle::get_all_roles();
@@ -77,7 +77,7 @@ else {
                         echo "</select>
                         </label>";
                     }
-                    if($user->has_permission("editSubjects") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
+                    if(Benutzer::get_logged_in_user()->has_permission("editSubjects") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
                         echo "<label>Fächer</label>";
                         $subjects = Fach::get_all_subjects();
                         $user_to_edit = Benutzer::get_by_id($user_to_edit_id);
@@ -96,7 +96,7 @@ else {
                             }
                         }
                     }
-                    if($user->has_permission("editYears") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
+                    if(Benutzer::get_logged_in_user()->has_permission("editYears") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
                         echo "<label>Stufen</label>";
                         $subjects = Stufe::get_all_years();
                         $user_to_edit = Benutzer::get_by_id($user_to_edit_id);
@@ -115,7 +115,7 @@ else {
                             }
                         }
                     }
-                    if($user->has_permission("editQuals") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
+                    if(Benutzer::get_logged_in_user()->has_permission("editQuals") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
                         echo "<label>Qualifikationen</label>";
                         echo "<input type='text' id='qual_name' name='qual_name' placeholder='Name'>";
                         echo "<input type='text' id='qual_desc' name='qual_desc' placeholder='Beschreibung'>";

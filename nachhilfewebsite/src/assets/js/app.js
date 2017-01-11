@@ -229,11 +229,13 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     ev.preventDefault();
     var faecher = $('[name=fachButton]');
     var selectedFaecher = [];
-    for (var i = 0; i < faecher.length; i++) {
-        if (faecher[i].value == "true") {
-            selectedFaecher.push(faecher[i].attributes[1].nodeValue);
+
+    $.each(faecher, function(fach){
+        if(fach.val() == "true"){
+            selectedFaecher.push(fach.attr('id'));
         }
-    }
+    });
+
     runMyAjax("ajax/nachhilfeAnfrage.php", function (result) {
         toastr.success("Anfrage gesendet!");
     }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher})
@@ -276,12 +278,12 @@ $(document).on("click", '[name=fachButton]', function (ev) {
     if (ev.target.className.includes("success")) {
         element.removeClass("success");
         element.addClass("warning");
-        element.value = "true";
+        ev.target.value = "true";
     }
     else {
         element.removeClass("warning");
         element.addClass("success");
-        element.value = "false";
+        ev.target.value = "false";
     }
 });
 

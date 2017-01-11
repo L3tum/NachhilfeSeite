@@ -9,8 +9,8 @@ include_once  __DIR__ . "/../assets/php/general/Connection.php";
 
 $form_helper = new AjaxFormHelper();
 
-$vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Vorname");
-$nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß]{1,25}$/", "Nachname");
+$vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß ]{1,25}$/", "Vorname");
+$nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß ]{1,25}$/", "Nachname");
 $passwort = $form_helper->test_string($_POST['passwort'], "/^.{1,200}$/", "Passwort");
 $passwort = hash("sha256" , $passwort . "349692058673618402393234575763ß23ß25230");
 
