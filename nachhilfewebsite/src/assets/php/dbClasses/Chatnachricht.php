@@ -17,12 +17,9 @@ class Chatnachricht
 
     public static function get_all_messages_between($senderId, $recieverId, $markRead = true) {
 
-        $stmt = Connection::$PDO->prepare("SELECT * FROM chatnachricht WHERE idSender = :idBenutzer1S OR idSender = :idBenutzer2S OR idEmpfänger = :idBenutzer1E OR idEmpfänger = :idBenutzer2E ORDER BY datum DESC");
-        $stmt->bindParam(':idBenutzer1S', $senderId);
-        $stmt->bindParam(':idBenutzer2S', $recieverId);
-
-        $stmt->bindParam(':idBenutzer1E', $senderId);
-        $stmt->bindParam(':idBenutzer2E', $recieverId);
+        $stmt = Connection::$PDO->prepare("SELECT * FROM chatnachricht WHERE (idSender = :idBenutzer1 AND idEmpfänger = :idBenutzer2) OR (idEmpfänger = :idBenutzer1 AND idSender = :idBenutzer2) ORDER BY datum DESC");
+        $stmt->bindParam(':idBenutzer1', $senderId);
+        $stmt->bindParam(':idBenutzer2', $recieverId);
         $stmt->execute();
 
         $messages = $stmt->fetchAll(PDO::FETCH_CLASS, 'Chatnachricht');

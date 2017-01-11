@@ -17,7 +17,7 @@ include_once __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
 include_once __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
 
 $form_helper = new AjaxFormHelper();
-$content = $form_helper->test_string($_POST['content'], "/^[a-zA-ZÄÖÜ!?.,;'ß&\"*]{1,500}$/", "Nachricht");
+$content = $form_helper->test_string($_POST['content'], "/^[\s\S]{1,500}$/", "Nachricht");
 
 $reciever_id = $_POST['reciever'];
 $recieve_user = $form_helper->get_user_by_external_id($reciever_id);

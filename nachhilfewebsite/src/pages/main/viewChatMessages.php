@@ -6,7 +6,7 @@ $sender = Benutzer::get_by_id($id_sender);
 $reciever = Benutzer::get_by_id($id_reciever);
 //http://localhost/nachhilfewebsite/dist/user/4/viewMessagesTo/1
 if(($reciever->idBenutzer != Benutzer::get_logged_in_user()->idBenutzer) || !$sender || !$reciever) {
-    //Route::redirect_to_root();
+    Route::redirect_to_root();
 
 }
 
