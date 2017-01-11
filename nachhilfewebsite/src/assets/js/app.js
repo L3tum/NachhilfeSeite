@@ -413,6 +413,37 @@ $(document).on("click", "[name=blockUserNow]", function (ev) {
         toastr.success(result.name + " wurde gesperrt!");
     }, {'user': $(ev.target).attr('id')})
 });
+
+$(document).on("click", "#blockUserButton", function(ev){
+    ev.preventDefault();
+    runMyAjax("ajax/blockUser.php", function (result) {
+        toastr.success(result.name + " wurde gesperrt!");
+        var parent = $(ev.target).parent();
+        parent.empty();
+        parent.append(`
+            <div class="row actions">
+            <div class="small-12 columns">
+            <a id="unblockUserButton" class="button alert" type="submit" value="Submit">Benutzer entblocken</a>
+        </div>
+        </div>`);
+    }, {'user': $("#user_to_show").val()})
+});
+
+$(document).on("click", "#unblockUserButton", function(ev){
+    ev.preventDefault();
+    runMyAjax("ajax/unblockUser.php", function (result) {
+        toastr.success(result.name + " wurde entsperrt!");
+        var parent = $(ev.target).parent();
+        parent.empty();
+        parent.append(`
+            <div class="row actions">
+            <div class="small-12 columns">
+            <a id="blockUserButton" class="button alert" type="submit" value="Submit">Benutzer blockieren</a>
+        </div>
+        </div>`);
+    }, {'user': $("#user_to_show").val()})
+});
+
 $(document).on("click", "[name=unBlockUserNow]", function (ev) {
     ev.preventDefault();
     runMyAjax("ajax/unblockUser.php", function (result) {

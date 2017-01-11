@@ -278,12 +278,22 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
         </div>';
 
             if (Benutzer::get_logged_in_user()->has_permission("blockUser")) {
-                echo '
+                if($user->is_blocked()) {
+                    echo '
         <div class="row actions">
             <div class="small-12 columns">
                     <a id="blockUserButton" class="button alert" type="submit" value="Submit">Benutzer blockieren</a>
             </div>
         </div>';
+                }
+                else{
+                    echo '
+        <div class="row actions">
+            <div class="small-12 columns">
+                    <a id="unblockUserButton" class="button alert" type="submit" value="Submit">Benutzer entblocken</a>
+            </div>
+        </div>';
+                }
             }
         }
 
