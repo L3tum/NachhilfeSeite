@@ -1135,3 +1135,585 @@ Version: '10.1.19-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribut
 2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : Completed
 2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : Completed
 2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : Completed
+2017-01-11 15:00:50 5f04 InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2017-01-11 15:00:50 24324 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2017-01-11 15:00:50 24324 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-01-11 15:00:50 24324 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-01-11 15:00:50 24324 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-01-11 15:00:50 24324 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-01-11 15:00:50 24324 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-01-11 15:00:50 24324 [Note] InnoDB: Using generic crc32 instructions
+2017-01-11 15:00:50 24324 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2017-01-11 15:00:50 24324 [Note] InnoDB: Completed initialization of buffer pool
+2017-01-11 15:00:50 24324 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-01-11 15:00:50 24324 [Note] InnoDB: The log sequence numbers 3669170 and 3669170 in ibdata files do not match the log sequence number 5082168 in the ib_logfiles!
+2017-01-11 15:00:50 24324 [Note] InnoDB: Database was not shutdown normally!
+2017-01-11 15:00:50 24324 [Note] InnoDB: Starting crash recovery.
+2017-01-11 15:00:50 24324 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-01-11 15:00:50 24324 [Note] InnoDB: Restoring possible half-written data pages 
+2017-01-11 15:00:50 24324 [Note] InnoDB: from the doublewrite buffer...
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/anfrage'
+InnoDB: in InnoDB data dictionary has tablespace id 146,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/anfrage and id 59, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/angebotenesfach'
+InnoDB: in InnoDB data dictionary has tablespace id 111,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/angebotenesfach and id 55, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/angebotenestufe'
+InnoDB: in InnoDB data dictionary has tablespace id 140,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/angebotenestufe and id 57, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/benachrichtigung'
+InnoDB: in InnoDB data dictionary has tablespace id 128,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/benachrichtigung and id 41, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/benutzer'
+InnoDB: in InnoDB data dictionary has tablespace id 137,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/benutzer and id 32, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/berechtigung'
+InnoDB: in InnoDB data dictionary has tablespace id 129,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/berechtigung and id 45, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/beschwerde'
+InnoDB: in InnoDB data dictionary has tablespace id 130,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/beschwerde and id 58, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/chatnachricht'
+InnoDB: in InnoDB data dictionary has tablespace id 145,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/chatnachricht and id 42, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/fach'
+InnoDB: in InnoDB data dictionary has tablespace id 124,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/fach and id 35, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/qualifikation'
+InnoDB: in InnoDB data dictionary has tablespace id 132,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/qualifikation and id 40, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/raum'
+InnoDB: in InnoDB data dictionary has tablespace id 133,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/raum and id 37, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/rolle'
+InnoDB: in InnoDB data dictionary has tablespace id 138,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/rolle and id 31, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/rollenberechtigung'
+InnoDB: in InnoDB data dictionary has tablespace id 121,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/rollenberechtigung and id 50, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/stufe'
+InnoDB: in InnoDB data dictionary has tablespace id 139,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/stufe and id 33, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/stunde'
+InnoDB: in InnoDB data dictionary has tablespace id 136,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/stunde and id 53, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 5f04  InnoDB: Error: table 'nachhilfe/verbindung'
+InnoDB: in InnoDB data dictionary has tablespace id 123,
+InnoDB: but a tablespace with that id does not exist. There is
+InnoDB: a tablespace of name nachhilfe/verbindung and id 38, though. Have
+InnoDB: you deleted or moved .ibd files?
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2017-01-11 15:00:51 24324 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-01-11 15:00:51 24324 [Note] InnoDB: Waiting for purge to start
+2017-01-11 15:00:51 24324 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.32-79.0 started; log sequence number 5082168
+2017-01-11 15:00:51 24316 [ERROR] InnoDB: Failed to find tablespace for table '"nachhilfe"."verbindung"' in the cache. Attempting to load the tablespace with space id 123.
+2017-01-11 15:00:51 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:01:01 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:01:11 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:01:21 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:01:31 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:01:41 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:01:51 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:02:01 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:02:11 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:02:21 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:02:31 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:02:41 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:02:51 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:03:01 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:03:11 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:03:21 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:03:31 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:03:41 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:03:51 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:04:01 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:04:11 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:04:21 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:04:31 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:04:41 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:04:51 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+InnoDB: Warning: a long semaphore wait:
+--Thread 24324 has waited at fil0fil.cc line 6284 for 241.00 seconds the semaphore:
+Mutex at 023216B0 '&fil_system->mutex', lock var 1
+Last time reserved by thread 24316 in file not yet reserved line 0, waiters flag 1
+InnoDB: Warning: semaphore wait:
+--Thread 24324 has waited at fil0fil.cc line 6284 for 241.00 seconds the semaphore:
+Mutex at 023216B0 '&fil_system->mutex', lock var 1
+Last time reserved by thread 24316 in file not yet reserved line 0, waiters flag 1
+InnoDB: Warning: semaphore wait:
+--Thread 8104 has waited at srv0srv.cc line 2876 for 240.00 seconds the semaphore:
+X-lock (wait_ex) on RW-latch at 01B791E8 '&dict_operation_lock'
+a writer (thread id 8104) has reserved it in mode  wait exclusive
+number of readers 1, waiters flag 0, lock_word: ffffffff
+Last time read locked in file row0purge.cc line 770
+Last time write locked in file D:\win32-packages\build\src\storage\xtradb\fts\fts0fts.cc line 7214
+Holder thread 0 file not yet reserved line 0
+InnoDB: Warning: Writer thread is waiting this semaphore:
+--Thread 8104 has waited at srv0srv.cc line 2876 for 240.00 seconds the semaphore:
+X-lock (wait_ex) on RW-latch at 01B791E8 '&dict_operation_lock'
+a writer (thread id 8104) has reserved it in mode  wait exclusive
+number of readers 1, waiters flag 0, lock_word: ffffffff
+Last time read locked in file row0purge.cc line 770
+Last time write locked in file D:\win32-packages\build\src\storage\xtradb\fts\fts0fts.cc line 7214
+Holder thread 0 file not yet reserved line 0
+InnoDB: ###### Starts InnoDB Monitor for 30 secs to print diagnostic info:
+InnoDB: Pending preads 0, pwrites 0
+2017-01-11 15:05:01 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+
+=====================================
+2017-01-11 15:05:07 4dd0 INNODB MONITOR OUTPUT
+=====================================
+Per second averages calculated from the last 73 seconds
+-----------------
+BACKGROUND THREAD
+-----------------
+srv_master_thread loops: 0 srv_active, 0 srv_shutdown, 1 srv_idle
+srv_master_thread log flush and writes: 0
+----------
+SEMAPHORES
+----------
+OS WAIT ARRAY INFO: reservation count 4
+--Thread 24324 has waited at fil0fil.cc line 6284 for 256.00 seconds the semaphore:
+Mutex at 023216B0 '&fil_system->mutex', lock var 1
+Last time reserved by thread 24316 in file not yet reserved line 0, waiters flag 1
+--Thread 8104 has waited at srv0srv.cc line 2876 for 255.00 seconds the semaphore:
+X-lock (wait_ex) on RW-latch at 01B791E8 '&dict_operation_lock'
+a writer (thread id 8104) has reserved it in mode  wait exclusive
+number of readers 1, waiters flag 0, lock_word: ffffffff
+Last time read locked in file row0purge.cc line 770
+Last time write locked in file D:\win32-packages\build\src\storage\xtradb\fts\fts0fts.cc line 7214
+Holder thread 0 file not yet reserved line 0
+OS WAIT ARRAY INFO: signal count 2
+Mutex spin waits 702, rounds 1914, OS waits 2
+RW-shared spins 1, rounds 30, OS waits 1
+RW-excl spins 0, rounds 30, OS waits 1
+Spin rounds per wait: 2.73 mutex, 30.00 RW-shared, 30.00 RW-excl
+------------
+TRANSACTIONS
+------------
+Trx id counter 41218
+Purge done for trx's n:o < 34485 undo n:o < 0 state: running
+History list length 809
+LIST OF TRANSACTIONS FOR EACH SESSION:
+--------
+FILE I/O
+--------
+I/O thread 0 state: native aio handle (insert buffer thread)
+I/O thread 1 state: native aio handle (log thread)
+I/O thread 2 state: native aio handle (read thread)
+I/O thread 3 state: native aio handle (read thread)
+I/O thread 4 state: native aio handle (read thread)
+I/O thread 5 state: native aio handle (read thread)
+I/O thread 6 state: native aio handle (write thread)
+I/O thread 7 state: native aio handle (write thread)
+I/O thread 8 state: native aio handle (write thread)
+I/O thread 9 state: native aio handle (write thread)
+Pending normal aio reads: 0 [0, 0, 0, 0] , aio writes: 0 [0, 0, 0, 0] ,
+ ibuf aio reads: 0, log i/o's: 0, sync i/o's: 0
+Pending flushes (fsync) log: 0; buffer pool: 1
+601 OS file reads, 5 OS file writes, 3 OS fsyncs
+0.00 reads/s, 0 avg bytes/read, 0.00 writes/s, 0.00 fsyncs/s
+-------------------------------------
+INSERT BUFFER AND ADAPTIVE HASH INDEX
+-------------------------------------
+Ibuf: size 1, free list len 0, seg size 2, 0 merges
+merged operations:
+ insert 0, delete mark 0, delete 0
+discarded operations:
+ insert 0, delete mark 0, delete 0
+0.00 hash searches/s, 0.00 non-hash searches/s
+---
+LOG
+---
+Log sequence number 5082178
+Log flushed up to   5082178
+Pages flushed up to 5082168
+Last checkpoint at  5082168
+Max checkpoint age    7782360
+Checkpoint age target 7539162
+Modified age          10
+Checkpoint age        10
+0 pending log writes, 0 pending chkp writes
+7 log i/o's done, 0.00 log i/o's/second
+----------------------
+BUFFER POOL AND MEMORY
+----------------------
+Total memory allocated 17219584; in additional pool allocated 0
+Total memory allocated by read views 88
+Internal hash tables (constant factor + variable factor)
+    Adaptive hash index 297300 	(276764 + 20536)
+    Page hash           9068 (buffer pool 0 only)
+    Dictionary cache    121378 	(69928 + 51450)
+    File system         426552 	(406136 + 20416)
+    Lock system         21188 	(21188 + 0)
+    Recovery system     0 	(0 + 0)
+Dictionary memory allocated 51450
+Buffer pool size        1023
+Buffer pool size, bytes 16760832
+Free buffers            766
+Database pages          256
+Old database pages      0
+Modified db pages       1
+Percent of dirty pages(LRU & free pages): 0.098
+Max dirty pages percent: 75.000
+Pending reads 0
+Pending writes: LRU 0, flush list 1, single page 0
+Pages made young 0, not young 0
+0.00 youngs/s, 0.00 non-youngs/s
+Pages read 414, created 0, written 0
+0.00 reads/s, 0.00 creates/s, 0.00 writes/s
+No buffer pool page gets since the last printout
+Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
+LRU len: 256, unzip_LRU len: 0
+I/O sum[0]:cur[0], unzip sum[0]:cur[0]
+--------------
+ROW OPERATIONS
+--------------
+0 queries inside InnoDB, 0 queries in queue
+0 read views open inside InnoDB
+0 RW transactions active inside InnoDB
+0 RO transactions active inside InnoDB
+0 out of 1000 descriptors used
+2017-01-11 15:05:11 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:05:21 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+InnoDB: ###### Diagnostic info printed to the standard error stream
+InnoDB: Warning: a long semaphore wait:
+--Thread 24324 has waited at fil0fil.cc line 6284 for 272.00 seconds the semaphore:
+Mutex at 023216B0 '&fil_system->mutex', lock var 1
+Last time reserved by thread 24316 in file not yet reserved line 0, waiters flag 1
+InnoDB: Warning: a long semaphore wait:
+--Thread 8104 has waited at srv0srv.cc line 2876 for 271.00 seconds the semaphore:
+X-lock (wait_ex) on RW-latch at 01B791E8 '&dict_operation_lock'
+a writer (thread id 8104) has reserved it in mode  wait exclusive
+number of readers 1, waiters flag 0, lock_word: ffffffff
+Last time read locked in file row0purge.cc line 770
+Last time write locked in file D:\win32-packages\build\src\storage\xtradb\fts\fts0fts.cc line 7214
+Holder thread 0 file not yet reserved line 0
+InnoDB: Warning: semaphore wait:
+--Thread 24324 has waited at fil0fil.cc line 6284 for 272.00 seconds the semaphore:
+Mutex at 023216B0 '&fil_system->mutex', lock var 1
+Last time reserved by thread 24316 in file not yet reserved line 0, waiters flag 1
+InnoDB: Warning: semaphore wait:
+--Thread 8104 has waited at srv0srv.cc line 2876 for 271.00 seconds the semaphore:
+X-lock (wait_ex) on RW-latch at 01B791E8 '&dict_operation_lock'
+a writer (thread id 8104) has reserved it in mode  wait exclusive
+number of readers 1, waiters flag 0, lock_word: ffffffff
+Last time read locked in file row0purge.cc line 770
+Last time write locked in file D:\win32-packages\build\src\storage\xtradb\fts\fts0fts.cc line 7214
+Holder thread 0 file not yet reserved line 0
+InnoDB: Warning: Writer thread is waiting this semaphore:
+--Thread 8104 has waited at srv0srv.cc line 2876 for 271.00 seconds the semaphore:
+X-lock (wait_ex) on RW-latch at 01B791E8 '&dict_operation_lock'
+a writer (thread id 8104) has reserved it in mode  wait exclusive
+number of readers 1, waiters flag 0, lock_word: ffffffff
+Last time read locked in file row0purge.cc line 770
+Last time write locked in file D:\win32-packages\build\src\storage\xtradb\fts\fts0fts.cc line 7214
+Holder thread 0 file not yet reserved line 0
+InnoDB: Warning: semaphore wait:
+--Thread 19920 has waited at fil0fil.cc line 5611 for 16.000 seconds the semaphore:
+Mutex at 023216B0 '&fil_system->mutex', lock var 1
+Last time reserved by thread 24316 in file not yet reserved line 0, waiters flag 1
+InnoDB: ###### Starts InnoDB Monitor for 30 secs to print diagnostic info:
+InnoDB: Pending preads 0, pwrites 0
+2017-01-11 15:05:31 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:05:41 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:05:51 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+InnoDB: ###### Diagnostic info printed to the standard error stream
+InnoDB: Warning: a long semaphore wait:
+--Thread 24324 has waited at fil0fil.cc line 6284 for 303.00 seconds the semaphore:
+Mutex at 023216B0 '&fil_system->mutex', lock var 1
+Last time reserved by thread 24316 in file not yet reserved line 0, waiters flag 1
+InnoDB: Warning: a long semaphore wait:
+--Thread 8104 has waited at srv0srv.cc line 2876 for 302.00 seconds the semaphore:
+X-lock (wait_ex) on RW-latch at 01B791E8 '&dict_operation_lock'
+a writer (thread id 8104) has reserved it in mode  wait exclusive
+number of readers 1, waiters flag 0, lock_word: ffffffff
+Last time read locked in file row0purge.cc line 770
+Last time write locked in file D:\win32-packages\build\src\storage\xtradb\fts\fts0fts.cc line 7214
+Holder thread 0 file not yet reserved line 0
+InnoDB: Warning: semaphore wait:
+--Thread 24324 has waited at fil0fil.cc line 6284 for 303.00 seconds the semaphore:
+Mutex at 023216B0 '&fil_system->mutex', lock var 1
+Last time reserved by thread 24316 in file not yet reserved line 0, waiters flag 1
+InnoDB: Warning: semaphore wait:
+--Thread 8104 has waited at srv0srv.cc line 2876 for 302.00 seconds the semaphore:
+X-lock (wait_ex) on RW-latch at 01B791E8 '&dict_operation_lock'
+a writer (thread id 8104) has reserved it in mode  wait exclusive
+number of readers 1, waiters flag 0, lock_word: ffffffff
+Last time read locked in file row0purge.cc line 770
+Last time write locked in file D:\win32-packages\build\src\storage\xtradb\fts\fts0fts.cc line 7214
+Holder thread 0 file not yet reserved line 0
+InnoDB: Warning: Writer thread is waiting this semaphore:
+--Thread 8104 has waited at srv0srv.cc line 2876 for 302.00 seconds the semaphore:
+X-lock (wait_ex) on RW-latch at 01B791E8 '&dict_operation_lock'
+a writer (thread id 8104) has reserved it in mode  wait exclusive
+number of readers 1, waiters flag 0, lock_word: ffffffff
+Last time read locked in file row0purge.cc line 770
+Last time write locked in file D:\win32-packages\build\src\storage\xtradb\fts\fts0fts.cc line 7214
+Holder thread 0 file not yet reserved line 0
+InnoDB: Warning: semaphore wait:
+--Thread 19920 has waited at fil0fil.cc line 5611 for 47.000 seconds the semaphore:
+Mutex at 023216B0 '&fil_system->mutex', lock var 1
+Last time reserved by thread 24316 in file not yet reserved line 0, waiters flag 1
+InnoDB: ###### Starts InnoDB Monitor for 30 secs to print diagnostic info:
+InnoDB: Pending preads 0, pwrites 0
+2017-01-11 15:06:01 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:06:11 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:06:21 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+InnoDB: ###### Diagnostic info printed to the standard error stream
+2017-01-11 15:06:31 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:06:41 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:06:51 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:07:01 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:07:11 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:07:21 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:07:31 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:07:41 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:07:51 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:08:01 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:08:11 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:08:21 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:08:31 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:08:41 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:08:51 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:09:01 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:09:11 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:09:21 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
+2017-01-11 15:09:31 5efc  InnoDB: Operating system error number 32 in a file operation.
+InnoDB: The error means that another program is using InnoDB's files.
+InnoDB: This might be a backup or antivirus software or another instance
+InnoDB: of MySQL. Please close it to get rid of this error.
