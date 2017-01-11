@@ -236,12 +236,6 @@ header {
     overflow-y: scroll;
     overflow-x: hidden;
 
-    &.search {
-      border: none;
-      overflow-y: auto;
-      height: 460px;
-    }
-
   }
 
 }
@@ -345,4 +339,12 @@ button.round, .button.round {
     word-wrap: break-word;
 
   }
+}
+
+.table-scroll {
+  overflow-y: auto;
+}
+
+.search div {
+  height: 540px;
 }
