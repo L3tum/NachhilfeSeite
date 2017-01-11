@@ -234,13 +234,14 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
         <?php
         if ($user_is_me || Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
-
-            echo '        
+                echo '        
         <div class="row actions">
             <div class="small-12 columns">
                 <a href="' . ConfigStrings::get("root") . "user/" . $user->idBenutzer . "/edit" . '" class="button success" type="submit" value="Submit">Profil bearbeiten</a>
             </div>
         </div>';
+            }
+            if($user_is_me){
             echo '        
         <div class="row actions">
             <div class="small-12 columns">
@@ -278,12 +279,22 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
         </div>';
 
             if (Benutzer::get_logged_in_user()->has_permission("blockUser")) {
-                echo '
+                if($user->is_blocked() == "1" || $user->is_blocked() == "true") {
+                    echo '
+        <div class="row actions">
+            <div class="small-12 columns">
+                    <a id="unblockUserButton" class="button alert" type="submit" value="Submit">Benutzer entblocken</a>
+            </div>
+        </div>';
+                }
+                else{
+                    echo '
         <div class="row actions">
             <div class="small-12 columns">
                     <a id="blockUserButton" class="button alert" type="submit" value="Submit">Benutzer blockieren</a>
             </div>
         </div>';
+                }
             }
         }
 

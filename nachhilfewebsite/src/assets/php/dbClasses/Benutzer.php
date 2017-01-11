@@ -283,4 +283,12 @@ class Benutzer
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function is_blocked(){
+        $stmt = Connection::$PDO->prepare("SELECT benutzer.gesperrt as gesperrt FROM benutzer WHERE idBenutzer = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        return $stmt->fetch()['gesperrt'];
+    }
 }
