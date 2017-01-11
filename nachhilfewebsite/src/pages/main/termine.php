@@ -39,7 +39,7 @@ if ($user->has_permission("takeClasses")) {
             </thead>
             <tbody>
             <?php
-            if ($appointments1 != null && count($appointments1) > 0) {
+            if ($appointments1 != null && !empty($appointments1)) {
                 foreach ($appointments1 as $appointment) {
                     $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
                     echo "<tr><td>Du</td><td>{$appointment['vorname']} {$appointment['name']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
@@ -66,7 +66,7 @@ if ($user->has_permission("takeClasses")) {
                     echo "</tr>";
                 }
             }
-            if ($appointments2 != null && count($appointments2) > 0) {
+            if ($appointments2 != null && !empty($appointments2)) {
                 foreach ($appointments2 as $appointment) {
                     $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
                     echo "<tr><td>{$appointment['vorname']} {$appointment['name']}</td><td>Du</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
