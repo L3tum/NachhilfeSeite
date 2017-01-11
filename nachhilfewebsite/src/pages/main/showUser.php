@@ -233,14 +233,15 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
         <h2>Aktionen</h2>
 
         <?php
-        if ($user_is_me || Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
-
-            echo '        
+        if ($user_is_me) {
+            if(Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
+                echo '        
         <div class="row actions">
             <div class="small-12 columns">
                 <a href="' . ConfigStrings::get("root") . "user/" . $user->idBenutzer . "/edit" . '" class="button success" type="submit" value="Submit">Profil bearbeiten</a>
             </div>
         </div>';
+            }
             echo '        
         <div class="row actions">
             <div class="small-12 columns">
