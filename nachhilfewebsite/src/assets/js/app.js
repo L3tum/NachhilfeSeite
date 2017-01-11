@@ -238,11 +238,11 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
 
     runMyAjax("ajax/nachhilfeAnfrage.php", function (result) {
         toastr.success("Anfrage gesendet!");
-        selectedFaecher.forEach(function(fach){
-            var parent = $("#" + fach).parent();
-            var fach = $("#" + fach).text();
+        selectedFaecher.forEach(function(fache){
+            var parent = $("#" + fache).parent();
+            var fachen = $("#" + fache).text();
             parent.empty();
-            parent.append("<div class='data-label secondary'><p class='center'>" + fach + "</p></div>")
+            parent.append("<div class='data-label secondary'><p class='center'>" + fachen + "</p></div>")
         })
     }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher})
 });
