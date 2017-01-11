@@ -4,9 +4,10 @@ if(Benutzer::get_logged_in_user()->has_permission("giveClasses")) {
     $stmt->bindParam(':id', Benutzer::get_logged_in_user()->idBenutzer);
     $stmt->execute();
     $connections = $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
+
 }
 else if(Benutzer::get_logged_in_user()->has_permission("takeClasses")) {
-    $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idNachhilfenehmer == :id");
+    $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idNachhilfenehmer = :id");
     $stmt->bindParam(':id', Benutzer::get_logged_in_user()->idBenutzer);
     $stmt->execute();
     $connections2 = $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
