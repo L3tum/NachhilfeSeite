@@ -112,4 +112,5 @@ class Route{
         $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/ajax');
         return "http://$host$uri/";
     }
+    
 }
