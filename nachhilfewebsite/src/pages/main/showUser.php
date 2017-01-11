@@ -30,7 +30,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <h2>Profil</h2>
 
                 <?php
-                if ($user->has_permission("take_classes") && !empty($connections)) {
+                if ($user->has_permission("takeClasses") && !empty($connections)) {
                     echo '<div class="data-label">
                     <p>Du nimmst bei dieser Person Nachhilfe!</p>
                     </div>';
@@ -49,7 +49,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <div class="data-label">
                     <?php
 
-                    if (!empty($connections) || (Benutzer::get_logged_in_user()->has_permission("show_credentials")) || $user_is_me) {
+                    if (!empty($connections) || (Benutzer::get_logged_in_user()->has_permission("showCredentials")) || $user_is_me) {
                         $number = $user->telefonnummer;
                         echo "<p>Telefonnummer: {$number}</p>";
                     } else {
@@ -65,7 +65,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <div class="data-label">
                     <?php
 
-                    if (!empty($connections) || (Benutzer::get_logged_in_user()->has_permission("show_credentials")) || $user_is_me) {
+                    if (!empty($connections) || (Benutzer::get_logged_in_user()->has_permission("showCredentials")) || $user_is_me) {
                         $email = $user->email;
                         echo "<p>Email: {$email}</p>";
                     } else {
@@ -78,7 +78,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 <?php
 
-                if (empty($connections) && !(Benutzer::get_logged_in_user()->has_permission("show_credentials")) && !$user_is_me) {
+                if (empty($connections) && !(Benutzer::get_logged_in_user()->has_permission("showCredentials")) && !$user_is_me) {
 
                     echo '<p>Du kannst die Email und die Telefonnummer eines Nutzers nur sehen, wenn du ihm Nachhilfe gibst oder
                     bei ihm Nachhilfe nimmst!</p>';
@@ -93,7 +93,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 <div class="row">
                     <div class="small-12 columns">
-                        <?php if ($user->has_permission("give_classes")) {
+                        <?php if ($user->has_permission("giveClasses")) {
                             echo "<h3 > Fächer: </h3 >";
                         }
                         ?>
@@ -104,7 +104,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
 
                     <?php
-                    if ($user->has_permission("give_classes")) {
+                    if ($user->has_permission("giveClasses")) {
                         $isnot = false;
                         foreach ($user->get_offered_subjects() as $subject) {
                             $name = $subject->name;
@@ -165,7 +165,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 <div class="row">
                     <div class="small-12 columns">
-                        <?php if ($user->has_permission("give_classes")) {
+                        <?php if ($user->has_permission("giveClasses")) {
                             echo "<h3 > Stufen: </h3 >";
                         }
                         ?>
@@ -176,7 +176,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
 
                     <?php
-                    if ($user->has_permission("give_classes")) {
+                    if ($user->has_permission("giveClasses")) {
                         foreach ($user->get_offered_classes() as $class) {
                             $name = $class->name;
                             echo
@@ -229,7 +229,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
         <h2>Aktionen</h2>
 
         <?php
-        if ($user_is_me || Benutzer::get_logged_in_user()->has_permission("show_profile_extended")) {
+        if ($user_is_me || Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
 
             echo '        
         <div class="row actions">
@@ -254,7 +254,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             </div>
         </div>';
 
-            if ($user->has_permission("give_classes")) {
+            if ($user->has_permission("giveClasses")) {
 
                 echo '
         <div class="row actions">

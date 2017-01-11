@@ -7,10 +7,10 @@
  */
 
 $user = Benutzer::get_logged_in_user();
-if ($user->has_permission("give_classes")) {
+if ($user->has_permission("giveClasses")) {
     $appointments1 = $user->get_all_appointments_as_teacher();
 }
-if ($user->has_permission("take_classes")) {
+if ($user->has_permission("takeClasses")) {
     $appointments2 = $user->get_all_appointments_as_pupil();
 }
 
@@ -31,7 +31,7 @@ if ($user->has_permission("take_classes")) {
                 <th>Bestätigt(Lehrer)</th>
                 <th>Ablehnen</th>
                 <?php
-                if ($user->has_permission("give_classes")) {
+                if ($user->has_permission("giveClasses")) {
                     echo "<th>Bezahlt</th>";
                 }
                 ?>
@@ -56,7 +56,7 @@ if ($user->has_permission("take_classes")) {
                         echo "<td class='success'>Ja</td>";
                     }
                     echo "<td><button class='tablebutton alert' id='{$appointment['idStunde']}' name='refuseButton'>Absagen</button></td>";
-                    if ($user->has_permission("give_classes")) {
+                    if ($user->has_permission("giveClasses")) {
                         if ($appointment['bezahltLehrer'] == 0) {
                             echo "<td><button class='tablebutton alert' name='bestaetigen2Button' id='{$appointment['idStunde']}'>Nein</button></td>";
                         } else {
@@ -83,7 +83,7 @@ if ($user->has_permission("take_classes")) {
                         echo "<td class='success'>Ja</td>";
                     }
                     echo "<td><button class='tablebutton alert' id='{$appointment['idStunde']}' name='refuseButton'>Absagen</button></td>";
-                    if ($user->has_permission("give_classes")) {
+                    if ($user->has_permission("giveClasses")) {
                         if ($appointment['bezahltLehrer'] == 0) {
                             echo "<td class='alert'>Nein</td>";
                         } else {

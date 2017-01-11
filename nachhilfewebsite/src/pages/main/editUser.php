@@ -77,7 +77,7 @@ else {
                         echo "</select>
                         </label>";
                     }
-                    if(Benutzer::get_logged_in_user()->has_permission("editSubjects") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
+                    if(Benutzer::get_logged_in_user()->has_permission("editSubjects") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("giveClasses")){
                         echo "<label>Fächer</label>";
                         $subjects = Fach::get_all_subjects();
                         $user_to_edit = Benutzer::get_by_id($user_to_edit_id);
@@ -96,7 +96,7 @@ else {
                             }
                         }
                     }
-                    if(Benutzer::get_logged_in_user()->has_permission("editYears") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
+                    if(Benutzer::get_logged_in_user()->has_permission("editYears") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("giveClasses")){
                         echo "<label>Stufen</label>";
                         $subjects = Stufe::get_all_years();
                         $user_to_edit = Benutzer::get_by_id($user_to_edit_id);
@@ -115,7 +115,7 @@ else {
                             }
                         }
                     }
-                    if(Benutzer::get_logged_in_user()->has_permission("editQuals") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("give_classes")){
+                    if(Benutzer::get_logged_in_user()->has_permission("editQuals") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("giveClasses")){
                         echo "<label>Qualifikationen</label>";
                         echo "<input type='text' id='qual_name' name='qual_name' placeholder='Name'>";
                         echo "<input type='text' id='qual_desc' name='qual_desc' placeholder='Beschreibung'>";
