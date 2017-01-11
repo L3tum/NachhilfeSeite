@@ -291,8 +291,16 @@ class Benutzer
     }
 
     public function get_connection_other(){
-        $stmt = Connection::$PDO->prepare("SELECT t1.idBenutzer as einsID, t1.vorname as einsvorname, t1.name as einsname, t2.idBenutzer as zweiID, t2.vorname as zweivorname, t2.name as zweiname FROM benutzer as t1 JOIN verbindung ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t2 ON t2.idBenutzer=v.idNachhilfenehmer WHERE IS NOT(v.IdNachhilfenehmer = :idBenutzer OR v.idNachhilfelehrer= :idBenutzer)");
+        $stmt = Connection::$PDO->prepare("SELECT t1.idBenutzer as einsID, t1.vorname as einsvorname, t1.name as einsname, t2.idBenutzer as zweiID, t2.vorname as zweivorname, t2.name as zweiname FROM benutzer as t1 JOIN verbindung as v ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t2 ON t2.idBenutzer=v.idNachhilfenehmer WHERE (v.idNachhilfenehmer = :idBenutzer OR v.idNachhilfelehrer= :idBenutzer)");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function get_connection_other_by_subject($idSubject){
+        $stmt = Connection::$PDO->prepare("SELECT t1.idBenutzer as einsID, t1.vorname as einsvorname, t1.name as einsname, t2.idBenutzer as zweiID, t2.vorname as zweivorname, t2.name as zweiname FROM benutzer as t1 JOIN verbindung as v ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t2 ON t2.idBenutzer=v.idNachhilfenehmer WHERE (v.idNachhilfenehmer = :idBenutzer OR v.idNachhilfelehrer= :idBenutzer) AND v.idFach = :idFach");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->bindParam(':idFach', $idSubject);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -303,5 +311,48 @@ class Benutzer
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         return $stmt->fetch()['gesperrt'];
+    }
+
+    public function get_all_connections_single(){
+        $connections = $this->get_connection_other();
+
+        $others = Array();
+        $i = 0;
+        foreach ($connections as $connection) {
+            if ($connection{'einsID'} == $this->idBenutzer) {
+                $others[$i] = Array();
+                $others[$i]['ID'] = $connection['zweiID'];
+                $others[$i]['vorname'] = $connection['zweivorname'];
+                $others[$i]['name'] = $connection['zweiname'];
+            } else {
+                $others[$i] = Array();
+                $others[$i]['ID'] = $connection['einsID'];
+                $others[$i]['vorname'] = $connection['einsvorname'];
+                $others[$i]['name'] = $connection['einsname'];
+            }
+            $i++;
+        }
+        return $others;
+    }
+    public function get_all_connections_single_by_subject($idSubject){
+        $connections = $this->get_connection_other_by_subject($idSubject);
+        $others = Array();
+
+        $i = 0;
+        foreach ($connections as $connection) {
+            if ($connection{'einsID'} == $this->idBenutzer) {
+                $others[$i] = Array();
+                $others[$i]['ID'] = $connection['zweiID'];
+                $others[$i]['vorname'] = $connection['zweivorname'];
+                $others[$i]['name'] = $connection['zweiname'];
+            } else {
+                $others[$i] = Array();
+                $others[$i]['ID'] = $connection['einsID'];
+                $others[$i]['vorname'] = $connection['einsvorname'];
+                $others[$i]['name'] = $connection['einsname'];
+            }
+            $i++;
+        }
+        return $others;
     }
 }

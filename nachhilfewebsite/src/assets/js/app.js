@@ -10,13 +10,16 @@ class AjaxFormHelper {
 
             element
                 .on("submit", function (ev) {
+                    console.log(1);
                     ev.preventDefault();
                     return false;
                 })
                 .on("forminvalid.zf.abide", function (ev) {
+                    console.log(2);
                     toastr.error(invalidError);
                 })
                 .on("formvalid.zf.abide", function (ev) {
+                    console.log(3);
                     ev.preventDefault();
                     $me.runAjax(ajaxPath, element, success, formDataAppend);
 
@@ -30,6 +33,54 @@ class AjaxFormHelper {
                     }
                 });
             }
+        }
+
+    }
+
+    //sends the actual ajax request
+    runAjax(ajaxPath, element, success, formDataAppend) {
+
+        var formData = new FormData(element[0]);
+
+        //Call the formDataAppend method to add custom data to the formData object initialized with the form element
+        if (formDataAppend != 0) {
+            formDataAppend(formData);
+        }
+
+        //Send the ajax request
+        $.ajax({
+            url: getRootUrl() + ajaxPath,
+            dataType: 'json',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            success: function (result) {
+                var resultObj = result; //JSON object
+                if (resultObj.success == false) {
+                    toastr.error(resultObj.errorReason);
+                }
+                else {
+                    success(resultObj);
+                }
+            }
+        });
+    }
+}
+
+class AjaxFormHelperSpecial {
+
+    constructor(element, invalidError, ajaxPath, success, formDataAppend = 0) {
+
+        var $me = this;
+        if (element[0] != null) {
+
+            element
+                .on("submit", function (ev) {
+                    console.log(1);
+                    ev.preventDefault();
+                    $me.runAjax(ajaxPath, element, success, formDataAppend);
+                });
         }
 
     }
@@ -214,6 +265,10 @@ var addRoleFormHelper = new AjaxFormHelper($("#rolle-add-form"), "Rolle nicht hi
     formdata.append('rollen', JSON.stringify(rollen));
 });
 
+var appointmentFormHelper = new AjaxFormHelperSpecial($("#appointment-form"), "Termin nicht hinzufügbar!", "ajax/appointmentForm.php", function(result){
+    toastr.success("Termin erfolgreich hinzugefügt!");
+});
+
 
 $(document).on("submit", '#register-form', function (ev) {
     ev.preventDefault();
@@ -236,15 +291,15 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     var faecher = $('[name=fachButton]');
     var selectedFaecher = [];
 
-    $.each(faecher, function(i, fach){
-        if($(fach).hasClass("warning")){
+    $.each(faecher, function (i, fach) {
+        if ($(fach).hasClass("warning")) {
             selectedFaecher.push($(fach).attr('id'));
         }
     });
 
     runMyAjax("ajax/nachhilfeAnfrage.php", function (result) {
         toastr.success("Anfrage gesendet!");
-        selectedFaecher.forEach(function(fache){
+        selectedFaecher.forEach(function (fache) {
             var parent = $("#" + fache).parent();
             var fachen = $("#" + fache).text();
             parent.empty();
@@ -262,7 +317,7 @@ $(document).on("click", "#add_qual", function (ev) {
     }, {'name': $("#qual_name").val(), 'desc': $("#qual_desc").val(), 'id': $("#user-id").val()})
 });
 
-$(document).on("click", "#alerting", function(ev){
+$(document).on("click", "#alerting", function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
     var parent = element.parent();
@@ -270,11 +325,11 @@ $(document).on("click", "#alerting", function(ev){
     parent.append("<div class='data-label'><input type='text' id='reasoning'><button class='button alert' id='submitting'>Submit</button></div>");
 });
 
-$(document).on("click", "#submitting", function(ev){
+$(document).on("click", "#submitting", function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
     var parent = element.parent().parent();
-    if($("#reasoning").val() == ""){
+    if ($("#reasoning").val() == "") {
         var id = $("#alerting").attr('name');
         parent.empty();
         parent.append("<a class='button alert' type='submit' name='" + id + "' id='alerting'>Nutzer melden</a>");
@@ -291,12 +346,12 @@ $(document).on("click", "#submitting", function(ev){
 });
 
 
-$(document).on("click", "[name=refuseButton]", function(ev){
+$(document).on("click", "[name=refuseButton]", function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
-    runMyAjax("ajax/deleteRequest.php", function(result){
+    runMyAjax("ajax/deleteRequest.php", function (result) {
         toastr.success("Anfrage abgelehnt!");
-    }, {'id' : element.attr('id')});
+    }, {'id': element.attr('id')});
 });
 
 $(document).on("click", '[name=fachButton]', function (ev) {
@@ -315,7 +370,7 @@ $(document).on("click", '[name=fachButton]', function (ev) {
 $(document).on("click", '[name=bestaetigenButton]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
-    if(element.hasClass("alert")) {
+    if (element.hasClass("alert")) {
         runMyAjax("ajax/confirmHourTeacher.php", function (result) {
             toastr.success("Stunde bestätigt!");
             element.removeClass("alert");
@@ -327,7 +382,7 @@ $(document).on("click", '[name=bestaetigenButton]', function (ev) {
 $(document).on("click", '[name=bestaetigen2Button]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
-    if(element.hasClass("alert")) {
+    if (element.hasClass("alert")) {
         runMyAjax("ajax/confirmHourTeacherPayment.php", function (result) {
             toastr.success("Bezahlung bestätigt!");
             element.removeClass("alert");
@@ -339,7 +394,7 @@ $(document).on("click", '[name=bestaetigen2Button]', function (ev) {
 $(document).on("click", '[name=bestaetigen3Button]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
-    if(element.hasClass("alert")) {
+    if (element.hasClass("alert")) {
         runMyAjax("ajax/confirmHourStudent.php", function (result) {
             toastr.success("Stunde bestätigt!");
             element.removeClass("alert");
@@ -420,7 +475,7 @@ $(document).on("click", "[name=blockUserNow]", function (ev) {
     }, {'user': $(ev.target).attr('id')})
 });
 
-$(document).on("click", "#blockUserButton", function(ev){
+$(document).on("click", "#blockUserButton", function (ev) {
     ev.preventDefault();
     runMyAjax("ajax/blockUser.php", function (result) {
         toastr.success(result.name + " wurde gesperrt!");
@@ -435,7 +490,7 @@ $(document).on("click", "#blockUserButton", function(ev){
     }, {'user': $("#user_to_show").val()})
 });
 
-$(document).on("click", "#unblockUserButton", function(ev){
+$(document).on("click", "#unblockUserButton", function (ev) {
     ev.preventDefault();
     runMyAjax("ajax/unblockUser.php", function (result) {
         toastr.success(result.name + " wurde entsperrt!");
@@ -545,9 +600,9 @@ $("#show_connections").on("click", function (ev) {
     ev.preventDefault();
     $('#results').empty();
     runMyAjax("ajax/getConnectionsWithNames.php", function (result) {
-        var html = "<div class='row'><div class='small-6 columns'><input type='text' id='filter'></div></div><table class='hover'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Fach</th></tr></thead><tbody id='connections'>";
+        var html = "<div class='row'><div class='small-6 columns'><input type='text' id='filter'></div></div><table class='hover'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Fach</th><th>Löschen</th></tr></thead><tbody id='connections'>";
         result.data.forEach(function (data) {
-            html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.fachName + "</td></tr>";
+            html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.fachName + "</td><td><button class='tablebutton alert' id='" + data.idVerbindung + "' name='deleteConny'</td>Löschen</tr>";
         });
         html += "</tbody></table>";
         $('#results').append(html);
@@ -559,13 +614,22 @@ $("#show_connections").on("click", function (ev) {
         });
     });
 });
-$(document).on('keyup', $("#filter"), function () {
+$(document).on('keyup', "#filter", function () {
     var val = $.trim($("#filter").val()).replace(/ +/g, ' ').toLowerCase();
     if (typeof $rows !== 'undefined') {
         $rows.show().filter(function (index) {
             return (rowsTextArray[index].indexOf(val) === -1);
         }).hide();
     }
+});
+
+$(document).on("click", "[name=deleteConny]", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/deleteConnection.php", function (result) {
+        toastr.success("Verbindung gelöscht!");
+        $(ev.target).removeClass("alert").addClass("success");
+        ev.target.text = "Gelöscht";
+    }, {'id': $(ev.target).attr('id')})
 });
 
 $("#show_pending_hours").on("click", function (ev) {
@@ -733,6 +797,96 @@ $(document).on("click", "#submitSubject", function (ev) {
         $("#results").empty();
     }, {'subject': $("#subject_name").val()});
 });
+
+var wasSelected = false;
+$(document).on("change", "#idUser", function (ev) {
+    ev.preventDefault();
+    var subjects = $("#idSubject");
+    if (subjects.val() == "no" && !wasSelected) {
+        wasSelected = true;
+        runMyAjax("ajax/getOfferedSubjects.php", function (result) {
+            subjects.empty();
+            subjects.append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
+                result.subjects.forEach(function (subject) {
+                    subjects.append("<option value='" + subject['idFach'] + "'>" + subject['name'] + "</option>");
+                });
+            }
+        }, {'user': $(ev.target).val()});
+    }
+    else if (subjects.val() == "no" && wasSelected) {
+        wasSelected = false;
+        runMyAjax("ajax/getAllOfferedSubjects.php", function (result) {
+            subjects.empty();
+            subjects.append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
+                result.subjects.forEach(function (subject) {
+                    subjects.append("<option value='" + subject['idFach'] + "'>" + subject['name'] + "</option>");
+                });
+            }
+        });
+    }
+});
+var wasSelected2 = false;
+$(document).on("change", "#idSubject", function (ev) {
+    ev.preventDefault();
+    var users = $("#idUser");
+    if (users.val() == "no" && !wasSelected2) {
+        wasSelected2 = true;
+        runMyAjax("ajax/getUsersBySubject.php", function (result) {
+            users.empty();
+            users.append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.users) === '[object Array]') {
+                result.users.forEach(function (user) {
+                    users.append("<option value='" + user['ID'] + "'>" + user['vorname'] + " " + user['name'] + "</option>");
+                });
+            }
+        }, {'fach': $(ev.target).val()});
+    }
+    else if (users.val() == "no" && wasSelected2) {
+        wasSelected2 = false;
+        runMyAjax("ajax/getAllConnectionUsers.php", function (result) {
+            users.empty();
+            users.append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.users) === '[object Array]') {
+                result.users.forEach(function (user) {
+                    users.append("<option value='" + user['ID'] + "'>" + user['vorname'] + " " + user['name'] + "</option>");
+                });
+            }
+        });
+    }
+});
+
+var date = null;
+var time = null;
+$(document).on("focusout", "#datetime_app", function(ev){
+    ev.preventDefault();
+    date = $(ev.target).val();
+    if(date != null && time != null){
+        updateRooms();
+    }
+});
+$(document).on("focusout", "#time_app", function(ev){
+    ev.preventDefault();
+    time = $(ev.target).val();
+    if(date != null && time != null){
+        updateRooms();
+    }
+});
+
+function updateRooms(){
+    runMyAjax("ajax/getFreeRooms.php", function(result){
+        if (Object.prototype.toString.call(result.raeume) === '[object Array]') {
+            var idRoom = $("#idRoom");
+            idRoom.empty();
+            idRoom.append("<option value='no'>Nichts</option>");
+            result.raeume.forEach(function(raum){
+                idRoom.append("<option value='" + raum.raumNummer + "'>" + raum.raumNummer + "</option>")
+            })
+        }
+    }, {'date' : date, 'time': time})
+}
+
 
 
 function getCurrentDate() {

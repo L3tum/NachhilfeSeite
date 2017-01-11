@@ -66,6 +66,11 @@ if ($user->has_permission("takeClasses")) {
                     echo "</tr>";
                 }
             }
+            $set = false;
+            else {
+                $set = true;
+                echo "<tr><td>Nichts</td></tr>";
+            }
             if ($appointments2 != null && !empty($appointments2)) {
                 foreach ($appointments2 as $appointment) {
                     $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
@@ -92,7 +97,7 @@ if ($user->has_permission("takeClasses")) {
                     }
                     echo "</tr>";
                 }
-            } else {
+            } else if(!$set){
                 echo "<tr><td>Nichts</td></tr>";
             }
             ?>
