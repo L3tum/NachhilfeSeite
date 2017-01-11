@@ -259,13 +259,20 @@ $(document).on("click", "#add_qual", function (ev) {
 $(document).on("click", "#alerting", function(ev){
     ev.preventDefault();
     var element = $(ev.target);
-    element.parent().append("<input type='text' id='reasoning'><br><button class='button alert' id='submitting'>Submit</button>");
+    var parent = element.parent();
+    parent.empty();
+    parent.append("<input type='text' id='reasoning'><br><button class='button alert' id='submitting'>Submit</button>");
 });
 
 $(document).on("click", "#submitting", function(ev){
     ev.preventDefault();
+    var element = $(ev.target);
+    var parent = element.parent();
     runMyAjax("ajax/reportUser.php", function(result){
         toastr.success("Benutzer gemeldet!");
+        var id = $("#alerting").attr('name');
+        parent.empty();
+        parent.append("<a class='button alert' type='submit' name='" + id + "' id='alerting'>Nutzer melden</a>");
     }, {'reason' : $("#reasoning").val(), 'id' : $("#alerting").attr('name')})
 });
 
