@@ -229,13 +229,21 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     ev.preventDefault();
     var faecher = $('[name=fachButton]');
     var selectedFaecher = [];
-    for (var i = 0; i < faecher.length; i++) {
-        if (faecher[i].value == "true") {
-            selectedFaecher.push(faecher[i].attributes[1].nodeValue);
+
+    $.each(faecher, function(i, fach){
+        if($(fach).hasClass("warning")){
+            selectedFaecher.push($(fach).attr('id'));
         }
-    }
+    });
+
     runMyAjax("ajax/nachhilfeAnfrage.php", function (result) {
         toastr.success("Anfrage gesendet!");
+        selectedFaecher.forEach(function(fach){
+            var parent = $("#" + fach).parent();
+            var fach = $("#" + fach).text();
+            parent.empty();
+            parent.append("<div class='data-label secondary'><p class='center'>" + fach + "</p></div>")
+        })
     }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher})
 });
 
@@ -251,14 +259,29 @@ $(document).on("click", "#add_qual", function (ev) {
 $(document).on("click", "#alerting", function(ev){
     ev.preventDefault();
     var element = $(ev.target);
-    element.parent().append("<input type='text' id='reasoning'><br><button class='button alert' id='submitting'>Submit</button>");
+    var parent = element.parent();
+    parent.empty();
+    parent.append("<div class='data-label'><input type='text' id='reasoning'><button class='button alert' id='submitting'>Submit</button></div>");
 });
 
 $(document).on("click", "#submitting", function(ev){
     ev.preventDefault();
-    runMyAjax("ajax/reportUser.php", function(result){
-        toastr.success("Benutzer gemeldet!");
-    }, {'reason' : $("#reasoning").val(), 'id' : $("#alerting").attr('name')})
+    var element = $(ev.target);
+    var parent = element.parent().parent();
+    if($("#reasoning").val() == ""){
+        var id = $("#alerting").attr('name');
+        parent.empty();
+        parent.append("<a class='button alert' type='submit' name='" + id + "' id='alerting'>Nutzer melden</a>");
+        toastr.error("Keinen Grund angegeben!");
+    }
+    else {
+        runMyAjax("ajax/reportUser.php", function (result) {
+            toastr.success("Benutzer gemeldet!");
+            var id = $("#alerting").attr('name');
+            parent.empty();
+            parent.append("<a class='button alert' type='submit' name='" + id + "' id='alerting'>Nutzer melden</a>");
+        }, {'reason': $("#reasoning").val(), 'id': $("#alerting").attr('name')})
+    }
 });
 
 
@@ -276,12 +299,10 @@ $(document).on("click", '[name=fachButton]', function (ev) {
     if (ev.target.className.includes("success")) {
         element.removeClass("success");
         element.addClass("warning");
-        element.value = "true";
     }
     else {
         element.removeClass("warning");
         element.addClass("success");
-        element.value = "false";
     }
 });
 

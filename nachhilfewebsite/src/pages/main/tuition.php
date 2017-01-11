@@ -1,11 +1,11 @@
 <?php
-if(Benutzer::get_logged_in_user()->has_permission("give_classes")) {
+if(Benutzer::get_logged_in_user()->has_permission("giveClasses")) {
     $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idNachhilfelehrer = :id");
     $stmt->bindParam(':id', Benutzer::get_logged_in_user()->idBenutzer);
     $stmt->execute();
     $connections = $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
 }
-else if(Benutzer::get_logged_in_user()->has_permission("take_classes")) {
+else if(Benutzer::get_logged_in_user()->has_permission("takeClasses")) {
     $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idNachhilfenehmer == :id");
     $stmt->bindParam(':id', Benutzer::get_logged_in_user()->idBenutzer);
     $stmt->execute();
