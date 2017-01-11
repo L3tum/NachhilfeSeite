@@ -230,14 +230,20 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     var faecher = $('[name=fachButton]');
     var selectedFaecher = [];
 
-    $.each(faecher, function(fach){
-        if(fach.val() == "true"){
-            selectedFaecher.push(fach.attr('id'));
+    $.each(faecher, function(i, fach){
+        if($(fach).hasClass("warning")){
+            selectedFaecher.push($(fach).attr('id'));
         }
     });
 
     runMyAjax("ajax/nachhilfeAnfrage.php", function (result) {
         toastr.success("Anfrage gesendet!");
+        selectedFaecher.forEach(function(fach){
+            var parent = $("#" + fach).parent();
+            var fach = $("#" + fach).text();
+            parent.empty();
+            parent.append("<div class='data-label secondary'><p class='center'>" + fach + "</p></div>")
+        })
     }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher})
 });
 
@@ -278,12 +284,10 @@ $(document).on("click", '[name=fachButton]', function (ev) {
     if (ev.target.className.includes("success")) {
         element.removeClass("success");
         element.addClass("warning");
-        ev.target.value = "true";
     }
     else {
         element.removeClass("warning");
         element.addClass("success");
-        ev.target.value = "false";
     }
 });
 
