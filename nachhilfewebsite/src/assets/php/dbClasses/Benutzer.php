@@ -29,6 +29,7 @@ class Benutzer
     public $sessionID;
     public $idRolle;
     public $rollenname;
+    public $emailActivated;
 
     private $permissions;
     private $roleName;

@@ -179,6 +179,11 @@ Route::add('appointment', function(){
    include 'main/appointment.php';
 });
 
+Route::add('verifyEmail/(.*)', function($hash){
+    include 'special/verifyEmail.php';
+
+});
+
 
 Route::run();
 //print_r($_SERVER);

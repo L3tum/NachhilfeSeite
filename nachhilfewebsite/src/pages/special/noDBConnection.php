@@ -2,6 +2,8 @@
 layout: special
 ---
 
+
+
 <div class="row">
     <div class="small-12 columns small-centered">
         <h1 class="text-center">Keine Verbinding mit der Datenbank!</h1>

@@ -27,8 +27,11 @@ if(!$user) {
     $form_helper->return_error("Passwort oder Nutzername falsch!");
 }
 
-if($user->gesperrt==1){
+if($user->gesperrt == true){
     $form_helper->return_error("Sie wurden gesperrt!");
+}
+else if($user->emailActivated == false) {
+    $form_helper->return_error("Sie haben ihre Email-Adresse noch nicht bestätigt!");
 }
 
 //Set the session id

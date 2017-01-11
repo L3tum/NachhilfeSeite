@@ -32,10 +32,11 @@ if(Benutzer::get_logged_in_user()->has_permission("registerNewUser")) {
     $stmt->bindParam(':rolle', $rolle);
 
     $secret = "52df1c3b0748b09539d64a781fda";
-    $hash = md5($_POST['email'].$secret);
+    error_reporting ( E_ERROR );
+    $hash = openssl_encrypt ($_POST['email'], "aes-256-ofb", $secret);
+    error_reporting ( E_ERROR | E_WARNING | E_PARSE);
 
-
-    if (true) {
+    if ($stmt->execute() == true) {
 
 
 
@@ -56,15 +57,15 @@ if(Benutzer::get_logged_in_user()->has_permission("registerNewUser")) {
 
         try{
             $mail->Send();
-            echo "Success!";
+            $form_helper->success = true;
+            $form_helper->response['name'] = $vorname . " " . $nachname;
+            $form_helper->return_json();
         } catch(Exception $e){
             //Something went bad
-            echo "Fail - " . $mail->ErrorInfo;
+            $form_helper->return_error("Email konnte nicht gesendet werden!");
         }
 
-        $form_helper->success = true;
-        $form_helper->response['name'] = $vorname . " " . $nachname;
-        $form_helper->return_json();
+
     } else {
         $form_helper->return_error("Registrierung fehlgeschlagen!");
     }
