@@ -236,6 +236,11 @@ header {
     overflow-y: scroll;
     overflow-x: hidden;
 
+    &.search {
+      height: 540px;
+      overflow-y: auto;
+      overflow-x: auto;
+    }
   }
 
 }
@@ -370,9 +375,6 @@ button.round, .button.round {
 }
 
 .table-scroll {
-  overflow-y: auto;
+
 }
 
-.search div {
-  height: 540px;
-}

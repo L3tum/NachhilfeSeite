@@ -154,7 +154,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
         var root = getRootUrl();
         var permission = result.canDelete;
         var permission2 = result.canUnblockUsers;
-        var html = "<div class='table-scroll'><table><thead><tr><th>Benutzer</th><th>Rolle</th><th>Profil</th>";
+        var html = "<table><thead><tr><th>Benutzer</th><th>Rolle</th><th>Profil</th>";
         if (permission == true) {
             html += "<th>Sperren</th>";
         }
@@ -182,7 +182,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
             }
             html += "</tr>";
         });
-        html += "</tbody></table></div>";
+        html += "</tbody></table>";
         $("#search-results").append(html);
     }
     var stateObj = {"url": "suche"};
