@@ -21491,3 +21491,1468 @@ Time                 Id Command    Argument
 		    8 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
 		    9 Quit	
 		    8 Quit	
+170111 14:38:55	   10 Connect	pma@localhost as anonymous on 
+		   11 Connect	root@localhost as anonymous on 
+		   11 Query	SET CHARACTER SET 'utf8mb4'
+		   11 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   11 Query	SELECT CURRENT_USER()
+		   11 Query	FLUSH PRIVILEGES
+		   11 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   11 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   11 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   11 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   11 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   11 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   11 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   11 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   11 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   11 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   11 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   11 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   11 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   11 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   11 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   11 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   11 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   11 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   11 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   11 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   10 Query	SELECT query FROM `phpmyadmin`.`pma__bookmark` WHERE dbase = 'nachhilfe' AND (user = 'root') AND `label` = 'berechtigung'
+		   11 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   10 Query	SELECT `prefs` FROM `phpmyadmin`.`pma__table_uiprefs` WHERE `username` = 'root' AND `db_name` = 'nachhilfe' AND `table_name` = 'berechtigung'
+		   11 Query	SELECT DATABASE()
+		   11 Init DB	nachhilfe
+		   11 Query	SELECT * FROM `berechtigung` LIMIT 0, 25
+		   11 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'berechtigung'
+		   11 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'berechtigung' ORDER BY Name ASC
+		   11 Query	SELECT COUNT(*) FROM `nachhilfe`.`berechtigung`
+		   11 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'berechtigung'
+                AND IS_UPDATABLE = 'YES'
+		   11 Query	SHOW INDEXES FROM `nachhilfe`.`berechtigung`
+		   11 Query	SELECT @@profiling
+		   10 Query	SELECT `master_field`,
+                    `foreign_db`,
+                    `foreign_table`,
+                    `foreign_field`
+               FROM `phpmyadmin`.`pma__relation`
+              WHERE `master_db`    = 'nachhilfe'
+                AND `master_table` = 'berechtigung'
+		   11 Query	SHOW CREATE TABLE `nachhilfe`.`berechtigung`
+		   11 Query	SHOW FULL COLUMNS FROM `nachhilfe`.`berechtigung`
+		   10 Query	SELECT CONCAT(`db_name`, '.', `table_name`, '.', `column_name`) AS column_name, `mimetype`,
+                `transformation`,
+                `transformation_options`,
+                `input_transformation`,
+                `input_transformation_options`
+         FROM `phpmyadmin`.`pma__column_info`
+         WHERE `db_name`    = 'nachhilfe'
+           AND `table_name` = 'berechtigung'
+           AND ( `mimetype` != ''
+              OR `transformation` != ''
+              OR `transformation_options` != ''
+              OR `input_transformation` != ''
+              OR `input_transformation_options` != '')
+		   11 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   11 Query	SHOW  COLUMNS FROM `nachhilfe`.`berechtigung`
+		   10 Query	REPLACE INTO `phpmyadmin`.`pma__recent` (`username`, `tables`) VALUES ('root', '[{"db":"nachhilfe","table":"berechtigung"},{"db":"nachhilfe","table":"benutzer"},{"db":"nachhilfe","table":"beschwerde"},{"db":"nachhilfe","table":"chatnachricht"},{"db":"nachhilfe","table":"fach"},{"db":"nachhilfe","table":"qualifikation"},{"db":"nachhilfe","table":"raum"},{"db":"nachhilfe","table":"rolle"},{"db":"nachhilfe","table":"rollenberechtigung"},{"db":"nachhilfe","table":"stufe"}]')
+		   11 Query	SELECT CURRENT_USER()
+		   11 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   10 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   11 Init DB	nachhilfe
+		   11 Init DB	nachhilfe
+		   11 Query	SELECT CURRENT_USER()
+		   11 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   10 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   11 Quit	
+		   10 Quit	
+		   12 Connect	pma@localhost as anonymous on 
+		   13 Connect	root@localhost as anonymous on 
+		   13 Query	SET CHARACTER SET 'utf8mb4'
+		   13 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   13 Query	SELECT CURRENT_USER()
+		   13 Query	FLUSH PRIVILEGES
+		   13 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   13 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   13 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   13 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   13 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   13 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   13 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   13 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   13 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   13 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   13 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   13 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   13 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   13 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   13 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   13 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   13 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   13 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   13 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   13 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   12 Query	SELECT query FROM `phpmyadmin`.`pma__bookmark` WHERE dbase = 'nachhilfe' AND (user = 'root') AND `label` = 'berechtigung'
+		   13 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   13 Query	SELECT DATABASE()
+		   13 Init DB	nachhilfe
+		   13 Query	SELECT * FROM `berechtigung` LIMIT 0, 25
+		   13 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'berechtigung'
+		   13 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'berechtigung' ORDER BY Name ASC
+		   13 Query	SELECT COUNT(*) FROM `nachhilfe`.`berechtigung`
+		   13 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'berechtigung'
+                AND IS_UPDATABLE = 'YES'
+		   13 Query	SHOW INDEXES FROM `nachhilfe`.`berechtigung`
+		   12 Query	SELECT `master_field`,
+                    `foreign_db`,
+                    `foreign_table`,
+                    `foreign_field`
+               FROM `phpmyadmin`.`pma__relation`
+              WHERE `master_db`    = 'nachhilfe'
+                AND `master_table` = 'berechtigung'
+		   13 Query	SHOW CREATE TABLE `nachhilfe`.`berechtigung`
+		   13 Query	SHOW FULL COLUMNS FROM `nachhilfe`.`berechtigung`
+		   12 Query	SELECT CONCAT(`db_name`, '.', `table_name`, '.', `column_name`) AS column_name, `mimetype`,
+                `transformation`,
+                `transformation_options`,
+                `input_transformation`,
+                `input_transformation_options`
+         FROM `phpmyadmin`.`pma__column_info`
+         WHERE `db_name`    = 'nachhilfe'
+           AND `table_name` = 'berechtigung'
+           AND ( `mimetype` != ''
+              OR `transformation` != ''
+              OR `transformation_options` != ''
+              OR `input_transformation` != ''
+              OR `input_transformation_options` != '')
+		   13 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   13 Query	SHOW  COLUMNS FROM `nachhilfe`.`berechtigung`
+		   13 Query	SELECT CURRENT_USER()
+		   13 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   12 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   13 Init DB	nachhilfe
+		   13 Init DB	nachhilfe
+		   13 Query	SELECT CURRENT_USER()
+		   13 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   12 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   13 Quit	
+		   12 Quit	
+170111 14:38:56	   14 Connect	pma@localhost as anonymous on 
+		   15 Connect	root@localhost as anonymous on 
+		   15 Query	SET CHARACTER SET 'utf8mb4'
+		   15 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   15 Query	SELECT CURRENT_USER()
+		   15 Query	FLUSH PRIVILEGES
+		   15 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   15 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   15 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   15 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   15 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   15 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   15 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   15 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   15 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   15 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   15 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   15 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   15 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   15 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   15 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   15 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   15 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   15 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   15 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   15 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   14 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   14 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   15 Quit	
+		   14 Quit	
+170111 14:39:03	   16 Connect	pma@localhost as anonymous on 
+		   17 Connect	root@localhost as anonymous on 
+		   17 Query	SET CHARACTER SET 'utf8mb4'
+		   17 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   17 Query	SELECT CURRENT_USER()
+		   17 Query	FLUSH PRIVILEGES
+		   17 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   17 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   17 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   17 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   17 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   17 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   17 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   17 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   17 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   17 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   17 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   17 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   17 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   17 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   17 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   17 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   17 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   17 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   17 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   17 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+170111 14:39:04	   17 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   17 Query	SELECT DATABASE()
+		   17 Init DB	nachhilfe
+		   17 Query	SELECT * FROM `berechtigung` LIMIT 0, 500
+		   17 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'berechtigung'
+		   17 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'berechtigung' ORDER BY Name ASC
+		   17 Query	SELECT COUNT(*) FROM `nachhilfe`.`berechtigung`
+		   17 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'berechtigung'
+                AND IS_UPDATABLE = 'YES'
+		   17 Query	SHOW INDEXES FROM `nachhilfe`.`berechtigung`
+		   16 Query	SELECT `master_field`,
+                    `foreign_db`,
+                    `foreign_table`,
+                    `foreign_field`
+               FROM `phpmyadmin`.`pma__relation`
+              WHERE `master_db`    = 'nachhilfe'
+                AND `master_table` = 'berechtigung'
+		   17 Query	SHOW CREATE TABLE `nachhilfe`.`berechtigung`
+		   17 Query	SHOW FULL COLUMNS FROM `nachhilfe`.`berechtigung`
+		   16 Query	SELECT CONCAT(`db_name`, '.', `table_name`, '.', `column_name`) AS column_name, `mimetype`,
+                `transformation`,
+                `transformation_options`,
+                `input_transformation`,
+                `input_transformation_options`
+         FROM `phpmyadmin`.`pma__column_info`
+         WHERE `db_name`    = 'nachhilfe'
+           AND `table_name` = 'berechtigung'
+           AND ( `mimetype` != ''
+              OR `transformation` != ''
+              OR `transformation_options` != ''
+              OR `input_transformation` != ''
+              OR `input_transformation_options` != '')
+		   17 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   17 Query	SHOW  COLUMNS FROM `nachhilfe`.`berechtigung`
+		   17 Query	SELECT CURRENT_USER()
+		   17 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   16 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   17 Init DB	nachhilfe
+		   17 Init DB	nachhilfe
+		   17 Query	SELECT CURRENT_USER()
+		   17 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   16 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   17 Quit	
+		   16 Quit	
+		   18 Connect	pma@localhost as anonymous on 
+		   19 Connect	root@localhost as anonymous on 
+		   19 Query	SET CHARACTER SET 'utf8mb4'
+		   19 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   19 Query	SELECT CURRENT_USER()
+		   19 Query	FLUSH PRIVILEGES
+		   19 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   19 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   19 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   19 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   19 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   19 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   19 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   19 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   19 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   19 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   19 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   19 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   19 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   19 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   19 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   19 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   19 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   19 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   19 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   19 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   18 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   18 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   19 Quit	
+		   18 Quit	
+170111 14:47:42	   20 Connect	pma@localhost as anonymous on 
+		   21 Connect	root@localhost as anonymous on 
+		   21 Query	SET CHARACTER SET 'utf8mb4'
+		   21 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   21 Query	SELECT CURRENT_USER()
+		   21 Query	FLUSH PRIVILEGES
+		   21 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   21 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   21 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   21 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   21 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   21 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   21 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   21 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   21 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   21 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   21 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   21 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   21 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   21 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   21 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   21 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   21 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   21 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   21 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   21 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   20 Query	SELECT query FROM `phpmyadmin`.`pma__bookmark` WHERE dbase = 'nachhilfe' AND (user = 'root') AND `label` = 'benutzer'
+		   21 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   20 Query	SELECT `prefs` FROM `phpmyadmin`.`pma__table_uiprefs` WHERE `username` = 'root' AND `db_name` = 'nachhilfe' AND `table_name` = 'benutzer'
+		   21 Query	SELECT DATABASE()
+		   21 Init DB	nachhilfe
+		   21 Query	SELECT * FROM `benutzer` LIMIT 0, 25
+		   21 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'benutzer'
+		   21 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'benutzer' ORDER BY Name ASC
+		   21 Query	SELECT COUNT(*) FROM `nachhilfe`.`benutzer`
+		   21 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'benutzer'
+                AND IS_UPDATABLE = 'YES'
+		   21 Query	SHOW INDEXES FROM `nachhilfe`.`benutzer`
+		   20 Query	SELECT `master_field`,
+                    `foreign_db`,
+                    `foreign_table`,
+                    `foreign_field`
+               FROM `phpmyadmin`.`pma__relation`
+              WHERE `master_db`    = 'nachhilfe'
+                AND `master_table` = 'benutzer'
+		   21 Query	SHOW CREATE TABLE `nachhilfe`.`benutzer`
+		   20 Query	SELECT `display_field`
+               FROM `phpmyadmin`.`pma__table_info`
+              WHERE `db_name`    = 'nachhilfe'
+                AND `table_name` = 'rolle'
+		   21 Query	SHOW FULL COLUMNS FROM `nachhilfe`.`benutzer`
+		   20 Query	SELECT CONCAT(`db_name`, '.', `table_name`, '.', `column_name`) AS column_name, `mimetype`,
+                `transformation`,
+                `transformation_options`,
+                `input_transformation`,
+                `input_transformation_options`
+         FROM `phpmyadmin`.`pma__column_info`
+         WHERE `db_name`    = 'nachhilfe'
+           AND `table_name` = 'benutzer'
+           AND ( `mimetype` != ''
+              OR `transformation` != ''
+              OR `transformation_options` != ''
+              OR `input_transformation` != ''
+              OR `input_transformation_options` != '')
+		   21 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   21 Query	SHOW  COLUMNS FROM `nachhilfe`.`benutzer`
+		   20 Query	REPLACE INTO `phpmyadmin`.`pma__recent` (`username`, `tables`) VALUES ('root', '[{"db":"nachhilfe","table":"benutzer"},{"db":"nachhilfe","table":"berechtigung"},{"db":"nachhilfe","table":"beschwerde"},{"db":"nachhilfe","table":"chatnachricht"},{"db":"nachhilfe","table":"fach"},{"db":"nachhilfe","table":"qualifikation"},{"db":"nachhilfe","table":"raum"},{"db":"nachhilfe","table":"rolle"},{"db":"nachhilfe","table":"rollenberechtigung"},{"db":"nachhilfe","table":"stufe"}]')
+		   21 Query	SELECT CURRENT_USER()
+		   21 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   20 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   21 Init DB	nachhilfe
+		   21 Init DB	nachhilfe
+		   21 Query	SELECT CURRENT_USER()
+		   21 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+170111 14:47:43	   20 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   21 Quit	
+		   20 Quit	
+		   22 Connect	pma@localhost as anonymous on 
+		   23 Connect	root@localhost as anonymous on 
+		   23 Query	SET CHARACTER SET 'utf8mb4'
+		   23 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   23 Query	SELECT CURRENT_USER()
+		   23 Query	FLUSH PRIVILEGES
+		   23 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   23 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   23 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   23 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   23 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   23 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   23 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   23 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   23 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   23 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   23 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   23 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   23 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   23 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   23 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   23 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   23 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   23 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   23 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   23 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   22 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   22 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   23 Quit	
+		   22 Quit	
+		   24 Connect	pma@localhost as anonymous on 
+		   25 Connect	root@localhost as anonymous on 
+		   25 Query	SET CHARACTER SET 'utf8mb4'
+		   25 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   25 Query	SELECT CURRENT_USER()
+		   25 Query	FLUSH PRIVILEGES
+		   25 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   25 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   25 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   25 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   25 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   25 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   25 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   25 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   25 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   25 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   25 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   25 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   25 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   25 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   25 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   25 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   25 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   25 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   25 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   25 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   24 Query	SELECT query FROM `phpmyadmin`.`pma__bookmark` WHERE dbase = 'nachhilfe' AND (user = 'root') AND `label` = 'anfrage'
+		   25 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   24 Query	SELECT `prefs` FROM `phpmyadmin`.`pma__table_uiprefs` WHERE `username` = 'root' AND `db_name` = 'nachhilfe' AND `table_name` = 'anfrage'
+		   25 Query	SELECT DATABASE()
+		   25 Init DB	nachhilfe
+		   25 Query	SELECT * FROM `anfrage` LIMIT 0, 25
+		   25 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'anfrage'
+		   25 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'anfrage' ORDER BY Name ASC
+		   25 Query	SELECT COUNT(*) FROM `nachhilfe`.`anfrage`
+		   25 Query	SELECT COUNT(*) FROM `nachhilfe`.`anfrage`
+		   25 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   25 Query	SHOW  COLUMNS FROM `nachhilfe`.`anfrage`
+		   25 Query	SHOW INDEXES FROM `nachhilfe`.`anfrage`
+		   24 Query	REPLACE INTO `phpmyadmin`.`pma__recent` (`username`, `tables`) VALUES ('root', '[{"db":"nachhilfe","table":"anfrage"},{"db":"nachhilfe","table":"benutzer"},{"db":"nachhilfe","table":"berechtigung"},{"db":"nachhilfe","table":"beschwerde"},{"db":"nachhilfe","table":"chatnachricht"},{"db":"nachhilfe","table":"fach"},{"db":"nachhilfe","table":"qualifikation"},{"db":"nachhilfe","table":"raum"},{"db":"nachhilfe","table":"rolle"},{"db":"nachhilfe","table":"rollenberechtigung"}]')
+		   25 Query	SELECT CURRENT_USER()
+		   25 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   24 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   25 Init DB	nachhilfe
+		   25 Init DB	nachhilfe
+		   25 Query	SELECT CURRENT_USER()
+		   25 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   24 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   25 Quit	
+		   24 Quit	
+170111 14:47:44	   26 Connect	pma@localhost as anonymous on 
+		   27 Connect	root@localhost as anonymous on 
+		   27 Query	SET CHARACTER SET 'utf8mb4'
+		   27 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   27 Query	SELECT CURRENT_USER()
+		   27 Query	FLUSH PRIVILEGES
+		   27 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   27 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   27 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   27 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   27 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   27 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   27 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   27 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   27 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   27 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   27 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   27 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   27 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   27 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   27 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   27 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   27 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   27 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   27 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   27 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   26 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   26 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   27 Quit	
+		   26 Quit	
+170111 14:47:45	   28 Connect	pma@localhost as anonymous on 
+		   29 Connect	root@localhost as anonymous on 
+		   29 Query	SET CHARACTER SET 'utf8mb4'
+		   29 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   29 Query	SELECT CURRENT_USER()
+		   29 Query	FLUSH PRIVILEGES
+		   29 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   29 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   29 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   29 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   29 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   29 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   29 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   29 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   29 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   29 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   29 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   29 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   29 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   29 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   29 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   29 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   29 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   29 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   29 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   29 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   29 Init DB	nachhilfe
+		   29 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'anfrage' ORDER BY Name ASC
+		   29 Init DB	nachhilfe
+		   29 Query	SHOW INDEXES FROM `nachhilfe`.`anfrage`
+		   29 Query	SHOW FULL COLUMNS FROM `nachhilfe`.`anfrage`
+		   29 Query	SHOW CREATE TABLE `nachhilfe`.`anfrage`
+		   29 Query	SHOW FULL COLUMNS FROM `nachhilfe`.`anfrage`
+		   28 Query	SELECT `column_name`, `mimetype`,
+                `transformation`,
+                `transformation_options`,
+                `input_transformation`,
+                `input_transformation_options`
+         FROM `phpmyadmin`.`pma__column_info`
+         WHERE `db_name`    = 'nachhilfe'
+           AND `table_name` = 'anfrage'
+           AND ( `mimetype` != '')
+		   29 Init DB	nachhilfe
+		   29 Query	SHOW  COLUMNS FROM `nachhilfe`.`anfrage`
+		   28 Init DB	phpmyadmin
+		   28 Query	SELECT col_name FROM `pma__central_columns` WHERE db_name = 'nachhilfe' AND col_name IN ('idSender','idEmpfänger','idFach')
+		   29 Query	SHOW PLUGINS
+		   29 Query	SELECT `PARTITION_NAME` FROM `information_schema`.`PARTITIONS` WHERE `TABLE_SCHEMA` = 'nachhilfe' AND `TABLE_NAME` = 'anfrage'
+		   29 Query	SHOW  COLUMNS FROM `nachhilfe`.`anfrage`
+		   29 Query	SELECT CURRENT_USER()
+		   29 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   28 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   29 Init DB	nachhilfe
+		   29 Init DB	nachhilfe
+		   29 Query	SELECT CURRENT_USER()
+		   29 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   28 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   29 Quit	
+		   28 Quit	
+		   30 Connect	pma@localhost as anonymous on 
+		   31 Connect	root@localhost as anonymous on 
+		   31 Query	SET CHARACTER SET 'utf8mb4'
+		   31 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   31 Query	SELECT CURRENT_USER()
+		   31 Query	FLUSH PRIVILEGES
+		   31 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   31 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   31 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   31 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   31 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   31 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   31 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   31 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   31 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   31 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   31 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   31 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   31 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   31 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   31 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   31 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   31 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   31 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   31 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   31 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   30 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   30 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   31 Quit	
+		   30 Quit	
+170111 14:47:52	   32 Connect	pma@localhost as anonymous on 
+		   33 Connect	root@localhost as anonymous on 
+		   33 Query	SET CHARACTER SET 'utf8mb4'
+		   33 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   33 Query	SELECT CURRENT_USER()
+		   33 Query	FLUSH PRIVILEGES
+		   33 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   33 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   33 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   33 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   33 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   33 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   33 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   33 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   33 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   33 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   33 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   33 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   33 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   33 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   33 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   33 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   33 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   33 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   33 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   33 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   33 Init DB	nachhilfe
+		   33 Query	SHOW TABLES LIKE 'anfrage'
+		   33 Init DB	nachhilfe
+		   33 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'anfrage' ORDER BY Name ASC
+		   33 Query	SHOW FULL COLUMNS FROM `nachhilfe`.`anfrage`
+		   33 Query	SHOW INDEXES FROM `nachhilfe`.`anfrage`
+		   32 Query	SELECT `column_name`, `mimetype`,
+                `transformation`,
+                `transformation_options`,
+                `input_transformation`,
+                `input_transformation_options`
+         FROM `phpmyadmin`.`pma__column_info`
+         WHERE `db_name`    = 'nachhilfe'
+           AND `table_name` = 'anfrage'
+           AND ( `mimetype` != ''
+              OR `transformation` != ''
+              OR `transformation_options` != ''
+              OR `input_transformation` != ''
+              OR `input_transformation_options` != '')
+		   33 Query	SHOW CREATE TABLE `nachhilfe`.`anfrage`
+		   33 Query	SHOW  COLUMNS FROM `nachhilfe`.`anfrage`
+		   33 Query	SELECT CURRENT_USER()
+		   33 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   32 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   33 Init DB	nachhilfe
+		   33 Init DB	nachhilfe
+		   33 Query	SELECT CURRENT_USER()
+		   33 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   32 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   33 Quit	
+		   32 Quit	
+		   34 Connect	pma@localhost as anonymous on 
+		   35 Connect	root@localhost as anonymous on 
+		   35 Query	SET CHARACTER SET 'utf8mb4'
+		   35 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   35 Query	SELECT CURRENT_USER()
+		   35 Query	FLUSH PRIVILEGES
+		   35 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   35 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   35 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   35 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   35 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   35 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   35 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   35 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   35 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   35 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   35 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   35 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   35 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   35 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   35 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   35 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   35 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   35 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   35 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   35 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   34 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   34 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   35 Quit	
+		   34 Quit	
+170111 14:48:18	   36 Connect	pma@localhost as anonymous on 
+		   37 Connect	root@localhost as anonymous on 
+		   37 Query	SET CHARACTER SET 'utf8mb4'
+		   37 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   37 Query	SELECT CURRENT_USER()
+		   37 Query	FLUSH PRIVILEGES
+		   37 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   37 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   37 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   37 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   37 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   37 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   37 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   37 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   37 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   37 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   37 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   37 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   37 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   37 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   37 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   37 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   37 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   37 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   37 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   37 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   37 Init DB	nachhilfe
+		   37 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'anfrage' ORDER BY Name ASC
+		   37 Query	SHOW INDEXES FROM .
+		   37 Query	SHOW  COLUMNS FROM `nachhilfe`.`anfrage`
+		   37 Query	SHOW INDEXES FROM `nachhilfe`.`anfrage`
+		   37 Query	SELECT CURRENT_USER()
+		   37 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   36 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   37 Init DB	nachhilfe
+		   37 Init DB	nachhilfe
+		   37 Query	SELECT CURRENT_USER()
+		   37 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   36 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   37 Quit	
+		   36 Quit	
+170111 14:48:23	   38 Connect	pma@localhost as anonymous on 
+		   39 Connect	root@localhost as anonymous on 
+		   39 Query	SET CHARACTER SET 'utf8mb4'
+		   39 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   39 Query	SELECT CURRENT_USER()
+		   39 Query	FLUSH PRIVILEGES
+		   39 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   39 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   39 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   39 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   39 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   39 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   39 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   39 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   39 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   39 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   39 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   39 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   39 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   39 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   39 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   39 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   39 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   39 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   39 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   39 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   39 Init DB	nachhilfe
+		   39 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'anfrage' ORDER BY Name ASC
+		   39 Query	SHOW  COLUMNS FROM `nachhilfe`.`anfrage`
+		   39 Query	SHOW INDEXES FROM `nachhilfe`.`anfrage`
+		   39 Query	SELECT CURRENT_USER()
+		   39 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   38 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   39 Init DB	nachhilfe
+		   39 Init DB	nachhilfe
+		   39 Query	SELECT CURRENT_USER()
+		   39 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   38 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   39 Quit	
+		   38 Quit	
+170111 14:48:30	   40 Connect	pma@localhost as anonymous on 
+		   41 Connect	root@localhost as anonymous on 
+		   41 Query	SET CHARACTER SET 'utf8mb4'
+		   41 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   41 Query	SELECT CURRENT_USER()
+		   41 Query	FLUSH PRIVILEGES
+		   41 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   41 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   41 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   41 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   41 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   41 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   41 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   41 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   41 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   41 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   41 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   41 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   41 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   41 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   41 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   41 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   41 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   41 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   41 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   41 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   41 Init DB	nachhilfe
+		   41 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'anfrage' ORDER BY Name ASC
+		   41 Query	SHOW  COLUMNS FROM `nachhilfe`.`anfrage`
+		   41 Query	SHOW INDEXES FROM `nachhilfe`.`anfrage`
+		   41 Query	SELECT CURRENT_USER()
+		   41 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   40 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   41 Init DB	nachhilfe
+		   41 Init DB	nachhilfe
+		   41 Query	SELECT CURRENT_USER()
+		   41 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   40 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   41 Quit	
+		   40 Quit	
+170111 14:48:40	   42 Connect	pma@localhost as anonymous on 
+		   43 Connect	root@localhost as anonymous on 
+		   43 Query	SET CHARACTER SET 'utf8mb4'
+		   43 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   43 Query	SELECT CURRENT_USER()
+		   43 Query	FLUSH PRIVILEGES
+		   43 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   43 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   43 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   43 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   43 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   43 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   43 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   43 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   43 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   43 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   43 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   43 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   43 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   43 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   43 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   43 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   43 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   43 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   43 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   43 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   43 Init DB	nachhilfe
+		   43 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'anfrage' ORDER BY Name ASC
+		   43 Quit	
+		   42 Quit	
+		   44 Connect	pma@localhost as anonymous on 
+		   45 Connect	root@localhost as anonymous on 
+		   45 Query	SET CHARACTER SET 'utf8mb4'
+		   45 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   45 Query	SELECT CURRENT_USER()
+		   45 Query	FLUSH PRIVILEGES
+		   45 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   45 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   45 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   45 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   45 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   45 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   45 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   45 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   45 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   45 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   45 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   45 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   45 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   45 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   45 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   45 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   45 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   45 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   45 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   45 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   45 Init DB	nachhilfe
+		   45 Query	ALTER TABLE `anfrage`  ADD `idAnfrage` INT NOT NULL AUTO_INCREMENT  FIRST,  ADD   PRIMARY KEY  (`idAnfrage`)
+170111 14:48:41	   44 Query	SELECT MAX(version) FROM `phpmyadmin`.`pma__tracking` WHERE `db_name` = 'nachhilfe'  AND `table_name` = 'anfrage'  AND FIND_IN_SET('ALTER TABLE',tracking) > 0
+		   44 Query	SELECT tracking_active FROM `phpmyadmin`.`pma__tracking` WHERE db_name = 'nachhilfe'  AND table_name = 'anfrage'  ORDER BY version DESC
+		   44 Query	SELECT `mimetype`,
+                `comment`
+           FROM `phpmyadmin`.`pma__column_info`
+          WHERE `db_name`     = 'nachhilfe'
+            AND `table_name`  = 'anfrage'
+            AND `column_name` = 'idAnfrage'
+		   45 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'anfrage'
+		   45 Query	SELECT CURRENT_USER()
+		   45 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   44 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   45 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'anfrage'
+		   45 Init DB	nachhilfe
+		   45 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'anfrage' ORDER BY Name ASC
+		   45 Init DB	nachhilfe
+		   45 Query	SELECT CURRENT_USER()
+		   45 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   44 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   45 Quit	
+		   44 Quit	
+		   46 Connect	pma@localhost as anonymous on 
+		   47 Connect	root@localhost as anonymous on 
+		   47 Query	SET CHARACTER SET 'utf8mb4'
+		   47 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   47 Query	SELECT CURRENT_USER()
+		   47 Query	FLUSH PRIVILEGES
+		   47 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   47 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   47 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   47 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   47 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   47 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   47 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   47 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   47 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   47 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   47 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   47 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   47 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   47 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   47 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   47 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   47 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   47 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   47 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   47 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   47 Quit	
+		   46 Quit	
+		   48 Connect	pma@localhost as anonymous on 
+		   49 Connect	root@localhost as anonymous on 
+		   49 Query	SET CHARACTER SET 'utf8mb4'
+		   49 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   49 Query	SELECT CURRENT_USER()
+		   49 Query	FLUSH PRIVILEGES
+		   49 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   49 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   49 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   49 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   49 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   49 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   49 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   49 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   49 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   49 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   49 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   49 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   49 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   49 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   49 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   49 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   49 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   49 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   49 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   49 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   49 Query	SELECT `SCHEMA_NAME` FROM `INFORMATION_SCHEMA`.`SCHEMATA`, (SELECT DB_first_level FROM ( SELECT DISTINCT SUBSTRING_INDEX(SCHEMA_NAME, '_', 1) DB_first_level FROM INFORMATION_SCHEMA.SCHEMATA WHERE TRUE ) t ORDER BY DB_first_level ASC LIMIT 0, 100) t2 WHERE 1 = LOCATE(CONCAT(DB_first_level, '_'), CONCAT(SCHEMA_NAME, '_')) ORDER BY SCHEMA_NAME ASC
+		   48 Query	SELECT `db_name`, COUNT(*) AS `count` FROM `phpmyadmin`.`pma__navigationhiding` WHERE `username`='root' GROUP BY `db_name`
+		   48 Query	SELECT `item_name` FROM `phpmyadmin`.`pma__navigationhiding` WHERE `username`='root' AND `item_type`='group' AND `db_name`='nachhilfe'
+		   49 Query	SELECT COUNT(*) FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA`='nachhilfe' AND `TABLE_TYPE`='BASE TABLE'
+		   49 Query	SELECT COUNT(*) FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA`='nachhilfe' AND `TABLE_TYPE`!='BASE TABLE'
+		   49 Query	SELECT COUNT(*) FROM `INFORMATION_SCHEMA`.`ROUTINES` WHERE `ROUTINE_SCHEMA` ='nachhilfe' AND `ROUTINE_TYPE`='FUNCTION'
+		   49 Query	SELECT COUNT(*) FROM `INFORMATION_SCHEMA`.`ROUTINES` WHERE `ROUTINE_SCHEMA` ='nachhilfe'AND `ROUTINE_TYPE`='PROCEDURE'
+		   49 Query	SELECT COUNT(*) FROM `INFORMATION_SCHEMA`.`EVENTS` WHERE `EVENT_SCHEMA` ='nachhilfe'
+		   49 Query	SELECT `TABLE_NAME` AS `name` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA`='nachhilfe' AND `TABLE_TYPE`='BASE TABLE' ORDER BY `TABLE_NAME` ASC LIMIT 0, 50
+		   48 Query	SELECT `item_name` FROM `phpmyadmin`.`pma__navigationhiding` WHERE `username`='root' AND `item_type`='table' AND `db_name`='nachhilfe'
+		   49 Query	SELECT COUNT(*) FROM ( SELECT DISTINCT SUBSTRING_INDEX(SCHEMA_NAME, '_', 1) DB_first_level FROM INFORMATION_SCHEMA.SCHEMATA WHERE TRUE ) t
+		   49 Query	SELECT COUNT(*) FROM ( SELECT DISTINCT SUBSTRING_INDEX(SCHEMA_NAME, '_', 1) DB_first_level FROM INFORMATION_SCHEMA.SCHEMATA WHERE TRUE ) t
+		   49 Query	SELECT COUNT(*) FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA`='nachhilfe' AND `TABLE_TYPE`='BASE TABLE'
+		   49 Query	SELECT COUNT(*) FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA`='nachhilfe' AND `TABLE_TYPE`='BASE TABLE'
+		   48 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   48 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   49 Quit	
+		   48 Quit	
+170111 14:48:42	   50 Connect	pma@localhost as anonymous on 
+		   51 Connect	root@localhost as anonymous on 
+		   51 Query	SET CHARACTER SET 'utf8mb4'
+		   51 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   51 Query	SELECT CURRENT_USER()
+		   51 Query	FLUSH PRIVILEGES
+		   51 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   51 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   51 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   51 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   51 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   51 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   51 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   51 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   51 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   51 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   51 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   51 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   51 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   51 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   51 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   51 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   51 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   51 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   51 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   51 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   50 Query	SELECT query FROM `phpmyadmin`.`pma__bookmark` WHERE dbase = 'nachhilfe' AND (user = 'root') AND `label` = 'chatnachricht'
+		   51 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   50 Query	SELECT `prefs` FROM `phpmyadmin`.`pma__table_uiprefs` WHERE `username` = 'root' AND `db_name` = 'nachhilfe' AND `table_name` = 'chatnachricht'
+		   51 Query	SELECT DATABASE()
+		   51 Init DB	nachhilfe
+		   51 Query	SELECT * FROM `chatnachricht` LIMIT 0, 25
+		   51 Query	SELECT TABLE_NAME
+            FROM information_schema.VIEWS
+            WHERE TABLE_SCHEMA = 'nachhilfe'
+                AND TABLE_NAME = 'chatnachricht'
+		   51 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'chatnachricht' ORDER BY Name ASC
+		   51 Query	SELECT COUNT(*) FROM `nachhilfe`.`chatnachricht`
+		   51 Query	SELECT COUNT(*) FROM `nachhilfe`.`chatnachricht`
+		   51 Query	SHOW SESSION VARIABLES LIKE 'FOREIGN_KEY_CHECKS'
+		   51 Query	SHOW  COLUMNS FROM `nachhilfe`.`chatnachricht`
+170111 14:48:43	   51 Query	SHOW INDEXES FROM `nachhilfe`.`chatnachricht`
+		   50 Query	REPLACE INTO `phpmyadmin`.`pma__recent` (`username`, `tables`) VALUES ('root', '[{"db":"nachhilfe","table":"chatnachricht"},{"db":"nachhilfe","table":"anfrage"},{"db":"nachhilfe","table":"benutzer"},{"db":"nachhilfe","table":"berechtigung"},{"db":"nachhilfe","table":"beschwerde"},{"db":"nachhilfe","table":"fach"},{"db":"nachhilfe","table":"qualifikation"},{"db":"nachhilfe","table":"raum"},{"db":"nachhilfe","table":"rolle"},{"db":"nachhilfe","table":"rollenberechtigung"}]')
+		   51 Query	SELECT CURRENT_USER()
+		   51 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   50 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   51 Init DB	nachhilfe
+		   51 Init DB	nachhilfe
+		   51 Query	SELECT CURRENT_USER()
+		   51 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   50 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   51 Quit	
+		   50 Quit	
+		   52 Connect	pma@localhost as anonymous on 
+		   53 Connect	root@localhost as anonymous on 
+		   53 Query	SET CHARACTER SET 'utf8mb4'
+		   53 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   53 Query	SELECT CURRENT_USER()
+		   53 Query	FLUSH PRIVILEGES
+		   53 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   53 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   53 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   53 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   53 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   53 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   53 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   53 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   53 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   53 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   53 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   53 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   53 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   53 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   53 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   53 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   53 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   53 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   53 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   53 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   52 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   52 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   53 Quit	
+		   52 Quit	
+		   54 Connect	pma@localhost as anonymous on 
+		   55 Connect	root@localhost as anonymous on 
+		   55 Query	SET CHARACTER SET 'utf8mb4'
+		   55 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   55 Query	SELECT CURRENT_USER()
+		   55 Query	FLUSH PRIVILEGES
+		   55 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   55 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   55 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   55 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   55 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   55 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   55 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   55 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   55 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   55 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   55 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   55 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   55 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   55 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   55 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   55 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   55 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   55 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   55 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   55 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   55 Init DB	nachhilfe
+		   55 Query	SELECT *,
+                    `TABLE_SCHEMA`       AS `Db`,
+                    `TABLE_NAME`         AS `Name`,
+                    `TABLE_TYPE`         AS `TABLE_TYPE`,
+                    `ENGINE`             AS `Engine`,
+                    `ENGINE`             AS `Type`,
+                    `VERSION`            AS `Version`,
+                    `ROW_FORMAT`         AS `Row_format`,
+                    `TABLE_ROWS`         AS `Rows`,
+                    `AVG_ROW_LENGTH`     AS `Avg_row_length`,
+                    `DATA_LENGTH`        AS `Data_length`,
+                    `MAX_DATA_LENGTH`    AS `Max_data_length`,
+                    `INDEX_LENGTH`       AS `Index_length`,
+                    `DATA_FREE`          AS `Data_free`,
+                    `AUTO_INCREMENT`     AS `Auto_increment`,
+                    `CREATE_TIME`        AS `Create_time`,
+                    `UPDATE_TIME`        AS `Update_time`,
+                    `CHECK_TIME`         AS `Check_time`,
+                    `TABLE_COLLATION`    AS `Collation`,
+                    `CHECKSUM`           AS `Checksum`,
+                    `CREATE_OPTIONS`     AS `Create_options`,
+                    `TABLE_COMMENT`      AS `Comment`
+                FROM `information_schema`.`TABLES` t
+                WHERE `TABLE_SCHEMA` 
+                    IN ('nachhilfe')
+                    AND t.`TABLE_NAME`  = 'chatnachricht' ORDER BY Name ASC
+		   55 Init DB	nachhilfe
+		   55 Query	SHOW INDEXES FROM `nachhilfe`.`chatnachricht`
+		   55 Query	SHOW FULL COLUMNS FROM `nachhilfe`.`chatnachricht`
+		   55 Query	SHOW CREATE TABLE `nachhilfe`.`chatnachricht`
+		   55 Query	SHOW FULL COLUMNS FROM `nachhilfe`.`chatnachricht`
+		   54 Query	SELECT `column_name`, `mimetype`,
+                `transformation`,
+                `transformation_options`,
+                `input_transformation`,
+                `input_transformation_options`
+         FROM `phpmyadmin`.`pma__column_info`
+         WHERE `db_name`    = 'nachhilfe'
+           AND `table_name` = 'chatnachricht'
+           AND ( `mimetype` != '')
+		   55 Init DB	nachhilfe
+		   55 Query	SHOW  COLUMNS FROM `nachhilfe`.`chatnachricht`
+		   54 Init DB	phpmyadmin
+170111 14:48:44	   54 Query	SELECT col_name FROM `pma__central_columns` WHERE db_name = 'nachhilfe' AND col_name IN ('idBenutzer1','idBenutzer2','titel','inhalt')
+		   55 Query	SHOW PLUGINS
+		   55 Query	SELECT `PARTITION_NAME` FROM `information_schema`.`PARTITIONS` WHERE `TABLE_SCHEMA` = 'nachhilfe' AND `TABLE_NAME` = 'chatnachricht'
+		   55 Query	SHOW  COLUMNS FROM `nachhilfe`.`chatnachricht`
+		   55 Query	SELECT CURRENT_USER()
+		   55 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   54 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   55 Init DB	nachhilfe
+		   55 Init DB	nachhilfe
+		   55 Query	SELECT CURRENT_USER()
+		   55 Query	SELECT `PRIVILEGE_TYPE` FROM `INFORMATION_SCHEMA`.`USER_PRIVILEGES` WHERE GRANTEE='''root''@''localhost''' AND PRIVILEGE_TYPE='TRIGGER'
+		   54 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'table%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   55 Quit	
+		   54 Quit	
+		   56 Connect	pma@localhost as anonymous on 
+		   57 Connect	root@localhost as anonymous on 
+		   57 Query	SET CHARACTER SET 'utf8mb4'
+		   57 Query	SET collation_connection = 'utf8mb4_unicode_ci'
+		   57 Query	SELECT CURRENT_USER()
+		   57 Query	FLUSH PRIVILEGES
+		   57 Query	SELECT * FROM `mysql`.`db` LIMIT 1
+		   57 Query	DELETE FROM `mysql`.`db` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   57 Query	INSERT INTO `mysql`.`db`(`host`, `Db`, `User`) VALUES("pma_test_host", "mysql", "pma_test_user")
+		   57 Query	DELETE FROM `mysql`.`db` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" LIMIT 1
+		   57 Query	UPDATE `mysql`.`db` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   57 Query	SELECT * FROM `mysql`.`columns_priv` LIMIT 1
+		   57 Query	DELETE FROM `mysql`.`columns_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" LIMIT 1
+		   57 Query	INSERT INTO `mysql`.`columns_priv`(`host`, `Db`, `User`, `Table_name`, `Column_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "")
+		   57 Query	DELETE FROM `mysql`.`columns_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" AND Column_name = "" LIMIT 1
+		   57 Query	UPDATE `mysql`.`columns_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Column_name = "" AND Table_name = "" LIMIT 1
+		   57 Query	SELECT * FROM `mysql`.`tables_priv` LIMIT 1
+		   57 Query	DELETE FROM `mysql`.`tables_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   57 Query	INSERT INTO `mysql`.`tables_priv`(`host`, `Db`, `User`, `Table_name`) VALUES("pma_test_host", "mysql", "pma_test_user", "")
+		   57 Query	DELETE FROM `mysql`.`tables_priv` WHERE host = "pma_test_host" AND Db = "mysql" AND User = "pma_test_user" AND Table_name = "" LIMIT 1
+		   57 Query	UPDATE `mysql`.`tables_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND Table_name = "" LIMIT 1
+		   57 Query	SELECT * FROM `mysql`.`procs_priv` LIMIT 1
+		   57 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" AND `Routine_type` = "" LIMIT 1
+		   57 Query	INSERT INTO `mysql`.`procs_priv`(`host`, `Db`, `User`, `Routine_name`, `Routine_type`) VALUES("pma_test_host", "mysql", "pma_test_user", "", "PROCEDURE")
+		   57 Query	DELETE FROM `mysql`.`procs_priv` WHERE `host` = "pma_test_host" AND `Db` = "mysql" AND `User` = "pma_test_user" AND `Routine_name` = "" AND `Routine_type` = "PROCEDURE" LIMIT 1
+		   57 Query	UPDATE `mysql`.`procs_priv` SET `host` = "" WHERE `host` = "" AND `Db` = "" AND `User` = "" AND `Routine_name` = "" LIMIT 1
+		   56 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   56 Query	SELECT `tab` FROM `phpmyadmin`.`pma__usergroups` WHERE `allowed` = 'N' AND `tab` LIKE 'server%' AND `usergroup` = (SELECT usergroup FROM `phpmyadmin`.`pma__users` WHERE `username` = 'root')
+		   57 Quit	
+		   56 Quit	

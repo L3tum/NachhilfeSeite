@@ -1128,3 +1128,10 @@ Version: '10.1.19-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribut
 2017-01-11 14:30:00 10168 [ERROR] mysql.procs_priv: 1 client is using or hasn't closed the table properly
 2017-01-11 14:30:01 10168 [Note] c:\xampp\mysql\bin\mysqld.exe: ready for connections.
 Version: '10.1.19-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : Start
+2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : Completed
+2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : Completed
+2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : Completed
+2017-01-11 14:48:41 12536 [Note] InnoDB: Online DDL : Completed
