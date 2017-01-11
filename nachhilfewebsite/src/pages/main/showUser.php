@@ -130,9 +130,12 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                                 $isnot = true;
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
+                                    <div class='data-label alert'>
                               <p type=\"button\" id={$subject->idFach} name='fachButton' class='labelled success center'>
+                              
                               {$name}
                               </p>
+                              </div>
                             </div>";
                             } else {
                                 echo

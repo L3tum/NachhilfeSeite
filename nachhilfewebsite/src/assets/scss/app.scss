@@ -316,6 +316,31 @@ header {
   }
 }
 
+.labelled {
+  border: 1px solid white;
+  box-shadow: 0px 1px 17px -2px rgb(39, 39, 39);
+  padding: 5px;
+  margin-bottom: 1rem;
+  p {
+    margin: 0;
+    color:white;
+  }
+  &.success{
+    border: 1px solid white;
+    background-color: $success-color;
+  }
+  &.warning{
+    background-color: $warning-color;
+  }
+  &.pending{
+    background-color: $primary-color;
+  }
+  &.alter{
+    background-color: red;
+  }
+}
+
+
 button.radius, .button.radius {
   border-radius: 3px; }
 button.round, .button.round {
