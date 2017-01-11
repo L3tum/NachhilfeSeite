@@ -7,6 +7,7 @@ class AjaxFormHelper {
 
         var $me = this;
         if (element[0] != null) {
+
             element
                 .on("submit", function (ev) {
                     ev.preventDefault();
@@ -122,7 +123,12 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
 });
 
 var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden fehlgeschlagen!", "ajax/sendMessage.php", function (result) {
-    toastr.success("Nachricht gesendet!");
+
+    location.reload();
+});
+
+var TuitionEndFormHelper = new AjaxFormHelper($(".tuition-end-form"), "Beenden fehlgeschlagen!", "ajax/tuitionEnd.php", function (result) {
+
     location.reload();
 });
 

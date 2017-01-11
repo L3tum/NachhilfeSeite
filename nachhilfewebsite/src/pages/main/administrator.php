@@ -39,7 +39,7 @@
     </div>
     <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
         <h2>Ergebnisse</h2>
-        <div class="result-boxes-inner search" id="results" name="results">
+        <div class="result-boxes-inner" id="results" name="results">
 
         </div>
     </div>
