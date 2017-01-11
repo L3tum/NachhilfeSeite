@@ -1,6 +1,8 @@
 <div class="row main" data-equalizer data-equalize-on="medium">
     <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
         <h2>Aktionen</h2>
+        <div class="row actions">
+            <div class="small-12 columns">
         <?php
         if (Benutzer::get_logged_in_user()->has_permission("registerNewUser")) {
             echo "<a id='register_new_user' class='button' type='submit' value='Submit'>Registriere neuen Benutzer</a><br>";
@@ -30,6 +32,10 @@
             echo "<a id='show_complaints' class='button warning' type='submit' value='Submit'>Zeige alle Beschwerden</a><br>";
         }
         ?>
+
+            </div>
+
+        </div>
     </div>
     <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
         <h2>Ergebnisse</h2>
