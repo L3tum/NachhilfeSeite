@@ -216,7 +216,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
         result.users.forEach(function (entry) {
             html += "<tr><td>" + entry.vorname + " " + entry.name + "</td><td>" + entry.rollenname + "</td><td><a class='tablebutton success' href='" + root + "user/" + entry.idBenutzer.toString() + "/view" + "'>Profil</a></td>";
             if (permission == true) {
-                if (entry.gesperrt == null) {
+                if (entry.gesperrt == null || entry.gesperrt == 0 || entry.gesperrt == false) {
                     html += "<td><button class='tablebutton alert' id='" + entry.idBenutzer + "' name='blockUserNow'>Sperren</button></td>";
                 }
                 else {
@@ -338,10 +338,10 @@ $(document).on("click", "#submitting", function (ev) {
     else {
         runMyAjax("ajax/reportUser.php", function (result) {
             toastr.success("Benutzer gemeldet!");
-            var id = $("#alerting").attr('name');
+            var id = $("#user_to_show").val();
             parent.empty();
             parent.append("<a class='button alert' type='submit' name='" + id + "' id='alerting'>Nutzer melden</a>");
-        }, {'reason': $("#reasoning").val(), 'id': $("#alerting").attr('name')})
+        }, {'reason': $("#reasoning").val(), 'id': $("#user_to_show").val()})
     }
 });
 

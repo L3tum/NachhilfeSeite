@@ -70,7 +70,7 @@ class AjaxFormHelper
             if(!preg_match($pattern, $string)) {
                 return null;
             }
-            return "'".$string."'";
+            return "'%".$string."%'";
         }
         else {
             return null;

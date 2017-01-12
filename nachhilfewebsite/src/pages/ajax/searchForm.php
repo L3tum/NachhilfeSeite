@@ -29,8 +29,8 @@ $otherTable = "JOIN angeboteneStufe AS t2 ON t2.idBenutzer=t1.idBenutzer JOIN st
 $otherTable2= "JOIN angebotenesFach AS t4 ON t4.idBenutzer=t1.idBenutzer JOIN fach AS t5 ON t5.idFach=t4.idFach ";
 $otherTable3= "JOIN rolle AS t6 ON t6.idRolle=t1.idRolle ";
 
-$firstParam = " t1.vorname LIKE %".$vorname."%";
-$secondParam = " AND t1.name = %".$nachname."%";
+$firstParam = " t1.vorname LIKE ".$vorname;
+$secondParam = " AND t1.name LIKE ".$nachname;
 $thirdParam = " AND t2.idStufe = ".$stufe;
 $fourthParam = " AND t4.idFach = ".$fach;
 $fifthParam = " AND t6.idRolle = ".$rolle;

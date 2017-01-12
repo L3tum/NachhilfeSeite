@@ -223,6 +223,14 @@ class Benutzer
         return false;
     }
 
+    public function get_subjects_by_connection($idOtherUser){
+        $stmt = Connection::$PDO->prepare("SELECT DISTINCT verbindung.idFach as idFach, fach.name as name FROM verbindung JOIN fach ON fach.idFach=verbindung.idFach WHERE (verbindung.idNachhilfelehrer = :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer) OR (verbindung.idNachhilfelehrer = :idanderer OR verbindung.idNachhilfenehmer = :idanderer)");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->bindParam(':idanderer', $idOtherUser);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function get_all_anfragen()
     {
         $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE anfrage.idSender = :idBenutzer OR anfrage.idEmpfänger = :idBenutzer");
@@ -315,7 +323,6 @@ class Benutzer
 
     public function get_all_connections_single(){
         $connections = $this->get_connection_other();
-
         $others = Array();
         $i = 0;
         foreach ($connections as $connection) {
