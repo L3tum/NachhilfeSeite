@@ -10,6 +10,15 @@
         if (Benutzer::get_logged_in_user()->has_permission("addNewSubject")) {
             echo "<a id='add_subject' class='button' type='submit' value='Submit'>Füge ein Fach hinzu</a><br>";
         }
+        if (Benutzer::get_logged_in_user()->has_permission("deleteSubject")) {
+            echo "<a id='del_subject' class='button' type='submit' value='Submit'>Lösche ein Fach</a><br>";
+        }
+        if (Benutzer::get_logged_in_user()->has_permission("addNewYear")) {
+            echo "<a id='add_year' class='button' type='submit' value='Submit'>Füge ein Schuljahr hinzu</a><br>";
+        }
+        if (Benutzer::get_logged_in_user()->has_permission("deleteYear")) {
+            echo "<a id='del_year' class='button' type='submit' value='Submit'>Lösche Schuljahr</a><br>";
+        }
         if (Benutzer::get_logged_in_user()->has_permission("showAllRoles")) {
             echo "<a id='show_roles' class='button' type='submit' value='Submit'>Zeige alle Rollen</a><br>";
         }
@@ -19,8 +28,8 @@
         if (Benutzer::get_logged_in_user()->has_permission("showPendingHours")) {
             echo "<a id='show_pending_hours' class='button' type='submit' value='Submit'>Zeige alle ausstehenden Stunden</a><br>";
         }
-        if (Benutzer::get_logged_in_user()->has_permission("showUnpaidHours")) {
-            echo "<a id='show_unpaid_hours' class='button alert' type='submit' value='Submit'>Zeige alle bisher unbezahlten Stunden</a><br>";
+        if (Benutzer::get_logged_in_user()->has_permission("showAllHours")) {
+            echo "<a id='show_all_hours' class='button alert' type='submit' value='Submit'>Zeige alle Stunden</a><br>";
         }
         if (Benutzer::get_logged_in_user()->has_permission("showAllFreeRooms")) {
             echo "<a id='show_free_rooms' class='button success' type='submit' value='Submit'>Zeige alle freien Räume</a><br>";

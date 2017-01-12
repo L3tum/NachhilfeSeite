@@ -220,7 +220,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
                     html += "<td><button class='tablebutton alert' id='" + entry.idBenutzer + "' name='blockUserNow'>Sperren</button></td>";
                 }
                 else {
-                    html += "<td><p class='alert'>Gesperrt</p></td>";
+                    html += "<td><p id='hii' class='alert'>Gesperrt</p></td>";
                 }
             }
             if (permission2 == true) {
@@ -228,7 +228,7 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
                     html += "<td><button class='tablebutton success' id='" + entry.idBenutzer + "' name='unBlockUserNow'>Entsperren</button></td>"
                 }
                 else {
-                    html += "<td><p class='success'>Entsperrt</p></td>";
+                    html += "<td><p id='hi' class='success'>Entsperrt</p></td>";
                 }
             }
             html += "</tr>";
@@ -238,6 +238,35 @@ var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlag
     }
     var stateObj = {"url": "suche"};
     history.pushState(stateObj, "Nachhilfeseite", result.newUrl);
+});
+
+$(document).on("click", "[name=blockUserNow]", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/blockUser.php", function (result) {
+        toastr.success(result.name + " wurde gesperrt!");
+        var parent = $(ev.target).parent();
+        var id = $(ev.target).attr('id');
+        parent.empty();
+        var otherParent = parent.parent().find("p").parent();
+        parent.append("<p class='alert'>Gesperrt</p>");
+        otherParent.empty();
+        otherParent.append("<button class='tablebutton success' id='" + id + "' name='unBlockUserNow'>Entsperren</button>");
+    }, {'user': $(ev.target).attr('id')})
+});
+
+
+$(document).on("click", "[name=unBlockUserNow]", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/unblockUser.php", function (result) {
+        toastr.success(result.name + " wurde entsperrt!");
+        var parent = $(ev.target).parent();
+        var id = $(ev.target).attr('id');
+        parent.empty();
+        var otherParent = parent.parent().find("p").parent();
+        parent.append("<p id='hi' class='success'>Entsperrt</p>");
+        otherParent.empty();
+        otherParent.append("<button class='tablebutton alert' id='" + id + "' name='blockUserNow'>Sperren</button>");
+    }, {'user': $(ev.target).attr('id')})
 });
 
 
@@ -468,13 +497,6 @@ $(document).on("click", "[name='rollenAddingButton']", function (ev) {
     }
 });
 
-$(document).on("click", "[name=blockUserNow]", function (ev) {
-    ev.preventDefault();
-    runMyAjax("ajax/blockUser.php", function (result) {
-        toastr.success(result.name + " wurde gesperrt!");
-    }, {'user': $(ev.target).attr('id')})
-});
-
 $(document).on("click", "#blockUserButton", function (ev) {
     ev.preventDefault();
     runMyAjax("ajax/blockUser.php", function (result) {
@@ -503,13 +525,6 @@ $(document).on("click", "#unblockUserButton", function (ev) {
         </div>
         </div>`);
     }, {'user': $("#user_to_show").val()})
-});
-
-$(document).on("click", "[name=unBlockUserNow]", function (ev) {
-    ev.preventDefault();
-    runMyAjax("ajax/unblockUser.php", function (result) {
-        toastr.success(result.name + " wurde entsperrt!");
-    }, {'user': $(ev.target).attr('id')})
 });
 
 //Button listeners

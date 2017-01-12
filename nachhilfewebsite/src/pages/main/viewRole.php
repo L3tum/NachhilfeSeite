@@ -47,9 +47,9 @@ foreach ($rights as $allright) {
                     <?php
                     foreach ($allrights as $allright) {
                         if (array_key_exists($allright->idBerechtigung, $rights_key_array)) {
-                            echo "<tr><td class='success'>{$allright->idBerechtigung}</td><td class='success'>{$allright->name}</td>";
+                            echo "<tr><td><p class='success'>{$allright->idBerechtigung}</p></td><td><p class='success'>{$allright->name}</p></td></tr>";
                         } else {
-                            echo "<tr><td class='alert'>{$allright->idBerechtigung}</td><td class='alert'>{$allright->name}</td>";
+                            echo "<tr><td><p class='alert'>{$allright->idBerechtigung}</p></td><td><p class='alert'>{$allright->name}</p></td></tr>";
                         }
                     }
                     ?>

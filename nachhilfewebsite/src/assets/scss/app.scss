@@ -68,6 +68,12 @@ p, a{
   &.center {
     text-align: center;
   }
+  &.success{
+    color: $success-color;
+  }
+  &.alert{
+    color: $alert-color;
+  }
 }
 
 a:hover {
@@ -93,6 +99,7 @@ i {
   -webkit-box-shadow: inset 1px 1px 3px -1px rgba(0,0,0,0.75);
 }
 
+
 .alert {
   color: $alert-color;
 
@@ -103,11 +110,11 @@ i {
 .primary{
   color: $primary-color;
 }
-/*
+
 .success{
   color: $success-color;
 }
-*/
+
 .toast {
   &.toast-error {
     background-color: $alert-color;
@@ -361,9 +368,11 @@ button.round, .button.round {
   margin-bottom: 0px;
   &.alert{
     background-color: $alert-color;
+    color: $white;
   }
   &.success{
     background-color: $success-color;
+    color: $white;
   }
 }
 
