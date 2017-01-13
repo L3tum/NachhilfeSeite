@@ -10,7 +10,6 @@ class Stunde
 {
 
     public $idStunde;
-    public $bezahltLehrer;
     public $raumNummer;
     public $idVerbindung;
     public $datum;
@@ -18,7 +17,9 @@ class Stunde
     public $findetStatt;
     public $bestaetigtSchueler;
     public $bestaetigtLehrer;
-    public $bezahltAdmin;
+    public $hatStattgefundenSchueler;
+    public $hatStattgefundenLehrer;
+    public $abgesagt;
 
     public static function stundeExists($idAndererBenutzer, $idFach, $date, $time, $idRoom){
         $endTime = date("H:i:s", strtotime("+45 minutes", strtotime($time)));

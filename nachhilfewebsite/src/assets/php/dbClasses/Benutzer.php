@@ -30,6 +30,7 @@ class Benutzer
     public $idRolle;
     public $rollenname;
     public $emailActivated;
+    public $hatEineVerbindung;
 
     private $permissions;
     private $roleName;
