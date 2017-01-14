@@ -531,7 +531,7 @@ $(document).on("click", "#unblockUserButton", function (ev) {
 $('#register_new_user').on("click", function (ev) {
     ev.preventDefault();
     $("#results").empty();
-    runMyAjax("ajax/getRollen.php", function (result) {
+    runMyAjax("ajax/Getters/getRollen.php", function (result) {
         var html = `<form data-abide novalidate id="register-form" method="post">
             <div class="row">
 
@@ -578,7 +578,7 @@ $("#show_roles").on("click", function (ev) {
     ev.preventDefault();
     $('#results').empty();
 
-    runMyAjax("ajax/getRollen.php", function (result) {
+    runMyAjax("ajax/Getters/getRollen.php", function (result) {
             var html = `<div class="row">
         <div class="small-12 columns">
             <a class="button success" id="add_role" href="${getRootUrl() + 'role/add'}">Rolle hinzufügen</a>`;
@@ -614,7 +614,7 @@ var $rows;
 $("#show_connections").on("click", function (ev) {
     ev.preventDefault();
     $('#results').empty();
-    runMyAjax("ajax/getConnectionsWithNames.php", function (result) {
+    runMyAjax("ajax/Getters/getConnectionsWithNames.php", function (result) {
         var html = "<div class='row'><div class='small-6 columns'><input type='text' id='filter'></div></div><table class='hover'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Fach</th><th>Löschen</th></tr></thead><tbody id='connections'>";
         result.data.forEach(function (data) {
             html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.fachName + "</td><td><button class='tablebutton alert' id='" + data.idVerbindung + "' name='deleteConny'</td>Löschen</tr>";
@@ -650,7 +650,7 @@ $(document).on("click", "[name=deleteConny]", function (ev) {
 $("#show_pending_hours").on("click", function (ev) {
     ev.preventDefault();
     $('#results').empty();
-    runMyAjax("ajax/getPendingHours.php", function (result) {
+    runMyAjax("ajax/Getters/getPendingHours.php", function (result) {
         var html = "<table class='hover'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Datum</th><th>Raum</th></tr></thead><tbody>";
         result.data.forEach(function (data) {
             html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.datum + "</td><td>" + data.raumNummer + "</td></tr>";
@@ -724,7 +724,7 @@ $("#show_free_rooms").on("click", function (ev) {
 $(document).on("click", "#datePickButton", function (ev) {
     ev.preventDefault();
     $("#rooms").empty();
-    runMyAjax("ajax/getFreeRooms.php", function (result) {
+    runMyAjax("ajax/Getters/getFreeRooms.php", function (result) {
         var html = `<div class="small-12 columns">`;
         result.raeume.forEach(function (raum) {
             html += "<p class='data-label'>" + raum.raumNummer + "</p>"
@@ -764,7 +764,7 @@ $("#show_taken_rooms").on("click", function (ev) {
 $(document).on("click", "#datePickButtonTaken", function (ev) {
     ev.preventDefault();
     $("#rooms").empty();
-    runMyAjax("ajax/getTakenRooms.php", function (result) {
+    runMyAjax("ajax/Getters/getTakenRooms.php", function (result) {
         var html = `<div class="small-12-centered columns"><table id='taken_rooms_table'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Datum</th><th>Raum</th></tr></thead><tbody>`;
         result.data.forEach(function (data) {
             html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.datum + "</td><td>" + data.raumNummer + "</td></tr>"
@@ -777,7 +777,7 @@ $(document).on("click", "#datePickButtonTaken", function (ev) {
 $("#show_complaints").on("click", function (ev) {
     ev.preventDefault();
     $("#results").empty();
-    runMyAjax("ajax/getComplaints.php", function (result) {
+    runMyAjax("ajax/Getters/getComplaints.php", function (result) {
         var html = `<div class="small-12-centered columns"><table id='taken_rooms_table'><thead><tr><th>Gegen</th><th>Von</th><th>Grund</th><th>Löschen</th></tr></thead><tbody>`;
         var i = 0;
         result.data.forEach(function (data) {
@@ -819,7 +819,7 @@ $(document).on("change", "#idUser", function (ev) {
     var subjects = $("#idSubject");
     if (subjects.val() == "no" && !wasSelected) {
         wasSelected = true;
-        runMyAjax("ajax/getOfferedSubjects.php", function (result) {
+        runMyAjax("ajax/Getters/getOfferedSubjects.php", function (result) {
             subjects.empty();
             subjects.append("<option value='no'>Nichts</option>");
             if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
@@ -831,7 +831,7 @@ $(document).on("change", "#idUser", function (ev) {
     }
     else if (subjects.val() == "no" && wasSelected) {
         wasSelected = false;
-        runMyAjax("ajax/getAllOfferedSubjects.php", function (result) {
+        runMyAjax("ajax/Getters/getAllOfferedSubjects.php", function (result) {
             subjects.empty();
             subjects.append("<option value='no'>Nichts</option>");
             if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
@@ -848,7 +848,7 @@ $(document).on("change", "#idSubject", function (ev) {
     var users = $("#idUser");
     if (users.val() == "no" && !wasSelected2) {
         wasSelected2 = true;
-        runMyAjax("ajax/getUsersBySubject.php", function (result) {
+        runMyAjax("ajax/Getters/getUsersBySubject.php", function (result) {
             users.empty();
             users.append("<option value='no'>Nichts</option>");
             if (Object.prototype.toString.call(result.users) === '[object Array]') {
@@ -860,7 +860,7 @@ $(document).on("change", "#idSubject", function (ev) {
     }
     else if (users.val() == "no" && wasSelected2) {
         wasSelected2 = false;
-        runMyAjax("ajax/getAllConnectionUsers.php", function (result) {
+        runMyAjax("ajax/Getters/getAllConnectionUsers.php", function (result) {
             users.empty();
             users.append("<option value='no'>Nichts</option>");
             if (Object.prototype.toString.call(result.users) === '[object Array]') {
@@ -890,7 +890,7 @@ $(document).on("focusout", "#time_app", function(ev){
 });
 
 function updateRooms(){
-    runMyAjax("ajax/getFreeRooms.php", function(result){
+    runMyAjax("ajax/Getters/getFreeRooms.php", function(result){
         if (Object.prototype.toString.call(result.raeume) === '[object Array]') {
             var idRoom = $("#idRoom");
             idRoom.empty();
