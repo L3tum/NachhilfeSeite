@@ -105,9 +105,9 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                             }
                             foreach ($subjects as $subject) {
                                 if (array_key_exists($subject->idFach, $subject_key_array)) {
-                                    echo "<button class='button success' id='{$subject->idFach}' name='subjectChoosing'>{$subject->name}</button>";
+                                    echo "<button class='editUserButton success' id='{$subject->idFach}' name='subjectChoosing'>{$subject->name}</button>";
                                 } else {
-                                    echo "<button class='button alert' id='{$subject->idFach}' name='subjectChoosing'>{$subject->name}</button>";
+                                    echo "<button class='editUserButton alert' id='{$subject->idFach}' name='subjectChoosing'>{$subject->name}</button>";
                                 }
                             }
                             echo "</div>";
@@ -124,21 +124,30 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                             }
                             foreach ($subjects as $subject) {
                                 if (array_key_exists($subject->idStufe, $subject_key_array)) {
-                                    echo "<button class='button success' id='{$subject->idStufe}' name='yearChoosing'>{$subject->name}</button>";
+                                    echo "<button class='editUserButton success' id='{$subject->idStufe}' name='yearChoosing'>{$subject->name}</button>";
                                 } else {
-                                    echo "<button class='button alert' id='{$subject->idStufe}' name='yearChoosing'>{$subject->name}</button>";
+                                    echo "<button class='editUserButton alert' id='{$subject->idStufe}' name='yearChoosing'>{$subject->name}</button>";
                                 }
                             }
                             echo "</div>";
                         }
                         if (((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherQuals") == true) || ($user_is_me && $user->has_permission("editSelfQuals"))) && $user->has_permission("giveClasses")) {
                             echo "<div class='data-label'>";
-                            echo "<label>Qualifikationen</label>";
+                            echo "<label>Qualifikationen Hinzufügen</label>";
                             echo "<input type='text' id='qual_name' name='qual_name' placeholder='Name'>";
                             echo "<input type='text' id='qual_desc' name='qual_desc' placeholder='Beschreibung'>";
                             echo "<button class='button success' type='button' id='add_qual' name='add_qual'>Qualifikation Hinzufügen</button>";
                             echo "</div>";
-                            //Remove Quals
+
+                            $quals = $user->get_all_qualifications();
+                            if(isset($quals) && count($quals) > 0) {
+                                echo "<div class='data-label'><label>Qualifikationen Löschen</label><select id='delet_qual' name='delet_qual'>";
+                                foreach ($quals as $qual) {
+                                    echo "<option id='" . $qual->idQualifikation . "' name='" . $qual->idQualifikation . "'>".$qual->name."</option>";
+                                }
+                                echo "</select><br><button class='button alert' type='button' id='del_qual' name='del_qual'>Qualifikation Löschen</button><br></div>";
+                            }
+
                         }
                         ?>
                         <br><button class="button" type="submit" value="Submit">Submit</button>

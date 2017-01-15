@@ -340,15 +340,19 @@ header {
   &.success{
     border: 1px solid white;
     background-color: $success-color;
+    color: $white;
   }
   &.warning{
     background-color: $warning-color;
+    color: $white;
   }
   &.pending{
     background-color: $primary-color;
+    color: $white;
   }
   &.alter{
     background-color: red;
+    color: $white;
   }
 }
 
@@ -385,5 +389,29 @@ button.round, .button.round {
 
 .table-scroll {
 
+}
+
+.editUserButton{
+  @include button;
+  border-radius: 3px;
+  border-color: $white;
+  margin: 1px;
+  &.success{
+    border: 1px solid white;
+    background-color: $success-color;
+    color: $white;
+  }
+  &.warning{
+    background-color: $warning-color;
+    color: $white;
+  }
+  &.pending{
+    background-color: $primary-color;
+    color: $white;
+  }
+  &.alert{
+    background-color: $alert-color;
+    color: $white;
+  }
 }
 

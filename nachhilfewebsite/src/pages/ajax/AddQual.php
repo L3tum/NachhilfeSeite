@@ -11,20 +11,15 @@ layout: noLayout
  */
 
 
-include_once  __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
-include_once  __DIR__ . "/../assets/php/general/Connection.php";
+include_once __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
+include_once __DIR__ . "/../assets/php/general/Connection.php";
 
 $form_helper = new AjaxFormHelper();
-if(Benutzer::get_logged_in_user()->has_permission("editQuals")) {
-    $stmt = Connection::$PDO->prepare("INSERT INTO qualifikation (qualifikation.name, qualifikation.beschreibung, qualifikation.idBenutzer) VALUES(:name, :desc, :idBenutzer)");
-    $stmt->bindParam(':name', $_POST['name']);
-    $stmt->bindParam(':desc', $_POST['desc']);
-    $stmt->bindParam(':idBenutzer', $_POST['id']);
-    $stmt->execute();
-    $form_helper->response['name'] = $_POST['name'];
-    $form_helper->success = true;
-    $form_helper->return_json();
-}
-else{
-    $form_helper->return_error("Keine Zugriffrechte!");
-}
+$stmt = Connection::$PDO->prepare("INSERT INTO qualifikation (qualifikation.name, qualifikation.beschreibung, qualifikation.idBenutzer) VALUES(:name, :desc, :idBenutzer)");
+$stmt->bindParam(':name', $_POST['name']);
+$stmt->bindParam(':desc', $_POST['desc']);
+$stmt->bindParam(':idBenutzer', $_POST['id']);
+$stmt->execute();
+$form_helper->response['name'] = $_POST['name'];
+$form_helper->success = true;
+$form_helper->return_json();

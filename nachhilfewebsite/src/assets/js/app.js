@@ -340,7 +340,23 @@ $(document).on("click", "#add_qual", function (ev) {
         toastr.success(result.name + " wurde hinzugefügt!");
         document.getElementById("qual_name").value = "";
         document.getElementById("qual_desc").value = "";
+        runMyAjax("ajax/Getters/getAllQuals.php", function(result){
+            var element = $("#delet_qual");
+            element.empty()
+            result.quals.forEach(function(qual){
+                element.append("<option id='" + qual.idQualifikation + "' name='" + qual.idQualifikation + "' >" + qual.name + "</option>")
+            });
+        }, {'id' : $("#user-id").val()});
     }, {'name': $("#qual_name").val(), 'desc': $("#qual_desc").val(), 'id': $("#user-id").val()})
+});
+
+$(document).on("click", "#del_qual", function(ev){
+    ev.preventDefault();
+    var element = $(ev.target);
+    runMyAjax("ajax/delQual.php", function(result){
+        toastr.success(result.name + " wurde erfolgreich entfernt!");
+        element.parent().find("#delet_qual").find("#" + element.parent().find("#delet_qual").find(':selected').attr('id')).remove();
+    }, {'id' : element.parent().find("#delet_qual").find(':selected').attr('id'), 'name' : element.parent().find("#delet_qual").find("#" + element.parent().find("#delet_qual").find(':selected').attr('id')).text()});
 });
 
 $(document).on("click", "#alerting", function (ev) {
@@ -443,19 +459,6 @@ $(document).on("click", '[name=subjectChoosing]', function (ev) {
 });
 
 $(document).on("click", '[name=yearChoosing]', function (ev) {
-    ev.preventDefault();
-    var element = $(ev.target);
-    if (ev.target.className.includes("success")) {
-        element.removeClass("success");
-        element.addClass("alert");
-    }
-    else {
-        element.removeClass("alert");
-        element.addClass("success");
-    }
-});
-
-$(document).on("click", '[name=qualChoosing]', function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
     if (ev.target.className.includes("success")) {
