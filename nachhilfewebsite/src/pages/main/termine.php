@@ -33,7 +33,11 @@ if ($user->has_permission("takeClasses")) {
                 <th>Bestätigt(Schüler)</th>
                 <th>Bestätigt(Lehrer)</th>
                 <th>Findet Statt</th>
-                <th>Schüler Bezahlt Diese Stunde</th>
+                <?php
+                if($user->has_permission("takeClasses")) {
+                    echo "<th>Du Musst Diese Stunde Bezahlen</th>";
+                }
+                ?>
                 <th>Ablehnen</th>
             </tr>
             </thead>
