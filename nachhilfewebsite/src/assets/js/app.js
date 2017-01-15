@@ -10,16 +10,13 @@ class AjaxFormHelper {
 
             element
                 .on("submit", function (ev) {
-                    console.log(1);
                     ev.preventDefault();
                     return false;
                 })
                 .on("forminvalid.zf.abide", function (ev) {
-                    console.log(2);
                     toastr.error(invalidError);
                 })
                 .on("formvalid.zf.abide", function (ev) {
-                    console.log(3);
                     ev.preventDefault();
                     $me.runAjax(ajaxPath, element, success, formDataAppend);
 

@@ -10,11 +10,11 @@ layout: noLayout
  * Time: 13:42
  */
 
-include_once  __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
-include_once  __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
-include_once  __DIR__ . "/../assets/php/general/Connection.php";
-include_once  __DIR__ . "/../assets/php/general/ConfigStrings.php";
-include_once  __DIR__ . "/../assets/php/general/Route.php";
+include_once  __DIR__ . "/../../assets/php/dbClasses/Benutzer.php";
+include_once  __DIR__ . "/../../assets/php/general/AjaxFormHelper.php";
+include_once  __DIR__ . "/../../assets/php/general/Connection.php";
+include_once  __DIR__ . "/../../assets/php/general/ConfigStrings.php";
+include_once  __DIR__ . "/../../assets/php/general/Route.php";
 
 $form_helper = new AjaxFormHelper();
 $vorname = $form_helper->test_search_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß ]{1,25}$/", "Vorname");

@@ -2,8 +2,10 @@
 
 if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
     $user = Benutzer::get_logged_in_user();
+    $user_is_me = true;
 } else {
     $user = Benutzer::get_by_id($user_to_edit_id);
+    $user_is_me = false;
     if (!$user) {
         Route::redirect_to_root();
     }
@@ -76,7 +78,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                         </label>
 
                         <?php
-                        if (Benutzer::get_logged_in_user()->has_permission("editUserRole") == true) {
+                        if ((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherRole") == true) || ($user_is_me &&  $user->has_permission("editSelfRole"))) {
                             echo "<label>Rolle
                         <select id='rollenSelector' name='rollenSelector'>";
                             $rollen = Rolle::get_all_roles();
@@ -91,7 +93,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                             echo "</select>
                         </label>";
                         }
-                        if (Benutzer::get_logged_in_user()->has_permission("editSubjects") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("giveClasses")) {
+                        if (((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherSubjects") == true) || ($user_is_me && $user->has_permission("editSelfSubjects"))) && $user->has_permission("giveClasses")) {
                             echo "<div class='data-label'><label>Fächer</label>";
                             $subjects = Fach::get_all_subjects();
                             $user_to_edit = $user;
@@ -110,7 +112,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                             }
                             echo "</div>";
                         }
-                        if (Benutzer::get_logged_in_user()->has_permission("editYears") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("giveClasses")) {
+                        if (((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherYears") == true) || ($user_is_me && $user->has_permission("editSelfYears"))) && $user->has_permission("giveClasses")) {
                             echo "<div class='data-label'><label>Stufen</label>";
                             $subjects = Stufe::get_all_years();
                             $user_to_edit = $user;
@@ -129,7 +131,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                             }
                             echo "</div>";
                         }
-                        if (Benutzer::get_logged_in_user()->has_permission("editQuals") == true && Benutzer::get_by_id($user_to_edit_id)->has_permission("giveClasses")) {
+                        if (((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherQuals") == true) || ($user_is_me && $user->has_permission("editSelfQuals"))) && $user->has_permission("giveClasses")) {
                             echo "<div class='data-label'>";
                             echo "<label>Qualifikationen</label>";
                             echo "<input type='text' id='qual_name' name='qual_name' placeholder='Name'>";

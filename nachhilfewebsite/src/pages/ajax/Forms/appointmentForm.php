@@ -10,11 +10,11 @@ layout: noLayout
  * Time: 00:04
  */
 
-include_once __DIR__ . "/../assets/php/dbClasses/Stunde.php";
-include_once __DIR__ . "/../assets/php/dbClasses/Verbindung.php";
-include_once __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
-include_once  __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
-include_once  __DIR__ . "/../assets/php/general/Connection.php";
+include_once __DIR__ . "/../../assets/php/dbClasses/Stunde.php";
+include_once __DIR__ . "/../../assets/php/dbClasses/Verbindung.php";
+include_once __DIR__ . "/../../assets/php/dbClasses/Benutzer.php";
+include_once  __DIR__ . "/../../assets/php/general/AjaxFormHelper.php";
+include_once  __DIR__ . "/../../assets/php/general/Connection.php";
 
 $form_helper = new AjaxFormHelper();
 

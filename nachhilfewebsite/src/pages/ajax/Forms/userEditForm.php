@@ -3,9 +3,9 @@ layout: noLayout
 ---
 
 <?php
-include_once __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
-include_once __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
-include_once __DIR__ . "/../assets/php/general/Connection.php";
+include_once __DIR__ . "/../../assets/php/dbClasses/Benutzer.php";
+include_once __DIR__ . "/../../assets/php/general/AjaxFormHelper.php";
+include_once __DIR__ . "/../../assets/php/general/Connection.php";
 
 $form_helper = new AjaxFormHelper();
 $logged_in_user = Benutzer::get_logged_in_user();

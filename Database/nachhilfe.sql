@@ -16,12 +16,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Datenbank: `nachhilfe`
---
-CREATE DATABASE IF NOT EXISTS `nachhilfe` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `nachhilfe`;
-
 -- --------------------------------------------------------
 
 --
@@ -289,7 +283,3 @@ INSERT INTO `angebotenesfach` (`idBenutzer`, `idFach`) VALUES
 INSERT INTO `angebotenestufe` (`idBenutzer`, `idStufe`) VALUES
 (2, 1),
 (2, 2);
-
-
-INSERT INTO `stunde` (`idStunde`, `bezahltLehrer`, `raumNummer`, `idVerbindung`, `datum`, `kommentar`, `findetStatt`, `bestaetigtSchueler`, `bestaetigtLehrer`, `bezahltAdmin`) VALUES
-(2, 0, '113', 2, '2017-01-19 00:00:00', '', 1, 1, 0, 0);
