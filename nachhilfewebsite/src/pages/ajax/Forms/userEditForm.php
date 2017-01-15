@@ -11,6 +11,12 @@ $form_helper = new AjaxFormHelper();
 $logged_in_user = Benutzer::get_logged_in_user();
 $user_to_edit_id = $_POST['user-id'];
 $user_to_edit = $form_helper->get_user_by_external_id($user_to_edit_id);
+if($user_to_edit_id == $logged_in_user->idBenutzer){
+    $user_is_me = true;
+}
+else{
+    $user_is_me = false;
+}
 if (!$user_to_edit) {
 
     $form_helper->return_error("Interner Fehler: Kein Nutzer mit dieser ID gefunden.");
@@ -23,8 +29,8 @@ if (!($user_to_edit->idBenutzer == $logged_in_user->idBenutzer) && !$logged_in_u
 
 if ($logged_in_user->has_permission("canEditName")) {
 
-    $vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜ*]{1,25}$/", "Vorname");
-    $nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜ*]{1,25}$/", "Nachname");
+    $vorname = $form_helper->test_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöü ]{1,25}$/", "Vorname");
+    $nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöü ]{1,25}$/", "Nachname");
 } else {
 
     $vorname = $user_to_edit->vorname;
@@ -49,13 +55,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $form_helper->return_error("Keine gültige Email-Adresse.");
 }
 
-if ($logged_in_user->has_permission("editUserRole")) {
+if (((!$user_is_me && $logged_in_user->has_permission("editOtherRole") == true) || ($user_is_me && $logged_in_user->has_permission("editSelfRole"))) && $user_to_edit->has_permission("giveClasses")) {
     $rolle = $_POST['rollenSelector'];
 } else {
     $rolle = $user_to_edit->idRolle;
 }
 
-if ($logged_in_user->has_permission("editSubjects")) {
+if (((!$user_is_me && $logged_in_user->has_permission("editOtherSubjects") == true) || ($user_is_me && $logged_in_user->has_permission("editSelfSubjects"))) && $user_to_edit->has_permission("giveClasses")) {
     $faecher = json_decode($_POST['faecher']);
     $stmt = Connection::$PDO->prepare("DELETE FROM angebotenesfach WHERE angebotenesfach.idBenutzer=" . $user_to_edit_id);
     $stmt->execute();
@@ -66,7 +72,7 @@ if ($logged_in_user->has_permission("editSubjects")) {
         $stmt->execute();
     }
 }
-if ($logged_in_user->has_permission("editYears")) {
+if (((!$user_is_me && $logged_in_user->has_permission("editOtherYears") == true) || ($user_is_me && $logged_in_user->has_permission("editSelfYears"))) && $user_to_edit->has_permission("giveClasses")) {
     $stufen = json_decode($_POST['stufen']);
     $stmt = Connection::$PDO->prepare("DELETE FROM angebotenestufe WHERE angebotenestufe.idBenutzer=" . $user_to_edit_id);
     $stmt->execute();

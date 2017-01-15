@@ -291,7 +291,7 @@ var addRoleFormHelper = new AjaxFormHelper($("#rolle-add-form"), "Rolle nicht hi
     formdata.append('rollen', JSON.stringify(rollen));
 });
 
-var appointmentFormHelper = new AjaxFormHelperSpecial($("#appointment-form"), "Termin nicht hinzufügbar!", "ajax/Forms/appointmentForm.php", function(result){
+var appointmentFormHelper = new AjaxFormHelperSpecial($("#appointment-form"), "Termin nicht hinzufügbar!", "ajax/Forms/appointmentForm.php", function (result) {
     toastr.success("Termin erfolgreich hinzugefügt!");
 });
 
@@ -340,23 +340,26 @@ $(document).on("click", "#add_qual", function (ev) {
         toastr.success(result.name + " wurde hinzugefügt!");
         document.getElementById("qual_name").value = "";
         document.getElementById("qual_desc").value = "";
-        runMyAjax("ajax/Getters/getAllQuals.php", function(result){
+        runMyAjax("ajax/Getters/getAllQuals.php", function (result) {
             var element = $("#delet_qual");
             element.empty()
-            result.quals.forEach(function(qual){
+            result.quals.forEach(function (qual) {
                 element.append("<option id='" + qual.idQualifikation + "' name='" + qual.idQualifikation + "' >" + qual.name + "</option>")
             });
-        }, {'id' : $("#user-id").val()});
+        }, {'id': $("#user-id").val()});
     }, {'name': $("#qual_name").val(), 'desc': $("#qual_desc").val(), 'id': $("#user-id").val()})
 });
 
-$(document).on("click", "#del_qual", function(ev){
+$(document).on("click", "#del_qual", function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
-    runMyAjax("ajax/delQual.php", function(result){
+    runMyAjax("ajax/delQual.php", function (result) {
         toastr.success(result.name + " wurde erfolgreich entfernt!");
         element.parent().find("#delet_qual").find("#" + element.parent().find("#delet_qual").find(':selected').attr('id')).remove();
-    }, {'id' : element.parent().find("#delet_qual").find(':selected').attr('id'), 'name' : element.parent().find("#delet_qual").find("#" + element.parent().find("#delet_qual").find(':selected').attr('id')).text()});
+    }, {
+        'id': element.parent().find("#delet_qual").find(':selected').attr('id'),
+        'name': element.parent().find("#delet_qual").find("#" + element.parent().find("#delet_qual").find(':selected').attr('id')).text()
+    });
 });
 
 $(document).on("click", "#alerting", function (ev) {
@@ -874,35 +877,37 @@ $(document).on("change", "#idSubject", function (ev) {
 
 var date = null;
 var time = null;
-$(document).on("focusout", "#datetime_app", function(ev){
+$(document).on("focusout", "#datetime_app", function (ev) {
     ev.preventDefault();
     date = $(ev.target).val();
-    if(date != null && time != null){
+    if (date != null && time != null) {
         updateRooms();
     }
 });
-$(document).on("focusout", "#time_app", function(ev){
+$(document).on("focusout", "#time_app", function (ev) {
     ev.preventDefault();
     time = $(ev.target).val();
-    if(date != null && time != null){
+    if (date != null && time != null) {
         updateRooms();
     }
 });
 
-function updateRooms(){
-    runMyAjax("ajax/Getters/getFreeRooms.php", function(result){
+function updateRooms() {
+    runMyAjax("ajax/Getters/getFreeRooms.php", function (result) {
         if (Object.prototype.toString.call(result.raeume) === '[object Array]') {
             var idRoom = $("#idRoom");
             idRoom.empty();
             idRoom.append("<option value='no'>Nichts</option>");
-            result.raeume.forEach(function(raum){
+            result.raeume.forEach(function (raum) {
                 idRoom.append("<option value='" + raum.raumNummer + "'>" + raum.raumNummer + "</option>")
             })
         }
-    }, {'date' : date, 'time': time})
+    }, {'date': date, 'time': time})
 }
 
-
+$(document).on("click", "#show_old_appointments", function (ev) {
+    ev.preventDefault();
+});
 
 function getCurrentDate() {
     var today = new Date();

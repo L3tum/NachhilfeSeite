@@ -17,8 +17,6 @@ class Stunde
     public $findetStatt;
     public $bestaetigtSchueler;
     public $bestaetigtLehrer;
-    public $hatStattgefundenSchueler;
-    public $hatStattgefundenLehrer;
     public $abgesagt;
 
     public static function stundeExists($idAndererBenutzer, $idFach, $date, $time, $idRoom){

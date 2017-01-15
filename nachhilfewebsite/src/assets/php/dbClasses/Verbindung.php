@@ -13,7 +13,7 @@ class Verbindung
     public $idBenutzer1;
     public $idBenutzer2;
     public $idFach;
-    public $ersteVerbindung;
+    public $kostenfrei;
 
     public static function get_id_by_ids($idandererBenutzer, $idFach){
         $stmt = Connection::$PDO->prepare("SELECT verbindung.idVerbindung FROM verbindung WHERE (verbindung.idNachhilfelehrer= :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer) AND (verbindung.idNachhilfelehrer = :idandererBenutzer OR verbindung.idNachhilfenehmer = :idandererBenutzer) AND verbindung.idFach = :idFach");

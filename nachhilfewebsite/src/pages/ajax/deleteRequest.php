@@ -17,7 +17,7 @@ include_once __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
 
 $form_helper = new AjaxFormHelper();
 
-$stmt = Connection::$PDO->prepare("UPDATE stunde SET stunde.abgesagt=1 WHERE stunde.idStunde= :idStunde");
+$stmt = Connection::$PDO->prepare("UPDATE stunde SET stunde.abgesagt=1, stunde.findetStatt=0, stunde.bestaetigtSchueler=0, stunde.bestaetigtLehrer=0 WHERE stunde.idStunde= :idStunde");
 $stmt->bindParam(':idStunde', $_POST['id']);
 $stmt->execute();
 $form_helper->success = true;
