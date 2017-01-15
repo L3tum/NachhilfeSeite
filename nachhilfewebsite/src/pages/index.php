@@ -166,25 +166,17 @@ Route::add('role/add', function(){
     }
 });
 
-Route::add('termine/(.*)', function($param){
+Route::add('termine/?(.*)', function($param){
     if(Benutzer::get_logged_in_user()->has_permission("termine")){
-        if(isset($param)){
-            if(strpos($param, "/") !== false){
-                $params = explode("/", $param);
-                $abgesagt = explode("=", $params[0])[1];
-                $past = explode("=", $params[1])[1];
+        $abgesagt = 0;
+        $past = 0;
+        if(isset($param) && $param != null){
+            if(strpos($param, "abgesagt") !== false){
+                $abgesagt = 1;
             }
-            else if(strpos($param, "abgesagt") !== false){
-                $abgesagt = explode("=", $param)[1];
-                $past = 0;
+            if(strpos($param, "past") !== false){
+                $past = 1;
             }
-            else if(strpos($param, "past") !== false){
-                $past = explode("=", $param)[1];
-                $abgesagt = 0;
-            }
-        }else{
-            $past = 0;
-            $abgesagt = 0;
         }
         include 'main/termine.php';
     }

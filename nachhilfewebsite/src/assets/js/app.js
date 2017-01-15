@@ -395,7 +395,7 @@ $(document).on("click", "[name=refuseButton]", function (ev) {
     ev.preventDefault();
     var element = $(ev.target);
     runMyAjax("ajax/deleteRequest.php", function (result) {
-        toastr.success("Anfrage abgelehnt!");
+        toastr.success("Termin abgelehnt!");
     }, {'id': element.attr('id')});
 });
 
@@ -420,18 +420,7 @@ $(document).on("click", '[name=bestaetigenButton]', function (ev) {
             toastr.success("Stunde bestätigt!");
             element.removeClass("alert");
             element.addClass("success");
-        }, {'id': element.attr('id')});
-    }
-});
-
-$(document).on("click", '[name=bestaetigen2Button]', function (ev) {
-    ev.preventDefault();
-    var element = $(ev.target);
-    if (element.hasClass("alert")) {
-        runMyAjax("ajax/confirmHourTeacherPayment.php", function (result) {
-            toastr.success("Bezahlung bestätigt!");
-            element.removeClass("alert");
-            element.addClass("success");
+            element.text("Ja");
         }, {'id': element.attr('id')});
     }
 });
@@ -444,9 +433,12 @@ $(document).on("click", '[name=bestaetigen3Button]', function (ev) {
             toastr.success("Stunde bestätigt!");
             element.removeClass("alert");
             element.addClass("success");
+            element.text("Ja");
         }, {'id': element.attr('id')});
     }
 });
+
+
 
 $(document).on("click", '[name=subjectChoosing]', function (ev) {
     ev.preventDefault();
@@ -816,6 +808,58 @@ $(document).on("click", "#submitSubject", function (ev) {
     }, {'subject': $("#subject_name").val()});
 });
 
+$("#del_subject").on("click", function(ev){
+    ev.preventDefault();
+    $("#results").empty();
+    var html = "<div class='small-12-centered columns'><label>Fächer<select id='sel_subject' name='sel_subject'>";
+    runMyAjax("ajax/Getters/getAllSubjects.php", function(result){
+       result.subjects.forEach(function(subject){
+          html += "<option id='" + subject['idFach'] + "' name='" + subject['idFach'] + "'>" + subject['name'] + "</option>";
+       });
+        html += "</select></label><button class='button alert' id='deleteSUBJECT'>Fach Löschen</button></div>";
+        $("#results").append(html);
+    });
+});
+$(document).on("click", "#deleteSUBJECT", function(ev){
+    ev.preventDefault();
+   runMyAjax("ajax/deleteSubject.php", function(result){
+       $("#" + result.id).remove();
+   }, {'id' : $("#sel_subject").find(':selected').attr('id')})
+});
+
+$("#add_year").on("click", function (ev) {
+    ev.preventDefault();
+    $("#results").empty();
+    var html = "<div class='small-12-centered columns'><input type='text' id='year' name='year' required placeholder='Stufe'><button class='button' type='submit' name='submitYear' id='submitYear'>Submit</button></div>";
+    $("#results").append(html);
+});
+$(document).on("click", "#submitYear", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/AddYear.php", function (result) {
+        toastr.success(result.name + " wurde erfolgreich hinzugefügt!");
+        $("#results").empty();
+    }, {'year': $("#year").val()});
+});
+
+$("#del_year").on("click", function(ev){
+    ev.preventDefault();
+    $("#results").empty();
+    var html = "<div class='small-12-centered columns'><label>Stufen<select id='sel_year' name='sel_year'>";
+    runMyAjax("ajax/Getters/getAllYears.php", function(result){
+        result.years.forEach(function(year){
+            html += "<option id='" + year['idStufe'] + "' name='" + year['idStufe'] + "'>" + year['name'] + "</option>";
+        });
+        html += "</select></label><button class='button alert' id='deleteYEAR'>Schüljahr Löschen</button></div>";
+        $("#results").append(html);
+    });
+});
+$(document).on("click", "#deleteYEAR", function(ev){
+    ev.preventDefault();
+    runMyAjax("ajax/deleteYear.php", function(result){
+        $("#" + result.id).remove();
+    }, {'id' : $("#sel_year").find(':selected').attr('id')})
+});
+
 var wasSelected = false;
 $(document).on("change", "#idUser", function (ev) {
     ev.preventDefault();
@@ -904,10 +948,6 @@ function updateRooms() {
         }
     }, {'date': date, 'time': time})
 }
-
-$(document).on("click", "#show_old_appointments", function (ev) {
-    ev.preventDefault();
-});
 
 function getCurrentDate() {
     var today = new Date();

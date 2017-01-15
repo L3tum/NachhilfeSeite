@@ -14,15 +14,18 @@ if ($user->has_permission("giveClasses")) {
 if ($user->has_permission("takeClasses")) {
     $appointments2 = $user->get_all_appointments_as_pupil($abgesagt, $past);
 }
-
+$today = date("d.m.Y H:i:s");
 ?>
 
 <div class="row main">
     <div class="medium-12 columns">
         <br>
         <a class="button success" href="<?php echo ConfigStrings::get("root")."appointment"?>">Termin vereinbaren</a>
-        <button class="button warning" id="show_old_appointments" value="0">Zeige Vergangene Termine</button>
-        <button class="button warning" id="show_cancelled_appointments" value="0">Zeige abgesagte Termine</button>
+        <br>
+        <a class="button success" href="<?php echo ConfigStrings::get("root")."termine"?>">Zeige ausstehende Termine</a>
+        <a class="button warning" href="<?php echo ConfigStrings::get("root")."termine/past"?>">Zeige vergangene Termine</a>
+        <a class="button warning" href="<?php echo ConfigStrings::get("root")."termine/abgesagt"?>">Zeige abgesagte Termine</a>
+        <a class="button warning" href="<?php echo ConfigStrings::get("root")."termine/abgesagt/past"?>">Zeige abgesagte und vergangene Termine</a>
         <table id="tableTermine">
             <thead>
             <tr>
@@ -61,7 +64,12 @@ if ($user->has_permission("takeClasses")) {
                         echo "<td class='success'>Ja</td>";
                     }
                     if ($appointment['bestaetigtLehrer'] == 0 && $appointment['abgesagt'] == 0) {
-                        echo "<td><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment['idStunde']}'>Nein</button></td>";
+                        if($date < $today){
+                            echo "<td><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment['idStunde']}'>Nein</button></td>";
+                        }
+                        else{
+                            echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                        }
                     }
                     else {
                         echo "<td class='success'>Ja</td>";
@@ -72,10 +80,10 @@ if ($user->has_permission("takeClasses")) {
                     else{
                         echo "<td class='alert'>Nein</td>";
                     }
-                    if($appointment['kostenfrei'] == 0){
+                    if($appointment['kostenfrei'] == 0 && $user->has_permission("takeClasses")){
                         echo "<td class='success'>Ja</td>";
                     }
-                    else{
+                    else if($user->has_permission("takeClasses")){
                         echo "<td class='alert'>Nein</td>";
                     }
                     if($appointment['abgesagt'] == 0) {
@@ -96,7 +104,12 @@ if ($user->has_permission("takeClasses")) {
                     $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
                     echo "<tr><td>{$appointment['vorname']} {$appointment['name']}</td><td>Du</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
                     if ($appointment['bestaetigtSchueler'] == 0 && $appointment['abgesagt'] == 0) {
-                        echo "<td><button class='tablebutton alert' name='bestaetigen3Button' id='{$appointment['idStunde']}'>Nein</button></td>";
+                        if($date < $today){
+                            echo "<td><button class='tablebutton alert' name='bestaetigen3Button' id='{$appointment['idStunde']}'>Nein</button></td>";
+                        }
+                        else{
+                            echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                        }
                     }
                     else {
                         echo "<td class='success'>Ja</td>";
