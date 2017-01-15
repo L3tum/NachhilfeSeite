@@ -25,7 +25,7 @@ class Stunde
         $endTime = date("H:i:s", strtotime("+45 minutes", strtotime($time)));
         $datumsZeit = $date. " ".$time;
         $newDatumsZeit = $date. " ".$endTime;
-        $stmt = Connection::$PDO->prepare("SELECT stunde.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung WHERE stunde.findetStatt=1 (verbindung.idNachhilfelehrer= :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer) AND (verbindung.idNachhilfelehrer = :idandererBenutzer OR verbindung.idNachhilfenehmer = :idandererBenutzer) AND verbindung.idFach = :idFach AND stunde.raumNummer= :raumNummer AND stunde.datum between :oldDate AND :newDate");
+        $stmt = Connection::$PDO->prepare("SELECT stunde.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung WHERE stunde.findetStatt=1 AND stunde.abgesagt=0 AND (verbindung.idNachhilfelehrer= :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer) AND (verbindung.idNachhilfelehrer = :idandererBenutzer OR verbindung.idNachhilfenehmer = :idandererBenutzer) AND verbindung.idFach = :idFach AND stunde.raumNummer= :raumNummer AND stunde.datum between :oldDate AND :newDate");
         $stmt->bindParam(':idBenutzer', Benutzer::get_logged_in_user()->idBenutzer);
         $stmt->bindParam(':idandererBenutzer', $idAndererBenutzer);
         $stmt->bindParam(':idFach', $idFach);

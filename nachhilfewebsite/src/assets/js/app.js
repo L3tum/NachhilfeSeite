@@ -24,7 +24,7 @@ class AjaxFormHelper {
                     $me.runAjax(ajaxPath, element, success, formDataAppend);
 
                 });
-            if (ajaxPath == "ajax/searchForm.php") {
+            if (ajaxPath == "ajax/Forms/searchForm.php") {
                 $(document).on("ready", function (ev) {
                     ev.preventDefault();
                     var url = window.location.href;
@@ -150,11 +150,11 @@ toastr
 
 $(document).foundation();
 
-var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen!", "ajax/loginForm.php", function (result) {
+var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen!", "ajax/Forms/loginForm.php", function (result) {
     location.reload();
 });
 
-var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/userEditForm.php", function (result) {
+var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/Forms/userEditForm.php", function (result) {
     toastr.success("Änderungen übernommen!");
 }, function (formdata) {
     var rollen = [];
@@ -192,7 +192,7 @@ var requestResponseFormHelper = new AjaxFormHelper($("#request-response-form"), 
 });
 
 
-var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/searchForm.php", function (result) {
+var searchFormHelper = new AjaxFormHelper($("#search-form"), "Suche fehlgeschlagen!", "ajax/Forms/searchForm.php", function (result) {
     toastr.success("Suche erfolgreich!");
     $("#search-results").empty();
 
@@ -270,7 +270,7 @@ $(document).on("click", "[name=unBlockUserNow]", function (ev) {
 });
 
 
-var editRoleFormHelper = new AjaxFormHelper($("#rolle-edit-form"), "Rolle nicht editierbar!", "ajax/editRoleForm.php", function (result) {
+var editRoleFormHelper = new AjaxFormHelper($("#rolle-edit-form"), "Rolle nicht editierbar!", "ajax/Forms/editRoleForm.php", function (result) {
     toastr.success("Rolle erfolgreich editiert!");
 }, function (formdata) {
     var rollen = [];
@@ -294,7 +294,7 @@ var addRoleFormHelper = new AjaxFormHelper($("#rolle-add-form"), "Rolle nicht hi
     formdata.append('rollen', JSON.stringify(rollen));
 });
 
-var appointmentFormHelper = new AjaxFormHelperSpecial($("#appointment-form"), "Termin nicht hinzufügbar!", "ajax/appointmentForm.php", function(result){
+var appointmentFormHelper = new AjaxFormHelperSpecial($("#appointment-form"), "Termin nicht hinzufügbar!", "ajax/Forms/appointmentForm.php", function(result){
     toastr.success("Termin erfolgreich hinzugefügt!");
 });
 
