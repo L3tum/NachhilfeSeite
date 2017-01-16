@@ -102,4 +102,46 @@ class NotificationHandler
         }
     }
 
+    public function echo_notifications() {
+
+        $user = Benutzer::get_logged_in_user();
+        $stmt = Connection::$PDO->prepare("SELECT * FROM benachrichtigung WHERE idBenutzer = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $user->idBenutzer);
+        $stmt->execute();
+        $root = ConfigStrings::get("root");
+
+        foreach($stmt->fetchAll(PDO::FETCH_CLASS, 'Benachrichtigung') as $ben) {
+            echo "<div class='result-box'>
+
+                        <div class='row no-padding left'>
+
+                            <div class='small-8 columns'>
+
+                                <div class='row no-padding right'>
+                                    <div class='small-12 columns notification-header no-padding right'>
+                                        <p>$ben->titel</p>
+                                    </div>
+
+                                    <div class='small-12 columns no-padding right'>
+                                        <p>{$fach->name}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class='small-4 columns no-padding both'>
+                                <div class='button-group medium '>
+                                    <form data-abide novalidate id=\"request-response-form\" method=\"post\">
+                                    <input type='hidden' name='idRequest' value='" . $ben->idBenachrichtigung . "'>
+                                    <button name='response' class='button alert' type='submit' value='denyRequest'><i class='fi-x'></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>";
+        }
+    }
+
+
 }

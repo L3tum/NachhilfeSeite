@@ -42,13 +42,15 @@ $messages = Chatnachricht::get_all_messages_between($id_sender, $id_reciever);
 
                 foreach($messages as $message) {
 
+                    $date = date('H:i', strtotime(str_replace('-','/', $message->datum))) . ":";
 
                     if($message->idEmpfänger ==  Benutzer::get_logged_in_user()->idBenutzer) {
 
                         echo "
                         <div class='columns small-8 float-right'>
                         <div class='data-label'>
-                        <p>{$message->inhalt}</p>
+                        <p class='message-content'>{$date}</p>
+                        <p class='message-content'>{$message->inhalt}</p>
                         </div>
                         </div>
                         ";
@@ -58,7 +60,8 @@ $messages = Chatnachricht::get_all_messages_between($id_sender, $id_reciever);
                         echo "
                         <div class='columns small-8 float-left'>
                         <div class='data-label'>
-                        <p>{$message->inhalt}</p>
+                        <p class='message-content'>{$date}</p>
+                        <p class='message-content'>{$message->inhalt}</p>
                         </div>
                         </div>
                         ";

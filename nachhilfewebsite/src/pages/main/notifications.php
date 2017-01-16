@@ -54,4 +54,28 @@
         </div>
 
     </div>
+
+    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
+
+        <div class="row">
+            <div class="small-6 columns">
+                <h2>Benachrichtigungen</h2>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="small-12 columns result-boxes">
+                <div class="result-boxes-inner">
+
+                    <?php
+                    $notification_handler->echo_notifications();
+                    ?>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 </div>
