@@ -416,7 +416,8 @@ table{
 
   width:100%;
 
-  margin-bottom: 5px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
 
   @media print {
     border-bottom: 2px solid black;
@@ -431,25 +432,32 @@ table{
       }
 
       &#date-header {
-        width:30%;
-      }
-
-      &#confirmed-header {
-        width:10%;
+        width:20%;
       }
 
       &#room-header {
-        width:10%;
+        width:15%;
       }
 
-      &#other-header {
-        width:50%;
+      &#state-header {
+        width:65%;
+      }
+
+      &#state-icon-header {
+        width:5%;
       }
 
     }
 
   }
 
+}
+
+em {
+  @media print {
+    font-style: normal;         /* Removes italics */
+    text-decoration: underline;
+  }
 }
 
 .editUserButton{
