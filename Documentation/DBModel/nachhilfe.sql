@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 15. Jan 2017 um 19:31
+-- Erstellungszeit: 17. Jan 2017 um 17:35
 -- Server-Version: 10.1.19-MariaDB
 -- PHP-Version: 7.0.13
 
@@ -116,8 +116,8 @@ CREATE TABLE `benutzer` (
 --
 
 INSERT INTO `benutzer` (`idBenutzer`, `vorname`, `name`, `email`, `passwort`, `telefonnummer`, `gesperrt`, `idRolle`, `sessionID`, `emailActivated`) VALUES
-(2, 'Tom', 'Pauly', 'tomn.pauly@googlemail.com', 'c3dab9ba2181e1fe531da303b61c6b32ce71ee9d38632a175af79af2ff450ca6', '346436436', NULL, 2, '0hl2736bvrn3orktcc5fvl5l75', 1),
-(4, 'Blasprinzessin', 'Plötz', 'ploetz@hurrdurr.com', 'c3dab9ba2181e1fe531da303b61c6b32ce71ee9d38632a175af79af2ff450ca6', '6666666666', 0, 3, '0', 1),
+(2, 'Tom', 'Pauly', 'tomn.pauly@googlemail.com', 'c3dab9ba2181e1fe531da303b61c6b32ce71ee9d38632a175af79af2ff450ca6', '346436436', NULL, 2, '0', 1),
+(4, 'Blasprinzessin', 'Plötz', 'ploetz@hurrdurr.com', 'c3dab9ba2181e1fe531da303b61c6b32ce71ee9d38632a175af79af2ff450ca6', '6666666666', 0, 3, '9otmjm6sgfdre5f29icpji6l25', 1),
 (5, 'Marten', 'Murten', 'marten@murr.com', 'c3dab9ba2181e1fe531da303b61c6b32ce71ee9d38632a175af79af2ff450ca6', '911', NULL, 5, NULL, 0),
 (6, 'Tim', 'Göller', 'holakbar@airlines.net', 'c3dab9ba2181e1fe531da303b61c6b32ce71ee9d38632a175af79af2ff450ca6', '110111112113', NULL, 5, NULL, 0);
 
@@ -403,19 +403,19 @@ CREATE TABLE `stunde` (
   `idVerbindung` int(11) NOT NULL,
   `datum` datetime NOT NULL,
   `kommentar` varchar(500) COLLATE utf8_bin NOT NULL,
-  `findetStatt` tinyint(1) NOT NULL DEFAULT '1',
   `bestaetigtSchueler` tinyint(1) DEFAULT '0' COMMENT 'Findet statt bestätigt\n',
   `bestaetigtLehrer` tinyint(1) DEFAULT '0',
-  `abgesagt` tinyint(1) DEFAULT '0'
+  `akzeptiert` tinyint(1) DEFAULT '0',
+  `lehrerVorgeschlagen` tinyint(4) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Daten für Tabelle `stunde`
 --
 
-INSERT INTO `stunde` (`idStunde`, `raumNummer`, `idVerbindung`, `datum`, `kommentar`, `findetStatt`, `bestaetigtSchueler`, `bestaetigtLehrer`, `abgesagt`) VALUES
-(2, '114', 6, '2017-01-16 20:00:00', '', 1, 0, 0, 0),
-(3, '114', 5, '2017-01-13 03:04:00', '', 0, 0, 0, 1);
+INSERT INTO `stunde` (`idStunde`, `raumNummer`, `idVerbindung`, `datum`, `kommentar`, `bestaetigtSchueler`, `bestaetigtLehrer`, `akzeptiert`, `lehrerVorgeschlagen`) VALUES
+(3, '114', 5, '2017-01-13 03:04:00', '', 0, 0, 1, 0),
+(4, '113', 6, '2017-01-18 17:06:00', '', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -574,7 +574,7 @@ ALTER TABLE `verbindung`
 -- AUTO_INCREMENT für Tabelle `anfrage`
 --
 ALTER TABLE `anfrage`
-  MODIFY `idAnfrage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idAnfrage` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `benutzer`
 --
@@ -599,7 +599,7 @@ ALTER TABLE `fach`
 -- AUTO_INCREMENT für Tabelle `qualifikation`
 --
 ALTER TABLE `qualifikation`
-  MODIFY `idQualifikation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idQualifikation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT für Tabelle `rolle`
 --
@@ -614,7 +614,7 @@ ALTER TABLE `stufe`
 -- AUTO_INCREMENT für Tabelle `stunde`
 --
 ALTER TABLE `stunde`
-  MODIFY `idStunde` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idStunde` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `verbindung`
 --

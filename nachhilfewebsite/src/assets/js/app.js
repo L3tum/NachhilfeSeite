@@ -827,6 +827,7 @@ $("#del_subject").on("click", function(ev){
 $(document).on("click", "#deleteSUBJECT", function(ev){
     ev.preventDefault();
    runMyAjax("ajax/deleteSubject.php", function(result){
+       toastr.success("Fach gelöscht!");
        $("#" + result.id).remove();
    }, {'id' : $("#sel_subject").find(':selected').attr('id')})
 });
@@ -860,8 +861,27 @@ $("#del_year").on("click", function(ev){
 $(document).on("click", "#deleteYEAR", function(ev){
     ev.preventDefault();
     runMyAjax("ajax/deleteYear.php", function(result){
+        toastr.success("Jahr geläscht!");
         $("#" + result.id).remove();
     }, {'id' : $("#sel_year").find(':selected').attr('id')})
+});
+
+$(document).on("click", "#acceptAppointment", function(ev){
+    ev.preventDefault();
+    runMyAjax("ajax/acceptAppointment.php", function(result){
+        toastr.success("Termin angenommen!");
+        var parent = $(ev.target).parent().parent();
+        parent.empty();
+        parent.append("<td class='success'>Ja</td>");
+    }, {'id' : $(ev.target).attr('id')})
+});
+$(document).on("click", "#denyAppointment", function(ev){
+    ev.preventDefault();
+    runMyAjax("ajax/denyAppointment.php", function(result){
+        toastr.success("Termin abgelehnt!");
+        var parent = $(ev.target).parent().parent().parent();
+        parent.remove();
+    }, {'id' : $(ev.target).attr('id')});
 });
 
 var wasSelected = false;

@@ -39,4 +39,10 @@ class Stunde
             return false;
         }
     }
+
+    public static function deleteStunde($idStunde){
+        $stmt = Connection::$PDO->prepare("DELETE FROM stunde WHERE idStunde = :idStunde");
+        $stmt->bindParam(':idStunde', $idStunde);
+        $stmt->execute();
+    }
 }

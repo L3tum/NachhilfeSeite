@@ -127,6 +127,10 @@ i {
   color: $success-color;
 }
 
+.warning{
+  color: $warning-color;
+}
+
 .toast {
   &.toast-error {
     background-color: $alert-color;
@@ -256,6 +260,12 @@ header {
     overflow-x: hidden;
 
     &.search {
+      height: 540px;
+      overflow-y: auto;
+      overflow-x: auto;
+    }
+    &.appointments{
+      border: 0px;
       height: 540px;
       overflow-y: auto;
       overflow-x: auto;

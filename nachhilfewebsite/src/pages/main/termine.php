@@ -6,132 +6,295 @@
  * Time: 20:43
  */
 
+include_once __DIR__ . "/../assets/php/dbClasses/Stunde.php";
+include_once __DIR__ . "/../assets/php/dbClasses/Benachrichtigung.php";
+
 $user = Benutzer::get_logged_in_user();
 
 if ($user->has_permission("giveClasses")) {
-    $appointments1 = $user->get_all_appointments_as_teacher($past);
+    $appointments1 = $user->get_all_appointments_as_teacher(0);
+    $appointments3 = $user->get_all_appointments_as_teacher(1);
 }
 if ($user->has_permission("takeClasses")) {
-    $appointments2 = $user->get_all_appointments_as_pupil($past);
+    $appointments2 = $user->get_all_appointments_as_pupil(0);
+    $appointments4 = $user->get_all_appointments_as_pupil(1);
 }
 $today = date("d.m.Y H:i:s");
 ?>
 
 <div class="row main">
-    <div class="medium-12 columns">
-        <br>
-        <a class="button success" href="<?php echo ConfigStrings::get("root") . "appointment" ?>">Termin vereinbaren</a>
-        <br>
-        <a class="button success" href="<?php echo ConfigStrings::get("root") . "termine" ?>">Zeige ausstehende
-            Termine</a>
-        <a class="button warning" href="<?php echo ConfigStrings::get("root") . "termine/past" ?>">Zeige vergangene
-            Termine</a>
-        <table id="tableTermine">
-            <thead>
-            <tr>
-                <th>Lehrer</th>
-                <th>Schüler</th>
-                <th>Datum</th>
-                <th>Raum</th>
-                <th>Bestätigt(Schüler)</th>
-                <th>Bestätigt(Lehrer)</th>
-                <th>Termin Akzeptiert</th>
+    <div class="medium-12 columns result-boxes">
+        <div class="row">
+            <div class="small-12 columns">
+                <h2 class="text-left">Anstehende Termine</h2>
+            </div>
+        </div>
+        <div class="result-boxes-inner appointments">
+            <br>
+            <a class="button success" href="<?php echo ConfigStrings::get("root") . "appointment" ?>">Termin
+                vereinbaren</a>
+            <br>
+            <table id="tableTermine">
+                <thead>
+                <tr>
+                    <th>Lehrer</th>
+                    <th>Schüler</th>
+                    <th>Datum</th>
+                    <th>Raum</th>
+                    <th>Bestätigt(Schüler)</th>
+                    <th>Bestätigt(Lehrer)</th>
+                    <th>Termin Akzeptiert</th>
+                    <?php
+                    if ($user->has_permission("takeClasses")) {
+                        echo "<th>Du Musst Diese Stunde Bezahlen</th>";
+                    }
+                    ?>
+                    <th>Absagen</th>
+                </tr>
+                </thead>
+                <tbody>
                 <?php
-                if ($user->has_permission("takeClasses")) {
-                    echo "<th>Du Musst Diese Stunde Bezahlen</th>";
+                $set = false;
+                if (isset($appointments1) && !empty($appointments1)) {
+                    $set = true;
+                    foreach ($appointments1 as $appointment) {
+                        $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
+
+                        if ($date < $today && $appointment['akzeptiert'] == 0) {
+                            Stunde::deleteStunde($appointment['idStunde']);
+                            Benachrichtigung::add($appointment['idNachhilfelehrer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!");
+                            Benachrichtigung::add($appointment['idNachhilfenehmer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!");
+                            continue;
+                        }
+
+                        echo "<tr><td>Du</td><td>{$appointment['vorname']} {$appointment['name']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
+                        if ($appointment['bestaetigtSchueler'] == 0) {
+                            if ($date < $today) {
+                                echo "<td class='alert'>Nein</td>";
+                            } else {
+                                echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                            }
+
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+                        if ($appointment['bestaetigtLehrer'] == 0) {
+                            if ($date < $today) {
+                                echo "<td class='text-center'><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment['idStunde']}'>Nein</button></td>";
+                            } else {
+                                echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                            }
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+
+                        if ($appointment['lehrerVorgeschlagen'] == 0 && $appointment['akzeptiert'] == 0) {
+                            echo "<td class='text-center'><div class='button-group no-margin-bottom'><button class='button success' type='submit' name='acceptAppointment' id='{$appointment['idStunde']}'><i class='fi-check no-margin-bottom'></i></button>";
+                            echo "<button class='button alert' type='submit' name='denyAppointment' id='{$appointment['idStunde']}'><i class='fi-x no-margin-bottom'></i></button></div></div></td>";
+                        } else if ($appointment['akzeptiert'] == 0) {
+                            echo "<td class='alert'>Nein</td>";
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+                        if ($appointment['bestaetigtLehrer'] == 1 && $appointment['bestaetigtSchueler'] == 1) {
+                            echo "<td>Termin hat bereits stattgefunden</td>";
+                        } else {
+                            echo "<td class='text-center'><button class='tablebutton alert' id='{$appointment['idStunde']}' name='refuseButton'>Absagen</button></td></tr>";
+                        }
+                    }
+                } else if (!isset($appointments2) || empty($appointments2)) {
+                    $set = true;
+                    echo "<tr><td>Nichts</td></tr>";
+                }
+                if (isset($appointments2) && !empty($appointments2)) {
+                    foreach ($appointments2 as $appointment) {
+                        $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
+                        if ($date < $today && $appointment['akzeptiert'] == 0) {
+                            Stunde::deleteStunde($appointment['idStunde']);
+                            Benachrichtigung::add($appointment['idNachhilfelehrer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!");
+                            Benachrichtigung::add($appointment['idNachhilfenehmer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!");
+                            continue;
+                        }
+                        echo "<tr><td>{$appointment['vorname']} {$appointment['name']}</td><td>Du</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
+                        if ($appointment['bestaetigtSchueler'] == 0) {
+                            if ($date < $today) {
+                                echo "<td class='text-center'><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment['idStunde']}'>Nein</button></td>";
+                            } else {
+                                echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                            }
+
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+                        if ($appointment['bestaetigtLehrer'] == 0) {
+                            if ($date < $today) {
+                                echo "<td class='alert'>Nein</td>";
+                            } else {
+                                echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                            }
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+
+                        if ($appointment['lehrerVorgeschlagen'] == 1 && $appointment['akzeptiert'] == 0) {
+                            echo "<td class='text-center'><div class='button-group no-margin-bottom'><button class='button success' type='submit' name='acceptAppointment' id='{$appointment['idStunde']}'><i class='fi-check'></i></button>";
+                            echo "<button class='button alert' type='submit' name='denyAppointment' id='{$appointment['idStunde']}'><i class='fi-x'></i></button></div></div></td>";
+                        } else if ($appointment['akzeptiert'] == 0) {
+                            echo "<td class='alert'>Nein</td>";
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+
+                        if ($appointment['kostenfrei'] == 1) {
+                            echo "<td class='success'>Nein</td>";
+                        } else {
+                            echo "<td class='warning'>Ja</td>";
+                        }
+
+                        echo "<td class='text-center'><button class='tablebutton alert' id='{$appointment['idStunde']}' name='refuseButton'>Absagen</button></td></tr>";
+                    }
+                } else if (!$set) {
+                    echo "<tr><td>Nichts</td></tr>";
                 }
                 ?>
-                <th>Absagen</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            $set = false;
-            if (isset($appointments1) && !empty($appointments1)) {#
-                $set = true;
-                foreach ($appointments1 as $appointment) {
-                    $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
-                    echo "<tr><td>Du</td><td>{$appointment['vorname']} {$appointment['name']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
-                    if ($appointment['bestaetigtSchueler'] == 0) {
-                        if ($date < $today) {
-                            echo "<td class='alert'>Nein</td>";
-                        } else {
-                            echo "<td class='alert'>Datum nicht abgelaufen</td>";
-                        }
-
-                    } else {
-                        echo "<td class='success'>Ja</td>";
-                    }
-                    if ($appointment['bestaetigtLehrer'] == 0) {
-                        if ($date < $today) {
-                            echo "<td class='text-center'><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment['idStunde']}'>Nein</button></td>";
-                        } else {
-                            echo "<td class='alert'>Datum nicht abgelaufen</td>";
-                        }
-                    } else {
-                        echo "<td class='success'>Ja</td>";
-                    }
-
-                    if($appointment['lehrerVorgeschlagen'] == 0 && $appointment['akzeptiert'] == 0){
-                        echo "<td class='text-center'><button class='button success' type='submit' name='acceptAppointment' id='{$appointment['idStunde']}'><i class='fi-check no-margin-bottom'></i></button>";
-                        echo "<button class='button alert' type='submit' name='denyAppointment' id='{$appointment['idStunde']}'><i class='fi-x no-margin-bottom'></i></button></td>";
-                    }
-                    else if($appointment['akzeptiert'] == 0){
-                        echo "<td class='alert'>Nein</td>";
-                    }
-                    else{
-                        echo "<td class='success'>Ja</td>";
-                    }
-
-                    echo "<td class='text-center'><button class='tablebutton alert' id='{$appointment['idStunde']}' name='refuseButton'>Absagen</button></td></tr>";
-                }
-            } else if(!isset($appointments2) || empty($appointments2)){
-                $set = true;
-                echo "<tr><td>Nichts</td></tr>";
-            }
-            if (isset($appointments2) && !empty($appointments2)) {
-                foreach ($appointments2 as $appointment) {
-                    $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
-                    echo "<tr><td>{$appointment['vorname']} {$appointment['name']}</td><td>Du</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
-                    if ($appointment['bestaetigtSchueler'] == 0) {
-                        if ($date < $today) {
-                            echo "<td class='text-center'><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment['idStunde']}'>Nein</button></td>";
-                        } else {
-                            echo "<td class='alert'>Datum nicht abgelaufen</td>";
-                        }
-
-
-                    } else {
-                        echo "<td class='success'>Ja</td>";
-                    }
-                    if ($appointment['bestaetigtLehrer'] == 0) {
-                        if ($date < $today) {
-                            echo "<td class='alert'>Nein</td>";
-                        } else {
-                            echo "<td class='alert'>Datum nicht abgelaufen</td>";
-                        }
-                    } else {
-                        echo "<td class='success'>Ja</td>";
-                    }
-
-                    if($appointment['lehrerVorgeschlagen'] == 1 && $appointment['akzeptiert'] == 0){
-                        echo "<td class='text-center'><button class='button success' type='submit' name='acceptAppointment' id='{$appointment['idStunde']}'><i class='fi-check'></i></button>";
-                        echo "<button class='button alert' type='submit' name='denyAppointment' id='{$appointment['idStunde']}'><i class='fi-x'></i></button></td>";
-                    }
-                    else if($appointment['akzeptiert'] == 0){
-                        echo "<td class='alert'>Nein</td>";
-                    }
-                    else{
-                        echo "<td class='success'>Ja</td>";
-                    }
-
-                    echo "<td class='text-center'><button class='tablebutton alert' id='{$appointment['idStunde']}' name='refuseButton'>Absagen</button></td></tr>";
-                }
-            } else if (!$set) {
-                echo "<tr><td>Nichts</td></tr>";
-            }
-            ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
+    <div class="medium-12 columns result-boxes">
+        <div class="row">
+            <div class="small-12 columns">
+                <h2 class="text-left">Abgelaufene Termine</h2>
+            </div>
+        </div>
+        <div class="result-boxes-inner appointments">
+            <br>
+            <table id="tableTermine">
+                <thead>
+                <tr>
+                    <th>Lehrer</th>
+                    <th>Schüler</th>
+                    <th>Datum</th>
+                    <th>Raum</th>
+                    <th>Bestätigt(Schüler)</th>
+                    <th>Bestätigt(Lehrer)</th>
+                    <th>Termin Akzeptiert</th>
+                    <?php
+                    if ($user->has_permission("takeClasses")) {
+                        echo "<th>Du Musst Diese Stunde Bezahlen</th>";
+                    }
+                    ?>
+                    <th>Absagen</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                $set = false;
+                if (isset($appointments3) && !empty($appointments3)) {
+                    $set = true;
+                    foreach ($appointments3 as $appointment) {
+                        $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
+
+                        if ($date < $today && $appointment['akzeptiert'] == 0) {
+                            Stunde::deleteStunde($appointment['idStunde']);
+                            Benachrichtigung::add($appointment['idNachhilfelehrer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!");
+                            Benachrichtigung::add($appointment['idNachhilfenehmer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!");
+                            continue;
+                        }
+
+                        echo "<tr><td>Du</td><td>{$appointment['vorname']} {$appointment['name']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
+                        if ($appointment['bestaetigtSchueler'] == 0) {
+                            if ($date < $today) {
+                                echo "<td class='alert'>Nein</td>";
+                            } else {
+                                echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                            }
+
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+                        if ($appointment['bestaetigtLehrer'] == 0) {
+                            if ($date < $today) {
+                                echo "<td class='text-center'><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment['idStunde']}'>Nein</button></td>";
+                            } else {
+                                echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                            }
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+
+                        if ($appointment['lehrerVorgeschlagen'] == 0 && $appointment['akzeptiert'] == 0) {
+                            echo "<td class='text-center'><div class='button-group no-margin-bottom'><button class='button success' type='submit' name='acceptAppointment' id='{$appointment['idStunde']}'><i class='fi-check no-margin-bottom'></i></button>";
+                            echo "<button class='button alert' type='submit' name='denyAppointment' id='{$appointment['idStunde']}'><i class='fi-x no-margin-bottom'></i></button></div></div></td>";
+                        } else if ($appointment['akzeptiert'] == 0) {
+                            echo "<td class='alert'>Nein</td>";
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+                        if ($appointment['bestaetigtLehrer'] == 1 && $appointment['bestaetigtSchueler'] == 1) {
+                            echo "<td>Termin hat bereits stattgefunden</td>";
+                        } else {
+                            echo "<td class='text-center'><button class='tablebutton alert' id='{$appointment['idStunde']}' name='refuseButton'>Absagen</button></td></tr>";
+                        }
+                    }
+                } else if (!isset($appointments4) || empty($appointments4)) {
+                    $set = true;
+                    echo "<tr><td>Nichts</td></tr>";
+                }
+                if (isset($appointments4) && !empty($appointments4)) {
+                    foreach ($appointments4 as $appointment) {
+                        $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
+                        if ($date < $today && $appointment['akzeptiert'] == 0) {
+                            Stunde::deleteStunde($appointment['idStunde']);
+                            Benachrichtigung::add($appointment['idNachhilfelehrer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!");
+                            Benachrichtigung::add($appointment['idNachhilfenehmer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!");
+                            continue;
+                        }
+                        echo "<tr><td>{$appointment['vorname']} {$appointment['name']}</td><td>Du</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
+                        if ($appointment['bestaetigtSchueler'] == 0) {
+                            if ($date < $today) {
+                                echo "<td class='text-center'><button class='tablebutton alert' name='bestaetigenButton' id='{$appointment['idStunde']}'>Nein</button></td>";
+                            } else {
+                                echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                            }
+
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+                        if ($appointment['bestaetigtLehrer'] == 0) {
+                            if ($date < $today) {
+                                echo "<td class='alert'>Nein</td>";
+                            } else {
+                                echo "<td class='alert'>Datum nicht abgelaufen</td>";
+                            }
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+
+                        if ($appointment['lehrerVorgeschlagen'] == 1 && $appointment['akzeptiert'] == 0) {
+                            echo "<td class='text-center'><div class='button-group no-margin-bottom'><button class='button success' type='submit' name='acceptAppointment' id='{$appointment['idStunde']}'><i class='fi-check'></i></button>";
+                            echo "<button class='button alert' type='submit' name='denyAppointment' id='{$appointment['idStunde']}'><i class='fi-x'></i></button></div></div></td>";
+                        } else if ($appointment['akzeptiert'] == 0) {
+                            echo "<td class='alert'>Nein</td>";
+                        } else {
+                            echo "<td class='success'>Ja</td>";
+                        }
+
+                        if ($appointment['kostenfrei'] == 1) {
+                            echo "<td class='success'>Nein</td>";
+                        } else {
+                            echo "<td class='warning'>Ja</td>";
+                        }
+
+                        echo "<td class='text-center'><button class='tablebutton alert' id='{$appointment['idStunde']}' name='refuseButton'>Absagen</button></td></tr>";
+                    }
+                } else if (!$set) {
+                    echo "<tr><td>Nichts</td></tr>";
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
