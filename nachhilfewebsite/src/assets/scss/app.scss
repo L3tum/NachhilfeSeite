@@ -415,11 +415,11 @@ button.round, .button.round {
 table{
 
   width:100%;
-  border-bottom: 2px solid black;
+
   margin-bottom: 5px;
 
   @media print {
-
+    border-bottom: 2px solid black;
     th {
       color: black;
       border: 1px solid black;
