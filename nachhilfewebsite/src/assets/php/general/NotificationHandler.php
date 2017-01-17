@@ -9,6 +9,7 @@
 include_once  __DIR__ . "/../dbClasses/Benutzer.php";
 include_once  __DIR__ . "/../dbClasses/Anfrage.php";
 include_once  __DIR__ . "/../dbClasses/Chatnachricht.php";
+include_once  __DIR__ . "/../dbClasses/Benachrichtigung.php";
 
 class NotificationHandler
 {
@@ -27,7 +28,7 @@ class NotificationHandler
             $userpath =  $root . "user/" . $sender->idBenutzer . "/view";
             echo "<div class='result-box'>
 
-                        <div class='row no-padding left'>
+                        <div class='row'>
 
                             <div class='small-8 columns'>
 
@@ -45,7 +46,7 @@ class NotificationHandler
 
                             <div class='small-4 columns no-padding both'>
                                 <div class='button-group medium '>
-                                    <form data-abide novalidate id=\"request-response-form\" method=\"post\">
+                                    <form data-abide novalidate class=\"request-response-form\" method=\"post\">
                                     <input type='hidden' name='idRequest' value='" . $anfrage->idAnfrage . "'>
                                     <input type='hidden' name='idFach' value='" . $anfrage->idFach . "'>
                                     <input type='hidden' name='idSendingUser' value='" . $sender->idBenutzer . "'>
@@ -75,7 +76,7 @@ class NotificationHandler
             $userpath =  $root . "user/" . $sender->idBenutzer . "/view";
             echo "<div class='result-box'>
 
-                        <div class='row no-padding left'>
+                        <div class='row'>
 
                             <div class='small-8 columns'>
 
@@ -113,17 +114,17 @@ class NotificationHandler
         foreach($stmt->fetchAll(PDO::FETCH_CLASS, 'Benachrichtigung') as $ben) {
             echo "<div class='result-box'>
 
-                        <div class='row no-padding left'>
+                        <div class='row'>
 
                             <div class='small-8 columns'>
 
                                 <div class='row no-padding right'>
                                     <div class='small-12 columns notification-header no-padding right'>
-                                        <p>$ben->titel</p>
+                                        <p>{$ben->titel}</p>
                                     </div>
 
                                     <div class='small-12 columns no-padding right'>
-                                        <p>{$fach->name}</p>
+                                        <p>{$ben->inhalt}</p>
                                     </div>
                                 </div>
 
@@ -131,9 +132,9 @@ class NotificationHandler
 
                             <div class='small-4 columns no-padding both'>
                                 <div class='button-group medium '>
-                                    <form data-abide novalidate id=\"request-response-form\" method=\"post\">
-                                    <input type='hidden' name='idRequest' value='" . $ben->idBenachrichtigung . "'>
-                                    <button name='response' class='button alert' type='submit' value='denyRequest'><i class='fi-x'></i></button>
+                                    <form data-abide novalidate class=\"remove-notification\" method=\"post\">
+                                    <input type='hidden' name='idNotification' value='" . $ben->idBenachrichtigung . "'>
+                                    <button class='button alert' type='submit'><i class='fi-x'></i></button>
                                     </form>
                                 </div>
                             </div>

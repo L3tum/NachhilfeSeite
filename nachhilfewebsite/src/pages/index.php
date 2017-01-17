@@ -72,6 +72,12 @@ Route::add('user/(.+)/edit',function($id){
 
 });
 
+Route::add('user/(.+)/pdf',function($id){
+    //Do something
+    include 'main/allLessonsPDF.php';
+
+});
+
 Route::add('user/(.+)/view',function($id){
     //Do something
     $user_to_show_id = $id;

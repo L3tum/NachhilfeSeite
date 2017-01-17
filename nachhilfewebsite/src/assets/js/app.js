@@ -18,7 +18,7 @@ class AjaxFormHelper {
                 })
                 .on("formvalid.zf.abide", function (ev) {
                     ev.preventDefault();
-                    $me.runAjax(ajaxPath, element, success, formDataAppend);
+                    $me.runAjax(ajaxPath, element, success, formDataAppend, ev);
 
                 });
             if (ajaxPath == "ajax/Forms/searchForm.php") {
@@ -35,9 +35,9 @@ class AjaxFormHelper {
     }
 
     //sends the actual ajax request
-    runAjax(ajaxPath, element, success, formDataAppend) {
+    runAjax(ajaxPath, element, success, formDataAppend, ev) {
 
-        var formData = new FormData(element[0]);
+        var formData = new FormData(ev.target);
 
         //Call the formDataAppend method to add custom data to the formData object initialized with the form element
         if (formDataAppend != 0) {
@@ -58,7 +58,7 @@ class AjaxFormHelper {
                     toastr.error(resultObj.errorReason);
                 }
                 else {
-                    success(resultObj);
+                    success(resultObj, ev.target);
                 }
             }
         });
@@ -180,9 +180,13 @@ var TuitionEndFormHelper = new AjaxFormHelper($(".tuition-end-form"), "Beenden f
     location.reload();
 });
 
-var requestResponseFormHelper = new AjaxFormHelper($("#request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
-    toastr.success("Nachricht gesendet!");
-    location.reload();
+var RemoveNotificationHelper = new AjaxFormHelper($(".remove-notification"), "Beenden fehlgeschlagen!", "ajax/Setters/removeNotification.php", function (result, element) {
+    $(element).parents('.result-box').remove();
+});
+
+
+var requestResponseFormHelper = new AjaxFormHelper($(".request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
+    $(element).parents('.result-box').remove();
 }, function (formData) {
     var $btn = $(document.activeElement);
     formData.append('response', $btn.attr('value'))

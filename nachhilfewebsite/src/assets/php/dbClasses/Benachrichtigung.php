@@ -12,6 +12,7 @@ class Benachrichtigung
     public $idBenutzer;
     public $titel;
     public $inhalt;
+    public $idBenachrichtigung;
 
     public static function get_all_by_user($idBenutzer){
         $stmt = Connection::$PDO->prepare("SELECT * FROM benachrichtigung WHERE idBenutzer= :idBenutzer");
