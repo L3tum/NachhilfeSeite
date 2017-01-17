@@ -58,15 +58,27 @@
   h#{$index}{
     font-family: 'Rubik', sans-serif;
     text-shadow: 3px 2px 4px scale-color($primary-color, $lightness: -20%);
+
+    @media print {
+      color: black;
+      text-shadow: none;
+    }
   }
 }
 
 p, a{
   text-shadow: 3px 2px 4px scale-color($primary-color, $lightness: -20%);
   color: white;
+  @media print {
+    color: black;
+    text-shadow: none;
+  }
 
   &.center {
     text-align: center;
+  }
+  &.right {
+    text-align: right;
   }
   &.success{
     color: $success-color;
@@ -389,7 +401,44 @@ button.round, .button.round {
   }
 }
 
-.table-scroll {
+
+table{
+
+  width:100%;
+  border-bottom: 2px solid black;
+  margin-bottom: 5px;
+
+  @media print {
+
+    th {
+      color: black;
+      border: 1px solid black;
+      &.header {
+        background-color: darkcyan;
+        border: none;
+        color: white;
+
+      }
+
+      &#date-header {
+        width:30%;
+      }
+
+      &#confirmed-header {
+        width:10%;
+      }
+
+      &#room-header {
+        width:10%;
+      }
+
+      &#other-header {
+        width:50%;
+      }
+
+    }
+
+  }
 
 }
 

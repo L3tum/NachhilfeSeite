@@ -10,8 +10,8 @@ class Verbindung
 {
 
     public $idVerbindung;
-    public $idBenutzer1;
-    public $idBenutzer2;
+    public $idNachhilfenehmer;
+    public $idNachhilfelehrer;
     public $idFach;
     public $kostenfrei;
 
