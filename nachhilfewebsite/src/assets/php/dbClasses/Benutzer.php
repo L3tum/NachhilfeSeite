@@ -69,6 +69,15 @@ class Benutzer
 
     }
 
+
+    public function get_first_connection() {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM `verbindung` WHERE idVerbindung = (SELECT idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idNehmer ORDER BY idVerbindung ASC LIMIT 1)");
+        $stmt->bindParam(':idNehmer', $this->idBenutzer);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
+        return $stmt->fetch();
+    }
+
     //Set the session id to the current session id
     public function log_in()
     {
