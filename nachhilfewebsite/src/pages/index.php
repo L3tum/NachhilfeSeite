@@ -174,12 +174,8 @@ Route::add('role/add', function(){
 
 Route::add('termine/?(.*)', function($param){
     if(Benutzer::get_logged_in_user()->has_permission("termine")){
-        $abgesagt = 0;
         $past = 0;
         if(isset($param) && $param != null){
-            if(strpos($param, "abgesagt") !== false){
-                $abgesagt = 1;
-            }
             if(strpos($param, "past") !== false){
                 $past = 1;
             }

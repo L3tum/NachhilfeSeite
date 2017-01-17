@@ -24,4 +24,18 @@ class Verbindung
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
         return $stmt->fetch();
     }
+
+    public static function is_teacher($idBenutzer, $idVerbindung){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idVerbindung = :idVerbindung");
+        $stmt->bindParam(':idVerbindung', $idVerbindung);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
+        $verbindung = $stmt->fetch();
+        if($idBenutzer == $verbindung->idNachhilfelehrer){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

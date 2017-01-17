@@ -14,16 +14,16 @@ class Stunde
     public $idVerbindung;
     public $datum;
     public $kommentar;
-    public $findetStatt;
     public $bestaetigtSchueler;
     public $bestaetigtLehrer;
-    public $abgesagt;
+    public $akzeptiert;
+    public $lehrerVorgeschlagen;
 
     public static function stundeExists($idAndererBenutzer, $idFach, $date, $time, $idRoom){
         $endTime = date("H:i:s", strtotime("+45 minutes", strtotime($time)));
         $datumsZeit = $date. " ".$time;
         $newDatumsZeit = $date. " ".$endTime;
-        $stmt = Connection::$PDO->prepare("SELECT stunde.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung WHERE stunde.findetStatt=1 AND stunde.abgesagt=0 AND (verbindung.idNachhilfelehrer= :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer) AND (verbindung.idNachhilfelehrer = :idandererBenutzer OR verbindung.idNachhilfenehmer = :idandererBenutzer) AND verbindung.idFach = :idFach AND stunde.raumNummer= :raumNummer AND stunde.datum between :oldDate AND :newDate");
+        $stmt = Connection::$PDO->prepare("SELECT stunde.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung WHERE stunde.akzeptiert=1 AND (verbindung.idNachhilfelehrer= :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer) AND (verbindung.idNachhilfelehrer = :idandererBenutzer OR verbindung.idNachhilfenehmer = :idandererBenutzer) AND verbindung.idFach = :idFach AND stunde.raumNummer= :raumNummer AND stunde.datum between :oldDate AND :newDate");
         $stmt->bindParam(':idBenutzer', Benutzer::get_logged_in_user()->idBenutzer);
         $stmt->bindParam(':idandererBenutzer', $idAndererBenutzer);
         $stmt->bindParam(':idFach', $idFach);
