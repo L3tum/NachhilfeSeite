@@ -74,6 +74,7 @@ Route::add('user/(.+)/edit',function($id){
 
 Route::add('user/(.+)/pdf',function($id){
     //Do something
+    $taken_lessons = true;
     include 'main/allLessonsPDF.php';
 
 });
