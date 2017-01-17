@@ -55,6 +55,8 @@ if($taken_lessons) {
     $stmt->bindParam(':idBenutzer', $user->idBenutzer);
     $stmt->execute();
 
+    $firstCon = Benutzer::get_by_id($id)->get_first_connection();
+
     foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung') as $verbindung) {
         $fach = Fach::get_by_id($verbindung->idFach);
         $lehrer = Benutzer::get_by_id($verbindung->idNachhilfelehrer);
@@ -62,10 +64,15 @@ if($taken_lessons) {
         $stmt->bindParam(':idVerbindung', $verbindung->idVerbindung);
         $stmt->execute();
 
+        $kostenlos = "";
+        if($firstCon->idVerbindung == $verbindung->idVerbindung) {
+            $kostenlos = " <span style='display: inline;' class='alert'>(Kostenlos)</span>";
+        }
+
         $entries .= "
         <div class='columns small-12'>
           <h4>Lehrer: " . $lehrer->vorname . " " . $lehrer->name . " </h4>
-          <h5>Fach: " . $fach->name  . "</h5>
+          <h5>Fach: " . $fach->name  . $kostenlos . "</h5>
           <table>
             <thead>
                 
@@ -128,7 +135,6 @@ if($taken_lessons) {
                     }
                 }
             }
-
 
             $entries .= "<tr>
               <th>{$date}</th>
