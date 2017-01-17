@@ -184,12 +184,21 @@ var RemoveNotificationHelper = new AjaxFormHelper($(".remove-notification"), "Be
     $(element).parents('.result-box').remove();
 });
 
+var generatePDFFormHelper = new AjaxFormHelper($("#show-pdf-form"), "Fehlgeschlagen!", "", function (result) {
+
+}, function (formData) {
+    var btn = $(document.activeElement);
+    var buttonVal = btn.attr('value');
+    var idBenutzer = $('#pdf-user').val();
+    var year = $('#pdf-year').val();
+    window.location = getRootUrl() + "user/" + idBenutzer + "/pdf/" + buttonVal + "/" + year;
+});
 
 var requestResponseFormHelper = new AjaxFormHelper($(".request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
     $(element).parents('.result-box').remove();
 }, function (formData) {
-    var $btn = $(document.activeElement);
-    formData.append('response', $btn.attr('value'))
+    var btn = $(document.activeElement);
+    formData.append('response', btn.attr('value'));
 });
 
 

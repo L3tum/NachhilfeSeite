@@ -14,7 +14,15 @@ class Verbindung
     public $idNachhilfelehrer;
     public $idFach;
 
-    
+    public function is_first() {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM `verbindung` WHERE idVerbindung = (SELECT idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idNehmer ORDER BY idVerbindung ASC LIMIT 1) && idVerbindung = :idVerbindung");
+        $stmt->bindParam(':idNehmer', $this->idNachhilfenehmer);
+        $stmt->bindParam(':idVerbindung', $this->idVerbindung);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
+        return $stmt->fetch() != false;
+    }
+
     public static function get_id_by_ids($idandererBenutzer, $idFach){
         $stmt = Connection::$PDO->prepare("SELECT verbindung.idVerbindung FROM verbindung WHERE (verbindung.idNachhilfelehrer= :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer) AND (verbindung.idNachhilfelehrer = :idandererBenutzer OR verbindung.idNachhilfenehmer = :idandererBenutzer) AND verbindung.idFach = :idFach");
         $stmt->bindParam(':idBenutzer', Benutzer::get_logged_in_user()->idBenutzer);

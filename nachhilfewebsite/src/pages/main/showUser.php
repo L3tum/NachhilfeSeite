@@ -250,6 +250,8 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
         </div>';
         }
 
+
+
         if (!($user_is_me)) {
 
             echo '
@@ -281,25 +283,59 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             if (Benutzer::get_logged_in_user()->has_permission("blockUser")) {
                 if($user->is_blocked() == "1" || $user->is_blocked() == "true") {
                     echo '
-        <div class="row actions">
-            <div class="small-12 columns">
-                    <a id="unblockUserButton" class="button alert" type="submit" value="Submit">Benutzer entblocken</a>
-            </div>
-        </div>';
+                      <div class="row actions">
+                        <div class="small-12 columns">
+                          <a id="unblockUserButton" class="button alert" type="submit" value="Submit">Benutzer entblocken</a>
+                        </div>
+                      </div>';
                 }
                 else{
                     echo '
-        <div class="row actions">
-            <div class="small-12 columns">
-                    <a id="blockUserButton" class="button alert" type="submit" value="Submit">Benutzer blockieren</a>
-            </div>
-        </div>';
+                      <div class="row actions">
+                        <div class="small-12 columns">
+                          <a id="blockUserButton" class="button alert" type="submit" value="Submit">Benutzer blockieren</a>
+                        </div>
+                       </div>';
                 }
             }
+
+
         }
 
         ?>
 
 
     </div>
+
+    <?php
+    if (Benutzer::get_logged_in_user()->has_permission("getUserPDFReports") ) {
+
+        $givenButton = "";
+        $takenButton = "";
+        if($user->has_permission("giveClasses")) {
+            $givenButton = '<button type="submit" name="action" value="given" class="button" type="submit">PDF für gegebene Stunden generieren</button>';
+        }
+        if($user->has_permission("takeClasses")) {
+            $takenButton = '<button type="submit" name="action" value="taken" class="button" >PDF für genommene Stunden generieren</a>';
+        }
+
+        $currYear = date("Y");
+
+        echo "
+            <div class='small-12 smallmedium-12 medium-6 columns'>
+              <h2>PDF</h2>
+              <form data-abide novalidate id='show-pdf-form' method='post'>
+                <input id='pdf-year' style='width:100px' type='number' min='2010' max='2200' value={$currYear}>
+                <input id='pdf-user' type='hidden' name='idBenutzer' value='{$user->idBenutzer}'>
+                
+                {$givenButton}{$takenButton}
+              </form>
+            <div>
+        ";
+    }
+    ?>
+
+    </div>
 </div>
+
+

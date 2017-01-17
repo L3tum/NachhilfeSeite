@@ -72,9 +72,16 @@ Route::add('user/(.+)/edit',function($id){
 
 });
 
-Route::add('user/(.+)/pdf',function($id){
+Route::add('user/(.+)/pdf/taken/(.+)',function($id, $year){
     //Do something
     $taken_lessons = true;
+    include 'main/allLessonsPDF.php';
+
+});
+
+Route::add('user/(.+)/pdf/given/(.+)',function($id, $year){
+    //Do something
+    $taken_lessons = false;
     include 'main/allLessonsPDF.php';
 
 });
