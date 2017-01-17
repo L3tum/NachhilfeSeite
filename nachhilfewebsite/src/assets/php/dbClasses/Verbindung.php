@@ -46,4 +46,13 @@ class Verbindung
             return false;
         }
     }
+
+    public static function is_first_connection($idVerbindung, $idBenutzer){
+        $idVerbindung2 = Benutzer::get_by_id($idBenutzer)->get_first_connection()->idVerbindung;
+        if($idVerbindung2 == $idVerbindung){
+            return true;
+        }
+        return false;
+    }
+
 }

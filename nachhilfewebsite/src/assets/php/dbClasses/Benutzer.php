@@ -69,15 +69,6 @@ class Benutzer
 
     }
 
-
-    public function get_first_connection() {
-        $stmt = Connection::$PDO->prepare("SELECT * FROM `verbindung` WHERE idVerbindung = (SELECT idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idNehmer ORDER BY idVerbindung ASC LIMIT 1)");
-        $stmt->bindParam(':idNehmer', $this->idBenutzer);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
-        return $stmt->fetch();
-    }
-
     //Set the session id to the current session id
     public function log_in()
     {
@@ -389,27 +380,11 @@ verbindung as v ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t2 ON t2.i
         return $others;
     }
 
-    public function has_connection(){
-        if(isset($this->firstConnection)){
-            return $this->firstConnection;
-        }
-        else{
-            $stmt = Connection::$PDO->prepare("SELECT verbindung.idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idBenutzer GROUP BY idNachhilfenehmer");
-            $stmt->bindParam(':idBenutzer', $this->idBenutzer);
-            $stmt->execute();
-            $conn = $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
-            if(isset($conn) && count($conn) > 0){
-                $this->firstConnection = true;
-                return true;
-            }
-            else{
-                $this->firstConnection = false;
-                return false;
-            }
-        }
-    }
-
-    public function set_first_connection($bool){
-        $this->firstConnection = $bool;
+    public function get_first_connection() {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM `verbindung` WHERE idVerbindung = (SELECT idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idNehmer ORDER BY idVerbindung ASC LIMIT 1)");
+        $stmt->bindParam(':idNehmer', $this->idBenutzer);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
+        return $stmt->fetch();
     }
 }
