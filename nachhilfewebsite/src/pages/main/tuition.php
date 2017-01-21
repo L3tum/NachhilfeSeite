@@ -8,7 +8,7 @@ if(Benutzer::get_logged_in_user()->has_permission("giveClasses")) {
     $connections = $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
 
 }
-else if(Benutzer::get_logged_in_user()->has_permission("takeClasses")) {
+if(Benutzer::get_logged_in_user()->has_permission("takeClasses")) {
     $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idNachhilfenehmer = :id");
     $stmt->bindParam(':id', Benutzer::get_logged_in_user()->idBenutzer);
     $stmt->execute();
