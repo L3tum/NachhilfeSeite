@@ -9,6 +9,7 @@
 
 include_once __DIR__ . "/Connection.php";
 include_once  __DIR__ . "/../dbClasses/Benutzer.php";
+include_once  __DIR__ . "/../PHPMailer/PHPMailerAutoload.php";
 class AjaxFormHelper
 {
 
@@ -91,6 +92,32 @@ class AjaxFormHelper
         }
         else {
             return Benutzer::get_by_id($id);
+        }
+    }
+
+    public function send_mail($email, $subject, $body) {
+        //Send mail using gmail
+        $mail = new PHPMailer;
+        $mail->CharSet = 'UTF-8';
+        $mail->IsSMTP(); // telling the class to use SMTP
+        $mail->SMTPAuth = true; // enable SMTP authentication
+        $mail->SMTPSecure = "ssl"; // sets the prefix to the servier
+        $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
+        $mail->Port = 465; // set the SMTP port for the GMAIL server
+        $mail->Username = "nachhilfegylo@gmail.com"; // GMAIL username
+        $mail->Password = "NSsrQ(@aMmd(57nEFW8r"; // GMAIL password
+
+//Typical mail data
+        $mail->AddAddress($email);
+        $mail->SetFrom('admin@gylo-nachhilfe.de', "Nachhilfe");
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        try{
+            $mail->Send();
+        } catch(Exception $e){
+
+            return_error("Email konnte nicht gesendet werden!");
         }
     }
 }

@@ -114,6 +114,7 @@ class AjaxFormHelperSpecial {
 }
 
 function runMyAjax(ajaxPath, success, data = 0) {
+
     $.ajax({
         url: getRootUrl() + ajaxPath,
         dataType: 'json',
@@ -121,12 +122,17 @@ function runMyAjax(ajaxPath, success, data = 0) {
         data: data,
         success: function (result) {
             var resultObj = result; //JSON object
+
             if (resultObj.success == false) {
                 toastr.error(resultObj.errorReason);
             }
             else {
                 success(resultObj);
             }
+        },
+        error:function(data){
+            //if error
+            console.log(data);
         }
     });
 }
@@ -327,6 +333,7 @@ $(document).on("submit", '#register-form', function (ev) {
 
 $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     ev.preventDefault();
+
     var faecher = $('[name=fachButton]');
     var selectedFaecher = [];
 
@@ -337,6 +344,7 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     });
 
     runMyAjax("ajax/nachhilfeAnfrage.php", function (result) {
+
         toastr.success("Anfrage gesendet!");
         selectedFaecher.forEach(function (fache) {
             var parent = $("#" + fache).parent();
