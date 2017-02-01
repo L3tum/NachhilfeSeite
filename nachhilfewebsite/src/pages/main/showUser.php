@@ -325,7 +325,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             <div class='small-12 smallmedium-12 medium-6 columns'>
               <h2>PDF</h2>
               <form data-abide novalidate id='show-pdf-form' method='post'>
-                <input id='pdf-year' style='width:100px' type='number' min='2010' max='2200' value={$currYear}>
+                <input id='pdf-year' style='width:200px' type='month'>
                 <input id='pdf-user' type='hidden' name='idBenutzer' value='{$user->idBenutzer}'>
                 
                 {$givenButton}{$takenButton}

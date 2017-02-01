@@ -49,10 +49,10 @@ $user = Benutzer::get_by_id($id);
 
 
 if($taken_lessons) {
-    $header = "Von {$user->vorname} {$user->name} genommene Stunden {$year}";
+    $header = "Von {$user->vorname} {$user->name} genommene Stunden {$month}";
 }
 else {
-    $header = "Von {$user->vorname} {$user->name} gegebene Stunden {$year}";
+    $header = "Von {$user->vorname} {$user->name} gegebene Stunden {$month}";
 }
 
 $entries = "";
@@ -83,9 +83,9 @@ foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung') as $verbindung) {
         $tableHeadline = "Schüler: " . $schueler->vorname . " " . $schueler->name;
     }
 
-    $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idVerbindung = :idVerbindung AND YEAR(datum) = :jahr ORDER BY datum DESC");
+    $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idVerbindung = :idVerbindung AND DATE_FORMAT(datum, '%Y-%m') = :month ORDER BY datum DESC");
     $stmt->bindParam(':idVerbindung', $verbindung->idVerbindung);
-    $stmt->bindParam(':jahr', $year);
+    $stmt->bindParam(':month', $month);
     $stmt->execute();
 
     $kostenlos = "";

@@ -79,7 +79,7 @@ Route::add('user/(.+)/pdf/taken/(.+)',function($id, $year){
 
 });
 
-Route::add('user/(.+)/pdf/given/(.+)',function($id, $year){
+Route::add('user/(.+)/pdf/given/(.+)',function($id, $month){
     //Do something
     $taken_lessons = false;
     include 'main/allLessonsPDF.php';
