@@ -522,7 +522,7 @@ $(document).on("click", "#blockUserButton", function (ev) {
         parent.append(`
             <div class="row actions">
             <div class="small-12 columns">
-            <a id="unblockUserButton" class="button alert" type="submit" value="Submit">Benutzer entblocken</a>
+            <a id="unblockUserButton" class="button warning" type="submit" value="Submit">Benutzer entblocken</a>
         </div>
         </div>`);
     }, {'user': $("#user_to_show").val()})
@@ -883,7 +883,7 @@ $(document).on("click", "#deleteYEAR", function(ev){
     }, {'id' : $("#sel_year").find(':selected').attr('id')})
 });
 
-$(document).on("click", "#acceptAppointment", function(ev){
+$(document).on("click", "[name=acceptAppointment]", function(ev){
     ev.preventDefault();
     runMyAjax("ajax/acceptAppointment.php", function(result){
         toastr.success("Termin angenommen!");
@@ -892,7 +892,7 @@ $(document).on("click", "#acceptAppointment", function(ev){
         parent.append("<td class='success'>Ja</td>");
     }, {'id' : $(ev.target).attr('id')})
 });
-$(document).on("click", "#denyAppointment", function(ev){
+$(document).on("click", "[name=denyAppointment]", function(ev){
     ev.preventDefault();
     runMyAjax("ajax/denyAppointment.php", function(result){
         toastr.success("Termin abgelehnt!");

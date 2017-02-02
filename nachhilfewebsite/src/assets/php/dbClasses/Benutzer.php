@@ -65,6 +65,9 @@ class Benutzer
             $user = $stmt->fetch();
             self::$currentlyLoggedIn = $user;
         }
+        if(!isset(self::$currentlyLoggedIn)){
+            return false;
+        }
         return self::$currentlyLoggedIn;
 
     }
