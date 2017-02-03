@@ -19,12 +19,14 @@ class AjaxFormHelper {
                 .on("formvalid.zf.abide", function (ev) {
                     ev.preventDefault();
                     if(ajaxPath == "ajax/requestResponse.php"){
-                        if($(document.activeElement).parent().find("[name=kostenfrei]").val() == 1) {
-                            var result = window.confirm("Da diese die Anfrage für eine kostenlose Stunde wäre, würden alle anderen Anfragen dieses Benutzers auch gelöscht werden!");
-                            if (result) {
-                                $me.runAjax(ajaxPath, element, success, formDataAppend, ev);
-                            }
-                            else{
+                        if($(ev.target).val() == "denyRequest") {
+                            if ($(document.activeElement).parent().find("[name=kostenfrei]").val() == 1) {
+                                var result = window.confirm("Da diese die Anfrage für eine kostenlose Stunde wäre, würden alle anderen Anfragen dieses Benutzers auch gelöscht werden!");
+                                if (result) {
+                                    $me.runAjax(ajaxPath, element, success, formDataAppend, ev);
+                                }
+                                else {
+                                }
                             }
                         }
                     }

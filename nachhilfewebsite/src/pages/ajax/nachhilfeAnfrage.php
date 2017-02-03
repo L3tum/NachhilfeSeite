@@ -61,6 +61,7 @@ foreach ($faecher as $fach) {
     $stmt->bindParam(':idFach', $fach);
     $stmt->bindParam(':kostenfrei', !$pays_self);
     $stmt->execute();
+    $pays_self = true;
 }
 
 $subject = "Nachhilfeanfrage von {$logged_in->vorname} {$logged_in->name}";
