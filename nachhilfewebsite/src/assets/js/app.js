@@ -201,7 +201,14 @@ var generatePDFFormHelper = new AjaxFormHelper($("#show-pdf-form"), "Fehlgeschla
 });
 
 var requestResponseFormHelper = new AjaxFormHelper($(".request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
-    $(element).parents('.result-box').remove();
+    var btn = $(document.activeElement);
+    if(btn.val() == "acceptRequest"){
+        toastr.success("Anfrage angenommen!");
+    }
+    else{
+        toastr.success("Anfrage abgelehnt!");
+    }
+    $(document.activeElement).parents('.result-box').remove();
 }, function (formData) {
     var btn = $(document.activeElement);
     formData.append('response', btn.attr('value'));

@@ -180,7 +180,7 @@ Route::add('role/add', function(){
     }
 });
 
-Route::add('termine', function($param){
+Route::add('termine', function(){
     if(Benutzer::get_logged_in_user()->has_permission("termine")){
         include 'main/termine.php';
     }
