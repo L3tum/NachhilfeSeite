@@ -44,6 +44,37 @@ class AjaxFormHelper {
             formDataAppend(formData);
         }
 
+        if(ajaxPath == "ajax/requestResponse.php"){
+            if(formData.get('response') == "denyRequest"){
+                if($(document.activeElement).parent().find("[name=kostenfrei]").val() == 1){
+                    var result = window.confirm("Da diese die Anfrage für eine kostenlose Stunde wäre, würden alle anderen Anfragen dieses Benutzers auch gelöscht werden!");
+                    if(result){
+                        //Send the ajax request
+                        $.ajax({
+                            url: getRootUrl() + ajaxPath,
+                            dataType: 'json',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            type: "POST",
+                            success: function (result) {
+                                var resultObj = result; //JSON object
+                                if (resultObj.success == false) {
+                                    toastr.error(resultObj.errorReason);
+                                }
+                                else {
+                                    success(resultObj, ev.target);
+                                }
+                            }
+                        });
+                    }
+                    else{
+                        return;
+                    }
+                }
+            }
+        }
+
         //Send the ajax request
         $.ajax({
             url: getRootUrl() + ajaxPath,
@@ -343,10 +374,14 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
 
     var faecher = $('[name=fachButton]');
     var selectedFaecher = [];
+    var firstConnection = null;
 
     $.each(faecher, function (i, fach) {
         if ($(fach).hasClass("warning")) {
             selectedFaecher.push($(fach).attr('id'));
+        }
+        else if($(fach).hasClass("firstConnection")){
+            firstConnection = $(fach).attr('id');
         }
     });
 
@@ -358,8 +393,14 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
             var fachen = $("#" + fache).text();
             parent.empty();
             parent.append("<div class='data-label secondary'><p class='center'>" + fachen + "</p></div>")
-        })
-    }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher})
+        });
+        if(firstConnection != null) {
+            var parent = $("#" + firstConnection).parent();
+            var fachen = $("#" + firstConnection).text();
+            parent.empty();
+            parent.append("<div class='data-label firstRequest'><p class='center'>" + fachen + "</p></div>")
+        }
+    }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher, 'first' : firstConnection})
 });
 
 $(document).on("click", "#add_qual", function (ev) {
@@ -434,8 +475,28 @@ $(document).on("click", '[name=fachButton]', function (ev) {
         element.removeClass("success");
         element.addClass("warning");
     }
+    else if(ev.target.className.includes("warning")){
+        runMyAjax("ajax/Getters/getFirstConnection.php", function(result){
+            if(result.firstConnection == false) {
+                runMyAjax("ajax/Getters/getFirstRequest.php", function(result2){
+                    if(result2.firstRequest == false) {
+                        element.removeClass("warning");
+                        element.addClass("firstConnection");
+                    }
+                    else{
+                        element.removeClass("warning");
+                        element.addClass("success");
+                    }
+                });
+            }
+            else{
+                element.removeClass("warning");
+                element.addClass("success");
+            }
+        });
+    }
     else {
-        element.removeClass("warning");
+        element.removeClass("firstConnection");
         element.addClass("success");
     }
 });

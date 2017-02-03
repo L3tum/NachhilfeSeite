@@ -131,6 +131,10 @@ i {
   color: $warning-color;
 }
 
+.firstConnection{
+  color: #e94a78;
+}
+
 .toast {
   &.toast-error {
     background-color: $alert-color;
@@ -194,6 +198,18 @@ header {
   }
   &.secondary {
     background-color: $secondary-color;
+    p{
+      color:white;
+    }
+  }
+  &.firstConnection{
+    background-color: #8036d8;
+    p{
+      color:white;
+    }
+  }
+  &.firstRequest{
+    background-color: #30b6e5;
     p{
       color:white;
     }
@@ -376,6 +392,10 @@ header {
   }
   &.alter{
     background-color: red;
+    color: $white;
+  }
+  &.firstConnection{
+    background-color: #e94a78;
     color: $white;
   }
 }

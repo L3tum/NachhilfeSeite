@@ -27,6 +27,26 @@ if(!$user) {
 
 $faecher = $_POST['faecher'];
 $logged_in = Benutzer::get_logged_in_user();
+$pays_self = $logged_in->get_first_connection()== false? false : true;
+$pays_self = $logged_in->get_first_anfrage()==false? false : true;
+
+if(!$pays_self && isset($_POST['first'])){
+    if ($logged_in->has_anfrage($user_id, $_POST['first'])) {
+        $form_helper->return_error("Du hast bereits eine Anfrage geschickt!");
+        exit();
+    } else if ($logged_in->has_tutiution_connection($user_id, $_POST['first'])) {
+        $form_helper->return_error("Du hast bereits eine Nachhilfeverbindung mit diesem Benutzer!");
+        exit();
+    }
+    $stmt = Connection::$PDO->prepare("INSERT INTO anfrage (anfrage.idSender, anfrage.idEmpfänger, anfrage.idFach, anfrage.kostenfrei) VALUES( :idSender , :idEmpfaenger , :idFach , :kostenfrei )");
+    $stmt->bindParam(':idSender', Benutzer::get_logged_in_user()->idBenutzer);
+    $stmt->bindParam(':idEmpfaenger', $user_id);
+    $stmt->bindParam(':idFach', $_POST['first']);
+    $stmt->bindValue(':kostenfrei', 1);
+    $stmt->execute();
+    $pays_self = true;
+}
+
 foreach ($faecher as $fach) {
     if ($logged_in->has_anfrage($user_id, $fach)) {
         $form_helper->return_error("Du hast bereits eine Anfrage geschickt!");
@@ -35,10 +55,11 @@ foreach ($faecher as $fach) {
         $form_helper->return_error("Du hast bereits eine Nachhilfeverbindung mit diesem Benutzer!");
         exit();
     }
-    $stmt = Connection::$PDO->prepare("INSERT INTO anfrage (anfrage.idSender, anfrage.idEmpfänger, anfrage.idFach) VALUES( :idSender , :idEmpfaenger , :idFach )");
+    $stmt = Connection::$PDO->prepare("INSERT INTO anfrage (anfrage.idSender, anfrage.idEmpfänger, anfrage.idFach, anfrage.kostenfrei) VALUES( :idSender , :idEmpfaenger , :idFach , :kostenfrei )");
     $stmt->bindParam(':idSender', Benutzer::get_logged_in_user()->idBenutzer);
     $stmt->bindParam(':idEmpfaenger', $user_id);
     $stmt->bindParam(':idFach', $fach);
+    $stmt->bindParam(':kostenfrei', !$pays_self);
     $stmt->execute();
 }
 

@@ -14,6 +14,7 @@ $form_helper = new AjaxFormHelper();
 $request_id = $_POST['idRequest'];
 $sender_id = $_POST['idSendingUser'];;
 $fach_id = $_POST['idFach'];
+$kostenfrei = $_POST['kostenfrei'];
 
 if(!ctype_digit($request_id)) {
     $this->return_error("Interner Fehler: ID ist keine Zahl");
@@ -29,20 +30,31 @@ if(!isset($response)) {
 }
 
 else if($response == "acceptRequest") {
-    $stmt = Connection::$PDO->prepare("INSERT INTO verbindung (idNachhilfenehmer, idNachhilfelehrer, idFach) VALUES (:idNehmer, :idLehrer, :idFach)");
+    $stmt = Connection::$PDO->prepare("INSERT INTO verbindung (idNachhilfenehmer, idNachhilfelehrer, idFach, kostenfrei) VALUES (:idNehmer, :idLehrer, :idFach, :kostenfrei)");
     $stmt->bindParam(':idNehmer', $sender_id);
     $stmt->bindParam(':idLehrer', Benutzer::get_logged_in_user()->idBenutzer);
     $stmt->bindParam(':idFach', $fach_id);
+    $stmt->bindParam(':kostenfrei', $kostenfrei);
     $stmt->execute();
 
     $stmt = Connection::$PDO->prepare("DELETE FROM anfrage WHERE idAnfrage = :idAnfrage");
     $stmt->bindParam(':idAnfrage', $request_id);
     $stmt->execute();
+
+    $stmt = Connection::$PDO->prepare("INSERT INTO benachrichtigung (idBenutzer, titel, inhalt) VALUES (:idBenutzer, :titel, :inhalt)");
+    $stmt->bindParam(':idBenutzer', $sender_id);
+    $stmt->bindValue(':titel', "Anfrage angenommen!");
+    $stmt->bindValue(':inhalt', "Ein Nachhilfelehrer hat deine Anfrage angenommen!");
 }
 else if($response == "denyRequest") {
     $stmt = Connection::$PDO->prepare("DELETE FROM anfrage WHERE idAnfrage = :idAnfrage");
     $stmt->bindParam(':idAnfrage', $request_id);
     $stmt->execute();
+
+    $stmt = Connection::$PDO->prepare("INSERT INTO benachrichtigung (idBenutzer, titel, inhalt) VALUES (:idBenutzer, :titel, :inhalt)");
+    $stmt->bindParam(':idBenutzer', $sender_id);
+    $stmt->bindValue(':titel', "Anfrage abgelehnt!");
+    $stmt->bindValue(':inhalt', "Ein Nachhilfelehrer hat deine Anfrage abgelehnt!");
 }
 
 $form_helper->success = true;

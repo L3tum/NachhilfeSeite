@@ -30,7 +30,7 @@ class NotificationHandler
 
                         <div class='row'>
 
-                            <div class='small-8 columns'>
+                            <div class='small-6 columns'>
 
                                 <div class='row no-padding right'>
                                     <div class='small-12 columns notification-header no-padding right'>
@@ -43,13 +43,14 @@ class NotificationHandler
                                 </div>
 
                             </div>
-
+                            
                             <div class='small-4 columns no-padding both'>
                                 <div class='button-group medium '>
                                     <form data-abide novalidate class=\"request-response-form\" method=\"post\">
                                     <input type='hidden' name='idRequest' value='" . $anfrage->idAnfrage . "'>
                                     <input type='hidden' name='idFach' value='" . $anfrage->idFach . "'>
                                     <input type='hidden' name='idSendingUser' value='" . $sender->idBenutzer . "'>
+                                    <input type='hidden' name='kostenfrei' value='". $anfrage->kostenfrei . "'>
                                     <button name='response' class='button success' type='submit' value='acceptRequest'><i class='fi-check'></i></button>
                                     <button name='response' class='button alert' type='submit' value='denyRequest'><i class='fi-x'></i></button>
                                     </form>

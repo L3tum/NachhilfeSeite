@@ -390,4 +390,11 @@ verbindung as v ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t2 ON t2.i
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
         return $stmt->fetch();
     }
+    public function get_first_anfrage() {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM `anfrage` WHERE idAnfrage = (SELECT idAnfrage FROM anfrage WHERE idSender = :idNehmer ORDER BY idAnfrage ASC LIMIT 1)");
+        $stmt->bindParam(':idNehmer', $this->idBenutzer);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Anfrage');
+        return $stmt->fetch();
+    }
 }

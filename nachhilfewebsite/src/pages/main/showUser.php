@@ -106,18 +106,46 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                     <?php
                     if ($user->has_permission("giveClasses")) {
                         $isnot = false;
+                        $first = Benutzer::get_logged_in_user()->get_first_connection();
+                        $first_request;
+                        if($first != false){
+                            $first_request = false;
+                        }
+                        else{
+                            $first_request = Benutzer::get_logged_in_user()->get_first_anfrage();
+                        }
                         foreach ($user->get_offered_subjects() as $subject) {
                             $name = $subject->name;
 
+                            //Check if verbindung and first
+                            if ($first != false && isset($connections_key_array[$name]) && $first->idFach==$subject->idFach) {
+                                echo
+                                "<div class=\"small-6 medium-12 large-4 columns\">
+                              <div class=\"data-label firstConnection\">
+                                <p class=\"center\">$name</p>
+                              </div>
+                            </div>";
+                            }
                             //Check if verbindung
-                            if (isset($connections_key_array[$name])) {
+                            else if (isset($connections_key_array[$name])) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label alert\">
                                 <p class=\"center\">$name</p>
                               </div>
                             </div>";
-                            } //Check if Anfrage
+                            }
+                            //Check if Anfrage and first
+                            else if ($first_request != false && isset($anfragen_key_array[$name]) && $subject->idFach==$first_request->idFach) {
+                                echo
+                                "<div class=\"small-6 medium-12 large-4 columns\">
+                              <div class=\"data-label firstRequest\">
+                                <p class=\"center\">$name</p>
+                              </div>
+                            </div>";
+                            }
+
+                            //Check if Anfrage
                             else if (isset($anfragen_key_array[$name])) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
@@ -125,7 +153,9 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                                 <p class=\"center\">$name</p>
                               </div>
                             </div>";
-                            } //Button for Anfrage
+                            }
+
+                            //Button for Anfrage
                             else if (!$user_is_me) {
                                 $isnot = true;
                                 echo
@@ -145,14 +175,18 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                         }
 
                         if (!empty($connections)) {
-
                             echo "<div class=\"small-12 columns\"><p>In den rot markierten Fächern nimmst du bei dieser Person, oder gibst du dieser Person, Nachhilfe!</p></div>";
+                            echo "<div class=\"small-12 columns\"><p>Das pink markierte Fach ist das Fach, das du nicht selber bezahlen musst!</p></div>";
                         }
                         if (!empty($anfragen)) {
                             echo "<div class=\"small-12 columns\"><p>In den blau markierten Fächern hast du bereits eine Anfrage gesendet oder empfangen!</p></div>";
+                            echo "<div class=\"small-12 columns\"><p>Das hellblau markierte Fach ist das Fach, das du nicht selber bezahlen musst!</p></div>";
                         }
                         if ($isnot) {
                             echo "<div class=\"small-12 columns\"><p>Die grün markierten Felder kannst du anklicken, um Nachhilfe in diesem Fach anzufragen!</p></div>";
+                        }
+                        if(Benutzer::get_logged_in_user()->get_first_connection() == null && $isnot){
+                            echo "<div class=\"small-12 columns\"><p>Wenn du doppelt klickst, wählst du das Fach als erstes Fach aus, wodurch du die Stunden nicht bezahlen musst!</p></div>";
                         }
                     }
                     ?>
