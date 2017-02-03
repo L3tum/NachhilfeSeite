@@ -4,6 +4,7 @@ layout: noLayout
 
 <?php
 include_once __DIR__ . "/../assets/php/dbClasses/Rolle.php";
+include_once __DIR__ . "/../assets/php/dbClasses/Anfrage.php";
 include_once  __DIR__ . "/../assets/php/general/Connection.php";
 include_once  __DIR__ . "/../assets/php/general/ConfigStrings.php";
 include_once __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
@@ -47,14 +48,29 @@ else if($response == "acceptRequest") {
     $stmt->bindValue(':inhalt', "Ein Nachhilfelehrer hat deine Anfrage angenommen!");
 }
 else if($response == "denyRequest") {
-    $stmt = Connection::$PDO->prepare("DELETE FROM anfrage WHERE idAnfrage = :idAnfrage");
-    $stmt->bindParam(':idAnfrage', $request_id);
-    $stmt->execute();
+    if($kostenfrei == 1) {
 
-    $stmt = Connection::$PDO->prepare("INSERT INTO benachrichtigung (idBenutzer, titel, inhalt) VALUES (:idBenutzer, :titel, :inhalt)");
-    $stmt->bindParam(':idBenutzer', $sender_id);
-    $stmt->bindValue(':titel', "Anfrage abgelehnt!");
-    $stmt->bindValue(':inhalt', "Ein Nachhilfelehrer hat deine Anfrage abgelehnt!");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE idSender = :idSender AND idEmpfänger = :idEmpfang");
+        $stmt->bindParam(':idSender', $sender_id);
+        $stmt->bindParam(':idEmpfang', Benutzer::get_logged_in_user()->idBenutzer);
+        $stmt->execute();
+        $form_helper->response['requests'] = $stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage');
+
+        $stmt = Connection::$PDO->prepare("DELETE FROM anfrage WHERE idSender = :idSender AND idEmpfänger = :idEmpfang");
+        $stmt->bindParam(':idSender', $sender_id);
+        $stmt->bindParam(':idEmpfang', Benutzer::get_logged_in_user()->idBenutzer);
+        $stmt->execute();
+    }
+    else{
+        $stmt = Connection::$PDO->prepare("DELETE FROM anfrage WHERE idAnfrage = :idAnfrage");
+        $stmt->bindParam(':idAnfrage', $request_id);
+        $stmt->execute();
+
+        $stmt = Connection::$PDO->prepare("INSERT INTO benachrichtigung (idBenutzer, titel, inhalt) VALUES (:idBenutzer, :titel, :inhalt)");
+        $stmt->bindParam(':idBenutzer', $sender_id);
+        $stmt->bindValue(':titel', "Anfrage abgelehnt!");
+        $stmt->bindValue(':inhalt', "Ein Nachhilfelehrer hat deine Anfrage abgelehnt!");
+    }
 }
 
 $form_helper->success = true;

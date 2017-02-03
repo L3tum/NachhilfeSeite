@@ -18,6 +18,16 @@ class AjaxFormHelper {
                 })
                 .on("formvalid.zf.abide", function (ev) {
                     ev.preventDefault();
+                    if(ajaxPath == "ajax/requestResponse.php"){
+                        if($(document.activeElement).parent().find("[name=kostenfrei]").val() == 1) {
+                            var result = window.confirm("Da diese die Anfrage für eine kostenlose Stunde wäre, würden alle anderen Anfragen dieses Benutzers auch gelöscht werden!");
+                            if (result) {
+                                $me.runAjax(ajaxPath, element, success, formDataAppend, ev);
+                            }
+                            else{
+                            }
+                        }
+                    }
                     $me.runAjax(ajaxPath, element, success, formDataAppend, ev);
 
                 });
@@ -42,37 +52,6 @@ class AjaxFormHelper {
         //Call the formDataAppend method to add custom data to the formData object initialized with the form element
         if (formDataAppend != 0) {
             formDataAppend(formData);
-        }
-
-        if(ajaxPath == "ajax/requestResponse.php"){
-            if(formData.get('response') == "denyRequest"){
-                if($(document.activeElement).parent().find("[name=kostenfrei]").val() == 1){
-                    var result = window.confirm("Da diese die Anfrage für eine kostenlose Stunde wäre, würden alle anderen Anfragen dieses Benutzers auch gelöscht werden!");
-                    if(result){
-                        //Send the ajax request
-                        $.ajax({
-                            url: getRootUrl() + ajaxPath,
-                            dataType: 'json',
-                            data: formData,
-                            processData: false,
-                            contentType: false,
-                            type: "POST",
-                            success: function (result) {
-                                var resultObj = result; //JSON object
-                                if (resultObj.success == false) {
-                                    toastr.error(resultObj.errorReason);
-                                }
-                                else {
-                                    success(resultObj, ev.target);
-                                }
-                            }
-                        });
-                    }
-                    else{
-                        return;
-                    }
-                }
-            }
         }
 
         //Send the ajax request
@@ -235,11 +214,14 @@ var requestResponseFormHelper = new AjaxFormHelper($(".request-response-form"), 
     var btn = $(document.activeElement);
     if(btn.val() == "acceptRequest"){
         toastr.success("Anfrage angenommen!");
+        $(document.activeElement).parents('.result-box').remove();
     }
     else{
+        result.requests.forEach(function(request){
+           $("[value=" + request.idAnfrage+"]").parents('.result-box').remove();
+        });
         toastr.success("Anfrage abgelehnt!");
     }
-    $(document.activeElement).parents('.result-box').remove();
 }, function (formData) {
     var btn = $(document.activeElement);
     formData.append('response', btn.attr('value'));
