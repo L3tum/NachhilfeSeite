@@ -397,4 +397,10 @@ verbindung as v ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t2 ON t2.i
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Anfrage');
         return $stmt->fetch();
     }
+    public static function get_all_users_with_right($right_name){
+        $stmt = Connection::$PDO->prepare("SELECT benutzer.* FROM benutzer JOIN rolle ON benutzer.idRolle=rolle.idRolle JOIN rollenberechtigung ON rollenberechtigung.idRolle=rolle.idRolle JOIN berechtigung ON rollenberechtigung.idBerechtigung=berechtigung.idBerechtigung WHERE berechtigung.name= :name");
+        $stmt->bindParam(':name', $right_name);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');
+    }
 }

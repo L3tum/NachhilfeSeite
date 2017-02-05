@@ -21,7 +21,7 @@ $form_helper = new AjaxFormHelper();
 
 $notification_id = $_POST['idNotification'];
 if(!ctype_digit($notification_id)) {
-    $this->return_error("Interner Fehler: ID ist keine Zahl");
+    $form_helper->return_error("Interner Fehler: ID ist keine Zahl");
 }
 
 $stmt = Connection::$PDO->prepare("DELETE FROM benachrichtigung WHERE idBenachrichtigung = :idBen AND idBenutzer = :idBenutzer");

@@ -720,9 +720,14 @@ $("#show_pending_hours").on("click", function (ev) {
     $('#results').empty();
     runMyAjax("ajax/Getters/getPendingHours.php", function (result) {
         var html = "<table class='hover'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Datum</th><th>Raum</th></tr></thead><tbody>";
-        result.data.forEach(function (data) {
-            html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.datum + "</td><td>" + data.raumNummer + "</td></tr>";
-        });
+        if (Object.prototype.toString.call(result.data) === '[object Array]') {
+            result.data.forEach(function (data) {
+                html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.datum + "</td><td>" + data.raumNummer + "</td></tr>";
+            });
+        }
+        else{
+            html += "<tr><td>" + result.data.lehrerVorname + " " + result.data.lehrerName + "</td><td>" + result.data.nehmerVorname + " " + result.data.nehmerName + "</td><td>" + result.data.datum + "</td><td>" + result.data.raumNummer + "</td></tr>";
+        }
         html += "</tbody></table>";
         $('#results').append(html);
     });
@@ -1027,6 +1032,109 @@ $(document).on("focusout", "#time_app", function (ev) {
     if (date != null && time != null) {
         updateRooms();
     }
+});
+
+$(document).on("click", "#add_right", function(ev){
+    ev.preventDefault();
+    var html = "<div class='small-12-centered columns'><input type='text' placeholder='Berechtigung' id='berechtigung_name' required><input type='text' id='berechtigung_desc' placeholder='Beschreibung (optional)'><br><button class='button success' id='submit_right' name='Submit'>Submit</button>";
+    $("#results").empty();
+    $("#results").append(html);
+});
+$(document).on("click", "#submit_right", function(ev){
+    ev.preventDefault();
+    runMyAjax("ajax/Setters/addBerechtigung.php", function(result){
+        toastr.success("Berechtigung erfolgreich hinzugefügt!");
+        $("#berechtigung_name").val('');
+        $("#berechtigung_desc").val('');
+    }, {'name': $("#berechtigung_name").val(), 'desc': $("#berechtigung_desc").val()})
+});
+
+$(document).on("click", "#exec_sql", function(ev){
+    ev.preventDefault();
+    var html = "<div class='small-12-centered columns'><input type='text' placeholder='SQL' id='sql' required><br><button class='button success' id='submit_sql' name='Submit'>Submit</button>";
+    $("#results").empty();
+    $("#results").append(html);
+});
+$(document).on("click", "#submit_sql", function(ev){
+   ev.preventDefault();
+    runMyAjax("ajax/runSQL.php", function(result){
+        toastr.success("SQL erfolgreich ausgeführt!");
+        $("#sql").val('');
+    }, {'sql' : $("#sql").val()})
+});
+
+$(document).on("click", "#show_all_hours", function(ev){
+    ev.preventDefault();
+    $("#results").empty();
+    var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div>";
+    $("#results").append(html);
+});
+$(document).on("click", "#submit_pdf_month", function(ev){
+   ev.preventDefault();
+    runMyAjax("ajax/Getters/getAllHours.php", function(result){
+        $("#results").empty();
+        var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div><div class='small-12 columns result-boxes'><div class='result-boxes-inner search'><table><thead><tr><th>Schüler</th><th>Lehrer</th><th>Datum</th><th>Stattgefunden</th></tr></thead><tbody>";
+        if (Object.prototype.toString.call(result.hours) === '[object Array]') {
+            result.hours.forEach(function(hour){
+               html += "<tr><td>" + hour.studentVorname + " " + hour.studentName + "</td><td>" + hour.teacherVorname + " " + hour.teacherName + "</td><td>" + hour.date + "</td><td>";
+                if(hour.bestaetigtSchueler == 1 && hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1){
+                    html += "<p class='success'>Ja</p>";
+                }
+                else if(hour.bestaetigtSchueler == 1 && hour.akzeptiert == 1){
+                    html += "<p class='warning'>Ja, laut Schüler</p>";
+                }
+                else if(hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1){
+                    html += "<p class='warning'>Ja, laut Lehrer</p>";
+                }
+                else if(hour.akzeptiert == 1){
+                    html += "<p class='alert'>Stunde akzeptiert aber nicht stattgefunden</p>";
+                }
+                else{
+                    html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
+                }
+                html += "</td></tr>";
+            });
+        }
+        else{
+            html += "<tr><td>" + result.hours.studentVorname + " " + result.hours.studentName + "</td><td>" + result.hours.teacherVorname + " " + result.hours.teacherName + "</td><td>" + result.hours.date + "</td><td>";
+            if(result.hours.bestaetigtSchueler == 1 && result.hours.bestaetigtLehrer == 1 && result.hours.akzeptiert == 1){
+                html += "<p class='success'>Ja</p>";
+            }
+            else if(result.hours.bestaetigtSchueler == 1 && result.hours.akzeptiert == 1){
+                html += "<p class='warning'>Ja, laut Schüler</p>";
+            }
+            else if(hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1){
+                html += "<p class='warning'>Ja, laut Lehrer</p>";
+            }
+            else if(hour.akzeptiert == 1){
+                html += "<p class='alert'>Stunde akzeptiert aber nicht stattgefunden</p>";
+            }
+            else{
+                html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
+            }
+            html += "</td></tr>";
+        }
+        html += "</tbody></table></div></div>";
+        if($("#pdf_month").val() != null && $("#pdf_month").val() != "") {
+            html += "<div class='small-12 columns'><button class='button success' id='generate_pdf'>PDF aller Stunden für diesen Monat Generieren</button><br><button class='button success' id='generate_pdf_taken'>PDF aller genommenen Stunden für diesen Monat generieren</button><br><button class='button success' id='generate_pdf_given'>PDF aller gegebenen Stunden für diesen Monat generieren</button></div>";
+        }
+        $("#results").append(html);
+    }, {'date' : $("#pdf_month").val()});
+});
+$(document).on("click", "#generate_pdf", function(ev){
+    ev.preventDefault();
+    var year = $('#pdf_month').val();
+    window.location = getRootUrl() + "pdf/" + "all/" + year;
+});
+$(document).on("click", "#generate_pdf_taken", function(ev){
+    ev.preventDefault();
+    var year = $('#pdf_month').val();
+    window.location = getRootUrl() + "pdf/" + "taken/" + year;
+});
+$(document).on("click", "#generate_pdf_given", function(ev){
+    ev.preventDefault();
+    var year = $('#pdf_month').val();
+    window.location = getRootUrl() + "pdf/" + "given/" + year;
 });
 
 function updateRooms() {

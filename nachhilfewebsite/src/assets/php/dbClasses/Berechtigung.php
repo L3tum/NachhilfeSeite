@@ -11,6 +11,7 @@ class Berechtigung
 
     public $idBerechtigung;
     public $name;
+    public $beschreibung;
 
     public static function get_all_rights(){
         $stmt = Connection::$PDO->prepare("SELECT * FROM berechtigung");

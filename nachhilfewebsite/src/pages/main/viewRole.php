@@ -31,30 +31,35 @@ foreach ($rights as $allright) {
                 echo "<div class='data-label'><p>Name: {$rolle->name}</p></div>";
                 echo "<div class='data-label'><p>Beschreibung: {$rolle->beschreibung}</p></div><br>";
 
-                echo "<a class='button secondary' href='".ConfigStrings::get('root')."role/".$rolle->idRolle."/edit'>Rolle bearbeiten</a><br>";
+                echo "<a class='button secondary' href='" . ConfigStrings::get('root') . "role/" . $rolle->idRolle . "/edit'>Rolle bearbeiten</a><br>";
 
                 echo "<p>Die rot markierten Rechte besitzt diese Rolle NICHT!</p>";
                 echo "<p>Die grün markierten Rechte besitzt diese Rolle!</p>"
                 ?>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Berechtigungs-ID</th>
-                        <th>Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    foreach ($allrights as $allright) {
-                        if (array_key_exists($allright->idBerechtigung, $rights_key_array)) {
-                            echo "<tr><td><p class='success'>{$allright->idBerechtigung}</p></td><td><p class='success'>{$allright->name}</p></td></tr>";
-                        } else {
-                            echo "<tr><td><p class='alert'>{$allright->idBerechtigung}</p></td><td><p class='alert'>{$allright->name}</p></td></tr>";
-                        }
-                    }
-                    ?>
-                    </tbody>
-                </table>
+                <div class="small-12 columns result-boxes">
+                    <div class="result-boxes-inner search">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Berechtigungs-ID</th>
+                                <th>Name</th>
+                                <th>Beschreibung</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($allrights as $allright) {
+                                if (array_key_exists($allright->idBerechtigung, $rights_key_array)) {
+                                    echo "<tr><td><p class='success'>{$allright->idBerechtigung}</p></td><td><p class='success'>{$allright->name}</p></td><td><p class='success'>{$allright->beschreibung}</p></td></tr>";
+                                } else {
+                                    echo "<tr><td><p class='alert'>{$allright->idBerechtigung}</p></td><td><p class='alert'>{$allright->name}</p></td><td><p class='alert'>{$allright->beschreibung}</p></td></tr>";
+                                }
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

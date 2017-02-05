@@ -18,13 +18,13 @@ if(Benutzer::get_logged_in_user()->has_permission("showAllTakenRooms")) {
     $date = $_POST['date'];
     $time = $_POST['time'];
     if($date == null){
-        $stmt = Connection::$PDO->prepare("SELECT t1.vorname as lehrerVorname, t1.name as lehrerName, t2.vorname as nehmerVorname, t2.name as nehmerName, t3.raumNummer, t3.datum FROM benutzer as t1 JOIN verbindung as v ON v.idNachhilfelehrer=t1.idBenutzer JOIN benutzer as t2 ON v.idNachhilfenehmer=t2.idBenutzer JOIN stunde as t3 ON t3.idVerbindung=v.idVerbindung");
+        $stmt = Connection::$PDO->prepare("SELECT t1.vorname as lehrerVorname, t1.name as lehrerName, t2.vorname as nehmerVorname, t2.name as nehmerName, t3.raumNummer, DATE_FORMAT(t3.datum, '%d.%m.%Y') as datum FROM benutzer as t1 JOIN verbindung as v ON v.idNachhilfelehrer=t1.idBenutzer JOIN benutzer as t2 ON v.idNachhilfenehmer=t2.idBenutzer JOIN stunde as t3 ON t3.idVerbindung=v.idVerbindung");
     }
     else {
         $endTime = date("H:i:s", strtotime("+45 minutes", strtotime($time)));
         $datumsZeit = $date . " " . $time;
         $newDatumsZeit = $date . " " . $endTime;
-        $stmt = Connection::$PDO->prepare("SELECT t1.vorname as lehrerVorname, t1.name as lehrerName, t2.vorname as nehmerVorname, t2.name as nehmerName, t3.raumNummer, t3.datum FROM benutzer as t1 JOIN verbindung as v ON v.idNachhilfelehrer=t1.idBenutzer JOIN benutzer as t2 ON v.idNachhilfenehmer=t2.idBenutzer JOIN stunde as t3 ON t3.idVerbindung=v.idVerbindung WHERE t3.datum between :datumsZeit AND :endDatumsZeit");
+        $stmt = Connection::$PDO->prepare("SELECT t1.vorname as lehrerVorname, t1.name as lehrerName, t2.vorname as nehmerVorname, t2.name as nehmerName, t3.raumNummer, DATE_FORMAT(t3.datum, '%d.%m.%Y') as datum FROM benutzer as t1 JOIN verbindung as v ON v.idNachhilfelehrer=t1.idBenutzer JOIN benutzer as t2 ON v.idNachhilfenehmer=t2.idBenutzer JOIN stunde as t3 ON t3.idVerbindung=v.idVerbindung WHERE t3.datum between :datumsZeit AND :endDatumsZeit");
         $stmt->bindParam(':datumsZeit', $datumsZeit);
         $stmt->bindParam(':endDatumsZeit', $newDatumsZeit);
     }

@@ -77,8 +77,8 @@ if (!$can_show) {
                 foreach ($connections2 as $connection) {
 
 
-                    $otherUser = Benutzer::get_by_id($connection->idNachhilfenehmer);
-                    $userpath = $root . "user/" . $connection->idNachhilfenehmer . "/view";
+                    $otherUser = Benutzer::get_by_id($connection->idNachhilfelehrer);
+                    $userpath = $root . "user/" . $connection->idNachhilfelehrer . "/view";
                     $fach = Fach::get_by_id($connection->idFach);
                     $schuelerBezahlt;
                     if($connection->kostenfrei == 1 || $connection->kostenfrei == true){

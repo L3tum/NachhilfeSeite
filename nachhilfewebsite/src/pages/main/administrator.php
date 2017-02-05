@@ -40,8 +40,13 @@
         if (Benutzer::get_logged_in_user()->has_permission("showAllComplaints")) {
             echo "<a id='show_complaints' class='button warning' type='submit' value='Submit'>Zeige alle Beschwerden</a><br>";
         }
+        if (Benutzer::get_logged_in_user()->has_permission("add_right")) {
+            echo "<a id='add_right' class='button' type='submit' value='Submit'>Füge eine Berechtigung hinzu</a><br>";
+        }
+        if (Benutzer::get_logged_in_user()->has_permission("execute_sql")) {
+            echo "<a id='exec_sql' class='button' type='submit' value='Submit'>Führe SQL in der Datenbank aus</a><br>";
+        }
         ?>
-
             </div>
 
         </div>

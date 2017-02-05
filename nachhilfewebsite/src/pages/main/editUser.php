@@ -46,23 +46,34 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                     Der Nachname darf nicht leer sein und nur aus Bustaben bestehen.
                 </span>
                         </label>
-
                         <label>Neues Passwort
-                            <input name="passwort" type="password" id="passwort">
+                            <input <?php
+                            if(!$user_is_me && (!Benutzer::get_logged_in_user()->has_permission("editOtherPasswords")  || $user->has_permission("elevated_administrator"))){
+                                echo "readonly";
+                            }
+                            ?> name="passwort" type="password" id="passwort">
                             <span class="form-error">
                     Das Passwortfeld darf nicht leer sein.
                 </span>
                         </label>
 
                         <label style="display:none" id="passwort-wiederholung">Neues Passwort Wiederholung
-                            <input name="passwort-wiederholung" type="password" data-equalto="passwort">
+                            <input <?php
+                            if(!$user_is_me && (!Benutzer::get_logged_in_user()->has_permission("editOtherPasswords") || $user->has_permission("elevated_administrator"))){
+                                echo "readonly";
+                            }
+                            ?> name="passwort-wiederholung" type="password" data-equalto="passwort">
                             <span class="form-error">
                     Die Passwörter müssen übereinstimmen.
                 </span>
                         </label>
 
                         <label>Telefonnummer
-                            <input value="<?php echo $user->telefonnummer ?>" pattern="^[0-9]{0,15}$"
+                            <input <?php
+                            if(!$user_is_me && !Benutzer::get_logged_in_user()->has_permission("editOtherTel")){
+                                echo "readonly";
+                            }
+                            ?> value="<?php echo $user->telefonnummer ?>" pattern="^[0-9]{0,15}$"
                                    name="telefonnummer"
                                    type="tel">
                             <span class="form-error">
@@ -71,14 +82,18 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                         </label>
 
                         <label>Email
-                            <input value="<?php echo $user->email ?>" name="email" type="email">
+                            <input <?php
+                            if(!$user_is_me && !Benutzer::get_logged_in_user()->has_permission("editOtherEmails")){
+                                echo "readonly";
+                            }
+                            ?> value="<?php echo $user->email ?>" name="email" type="email">
                             <span class="form-error">
                     Das Feld muss eine gültige Email-Adresse enthalten.
                 </span>
                         </label>
 
                         <?php
-                        if ((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherRole") == true) || ($user_is_me &&  $user->has_permission("editSelfRole"))) {
+                        if ((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherRole") && !$user->has_permission("elevated_administrator")) || ($user_is_me &&  $user->has_permission("editSelfRole") && !$user->has_permission("administration"))) {
                             echo "<label>Rolle
                         <select id='rollenSelector' name='rollenSelector'>";
                             $rollen = Rolle::get_all_roles();

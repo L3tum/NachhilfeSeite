@@ -21,16 +21,16 @@ foreach ($rights as $allright) {
 
 ?>
 
-<div class="row main" data-equalizer data-equalize-on="medium">
+<div class="row main" data-equalizer data-equalize-on="small">
 
     <div class="small-12 smallmedium-12 medium-6 columns small-centered" data-equalizer-watch>
 
         <h2>Rolle bearbeiten</h2>
 
         <form data-abide novalidate id="rolle-edit-form" method="post">
-            <input type="hidden" name="role-id" id="role-id" value="<?php echo $idRole?>">
+            <input type="hidden" name="role-id" id="role-id" value="<?php echo $idRole ?>">
             <div class="row">
-                <div class="small-12 medium-6 columns">
+                <div class="small-12 columns">
                     <label>Name
                         <input name="name" id="name" type="text" value="<?php echo $rolle->name ?>" required
                                pattern="^[a-zA-ZÄÖÜäöüß]{1,25}$">
@@ -39,30 +39,39 @@ foreach ($rights as $allright) {
                         </span>
                     </label>
                     <label>Beschreibung
-                        <input name="beschreibung" id="beschreibung" type="text" value="<?php echo $rolle->beschreibung ?>" required>
+                        <input name="beschreibung" id="beschreibung" type="text"
+                               value="<?php echo $rolle->beschreibung ?>" required>
                         <span class="form-error">
                             Die Beschreibung muss gesetzt sein!
                         </span>
                     </label>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>ID</th><th>Name</th><th>Besitzt</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        foreach ($allrights as $allright){
-                            if(array_key_exists($allright->idBerechtigung, $rights_key_array)){
-                                echo "<tr><td><p class='success'>{$allright->idBerechtigung}</p></td><td><p class='success'>{$allright->name}</p></td><td><button class='tablebutton success' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
+                </div>
+                <div class="small-12 columns result-boxes">
+                    <div class="result-boxes-inner search">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Beschreibung</th>
+                                <th>Besitzt</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($allrights as $allright) {
+                                if (array_key_exists($allright->idBerechtigung, $rights_key_array)) {
+                                    echo "<tr><td><p class='success'>{$allright->idBerechtigung}</p></td><td><p class='success'>{$allright->name}</p></td><td><p class='success'>{$allright->beschreibung}</p></td><td><button class='tablebutton success' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
+                                } else {
+                                    echo "<tr><td><p class='alert'>{$allright->idBerechtigung}</p></td><td><p class='alert'>{$allright->name}</p></td><td><p class='alert'>{$allright->beschreibung}</p></td><td><button class='tablebutton alert' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
+                                }
                             }
-                            else{
-                                echo "<tr><td><p class='alert'>{$allright->idBerechtigung}</p></td><td><p class='alert'>{$allright->name}</p></td><td><button class='tablebutton alert' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
-                            }
-                        }
-                        ?>
-                        </tbody>
-                    </table>
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="small-12 columns">
                     <button class="button warning" type="submit" name="placeholderpls">Submit</button>
                 </div>
             </div>

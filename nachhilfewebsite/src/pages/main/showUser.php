@@ -332,8 +332,6 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                        </div>';
                 }
             }
-
-
         }
 
         ?>
@@ -342,7 +340,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
     </div>
 
     <?php
-    if (Benutzer::get_logged_in_user()->has_permission("getUserPDFReports") ) {
+    if (($user_is_me && Benutzer::get_logged_in_user()->has_permission("getSelfPDFReports")) || (!$user_is_me && Benutzer::get_logged_in_user()->has_permission("getOtherPDFReports"))) {
 
         $givenButton = "";
         $takenButton = "";
