@@ -13,6 +13,7 @@ class Verbindung
     public $idNachhilfenehmer;
     public $idNachhilfelehrer;
     public $idFach;
+    public $blockiert;
 
     public function is_first() {
         $stmt = Connection::$PDO->prepare("SELECT * FROM `verbindung` WHERE idVerbindung = (SELECT idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idNehmer ORDER BY idVerbindung ASC LIMIT 1) && idVerbindung = :idVerbindung");
@@ -55,4 +56,26 @@ class Verbindung
         return false;
     }
 
+    public function has_appointments(){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idVerbindung = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $this->idVerbindung);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Stunde');
+        $user = $stmt->fetch();
+        return $user;
+    }
+
+    public static function get_by_id($idVerbindung){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM Verbindung WHERE idVerbindung = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $idVerbindung);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
+        $user = $stmt->fetch();
+        return $user;
+    }
+    public static function block($idVerbindung){
+        $stmt = Connection::$PDO->prepare("UPDATE verbindung SET verbindung.blockiert=1 WHERE verbindung.idVerbindung = :idVerbindung");
+        $stmt->bindParam(':idVerbindung', $idVerbindung);
+        $stmt->execute();
+    }
 }

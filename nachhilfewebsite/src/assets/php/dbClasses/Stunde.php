@@ -81,4 +81,10 @@ class Stunde
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function block_appos_connection($idVerbindung){
+        $stmt = Connection::$PDO->prepare("UPDATE stunde SET stunde.akzeptiert=-1 WHERE stunde.idVerbindung = :idVerbindung");
+        $stmt->bindParam(':idVerbindung', $idVerbindung);
+        $stmt->execute();
+    }
 }
