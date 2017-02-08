@@ -503,3 +503,8 @@ em {
     color: $white;
   }
 }
+body{
+  @media print {
+    background-color: white;
+  }
+}
