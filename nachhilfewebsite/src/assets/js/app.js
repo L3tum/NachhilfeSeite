@@ -1072,7 +1072,6 @@ $(document).on("click", "#show_all_hours", function(ev){
 $(document).on("click", "#submit_pdf_month", function(ev){
    ev.preventDefault();
     runMyAjax("ajax/Getters/getAllHours.php", function(result){
-        $("#results").empty();
         var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div><div class='small-12 columns result-boxes'><div class='result-boxes-inner search'><table><thead><tr><th>Schüler</th><th>Lehrer</th><th>Datum</th><th>Stattgefunden</th></tr></thead><tbody>";
         if (Object.prototype.toString.call(result.hours) === '[object Array]') {
             result.hours.forEach(function(hour){
@@ -1118,23 +1117,26 @@ $(document).on("click", "#submit_pdf_month", function(ev){
         if($("#pdf_month").val() != null && $("#pdf_month").val() != "") {
             html += "<div class='small-12 columns'><button class='button success' id='generate_pdf'>PDF aller Stunden für diesen Monat Generieren</button><br><button class='button success' id='generate_pdf_taken'>PDF aller genommenen Stunden für diesen Monat generieren</button><br><button class='button success' id='generate_pdf_given'>PDF aller gegebenen Stunden für diesen Monat generieren</button></div>";
         }
+        var val = $("#pdf_month").val();
+        $("#results").empty();
         $("#results").append(html);
+        $("#pdf_month").val(val);
     }, {'date' : $("#pdf_month").val()});
 });
 $(document).on("click", "#generate_pdf", function(ev){
     ev.preventDefault();
     var year = $('#pdf_month').val();
-    window.location = getRootUrl() + "pdf/" + "all/" + year;
+    window.location = getRootUrl() + "spdf/" + "all/" + year;
 });
 $(document).on("click", "#generate_pdf_taken", function(ev){
     ev.preventDefault();
     var year = $('#pdf_month').val();
-    window.location = getRootUrl() + "pdf/" + "taken/" + year;
+    window.location = getRootUrl() + "spdf/" + "taken/" + year;
 });
 $(document).on("click", "#generate_pdf_given", function(ev){
     ev.preventDefault();
     var year = $('#pdf_month').val();
-    window.location = getRootUrl() + "pdf/" + "given/" + year;
+    window.location = getRootUrl() + "spdf/" + "given/" + year;
 });
 
 function updateRooms() {

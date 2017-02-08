@@ -193,9 +193,32 @@ Route::add('appointment', function(){
    include 'main/appointment.php';
 });
 
-Route::add('verifyEmail/(.*)', function($hash){
+Route::add('verifyEmail/(.+)', function($hash){
     include 'special/verifyEmail.php';
 
+});
+
+Route::add('spdf/(.+)', function($param){
+    $params = explode('/', $param);
+    $taken = false;
+    $given = false;
+    switch($params[0]){
+        case "all":{
+            $taken = true;
+            $given = true;
+            break;
+        }
+        case "taken":{
+            $taken = true;
+            break;
+        }
+        case "given":{
+            $given = true;
+            break;
+        }
+    }
+    $month = $params[1];
+    include 'main/allLessonsPDFMonth.php';
 });
 
 

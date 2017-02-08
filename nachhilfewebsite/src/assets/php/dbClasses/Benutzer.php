@@ -211,6 +211,22 @@ class Benutzer
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
     }
+    public function get_all_tutiution_connections_student()
+    {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfenehmer = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
+    }
+    public function get_all_tutiution_connections_teacher()
+    {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfelehrer = :idBenutzer");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
+    }
 
     public function has_tutiution_connection($user_id, $fach)
     {

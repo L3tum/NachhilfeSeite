@@ -58,13 +58,26 @@ class Stunde
     }
     public static function get_lessons_by_user_date($date, $user_id){
         if ($date != "") {
-            $stmt = Connection::$PDO->prepare("SELECT t1.vorname as studentVorname, t1.name as studentName, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE DATE_FORMAT(stunde.datum, '%Y-%m')= :datum AND (t1.idBenutzer = :idBenutzer OR t2.idBenutzer = :idBenutzer) ORDER BY stunde.datum");
+            $stmt = Connection::$PDO->prepare("SELECT verbindung.idNachhilfenehmer as idStudent, t1.vorname as studentVorname, t1.name as studentName, verbindung.idNachhilfelehrer as idTeacher, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert, verbindung.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE DATE_FORMAT(stunde.datum, '%Y-%m')= :datum AND (verbindung.idNachhilfenehmer = :idBenutzer OR verbindung.idNachhilfelehrer = :idBenutzer) ORDER BY stunde.datum GROUP BY verbindung.idVerbindung");
             $stmt->bindParam(':datum', $date);
         }
         else{
-            $stmt = $stmt = Connection::$PDO->prepare("SELECT t1.vorname as studentVorname, t1.name as studentName, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE (t1.idBenutzer = :idBenutzer OR t2.idBenutzer = :idBenutzer) ORDER BY stunde.datum");
+            $stmt = $stmt = Connection::$PDO->prepare("SELECT verbindung.idNachhilfenehmer as idStudent, t1.vorname as studentVorname, t1.name as studentName, verbindung.idNachhilfelehrer as idTeacher, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert, verbindung.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE (verbindung.idNachhilfenehmer = :idBenutzer OR verbindung.idNachhilfelehrer = :idBenutzer) ORDER BY stunde.datum");
         }
         $stmt->bindParam(':idBenutzer', $user_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function get_lessons_by_user_date_connection($date, $idVerbindung){
+        if ($date != "") {
+            $stmt = Connection::$PDO->prepare("SELECT verbindung.idNachhilfenehmer as idStudent, t1.vorname as studentVorname, t1.name as studentName, verbindung.idNachhilfelehrer as idTeacher, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert, verbindung.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE DATE_FORMAT(stunde.datum, '%Y-%m')= :datum AND verbindung.idVerbindung= :idVerbindung ORDER BY stunde.datum");
+            $stmt->bindParam(':datum', $date);
+        }
+        else{
+            $stmt = $stmt = Connection::$PDO->prepare("SELECT verbindung.idNachhilfenehmer as idStudent, t1.vorname as studentVorname, t1.name as studentName, verbindung.idNachhilfelehrer as idTeacher, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert, verbindung.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE verbindung.idVerbindung= :idVerbindung ORDER BY stunde.datum");
+        }
+        $stmt->bindParam(':idVerbindung', $idVerbindung);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
