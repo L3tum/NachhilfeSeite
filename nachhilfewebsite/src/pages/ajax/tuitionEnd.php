@@ -45,19 +45,20 @@ else {
     $form_helper->return_error("Interner Fehler: ID nicht gesetzt");
 }
 
-$stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idVerbindung = :id AND findetStatt = TRUE AND (bezahltAdmin = FALSE OR bezahltLehrer = FALSE)");
+$stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idVerbindung = :id");
 $stmt->bindParam(':id', $verbindung->idVerbindung);
 $stmt->execute();
 $open = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde');
 
-if(!empty($open)) {
-    $form_helper->return_error("Es gibt noch unbezahlte Stunden!");
+if(!empty($open)){
+    Stunde::block_appos_connection($verbindung->idVerbindung);
+    Verbindung::block($verbindung->idVerbindung);
 }
-
-$stmt = Connection::$PDO->prepare("DELETE FROM verbindung WHERE idVerbindung = :id");
-$stmt->bindParam(':id', $verbindung->idVerbindung);
-$stmt->execute();
-
+else {
+    $stmt = Connection::$PDO->prepare("DELETE FROM verbindung WHERE idVerbindung = :id");
+    $stmt->bindParam(':id', $verbindung->idVerbindung);
+    $stmt->execute();
+}
 
 $form_helper->success = true;
 $form_helper->return_json();

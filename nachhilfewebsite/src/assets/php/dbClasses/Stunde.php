@@ -87,4 +87,13 @@ class Stunde
         $stmt->bindParam(':idVerbindung', $idVerbindung);
         $stmt->execute();
     }
+    public static function unblock_appos_connection($idVerbindung){
+        $connection = Verbindung::get_by_id($idVerbindung);
+        $subject = Fach::get_by_id($connection->idFach);
+        if($subject->blockiert == 0) {
+            $stmt = Connection::$PDO->prepare("UPDATE stunde SET stunde.akzeptiert=0 WHERE stunde.idVerbindung = :idVerbindung");
+            $stmt->bindParam(':idVerbindung', $idVerbindung);
+            $stmt->execute();
+        }
+    }
 }

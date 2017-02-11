@@ -25,9 +25,6 @@
         if (Benutzer::get_logged_in_user()->has_permission("showAllConnections")) {
             echo "<a id='show_connections' class='button' type='submit' value='Submit'>Zeige alle Nachhilfeverbindungen</a><br>";
         }
-        if (Benutzer::get_logged_in_user()->has_permission("showPendingHours")) {
-            echo "<a id='show_pending_hours' class='button' type='submit' value='Submit'>Zeige alle ausstehenden Stunden</a><br>";
-        }
         if (Benutzer::get_logged_in_user()->has_permission("showAllHours")) {
             echo "<a id='show_all_hours' class='button' type='submit' value='Submit'>Zeige alle Stunden</a><br>";
         }
@@ -45,6 +42,9 @@
         }
         if (Benutzer::get_logged_in_user()->has_permission("execute_sql")) {
             echo "<a id='exec_sql' class='button' type='submit' value='Submit'>Führe SQL in der Datenbank aus</a><br>";
+        }
+        if (Benutzer::get_logged_in_user()->has_permission("delete_user")) {
+            echo "<a id='del_user' class='button' type='submit' value='Submit'>Benutzer löschen</a><br>";
         }
         ?>
             </div>

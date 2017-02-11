@@ -78,4 +78,12 @@ class Verbindung
         $stmt->bindParam(':idVerbindung', $idVerbindung);
         $stmt->execute();
     }
+    public static function unblock($idVerbindung){
+        $connection = Verbindung::get_by_id($idVerbindung);
+        if(Fach::get_by_id($connection->idFach)->blockiert == 0) {
+            $stmt = Connection::$PDO->prepare("UPDATE verbindung SET verbindung.blockiert=0 WHERE verbindung.idVerbindung = :idVerbindung");
+            $stmt->bindParam(':idVerbindung', $idVerbindung);
+            $stmt->execute();
+        }
+    }
 }

@@ -130,7 +130,15 @@ var insane = false;
 if (window.location.href.includes("insane=true")) {
     insane = true;
 }
+if(window.location.href.includes("setup")){
+    setup();
+}
+var wubwubwubs = false;
 cheet('up up down down left right left right b a', function () {
+
+});
+
+function setup(){
     if (run == false) {
         if ($("#bullshittery") != null) {
             $("#bullshittery").append(`<div class="small-12 medium-6 columns">
@@ -156,74 +164,171 @@ cheet('up up down down left right left right b a', function () {
     }
     if (run == false || insane == true) {
         var rand = Math.floor((Math.random() * 5) + 1);
-        $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"></div>`);
-        $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull">
-    </div>
-</div>`);
         switch (rand) {
             case 1: {
-                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg" alt="Blonski"></div>`);
                 $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/_-tF5h5WHMs?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bln" width="560" height="315" src="https://www.youtube.com/embed/_-tF5h5WHMs?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
     </div>
 </div>`);
+                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg", "Blonski", "bln");
                 break;
             }
             case 2: {
-                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BAR.jpg" alt="Barti"></div>`);
                 $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/pdcMQjXqDMg?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bar" width="560" height="315" src="https://www.youtube.com/embed/pdcMQjXqDMg?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
     </div>
 </div>`);
+                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BAR.jpg", "Barti", "bar");
                 break;
             }
             case 3: {
-                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/FRA.jpg" alt="Franki"></div>`);
                 $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/j4WGWg8e_oE?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="fra" width="560" height="315" src="https://www.youtube.com/embed/j4WGWg8e_oE?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
     </div>
 </div>`);
+                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/FRA.jpg", "Franki", "fra");
                 break;
             }
             case 4: {
-                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BTL.jpg" alt="Hänsel und Bretl"></div>`);
                 $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/2tmc8rJgxUI?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="btl" width="560" height="315" src="https://www.youtube.com/embed/2tmc8rJgxUI?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
     </div>
 </div>`);
+                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BTL.jpg", "Hänsel und Bretl", "btl");
                 break;
             }
             case 5: {
-                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/RIC.jpg" alt="Richter in Bernburg"></div>`);
                 $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/2qetI-4XvRg?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="ric" width="560" height="315" src="https://www.youtube.com/embed/2qetI-4XvRg?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
     </div>
 </div>`);
+                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/RIC.jpg", "Richter in Bernburg", "ric");
                 break;
             }
+            case 6: {
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/lcYDbPluL1g?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BGM.jpg", "Bergmann", "bgm");
+            }
         }
-        setInterval(blonske, 10);
+        if(insane && !wubwubwubs) {
+            setInterval(quake, Math.floor(Math.random() * 10) + 1);
+            wubwubwubs = true;
+        }
+        setInterval(wubwubwub, 1);
         run = true;
     }
-});
+    else if (run == true && insane == false) {
+        window.location.replace(window.location + "&setup");
+    }
+}
+
+var blonskeRunning = false;
+function startBlonske(src, name, id) {
+    $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="` + src + `" alt="` + name + `"></div>`);
+    if (!blonskeRunning) {
+        setInterval(blonske, 10);
+        blonskeRunning = true;
+    }
+}
 
 function blonske() {
     var elements = document.getElementsByName('blonski');
-    if(isNodeList(elements)){
-        elements.forEach(function(element){
+    if (isNodeList(elements)) {
+        Array.from(elements).forEach(function (element) {
             var topVal = parseInt(element.style.left, 10);
             topVal += 1;
             element.style.left = topVal + "px";
         });
     }
-    else{
-        console.log(elements);
-        clearInterval(blonske);
+    else {
         var topVal = parseInt(elements.style.left, 10);
         topVal += 1;
         elements.style.left = topVal + "px";
     }
+}
+
+function wubwubwub() {
+    var color = rainbow(1000, Math.floor((Math.random() * 1000) + 0));
+    var random = Math.floor((Math.random() * 2) + 0);
+    if(random == 0) {
+        var elements = document.getElementsByTagName("div");
+        var rand = Math.floor((Math.random() * elements.length) + 0);
+        if(elements[rand].name != "blonski") {
+            elements[rand].style.backgroundColor = color;
+        }
+    }
+    else{
+        document.body.style.backgroundColor = color;
+    }
+}
+
+// the horizontal displacement
+var deltaX = 1;
+var qCounter = 0;
+function quake() {
+    // make sure the browser support the moveBy method
+    if (window.moveBy) {
+        // shake left
+        if ((qCounter % 4) == 0) {
+            window.moveBy(deltaX, 0);
+        }
+        // shake right
+        else if ((qCounter % 4) == 2) {
+            window.moveBy(-deltaX, 0);
+        }
+        qCounter++;
+    }
+    else{
+        console.log("hi");
+    }
+}
+
+function rainbow(numOfSteps, step) {
+    // This function generates vibrant, "evenly spaced" colours (i.e. no clustering). This is ideal for creating easily distinguishable vibrant markers in Google Maps and other apps.
+    // Adam Cole, 2011-Sept-14
+    // HSV to RBG adapted from: http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
+    var r, g, b;
+    var h = step / numOfSteps;
+    var i = ~~(h * 6);
+    var f = h * 6 - i;
+    var q = 1 - f;
+    switch (i % 6) {
+        case 0:
+            r = 1;
+            g = f;
+            b = 0;
+            break;
+        case 1:
+            r = q;
+            g = 1;
+            b = 0;
+            break;
+        case 2:
+            r = 0;
+            g = 1;
+            b = f;
+            break;
+        case 3:
+            r = 0;
+            g = q;
+            b = 1;
+            break;
+        case 4:
+            r = f;
+            g = 0;
+            b = 1;
+            break;
+        case 5:
+            r = 1;
+            g = 0;
+            b = q;
+            break;
+    }
+    var c = "#" + ("00" + (~~(r * 255)).toString(16)).slice(-2) + ("00" + (~~(g * 255)).toString(16)).slice(-2) + ("00" + (~~(b * 255)).toString(16)).slice(-2);
+    return (c);
 }
 
 function isNodeList(nodes) {
@@ -1353,7 +1458,7 @@ $(document).on("click", "#show_all_hours", function (ev) {
 $(document).on("click", "#submit_pdf_month", function (ev) {
     ev.preventDefault();
     runMyAjax("ajax/Getters/getAllHours.php", function (result) {
-        var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div><div class='small-12 columns result-boxes'><div class='result-boxes-inner search'><table><thead><tr><th>Schüler</th><th>Lehrer</th><th>Datum</th><th>Stattgefunden</th></tr></thead><tbody>";
+        var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div><div class='small-12 columns result-boxes'><div class='result-boxes-inner search'><table><thead><tr><th>Schüler</th><th>Lehrer</th><th>Datum</th><th>Stattgefunden</th><th>Verbindung Blockiert</th><th>Stunde löschen</th></tr></thead><tbody>";
         if (Object.prototype.toString.call(result.hours) === '[object Array]') {
             result.hours.forEach(function (hour) {
                 html += "<tr><td>" + hour.studentVorname + " " + hour.studentName + "</td><td>" + hour.teacherVorname + " " + hour.teacherName + "</td><td>" + hour.date + "</td><td>";
@@ -1369,10 +1474,20 @@ $(document).on("click", "#submit_pdf_month", function (ev) {
                 else if (hour.akzeptiert == 1) {
                     html += "<p class='alert'>Stunde akzeptiert aber nicht stattgefunden</p>";
                 }
+                else if (hour.akzeptiert == -1) {
+                    html += "<p class='alert'>Stunde wurde blockiert</p>";
+                }
                 else {
                     html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
                 }
-                html += "</td></tr>";
+                if (hour.blockiert == 1) {
+                    html += "<p class='alert'>Verbindung blockiert</p>";
+                }
+                else {
+                    html += "<p class='success'>Verbindung nicht blockiert</p>";
+                }
+                html += "</td>";
+                html += "<td><button class='tablebutton alert' name='deleteHour' id='" + hour.idStunde + "'>Stunde löschen</button></td></tr>";
             });
         }
         else {
@@ -1383,16 +1498,26 @@ $(document).on("click", "#submit_pdf_month", function (ev) {
             else if (result.hours.bestaetigtSchueler == 1 && result.hours.akzeptiert == 1) {
                 html += "<p class='warning'>Ja, laut Schüler</p>";
             }
-            else if (hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1) {
+            else if (hours.bestaetigtLehrer == 1 && hours.akzeptiert == 1) {
                 html += "<p class='warning'>Ja, laut Lehrer</p>";
             }
-            else if (hour.akzeptiert == 1) {
+            else if (hours.akzeptiert == 1) {
                 html += "<p class='alert'>Stunde akzeptiert aber nicht stattgefunden</p>";
+            }
+            else if (hours.akzeptiert == -1) {
+                html += "<p class='alert'>Stunde wurde blockiert</p>";
             }
             else {
                 html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
             }
-            html += "</td></tr>";
+            if (hours.blockiert == 1) {
+                html += "<p class='alert'>Verbindung blockiert</p>";
+            }
+            else {
+                html += "<p class='success'>Verbindung nicht blockiert</p>";
+            }
+            html += "</td>";
+            html += "<td><button class='tablebutton alert' name='deleteHour' id='" + hours.idStunde + "'>Stunde löschen</button></td></tr>"
         }
         html += "</tbody></table></div></div>";
         if ($("#pdf_month").val() != null && $("#pdf_month").val() != "") {
@@ -1403,6 +1528,16 @@ $(document).on("click", "#submit_pdf_month", function (ev) {
         $("#results").append(html);
         $("#pdf_month").val(val);
     }, {'date': $("#pdf_month").val()});
+});
+$(document).on("click", "[name=deleteHour]", function (ev) {
+    ev.preventDefault();
+    var confirm = window.confirm("Dies löscht die Stunde unwiderruflich!");
+    if (confirm) {
+        runMyAjax("ajax/deleteHour.php", function (result) {
+            toastr.success("Stunde gelöscht!");
+            $("#" + result.id).parent().parent().remove();
+        }, {'id': $(ev.target).attr('id')})
+    }
 });
 $(document).on("click", "#generate_pdf", function (ev) {
     ev.preventDefault();
@@ -1419,7 +1554,21 @@ $(document).on("click", "#generate_pdf_given", function (ev) {
     var year = $('#pdf_month').val();
     window.location = getRootUrl() + "spdf/" + "given/" + year;
 });
-$(document).on("keydown", function (ev) {
+
+$(document).on("click", "#del_user", function (ev) {
+    runMyAjax("ajax/getAllBlockedUsers.php", function (result) {
+        result.users.forEach(function (user) {
+
+        });
+    });
+});
+$(document).on("click", "#delete_user", function (ev) {
+    ev.preventDefault();
+    if (window.confirm("Dadurch wird der Benutzer unwiderruflich gelöscht!")) {
+        runMyAjax("ajax/deleteUser.php", function (result) {
+            toastr.success("Benutzer erfolgreich gelöscht!");
+        });
+    }
 
 });
 

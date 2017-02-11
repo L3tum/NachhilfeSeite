@@ -30,4 +30,11 @@ class Fach
         $user = $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
         return $user;
     }
+    public static function get_by_name($name){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM fach WHERE name= :name");
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Fach');
+        return $stmt->fetch();
+    }
 }
