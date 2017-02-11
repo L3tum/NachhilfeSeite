@@ -125,6 +125,8 @@ class AjaxFormHelperSpecial {
     }
 }
 
+var run = false;
+var insane = false;
 var currentLeft = 0;
 cheet('up up down down left right left right b a', function(){
     if($("#bullshittery") != null) {
@@ -147,11 +149,34 @@ cheet('up up down down left right left right b a', function(){
     <div class="small-12 medium-6 columns">
         <img src="https://farm3.static.flickr.com/2904/14598404786_f7a5f0c8b5_b.jpg">
     </div>`);
-        $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg" alt="Blonski">`);
-        setInterval(blonske, 10);
-    }
-    else if($("#bullshittery2") != null){
-
+        if(run == false || insane == true) {
+            var rand = Math.floor((Math.random() * 5) + 1);
+            switch (rand) {
+                case 1: {
+                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg" alt="Blonski">`);
+                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/_-tF5h5WHMs?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
+                    break;
+                }
+                case 2: {
+                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BAR.jpg" alt="Barti">`);
+                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/pdcMQjXqDMg?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
+                }
+                case 3: {
+                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/FRA.jpg" alt="Franki">`);
+                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/j4WGWg8e_oE?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
+                }
+                case 4: {
+                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BTL.jpg" alt="Hänsel und Bretl">`);
+                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/2tmc8rJgxUI?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
+                }
+                case 5: {
+                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/RIC.jpg" alt="Richter in Bernburg">`);
+                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/2qetI-4XvRg?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
+                }
+            }
+            setInterval(blonske, 10);
+            run = true;
+        }
     }
 });
 
