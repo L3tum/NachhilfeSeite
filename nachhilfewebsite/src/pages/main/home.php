@@ -1,8 +1,3 @@
-<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" id="bull">
-    </div>
-</div>
-
 <div class="row main" data-equalizer data-equalize-on="medium">
 
     <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
@@ -62,6 +57,4 @@
     </div>';
     }
     ?>
-    <div id="blonski" style="position:fixed; top:50%; left:0px">
-    </div>
 </div>

@@ -18,8 +18,8 @@ class AjaxFormHelper {
                 })
                 .on("formvalid.zf.abide", function (ev) {
                     ev.preventDefault();
-                    if(ajaxPath == "ajax/requestResponse.php"){
-                        if($(ev.target).val() == "denyRequest") {
+                    if (ajaxPath == "ajax/requestResponse.php") {
+                        if ($(ev.target).val() == "denyRequest") {
                             if ($(document.activeElement).parent().find("[name=kostenfrei]").val() == 1) {
                                 var result = window.confirm("Da diese die Anfrage für eine kostenlose Stunde wäre, würden alle anderen Anfragen dieses Benutzers auch gelöscht werden!");
                                 if (result) {
@@ -127,10 +127,13 @@ class AjaxFormHelperSpecial {
 
 var run = false;
 var insane = false;
-var currentLeft = 0;
-cheet('up up down down left right left right b a', function(){
-    if($("#bullshittery") != null) {
-        $("#bullshittery").append(`<div class="small-12 medium-6 columns">
+if (window.location.href.includes("insane=true")) {
+    insane = true;
+}
+cheet('up up down down left right left right b a', function () {
+    if (run == false) {
+        if ($("#bullshittery") != null) {
+            $("#bullshittery").append(`<div class="small-12 medium-6 columns">
         <h1>Umweltschutz.</h1>
 
         <label>
@@ -149,217 +152,260 @@ cheet('up up down down left right left right b a', function(){
     <div class="small-12 medium-6 columns">
         <img src="https://farm3.static.flickr.com/2904/14598404786_f7a5f0c8b5_b.jpg">
     </div>`);
-        if(run == false || insane == true) {
-            var rand = Math.floor((Math.random() * 5) + 1);
-            switch (rand) {
-                case 1: {
-                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg" alt="Blonski">`);
-                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/_-tF5h5WHMs?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
-                    break;
-                }
-                case 2: {
-                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BAR.jpg" alt="Barti">`);
-                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/pdcMQjXqDMg?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
-                }
-                case 3: {
-                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/FRA.jpg" alt="Franki">`);
-                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/j4WGWg8e_oE?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
-                }
-                case 4: {
-                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BTL.jpg" alt="Hänsel und Bretl">`);
-                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/2tmc8rJgxUI?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
-                }
-                case 5: {
-                    $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/RIC.jpg" alt="Richter in Bernburg">`);
-                    $("#bull").append(`<iframe width="560" height="315" src="https://www.youtube.com/embed/2qetI-4XvRg?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>`);
-                }
-            }
-            setInterval(blonske, 10);
-            run = true;
         }
+    }
+    if (run == false || insane == true) {
+        var rand = Math.floor((Math.random() * 5) + 1);
+        $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"></div>`);
+        $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull">
+    </div>
+</div>`);
+        switch (rand) {
+            case 1: {
+                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg" alt="Blonski"></div>`);
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/_-tF5h5WHMs?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+            }
+            case 2: {
+                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BAR.jpg" alt="Barti"></div>`);
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/pdcMQjXqDMg?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+            }
+            case 3: {
+                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/FRA.jpg" alt="Franki"></div>`);
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/j4WGWg8e_oE?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+            }
+            case 4: {
+                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BTL.jpg" alt="Hänsel und Bretl"></div>`);
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/2tmc8rJgxUI?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+            }
+            case 5: {
+                $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/RIC.jpg" alt="Richter in Bernburg"></div>`);
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe width="560" height="315" src="https://www.youtube.com/embed/2qetI-4XvRg?autoplay=1&loop=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+            }
+        }
+        setInterval(blonske, 10);
+        run = true;
     }
 });
 
-function blonske(){
-    //console.log(currentLeft);
-    currentLeft += 1;
-    document.getElementById('blonski').style.left = currentLeft+"px";
-    if(currentLeft == $(window).width){
+function blonske() {
+    var elements = document.getElementsByName('blonski');
+    if(isNodeList(elements)){
+        elements.forEach(function(element){
+            var topVal = parseInt(element.style.left, 10);
+            topVal += 1;
+            element.style.left = topVal + "px";
+        });
+    }
+    else{
+        console.log(elements);
         clearInterval(blonske);
+        var topVal = parseInt(elements.style.left, 10);
+        topVal += 1;
+        elements.style.left = topVal + "px";
     }
 }
 
-/* Obsolete cause cheet
-var up1 = false;
-var up2 = false;
-var down1 = false;
-var down2 = false;
-var left1 = false;
-var right1 = false;
-var left2 = false;
-var right2 = false;
-var B = false;
-var A = false;
-document.addEventListener("keydown", function(ev){
-    switch(ev.keyCode){
-        case 38:{
-            if(up1 == false){
-                up1 = true;
-                up2 = false;
-            }
-            else if(up1 == true){
-                up2 = true;
-            }
-            else{
-                up1 = false;
-                up2 = false;
-                down1 = false;
-                down2 = false;
-                left1 = false;
-                right1 = false;
-                left2 = false;
-                right2 = false;
-                B = false;
-                A = false;
-            }
-            down1 = false;
-            down2 = false;
-            left1 = false;
-            right1 = false;
-            left2 = false;
-            right2 = false;
-            B = false;
-            A = false;
-            break;
-        }
-        case 40:{
-            if(up1 == true && up2 == true && down1 == false){
-                down1 = true;
-                down2 = false;
-            }
-            else if(up1 == true && up2 == true && down1 == true){
-                down2 = true;
-            }
-            else{
-                up1 = false;
-                up2 = false;
-                down1 = false;
-                down2 = false;
-                left1 = false;
-                right1 = false;
-                left2 = false;
-                right2 = false;
-                B = false;
-                A = false;
-            }
-            left1 = false;
-            right1 = false;
-            left2 = false;
-            right2 = false;
-            B = false;
-            A = false;
-            break;
-        }
-        case 37:{
-            if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == false){
-                left1 = true;
-                right1 = false;
-                left2 = false;
-            }
-            else if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == false){
-                left2 = true;
-            }
-            else{
-                up1 = false;
-                up2 = false;
-                down1 = false;
-                down2 = false;
-                left1 = false;
-                right1 = false;
-                left2 = false;
-                right2 = false;
-                B = false;
-                A = false;
-            }
-            right2 = false;
-            B = false;
-            A = false;
-            break;
-        }
-        case 39:{
-            if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == false){
-                right1 = true;
-                left2 = false;
-            }
-            else if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == true && right2 == false){
-                right2 = true;
-            }
-            else{
-                up1 = false;
-                up2 = false;
-                down1 = false;
-                down2 = false;
-                left1 = false;
-                right1 = false;
-                left2 = false;
-                right2 = false;
-                B = false;
-                A = false;
-            }
-            B = false;
-            A = false;
-            break;
-        }
-        case 66:{
-            if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == true && right2 == true && B == false){
-                B = true;
-                A = false;
-            }
-            else{
-                up1 = false;
-                up2 = false;
-                down1 = false;
-                down2 = false;
-                left1 = false;
-                right1 = false;
-                left2 = false;
-                right2 = false;
-                B = false;
-                A = false;
-            }
-            break;
-        }
-        case 65:{
-            if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == true && right2 == true && B == true && A == false){
-                A = true;
+function isNodeList(nodes) {
+    var stringRepr = Object.prototype.toString.call(nodes);
 
-                up1 = false;
-                up2 = false;
-                down1 = false;
-                down2 = false;
-                left1 = false;
-                right1 = false;
-                left2 = false;
-                right2 = false;
-                B = false;
-                A = false;
-            }
-            else{
-                up1 = false;
-                up2 = false;
-                down1 = false;
-                down2 = false;
-                left1 = false;
-                right1 = false;
-                left2 = false;
-                right2 = false;
-                B = false;
-                A = false;
-            }
-        }
-    }
-});
-*/
+    return typeof nodes === 'object' &&
+        /^\[object (HTMLCollection|NodeList|Object)\]$/.test(stringRepr) &&
+        (typeof nodes.length === 'number') &&
+        (nodes.length === 0 || (typeof nodes[0] === "object" && nodes[0].nodeType > 0));
+}
+
+/* Obsolete cause cheet
+ var up1 = false;
+ var up2 = false;
+ var down1 = false;
+ var down2 = false;
+ var left1 = false;
+ var right1 = false;
+ var left2 = false;
+ var right2 = false;
+ var B = false;
+ var A = false;
+ document.addEventListener("keydown", function(ev){
+ switch(ev.keyCode){
+ case 38:{
+ if(up1 == false){
+ up1 = true;
+ up2 = false;
+ }
+ else if(up1 == true){
+ up2 = true;
+ }
+ else{
+ up1 = false;
+ up2 = false;
+ down1 = false;
+ down2 = false;
+ left1 = false;
+ right1 = false;
+ left2 = false;
+ right2 = false;
+ B = false;
+ A = false;
+ }
+ down1 = false;
+ down2 = false;
+ left1 = false;
+ right1 = false;
+ left2 = false;
+ right2 = false;
+ B = false;
+ A = false;
+ break;
+ }
+ case 40:{
+ if(up1 == true && up2 == true && down1 == false){
+ down1 = true;
+ down2 = false;
+ }
+ else if(up1 == true && up2 == true && down1 == true){
+ down2 = true;
+ }
+ else{
+ up1 = false;
+ up2 = false;
+ down1 = false;
+ down2 = false;
+ left1 = false;
+ right1 = false;
+ left2 = false;
+ right2 = false;
+ B = false;
+ A = false;
+ }
+ left1 = false;
+ right1 = false;
+ left2 = false;
+ right2 = false;
+ B = false;
+ A = false;
+ break;
+ }
+ case 37:{
+ if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == false){
+ left1 = true;
+ right1 = false;
+ left2 = false;
+ }
+ else if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == false){
+ left2 = true;
+ }
+ else{
+ up1 = false;
+ up2 = false;
+ down1 = false;
+ down2 = false;
+ left1 = false;
+ right1 = false;
+ left2 = false;
+ right2 = false;
+ B = false;
+ A = false;
+ }
+ right2 = false;
+ B = false;
+ A = false;
+ break;
+ }
+ case 39:{
+ if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == false){
+ right1 = true;
+ left2 = false;
+ }
+ else if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == true && right2 == false){
+ right2 = true;
+ }
+ else{
+ up1 = false;
+ up2 = false;
+ down1 = false;
+ down2 = false;
+ left1 = false;
+ right1 = false;
+ left2 = false;
+ right2 = false;
+ B = false;
+ A = false;
+ }
+ B = false;
+ A = false;
+ break;
+ }
+ case 66:{
+ if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == true && right2 == true && B == false){
+ B = true;
+ A = false;
+ }
+ else{
+ up1 = false;
+ up2 = false;
+ down1 = false;
+ down2 = false;
+ left1 = false;
+ right1 = false;
+ left2 = false;
+ right2 = false;
+ B = false;
+ A = false;
+ }
+ break;
+ }
+ case 65:{
+ if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == true && right2 == true && B == true && A == false){
+ A = true;
+
+ up1 = false;
+ up2 = false;
+ down1 = false;
+ down2 = false;
+ left1 = false;
+ right1 = false;
+ left2 = false;
+ right2 = false;
+ B = false;
+ A = false;
+ }
+ else{
+ up1 = false;
+ up2 = false;
+ down1 = false;
+ down2 = false;
+ left1 = false;
+ right1 = false;
+ left2 = false;
+ right2 = false;
+ B = false;
+ A = false;
+ }
+ }
+ }
+ });
+ */
 
 function runMyAjax(ajaxPath, success, data = 0) {
 
@@ -378,7 +424,7 @@ function runMyAjax(ajaxPath, success, data = 0) {
                 success(resultObj);
             }
         },
-        error:function(data){
+        error: function (data) {
             //if error
             console.log(data);
         }
@@ -450,13 +496,13 @@ var generatePDFFormHelper = new AjaxFormHelper($("#show-pdf-form"), "Fehlgeschla
 
 var requestResponseFormHelper = new AjaxFormHelper($(".request-response-form"), "Senden fehlgeschlagen!", "ajax/requestResponse.php", function (result) {
     var btn = $(document.activeElement);
-    if(btn.val() == "acceptRequest"){
+    if (btn.val() == "acceptRequest") {
         toastr.success("Anfrage angenommen!");
         $(document.activeElement).parents('.result-box').remove();
     }
-    else{
-        result.requests.forEach(function(request){
-           $("[value=" + request.idAnfrage+"]").parents('.result-box').remove();
+    else {
+        result.requests.forEach(function (request) {
+            $("[value=" + request.idAnfrage + "]").parents('.result-box').remove();
         });
         toastr.success("Anfrage abgelehnt!");
     }
@@ -600,7 +646,7 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
         if ($(fach).hasClass("warning")) {
             selectedFaecher.push($(fach).attr('id'));
         }
-        else if($(fach).hasClass("firstConnection")){
+        else if ($(fach).hasClass("firstConnection")) {
             firstConnection = $(fach).attr('id');
         }
     });
@@ -614,13 +660,13 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
             parent.empty();
             parent.append("<div class='data-label secondary'><p class='center'>" + fachen + "</p></div>")
         });
-        if(firstConnection != null) {
+        if (firstConnection != null) {
             var parent = $("#" + firstConnection).parent();
             var fachen = $("#" + firstConnection).text();
             parent.empty();
             parent.append("<div class='data-label firstRequest'><p class='center'>" + fachen + "</p></div>")
         }
-    }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher, 'first' : firstConnection})
+    }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher, 'first': firstConnection})
 });
 
 $(document).on("click", "#add_qual", function (ev) {
@@ -695,21 +741,21 @@ $(document).on("click", '[name=fachButton]', function (ev) {
         element.removeClass("success");
         element.addClass("warning");
     }
-    else if(ev.target.className.includes("warning")){
-        runMyAjax("ajax/Getters/getFirstConnection.php", function(result){
-            if(result.firstConnection == false) {
-                runMyAjax("ajax/Getters/getFirstRequest.php", function(result2){
-                    if(result2.firstRequest == false) {
+    else if (ev.target.className.includes("warning")) {
+        runMyAjax("ajax/Getters/getFirstConnection.php", function (result) {
+            if (result.firstConnection == false) {
+                runMyAjax("ajax/Getters/getFirstRequest.php", function (result2) {
+                    if (result2.firstRequest == false) {
                         element.removeClass("warning");
                         element.addClass("firstConnection");
                     }
-                    else{
+                    else {
                         element.removeClass("warning");
                         element.addClass("success");
                     }
                 });
             }
-            else{
+            else {
                 element.removeClass("warning");
                 element.addClass("success");
             }
@@ -746,7 +792,6 @@ $(document).on("click", '[name=bestaetigen3Button]', function (ev) {
         }, {'id': element.attr('id')});
     }
 });
-
 
 
 $(document).on("click", '[name=subjectChoosing]', function (ev) {
@@ -961,7 +1006,7 @@ $("#show_pending_hours").on("click", function (ev) {
                 html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.datum + "</td><td>" + data.raumNummer + "</td></tr>";
             });
         }
-        else{
+        else {
             html += "<tr><td>" + result.data.lehrerVorname + " " + result.data.lehrerName + "</td><td>" + result.data.nehmerVorname + " " + result.data.nehmerName + "</td><td>" + result.data.datum + "</td><td>" + result.data.raumNummer + "</td></tr>";
         }
         html += "</tbody></table>";
@@ -1122,24 +1167,24 @@ $(document).on("click", "#submitSubject", function (ev) {
     }, {'subject': $("#subject_name").val()});
 });
 
-$("#del_subject").on("click", function(ev){
+$("#del_subject").on("click", function (ev) {
     ev.preventDefault();
     $("#results").empty();
     var html = "<div class='small-12-centered columns'><label>Fächer<select id='sel_subject' name='sel_subject'>";
-    runMyAjax("ajax/Getters/getAllSubjects.php", function(result){
-       result.subjects.forEach(function(subject){
-          html += "<option id='" + subject['idFach'] + "' name='" + subject['idFach'] + "'>" + subject['name'] + "</option>";
-       });
+    runMyAjax("ajax/Getters/getAllSubjects.php", function (result) {
+        result.subjects.forEach(function (subject) {
+            html += "<option id='" + subject['idFach'] + "' name='" + subject['idFach'] + "'>" + subject['name'] + "</option>";
+        });
         html += "</select></label><button class='button alert' id='deleteSUBJECT'>Fach Löschen</button></div>";
         $("#results").append(html);
     });
 });
-$(document).on("click", "#deleteSUBJECT", function(ev){
+$(document).on("click", "#deleteSUBJECT", function (ev) {
     ev.preventDefault();
-   runMyAjax("ajax/deleteSubject.php", function(result){
-       toastr.success("Fach gelöscht!");
-       $("#" + result.id).remove();
-   }, {'id' : $("#sel_subject").find(':selected').attr('id')})
+    runMyAjax("ajax/deleteSubject.php", function (result) {
+        toastr.success("Fach gelöscht!");
+        $("#" + result.id).remove();
+    }, {'id': $("#sel_subject").find(':selected').attr('id')})
 });
 
 $("#add_year").on("click", function (ev) {
@@ -1156,42 +1201,42 @@ $(document).on("click", "#submitYear", function (ev) {
     }, {'year': $("#year").val()});
 });
 
-$("#del_year").on("click", function(ev){
+$("#del_year").on("click", function (ev) {
     ev.preventDefault();
     $("#results").empty();
     var html = "<div class='small-12-centered columns'><label>Stufen<select id='sel_year' name='sel_year'>";
-    runMyAjax("ajax/Getters/getAllYears.php", function(result){
-        result.years.forEach(function(year){
+    runMyAjax("ajax/Getters/getAllYears.php", function (result) {
+        result.years.forEach(function (year) {
             html += "<option id='" + year['idStufe'] + "' name='" + year['idStufe'] + "'>" + year['name'] + "</option>";
         });
         html += "</select></label><button class='button alert' id='deleteYEAR'>Schüljahr Löschen</button></div>";
         $("#results").append(html);
     });
 });
-$(document).on("click", "#deleteYEAR", function(ev){
+$(document).on("click", "#deleteYEAR", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/deleteYear.php", function(result){
+    runMyAjax("ajax/deleteYear.php", function (result) {
         toastr.success("Jahr geläscht!");
         $("#" + result.id).remove();
-    }, {'id' : $("#sel_year").find(':selected').attr('id')})
+    }, {'id': $("#sel_year").find(':selected').attr('id')})
 });
 
-$(document).on("click", "[name=acceptAppointment]", function(ev){
+$(document).on("click", "[name=acceptAppointment]", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/acceptAppointment.php", function(result){
+    runMyAjax("ajax/acceptAppointment.php", function (result) {
         toastr.success("Termin angenommen!");
         var parent = $(ev.target).parent().parent();
         parent.empty();
         parent.append("<td class='success'>Ja</td>");
-    }, {'id' : $(ev.target).attr('id')})
+    }, {'id': $(ev.target).attr('id')})
 });
-$(document).on("click", "[name=denyAppointment]", function(ev){
+$(document).on("click", "[name=denyAppointment]", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/denyAppointment.php", function(result){
+    runMyAjax("ajax/denyAppointment.php", function (result) {
         toastr.success("Termin abgelehnt!");
         var parent = $(ev.target).parent().parent().parent();
         parent.remove();
-    }, {'id' : $(ev.target).attr('id')});
+    }, {'id': $(ev.target).attr('id')});
 });
 
 var wasSelected = false;
@@ -1270,111 +1315,111 @@ $(document).on("focusout", "#time_app", function (ev) {
     }
 });
 
-$(document).on("click", "#add_right", function(ev){
+$(document).on("click", "#add_right", function (ev) {
     ev.preventDefault();
     var html = "<div class='small-12-centered columns'><input type='text' placeholder='Berechtigung' id='berechtigung_name' required><input type='text' id='berechtigung_desc' placeholder='Beschreibung (optional)'><br><button class='button success' id='submit_right' name='Submit'>Submit</button>";
     $("#results").empty();
     $("#results").append(html);
 });
-$(document).on("click", "#submit_right", function(ev){
+$(document).on("click", "#submit_right", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/Setters/addBerechtigung.php", function(result){
+    runMyAjax("ajax/Setters/addBerechtigung.php", function (result) {
         toastr.success("Berechtigung erfolgreich hinzugefügt!");
         $("#berechtigung_name").val('');
         $("#berechtigung_desc").val('');
     }, {'name': $("#berechtigung_name").val(), 'desc': $("#berechtigung_desc").val()})
 });
 
-$(document).on("click", "#exec_sql", function(ev){
+$(document).on("click", "#exec_sql", function (ev) {
     ev.preventDefault();
     var html = "<div class='small-12-centered columns'><input type='text' placeholder='SQL' id='sql' required><br><button class='button success' id='submit_sql' name='Submit'>Submit</button>";
     $("#results").empty();
     $("#results").append(html);
 });
-$(document).on("click", "#submit_sql", function(ev){
-   ev.preventDefault();
-    runMyAjax("ajax/runSQL.php", function(result){
+$(document).on("click", "#submit_sql", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/runSQL.php", function (result) {
         toastr.success("SQL erfolgreich ausgeführt!");
         $("#sql").val('');
-    }, {'sql' : $("#sql").val()})
+    }, {'sql': $("#sql").val()})
 });
 
-$(document).on("click", "#show_all_hours", function(ev){
+$(document).on("click", "#show_all_hours", function (ev) {
     ev.preventDefault();
     $("#results").empty();
     var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div>";
     $("#results").append(html);
 });
-$(document).on("click", "#submit_pdf_month", function(ev){
-   ev.preventDefault();
-    runMyAjax("ajax/Getters/getAllHours.php", function(result){
+$(document).on("click", "#submit_pdf_month", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/Getters/getAllHours.php", function (result) {
         var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div><div class='small-12 columns result-boxes'><div class='result-boxes-inner search'><table><thead><tr><th>Schüler</th><th>Lehrer</th><th>Datum</th><th>Stattgefunden</th></tr></thead><tbody>";
         if (Object.prototype.toString.call(result.hours) === '[object Array]') {
-            result.hours.forEach(function(hour){
-               html += "<tr><td>" + hour.studentVorname + " " + hour.studentName + "</td><td>" + hour.teacherVorname + " " + hour.teacherName + "</td><td>" + hour.date + "</td><td>";
-                if(hour.bestaetigtSchueler == 1 && hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1){
+            result.hours.forEach(function (hour) {
+                html += "<tr><td>" + hour.studentVorname + " " + hour.studentName + "</td><td>" + hour.teacherVorname + " " + hour.teacherName + "</td><td>" + hour.date + "</td><td>";
+                if (hour.bestaetigtSchueler == 1 && hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1) {
                     html += "<p class='success'>Ja</p>";
                 }
-                else if(hour.bestaetigtSchueler == 1 && hour.akzeptiert == 1){
+                else if (hour.bestaetigtSchueler == 1 && hour.akzeptiert == 1) {
                     html += "<p class='warning'>Ja, laut Schüler</p>";
                 }
-                else if(hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1){
+                else if (hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1) {
                     html += "<p class='warning'>Ja, laut Lehrer</p>";
                 }
-                else if(hour.akzeptiert == 1){
+                else if (hour.akzeptiert == 1) {
                     html += "<p class='alert'>Stunde akzeptiert aber nicht stattgefunden</p>";
                 }
-                else{
+                else {
                     html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
                 }
                 html += "</td></tr>";
             });
         }
-        else{
+        else {
             html += "<tr><td>" + result.hours.studentVorname + " " + result.hours.studentName + "</td><td>" + result.hours.teacherVorname + " " + result.hours.teacherName + "</td><td>" + result.hours.date + "</td><td>";
-            if(result.hours.bestaetigtSchueler == 1 && result.hours.bestaetigtLehrer == 1 && result.hours.akzeptiert == 1){
+            if (result.hours.bestaetigtSchueler == 1 && result.hours.bestaetigtLehrer == 1 && result.hours.akzeptiert == 1) {
                 html += "<p class='success'>Ja</p>";
             }
-            else if(result.hours.bestaetigtSchueler == 1 && result.hours.akzeptiert == 1){
+            else if (result.hours.bestaetigtSchueler == 1 && result.hours.akzeptiert == 1) {
                 html += "<p class='warning'>Ja, laut Schüler</p>";
             }
-            else if(hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1){
+            else if (hour.bestaetigtLehrer == 1 && hour.akzeptiert == 1) {
                 html += "<p class='warning'>Ja, laut Lehrer</p>";
             }
-            else if(hour.akzeptiert == 1){
+            else if (hour.akzeptiert == 1) {
                 html += "<p class='alert'>Stunde akzeptiert aber nicht stattgefunden</p>";
             }
-            else{
+            else {
                 html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
             }
             html += "</td></tr>";
         }
         html += "</tbody></table></div></div>";
-        if($("#pdf_month").val() != null && $("#pdf_month").val() != "") {
+        if ($("#pdf_month").val() != null && $("#pdf_month").val() != "") {
             html += "<div class='small-12 columns'><button class='button success' id='generate_pdf'>PDF aller Stunden für diesen Monat Generieren</button><br><button class='button success' id='generate_pdf_taken'>PDF aller genommenen Stunden für diesen Monat generieren</button><br><button class='button success' id='generate_pdf_given'>PDF aller gegebenen Stunden für diesen Monat generieren</button></div>";
         }
         var val = $("#pdf_month").val();
         $("#results").empty();
         $("#results").append(html);
         $("#pdf_month").val(val);
-    }, {'date' : $("#pdf_month").val()});
+    }, {'date': $("#pdf_month").val()});
 });
-$(document).on("click", "#generate_pdf", function(ev){
+$(document).on("click", "#generate_pdf", function (ev) {
     ev.preventDefault();
     var year = $('#pdf_month').val();
     window.location = getRootUrl() + "spdf/" + "all/" + year;
 });
-$(document).on("click", "#generate_pdf_taken", function(ev){
+$(document).on("click", "#generate_pdf_taken", function (ev) {
     ev.preventDefault();
     var year = $('#pdf_month').val();
     window.location = getRootUrl() + "spdf/" + "taken/" + year;
 });
-$(document).on("click", "#generate_pdf_given", function(ev){
+$(document).on("click", "#generate_pdf_given", function (ev) {
     ev.preventDefault();
     var year = $('#pdf_month').val();
     window.location = getRootUrl() + "spdf/" + "given/" + year;
 });
-$(document).on("keydown", function(ev){
+$(document).on("keydown", function (ev) {
 
 });
 

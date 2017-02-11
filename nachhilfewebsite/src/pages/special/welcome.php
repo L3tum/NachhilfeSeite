@@ -1,10 +1,6 @@
 ---
 layout: special
 ---
-<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" id="bull">
-    </div>
-</div>
 <div class="row">
     <div class="small-12 columns">
         <h1 class="text-center">Willkommen bei der Nachhilfe des Gymnasiums Lohmar !</h1>
@@ -43,7 +39,4 @@ layout: special
 
 <div class="row" id="bullshittery">
 
-</div>
-
-<div id="blonski" style="position:fixed; top:50%; left:0px">
 </div>
