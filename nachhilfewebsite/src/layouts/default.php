@@ -31,6 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/1.0.0/anime.min.js"></script>
+    <script src="//cdn.rawgit.com/namuol/cheet.js/master/cheet.min.js"></script>
 
     <script src="<?php echo $root?>assets/js/app.js"></script>
 

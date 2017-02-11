@@ -125,6 +125,217 @@ class AjaxFormHelperSpecial {
     }
 }
 
+var currentLeft = 0;
+cheet('up up down down left right left right b a', function(){
+    if($("#bullshittery") != null) {
+        $("#bullshittery").append(`<div class="small-12 medium-6 columns">
+        <h1>Umweltschutz.</h1>
+
+        <label>
+            Uns liegen Tiere und Pflanzen sehr am Herzen. Da trifft es sich um so besser, dass wir dazu beitragen können,
+            Deinen Papierverbrauch und den Deiner Schule deutlich zu reduzieren.
+            Denn auch wenn wir alle beim Papierfliegerbasteln viel Spaß hatten, haben wir festgestellt,
+            dass Papier und Druckfarben der Umwelt schaden.
+            Nun ist diese Seite für deine Nachhilfeplanung zuständig!
+        </label><br>
+        <label>
+            Darüber hinaus leisten auch wir gerne unseren Beitrag mit einem klimaneutralen Hosting unseres Angebots.
+            Das bedeutet, dass entstandene Emissionen von unserem Hosting-Partner durch die Unterstützung von Projekten
+            für den Klimaschutz ausgeglichen werden.
+        </label>
+    </div>
+    <div class="small-12 medium-6 columns">
+        <img src="https://farm3.static.flickr.com/2904/14598404786_f7a5f0c8b5_b.jpg">
+    </div>`);
+        $("#blonski").append(`<img src="http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg" alt="Blonski">`);
+        setInterval(blonske, 10);
+    }
+    else if($("#bullshittery2") != null){
+
+    }
+});
+
+function blonske(){
+    //console.log(currentLeft);
+    currentLeft += 1;
+    document.getElementById('blonski').style.left = currentLeft+"px";
+    if(currentLeft == $(window).width){
+        clearInterval(blonske);
+    }
+}
+
+/* Obsolete cause cheet
+var up1 = false;
+var up2 = false;
+var down1 = false;
+var down2 = false;
+var left1 = false;
+var right1 = false;
+var left2 = false;
+var right2 = false;
+var B = false;
+var A = false;
+document.addEventListener("keydown", function(ev){
+    switch(ev.keyCode){
+        case 38:{
+            if(up1 == false){
+                up1 = true;
+                up2 = false;
+            }
+            else if(up1 == true){
+                up2 = true;
+            }
+            else{
+                up1 = false;
+                up2 = false;
+                down1 = false;
+                down2 = false;
+                left1 = false;
+                right1 = false;
+                left2 = false;
+                right2 = false;
+                B = false;
+                A = false;
+            }
+            down1 = false;
+            down2 = false;
+            left1 = false;
+            right1 = false;
+            left2 = false;
+            right2 = false;
+            B = false;
+            A = false;
+            break;
+        }
+        case 40:{
+            if(up1 == true && up2 == true && down1 == false){
+                down1 = true;
+                down2 = false;
+            }
+            else if(up1 == true && up2 == true && down1 == true){
+                down2 = true;
+            }
+            else{
+                up1 = false;
+                up2 = false;
+                down1 = false;
+                down2 = false;
+                left1 = false;
+                right1 = false;
+                left2 = false;
+                right2 = false;
+                B = false;
+                A = false;
+            }
+            left1 = false;
+            right1 = false;
+            left2 = false;
+            right2 = false;
+            B = false;
+            A = false;
+            break;
+        }
+        case 37:{
+            if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == false){
+                left1 = true;
+                right1 = false;
+                left2 = false;
+            }
+            else if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == false){
+                left2 = true;
+            }
+            else{
+                up1 = false;
+                up2 = false;
+                down1 = false;
+                down2 = false;
+                left1 = false;
+                right1 = false;
+                left2 = false;
+                right2 = false;
+                B = false;
+                A = false;
+            }
+            right2 = false;
+            B = false;
+            A = false;
+            break;
+        }
+        case 39:{
+            if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == false){
+                right1 = true;
+                left2 = false;
+            }
+            else if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == true && right2 == false){
+                right2 = true;
+            }
+            else{
+                up1 = false;
+                up2 = false;
+                down1 = false;
+                down2 = false;
+                left1 = false;
+                right1 = false;
+                left2 = false;
+                right2 = false;
+                B = false;
+                A = false;
+            }
+            B = false;
+            A = false;
+            break;
+        }
+        case 66:{
+            if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == true && right2 == true && B == false){
+                B = true;
+                A = false;
+            }
+            else{
+                up1 = false;
+                up2 = false;
+                down1 = false;
+                down2 = false;
+                left1 = false;
+                right1 = false;
+                left2 = false;
+                right2 = false;
+                B = false;
+                A = false;
+            }
+            break;
+        }
+        case 65:{
+            if(up1 == true && up2 == true && down1 == true && down2 == true && left1 == true && right1 == true && left2 == true && right2 == true && B == true && A == false){
+                A = true;
+
+                up1 = false;
+                up2 = false;
+                down1 = false;
+                down2 = false;
+                left1 = false;
+                right1 = false;
+                left2 = false;
+                right2 = false;
+                B = false;
+                A = false;
+            }
+            else{
+                up1 = false;
+                up2 = false;
+                down1 = false;
+                down2 = false;
+                left1 = false;
+                right1 = false;
+                left2 = false;
+                right2 = false;
+                B = false;
+                A = false;
+            }
+        }
+    }
+});
+*/
+
 function runMyAjax(ajaxPath, success, data = 0) {
 
     $.ajax({
@@ -1137,6 +1348,9 @@ $(document).on("click", "#generate_pdf_given", function(ev){
     ev.preventDefault();
     var year = $('#pdf_month').val();
     window.location = getRootUrl() + "spdf/" + "given/" + year;
+});
+$(document).on("keydown", function(ev){
+
 });
 
 function updateRooms() {

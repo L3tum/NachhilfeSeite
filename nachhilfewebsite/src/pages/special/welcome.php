@@ -36,3 +36,10 @@ layout: special
         </div>
     </div>
 </form>
+
+<div class="row" id="bullshittery">
+
+</div>
+
+<div id="blonski" style="position:fixed; top:50%; left:0px">
+</div>

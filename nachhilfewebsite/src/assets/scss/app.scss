@@ -86,6 +86,9 @@ p, a{
   &.alert{
     color: $alert-color;
   }
+  &.link{
+    color: $secondary-color;
+  }
 }
 
 a:hover {
