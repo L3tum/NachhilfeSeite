@@ -47,7 +47,7 @@ Route::add404(function(){
 });
 
 
-Route::add('',function(){
+Route::add('($setup)*(insane=true)*',function($param, $param2){
 
 
     include "main/home.php";

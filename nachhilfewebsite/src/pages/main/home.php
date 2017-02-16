@@ -56,5 +56,26 @@
         <p> 15. Ostereier...</p>
     </div>';
     }
+    if(Benutzer::get_logged_in_user()->has_permission("giveClasses")){
+        echo '<div class="small-12 smallmedium-12 medium-6 columns">
+
+        <h2> Der 15 Punkte Plan!</h2>
+        <p> 1. Du kannst dich erst mal <a href="" class="link">relaxen.</a></p>
+        <p> 2. Checke ab und zu deine "Nachrichten" bzw. deine E-Mails auf Anfragen. </p>
+        <p> 3. Solltest du eine Anfrage erhalten haben, entscheide ob du diese annehmen willst.</p>
+        <p> 4. Lehnst du die erste Anfrage des Schülers ab, werden alle anderen Anfragen auch gelöscht.</p>
+        <p> 5. Genauso wie ein Schüler, kannst du über das Profil des Schülers oder über Nachrichten mit ihm/ihr Chatnachrichten austauschen. </p>
+        <p> 6. In dem Menüpunkt "Nachhilfe" siehst du des Weiteren, wenen du alles Nachhilfe gibst. </p>
+        <p> 7. Ihr könnt nun per Chat einen Termin aushandeln, oder du könntest gleich einen in "Termine" vorschlagen. </p>
+        <p> 8. Sollte der Schüler einen Termin vorschlagen, würde dieser auch in "Termine" erscheinen.</p>
+        <p> 9. Es muss auf jeden Fall jeder Termin in "Termine" eingetragen werden. </p>
+        <p> 10. In "Suche" kannst du außerdem nach anderen Schülern suchen und diese anschreiben, solltest du <a href="https://www.youtube.com/watch?v=_eacPgr4GkI" class="link">Geldprobleme haben.</a></p>
+        <p> 11. Auf deinem eigenen Profil kannst du außerdem deine eigenen Angaben ändern.</p>
+        <p> 12. Solltest du nun nach einigem Warten einen Termin gehabt haben, so hake ihn bitte in "Termine" ab.</p>
+        <p> 13. Dort solltest du außerdem vorher den Termin akzeptieren, sollte er von dem Schüler gesendet worden sein.</p>
+        <p> 14. Viel Spaß auf dieser Seite :) </p>
+        <p> 15. Ostereier...</p>
+    </div>';
+    }
     ?>
 </div>

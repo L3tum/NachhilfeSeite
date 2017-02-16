@@ -130,15 +130,22 @@ var insane = false;
 if (window.location.href.includes("insane=true")) {
     insane = true;
 }
-if(window.location.href.includes("setup")){
+if (window.location.href.includes("setup")) {
+    $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
+    setTimeout(kill, 10000);
     setup();
 }
-var wubwubwubs = false;
 cheet('up up down down left right left right b a', function () {
-
+    $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
+    setTimeout(kill, 10000);
+    setup();
 });
 
-function setup(){
+function kill() {
+    $("[name=kill]").remove();
+}
+
+function setup() {
     if (run == false) {
         if ($("#bullshittery") != null) {
             $("#bullshittery").append(`<div class="small-12 medium-6 columns">
@@ -162,8 +169,26 @@ function setup(){
     </div>`);
         }
     }
-    if (run == false || insane == true) {
-        var rand = Math.floor((Math.random() * 5) + 1);
+    if (window.location.href.includes("user") && !run) {
+        $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="holz" width="560" height="315" src="https://www.youtube.com/embed/wjXUBG15eZ8?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+    }
+    else if (window.location.href.includes("suche") && !run) {
+        $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="holz" width="560" height="315" src="https://www.youtube.com/embed/drFsXLChrWc?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+    }
+    else if (window.location.href.includes("termine") && !run) {
+        $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="holz" width="560" height="315" src="https://www.youtube.com/embed/Afl9WFGJE0M?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+    }
+    else if (run == false || insane == true) {
+        var rand = Math.floor((Math.random() * 8) + 1);
         switch (rand) {
             case 1: {
                 $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
@@ -211,56 +236,149 @@ function setup(){
     </div>
 </div>`);
                 startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BGM.jpg", "Bergmann", "bgm");
+                break;
+            }
+            case 7: {
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/iILl1CyKYaA?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                startBlonske("http://bilder1.n-tv.de/img/incoming/crop19692704/9974992653-cImg_16_9-w680/Der-designierte-SPD-Kanzlerkandidat-Martin-Schulz-blickt-am-07.jpg", "Schulz", "schulz");
+                break;
+            }
+            case 8: {
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/epNbV-bx2L0?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                startBlonske("https://i.redd.it/jy0usj55fl0y.jpg", "Kepetry", "kpt");
+                break;
+            }
+            case 9: {
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/u9Dg-g7t2l4?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+            }
+            case 10: {
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/-iiAtLFkVps?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+            }
+            case 11: {
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/QwhPOlIuSXM?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+            }
+            case 12: {
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/g4LofIXbvrM?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+            }
+            case 13: {
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/reOLeLX0Q9U?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
+
+            }
+            case 14: {
+                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
+    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/Bqfk7oBMsW4?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>`);
+                break;
             }
         }
-        if(insane && !wubwubwubs) {
-            setInterval(quake, Math.floor(Math.random() * 10) + 1);
-            wubwubwubs = true;
+        if (insane) {
+            setInterval(wubwubwub, 1);
         }
-        setInterval(wubwubwub, 1);
         run = true;
     }
     else if (run == true && insane == false) {
-        window.location.replace(window.location + "&setup");
+        if (window.location.href.includes("setup")) {
+            window.location.reload();
+        }
+        else {
+            window.location.replace(window.location + "&setup");
+        }
     }
 }
-
-var blonskeRunning = false;
 function startBlonske(src, name, id) {
-    $(document.body).append(`<div name="blonski" style="position:fixed; top:50%; left:0px"><img src="` + src + `" alt="` + name + `"></div>`);
-    if (!blonskeRunning) {
-        setInterval(blonske, 10);
-        blonskeRunning = true;
-    }
+    var rand = Math.random();
+    $(document.body).append(`<div name="blonski` + rand + `" style="position:fixed; top:50%; left:0px"><img src="` + src + `" alt="` + name + `"></div>`);
+    animateDiv("blonski" + rand);
 }
 
-function blonske() {
-    var elements = document.getElementsByName('blonski');
+function makeNewPosition(element) {
+
+    // Get viewport dimensions (remove the dimension of the div)
+    var h = $(window).height() - element.clientHeight;
+    var w = $(window).width() - element.clientWidth;
+
+    var nh = Math.floor(Math.random() * h);
+    var nw = Math.floor(Math.random() * w);
+
+    return [nh, nw];
+
+}
+
+function animateDiv(elementName) {
+    var elements = document.getElementsByName(elementName);
     if (isNodeList(elements)) {
         Array.from(elements).forEach(function (element) {
-            var topVal = parseInt(element.style.left, 10);
-            topVal += 1;
-            element.style.left = topVal + "px";
-        });
+            var newq = makeNewPosition(element);
+            var oldq = $(element).offset();
+            var speed = calcSpeed([oldq.top, oldq.left], newq);
+            $(element).animate({top: newq[0], left: newq[1]}, speed, function () {
+                animateDiv(elementName);
+            });
+        })
     }
     else {
-        var topVal = parseInt(elements.style.left, 10);
-        topVal += 1;
-        elements.style.left = topVal + "px";
+        var newq = makeNewPosition();
+        var oldq = $(elements).offset();
+        var speed = calcSpeed([oldq.top, oldq.left], newq);
+        $(elements).animate({top: newq[0], left: newq[1]}, speed, function () {
+            animateDiv();
+        });
     }
+};
+
+function calcSpeed(prev, next) {
+
+    var x = Math.abs(prev[1] - next[1]);
+    var y = Math.abs(prev[0] - next[0]);
+
+    var greatest = x > y ? x : y;
+
+    var speedModifier = 0.1;
+
+    var speed = Math.ceil(greatest / speedModifier);
+
+    return speed;
+
 }
 
 function wubwubwub() {
     var color = rainbow(1000, Math.floor((Math.random() * 1000) + 0));
     var random = Math.floor((Math.random() * 2) + 0);
-    if(random == 0) {
-        var elements = document.getElementsByTagName("div");
+    if (random == 0) {
+        var elements = document.getElementsByTagName("*");
         var rand = Math.floor((Math.random() * elements.length) + 0);
-        if(elements[rand].name != "blonski") {
+        if (elements[rand].name != "blonski") {
             elements[rand].style.backgroundColor = color;
         }
     }
-    else{
+    else {
         document.body.style.backgroundColor = color;
     }
 }
@@ -281,7 +399,7 @@ function quake() {
         }
         qCounter++;
     }
-    else{
+    else {
         console.log("hi");
     }
 }
@@ -1480,6 +1598,7 @@ $(document).on("click", "#submit_pdf_month", function (ev) {
                 else {
                     html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
                 }
+                html += "</td><td>";
                 if (hour.blockiert == 1) {
                     html += "<p class='alert'>Verbindung blockiert</p>";
                 }
@@ -1556,10 +1675,14 @@ $(document).on("click", "#generate_pdf_given", function (ev) {
 });
 
 $(document).on("click", "#del_user", function (ev) {
-    runMyAjax("ajax/getAllBlockedUsers.php", function (result) {
+    runMyAjax("ajax/Getters/getAllBlockedUsers.php", function (result) {
+        var html = "<table><thead><tr><th>Benutzer</th><th>Löschen</th></tr></thead><tbody>";
         result.users.forEach(function (user) {
-
+            html += "<tr><td>" + user.vorname + " " + user.name + "</td><td><button class='tablebutton alert' name='delete_user' id='" + user.idBenutzer + "'</td></tr>";
         });
+        html += "</tbody></table>";
+        $("#results").empty();
+        $("#results").append(html);
     });
 });
 $(document).on("click", "#delete_user", function (ev) {
@@ -1567,9 +1690,8 @@ $(document).on("click", "#delete_user", function (ev) {
     if (window.confirm("Dadurch wird der Benutzer unwiderruflich gelöscht!")) {
         runMyAjax("ajax/deleteUser.php", function (result) {
             toastr.success("Benutzer erfolgreich gelöscht!");
-        });
+        }, {'id': $(ev.target).attr('id')});
     }
-
 });
 
 function updateRooms() {

@@ -511,3 +511,43 @@ body{
     background-color: white;
   }
 }
+
+@-webkit-keyframes error {
+  from {
+    -webkit-transform: scale(6.0);
+    opacity: 0.75;
+    color: blue;
+    -webkit-text-fill-color: blue;
+  }
+  25%{
+    -webkit-transform: scale(6.2);
+    opacity: 0.85;
+    color: green;
+    -webkit-text-fill-color: green;
+  }
+  50% {
+    -webkit-transform: scale(6.5);
+    opacity: 1.0;
+    color: red;
+    -webkit-text-fill-color: red;
+  }
+  75%{
+    -webkit-transform: scale(6.2);
+    opacity: 0.85;
+    color: yellow;
+    -webkit-text-fill-color: yellow;
+  }
+  to {
+    -webkit-transform: scale(6.0);
+    opacity: 0.75;
+    color: pink;
+    -webkit-text-fill-color: pink;
+  }
+}
+
+.error {
+  opacity: 0.75;
+  -webkit-animation-name: error;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-iteration-count: infinite;
+}
