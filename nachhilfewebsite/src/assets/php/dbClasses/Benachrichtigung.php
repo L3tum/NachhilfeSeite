@@ -6,6 +6,9 @@
  * Date: 14.12.2016
  * Time: 22:25
  */
+
+include_once  __DIR__ . "/../PHPMailer/PHPMailerAutoload.php";
+
 class Benachrichtigung
 {
 
@@ -21,11 +24,40 @@ class Benachrichtigung
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Benachrichtigung');
     }
 
-    public static function add($idBenutzer, $titel, $inhalt){
+    public static function add($idBenutzer, $titel, $inhalt, $email = false){
         $stmt = Connection::$PDO->prepare("INSERT INTO benachrichtigung (idBenutzer, titel, inhalt) VALUES(:idBenutzer, :titel, :inhalt)");
         $stmt->bindParam(':idBenutzer', $idBenutzer);
         $stmt->bindParam(':titel', $titel);
         $stmt->bindParam(':inhalt', $inhalt);
         $stmt->execute();
+        if($email == true) {
+            send_mail(Benutzer::get_by_id($idBenutzer)->email, $titel, $inhalt);
+        }
+    }
+
+    public function send_mail($email, $subject, $body) {
+        //Send mail using gmail
+        $mail = new PHPMailer;
+        $mail->CharSet = 'UTF-8';
+        $mail->IsSMTP(); // telling the class to use SMTP
+        $mail->SMTPAuth = true; // enable SMTP authentication
+        $mail->SMTPSecure = "ssl"; // sets the prefix to the servier
+        $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
+        $mail->Port = 465; // set the SMTP port for the GMAIL server
+        $mail->Username = "nachhilfegylo@gmail.com"; // GMAIL username
+        $mail->Password = "NSsrQ(@aMmd(57nEFW8r"; // GMAIL password
+
+//Typical mail data
+        $mail->AddAddress($email);
+        $mail->SetFrom('admin@gylo-nachhilfe.de', "Nachhilfe");
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        try{
+            $mail->Send();
+        } catch(Exception $e){
+
+            return_error("Email konnte nicht gesendet werden!");
+        }
     }
 }
