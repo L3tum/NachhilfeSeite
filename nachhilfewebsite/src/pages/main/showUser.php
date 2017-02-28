@@ -77,6 +77,20 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 </div>
 
                 <?php
+                if($user_is_me || Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
+                    echo '<div class="data-label">';
+                    $wants = $user->wantsEmails;
+                    if ($wants == 1 || $wants == true) {
+                        $response = "Ja";
+                    } else {
+                        $response = "Nein";
+                    }
+                    echo "<p>Erhält Email-Benachrichtigungen: {$response}</p>";
+                    echo "</div>";
+                }
+                ?>
+
+                <?php
 
                 if (empty($connections) && !(Benutzer::get_logged_in_user()->has_permission("showCredentials")) && !$user_is_me) {
 

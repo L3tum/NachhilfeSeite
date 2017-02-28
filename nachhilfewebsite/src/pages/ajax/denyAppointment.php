@@ -25,10 +25,10 @@ $stmt->setFetchMode(PDO::FETCH_CLASS, 'Stunde');
 $stunde = $stmt->fetch();
 
 if($stunde->idNachhilfelehrer == Benutzer::get_logged_in_user()->idBenutzer){
-    Benachrichtigung::add($stunde->idNachhilfenehmer, "Termin angenommen", "Ein Termin wurde angenommen!");
+    Benachrichtigung::add($stunde->idNachhilfenehmer, "Termin abgelehnt", "Ein Termin wurde abgelehnt!", true);
 }
 else{
-    Benachrichtigung::add($stunde->idNachhilfelehrer, "Termin angenommen", "Ein Termin wurde angenommen!");
+    Benachrichtigung::add($stunde->idNachhilfelehrer, "Termin abgelehnt", "Ein Termin wurde abgelehnt!", true);
 }
 
 $stmt = Connection::$PDO->prepare("DELETE FROM stunde WHERE idStunde = :idStunde");

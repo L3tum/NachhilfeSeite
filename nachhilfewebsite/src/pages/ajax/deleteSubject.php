@@ -25,8 +25,8 @@ if (Benutzer::get_logged_in_user()->has_permission("deleteSubject")) {
     $connections = $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
     if (isset($connections) && $connections != null && count($connections) > 0) {
         foreach ($connections as $connection) {
-            Benachrichtigung::add($connection->idNachhilfenehmer, "Verbindung blockiert", "Eine Nachhilfeverbindung wurde blockiert, da ein Administrator das Fach gelöscht hat!");
-            Benachrichtigung::add($connection->idNachhilfelehrer, "Verbindung blockiert", "Eine Nachhilfeverbindung wurde blockiert, da ein Administrator das Fach gelöscht hat!");
+            Benachrichtigung::add($connection->idNachhilfenehmer, "Verbindung blockiert", "Eine Nachhilfeverbindung wurde blockiert, da ein Administrator das Fach gelöscht hat!", true);
+            Benachrichtigung::add($connection->idNachhilfelehrer, "Verbindung blockiert", "Eine Nachhilfeverbindung wurde blockiert, da ein Administrator das Fach gelöscht hat!", true);
         }
     }
     $stmt = Connection::$PDO->prepare("UPDATE verbindung SET verbindung.blockiert=1 WHERE verbindung.idFach = :idSubject");
@@ -39,7 +39,7 @@ if (Benutzer::get_logged_in_user()->has_permission("deleteSubject")) {
     $people = $stmt->fetchAll(PDO::FETCH_CLASS, 'AngebotenesFach');
     if (isset($people) && $people != null && count($people) > 0) {
         foreach ($people as $peoples) {
-            Benachrichtigung::add($peoples->idBenutzer, "Angebotenes Fach gelöscht", "Ein angebotenes Fach wurde gelöscht, da ein Administrator das Fach gelöscht hat!");
+            Benachrichtigung::add($peoples->idBenutzer, "Angebotenes Fach gelöscht", "Ein angebotenes Fach wurde gelöscht, da ein Administrator das Fach gelöscht hat!", true);
         }
     }
     $stmt = Connection::$PDO->prepare("DELETE FROM angebotenesfach WHERE idFach = :idSubject");

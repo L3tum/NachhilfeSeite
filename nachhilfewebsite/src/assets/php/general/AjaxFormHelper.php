@@ -97,7 +97,7 @@ class AjaxFormHelper
 
     public function send_mail($email, $subject, $body) {
         //Send mail using gmail
-        $mail = new PHPMailer;
+        $mail = new PHPMailer();
         $mail->CharSet = 'UTF-8';
         $mail->IsSMTP(); // telling the class to use SMTP
         $mail->SMTPAuth = true; // enable SMTP authentication
@@ -114,9 +114,8 @@ class AjaxFormHelper
         $mail->Body = $body;
 
         try{
-            $mail->Send();
+            $this->return_error($mail->Send());
         } catch(Exception $e){
-
             return_error("Email konnte nicht gesendet werden!");
         }
     }

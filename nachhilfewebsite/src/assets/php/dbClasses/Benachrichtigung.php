@@ -30,12 +30,12 @@ class Benachrichtigung
         $stmt->bindParam(':titel', $titel);
         $stmt->bindParam(':inhalt', $inhalt);
         $stmt->execute();
-        if($email == true) {
-            send_mail(Benutzer::get_by_id($idBenutzer)->email, $titel, $inhalt);
+        if($email == true && Benutzer::get_by_id($idBenutzer)->wantsEmails) {
+            Benachrichtigung::send_mail(Benutzer::get_by_id($idBenutzer)->email, $titel, $inhalt);
         }
     }
 
-    public function send_mail($email, $subject, $body) {
+    public static function send_mail($email, $subject, $body) {
         //Send mail using gmail
         $mail = new PHPMailer;
         $mail->CharSet = 'UTF-8';

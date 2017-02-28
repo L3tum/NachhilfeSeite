@@ -135,6 +135,10 @@ if (window.location.href.includes("setup")) {
     setTimeout(kill, 10000);
     setup();
 }
+if (window.location.href.includes("wubwubwub")) {
+    setInterval(wubwubwub, 1);
+    startYoutube("https://www.youtube.com/embed/wr15eJAGkiM");
+}
 cheet('up up down down left right left right b a', function () {
     $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
     setTimeout(kill, 10000);
@@ -143,6 +147,7 @@ cheet('up up down down left right left right b a', function () {
 
 function kill() {
     $("[name=kill]").remove();
+    clearTimeout()
 }
 
 function setup() {
@@ -170,136 +175,82 @@ function setup() {
         }
     }
     if (window.location.href.includes("user") && !run) {
-        $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="holz" width="560" height="315" src="https://www.youtube.com/embed/wjXUBG15eZ8?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+        startYoutube("https://www.youtube.com/embed/wjXUBG15eZ8");
     }
     else if (window.location.href.includes("suche") && !run) {
-        $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="holz" width="560" height="315" src="https://www.youtube.com/embed/drFsXLChrWc?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+        startYoutube("https://www.youtube.com/embed/drFsXLChrWc");
     }
     else if (window.location.href.includes("termine") && !run) {
-        $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="holz" width="560" height="315" src="https://www.youtube.com/embed/Afl9WFGJE0M?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+        startYoutube("https://www.youtube.com/embed/Afl9WFGJE0M");
     }
     else if (run == false || insane == true) {
-        var rand = Math.floor((Math.random() * 8) + 1);
+        var rand = Math.floor((Math.random() * 14) + 1);
         switch (rand) {
             case 1: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bln" width="560" height="315" src="https://www.youtube.com/embed/_-tF5h5WHMs?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/_-tF5h5WHMs");
                 startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg", "Blonski", "bln");
                 break;
             }
             case 2: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bar" width="560" height="315" src="https://www.youtube.com/embed/pdcMQjXqDMg?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/pdcMQjXqDMg");
                 startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BAR.jpg", "Barti", "bar");
                 break;
             }
             case 3: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="fra" width="560" height="315" src="https://www.youtube.com/embed/j4WGWg8e_oE?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/j4WGWg8e_oE");
                 startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/FRA.jpg", "Franki", "fra");
                 break;
             }
             case 4: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="btl" width="560" height="315" src="https://www.youtube.com/embed/2tmc8rJgxUI?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/2tmc8rJgxUI");
                 startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BTL.jpg", "Hänsel und Bretl", "btl");
                 break;
             }
             case 5: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="ric" width="560" height="315" src="https://www.youtube.com/embed/2qetI-4XvRg?autoplay=1&loop=1&vq=small&enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/2qetI-4XvRg");
                 startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/RIC.jpg", "Richter in Bernburg", "ric");
                 break;
             }
             case 6: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/lcYDbPluL1g?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/lcYDbPluL1g");
                 startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BGM.jpg", "Bergmann", "bgm");
                 break;
             }
             case 7: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/iILl1CyKYaA?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/iILl1CyKYaA");
                 startBlonske("http://bilder1.n-tv.de/img/incoming/crop19692704/9974992653-cImg_16_9-w680/Der-designierte-SPD-Kanzlerkandidat-Martin-Schulz-blickt-am-07.jpg", "Schulz", "schulz");
                 break;
             }
             case 8: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/epNbV-bx2L0?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/epNbV-bx2L0");
                 startBlonske("https://i.redd.it/jy0usj55fl0y.jpg", "Kepetry", "kpt");
                 break;
             }
             case 9: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/u9Dg-g7t2l4?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/u9Dg-g7t2l4");
                 break;
             }
             case 10: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/-iiAtLFkVps?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/-iiAtLFkVps");
                 break;
             }
             case 11: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/QwhPOlIuSXM?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/QwhPOlIuSXM");
                 break;
             }
             case 12: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/g4LofIXbvrM?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/g4LofIXbvrM");
                 break;
             }
             case 13: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/reOLeLX0Q9U?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/reOLeLX0Q9U");
                 break;
 
             }
             case 14: {
-                $(document.body).append(`<div style="position:relative;width:267px;height:25px;overflow:hidden;">
-    <div style="position:absolute;top:-315px;left:-560px" name="bull"><iframe id="bgm" width="560" height="315" src="https://www.youtube.com/embed/Bqfk7oBMsW4?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-</div>`);
+                startYoutube("https://www.youtube.com/embed/Bqfk7oBMsW4");
                 break;
             }
-        }
-        if (insane) {
-            setInterval(wubwubwub, 1);
         }
         run = true;
     }
@@ -316,6 +267,12 @@ function startBlonske(src, name, id) {
     var rand = Math.random();
     $(document.body).append(`<div name="blonski` + rand + `" style="position:fixed; top:50%; left:0px"><img src="` + src + `" alt="` + name + `"></div>`);
     animateDiv("blonski" + rand);
+}
+
+function startYoutube(src){
+    var rand = Math.random();
+    $(document.body).append(`<div style="position:fixed;top:25%;left:0px" name="bull` + rand + `"><iframe id="holz" width="560" height="315" src="` + src + `?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0&showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe></div>`)
+    animateDiv("bull"+rand);
 }
 
 function makeNewPosition(element) {
@@ -691,6 +648,7 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
         }
     });
     formdata.append('stufen', JSON.stringify(stufen));
+    formdata.append('wantsEmails', JSON.stringify($("#wantsEmails").val()));
 });
 
 var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden fehlgeschlagen!", "ajax/sendMessage.php", function (result) {
@@ -1462,12 +1420,30 @@ $(document).on("click", "[name=denyAppointment]", function (ev) {
     }, {'id': $(ev.target).attr('id')});
 });
 
-var wasSelected = false;
 $(document).on("change", "#idUser", function (ev) {
     ev.preventDefault();
     var subjects = $("#idSubject");
-    if (subjects.val() == "no" && !wasSelected) {
-        wasSelected = true;
+    if($(ev.target).val() == "no" && subjects.val() == "no"){
+        runMyAjax("ajax/Getters/getAllSubjects.php", function(result){
+            subjects.empty();
+            subjects.append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
+                result.subjects.forEach(function (subject) {
+                    subjects.append("<option value='" + subject['idFach'] + "'>" + subject['name'] + "</option>");
+                });
+            }
+        });
+        runMyAjax("ajax/Getters/getAllConnectionUsers.php", function (result) {
+            $(ev.target).empty();
+            $(ev.target).append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.users) === '[object Array]') {
+                result.users.forEach(function (user) {
+                    $(ev.target).append("<option value='" + user['ID'] + "'>" + user['vorname'] + " " + user['name'] + "</option>");
+                });
+            }
+        });
+    }
+    else if ($(ev.target).val() != "no" && subjects.val() == "no") {
         runMyAjax("ajax/Getters/getOfferedSubjects.php", function (result) {
             subjects.empty();
             subjects.append("<option value='no'>Nichts</option>");
@@ -1478,25 +1454,54 @@ $(document).on("change", "#idUser", function (ev) {
             }
         }, {'user': $(ev.target).val()});
     }
-    else if (subjects.val() == "no" && wasSelected) {
-        wasSelected = false;
-        runMyAjax("ajax/Getters/getAllOfferedSubjects.php", function (result) {
+    else if (subjects.val() != "no" && $(ev.target).val() == "no") {
+        runMyAjax("ajax/Getters/getUsersBySubject.php", function (result) {
+            $(ev.target).empty();
+            $(ev.target).append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.users) === '[object Array]') {
+                result.users.forEach(function (user) {
+                    $(ev.target).append("<option value='" + user['ID'] + "'>" + user['vorname'] + " " + user['name'] + "</option>");
+                });
+            }
+        }, {'fach': subjects.val()});
+        runMyAjax("ajax/Getters/getAllSubjects.php", function(result){
+            var idFach = subjects.val();
             subjects.empty();
             subjects.append("<option value='no'>Nichts</option>");
             if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
                 result.subjects.forEach(function (subject) {
-                    subjects.append("<option value='" + subject['idFach'] + "'>" + subject['name'] + "</option>");
+                    var html = "<option value='" + subject['idFach'] + "'";
+                    if(subject['idFach'] == idFach){
+                        html += " selected ";
+                    }
+                    html += ">" + subject['name'] + "</option>";
+                    subjects.append(html);
                 });
             }
         });
     }
+    else if(subjects.val() != "no" && $(ev.target).val() != "no"){
+        runMyAjax("ajax/Getters/getOfferedSubjects.php", function(result){
+            var idFach = subjects.val();
+            subjects.empty();
+            subjects.append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
+                result.subjects.forEach(function (subject) {
+                    var html = "<option value='" + subject['idFach'] + "'";
+                    if(subject['idFach'] == idFach){
+                        html += " selected ";
+                    }
+                    html += ">" + subject['name'] + "</option>";
+                    subjects.append(html);
+                });
+            }
+        }, {'user': $(ev.target).val()})
+    }
 });
-var wasSelected2 = false;
 $(document).on("change", "#idSubject", function (ev) {
     ev.preventDefault();
     var users = $("#idUser");
-    if (users.val() == "no" && !wasSelected2) {
-        wasSelected2 = true;
+    if (users.val() == "no" && $(ev.target).val() != "no") {
         runMyAjax("ajax/Getters/getUsersBySubject.php", function (result) {
             users.empty();
             users.append("<option value='no'>Nichts</option>");
@@ -1507,8 +1512,7 @@ $(document).on("change", "#idSubject", function (ev) {
             }
         }, {'fach': $(ev.target).val()});
     }
-    else if (users.val() == "no" && wasSelected2) {
-        wasSelected2 = false;
+    else if (users.val() == "no" && $(ev.target).val() == "no") {
         runMyAjax("ajax/Getters/getAllConnectionUsers.php", function (result) {
             users.empty();
             users.append("<option value='no'>Nichts</option>");
@@ -1518,6 +1522,49 @@ $(document).on("change", "#idSubject", function (ev) {
                 });
             }
         });
+        runMyAjax("ajax/Getters/getAllSubjects.php", function(result){
+            $(ev.target).empty();
+            $(ev.target).append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
+                result.subjects.forEach(function (subject) {
+                    $(ev.target).append("<option value='" + subject['idFach'] + "'>" + subject['name'] + "</option>");
+                });
+            }
+        });
+    }
+    else if ($(ev.target).val() == "no" && users.val() != "no") {
+        runMyAjax("ajax/Getters/getOfferedSubjects.php", function(result){
+            var idFach = $(ev.target).val();
+            $(ev.target).empty();
+            $(ev.target).append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
+                result.subjects.forEach(function (subject) {
+                    var html = "<option value='" + subject['idFach'] + "'";
+                    if(subject['idFach'] == idFach){
+                        html += " selected ";
+                    }
+                    html += ">" + subject['name'] + "</option>";
+                    $(ev.target).append(html);
+                });
+            }
+        }, {'user': users.val()})
+    }
+    else if(users.val() != "no" && $(ev.target).val() != "no"){
+        runMyAjax("ajax/Getters/getOfferedSubjects.php", function(result){
+            var idFach = $(ev.target).val();
+            $(ev.target).empty();
+            $(ev.target).append("<option value='no'>Nichts</option>");
+            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
+                result.subjects.forEach(function (subject) {
+                    var html = "<option value='" + subject['idFach'] + "'";
+                    if(subject['idFach'] == idFach){
+                        html += " selected ";
+                    }
+                    html += ">" + subject['name'] + "</option>";
+                    $(ev.target).append(html);
+                });
+            }
+        }, {'user': users.val()})
     }
 });
 
@@ -1691,6 +1738,28 @@ $(document).on("click", "#delete_user", function (ev) {
         runMyAjax("ajax/deleteUser.php", function (result) {
             toastr.success("Benutzer erfolgreich gelöscht!");
         }, {'id': $(ev.target).attr('id')});
+    }
+});
+
+$(document).on("click", "#sendMail", function(ev){
+   ev.preventDefault();
+    runMyAjax("ajax/SendMailTest.php", function(result){
+        toastr.success(result.hi);
+    })
+});
+
+$(document).on("click", "#wantsEmails", function(ev){
+   ev.preventDefault();
+    var element = $(ev.target);
+    if (ev.target.className.includes("success")) {
+        element.removeClass("success");
+        element.addClass("alert");
+        element.val(false);
+    }
+    else {
+        element.removeClass("alert");
+        element.addClass("success");
+        element.val(true);
     }
 });
 

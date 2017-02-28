@@ -1217,7 +1217,8 @@ class PHPMailer
             if ($this->exceptions) {
                 throw $exc;
             }
-            return false;
+            return $exc;
+            //return false;
         }
     }
 
@@ -1313,7 +1314,8 @@ class PHPMailer
             if ($this->exceptions) {
                 throw $exc;
             }
-            return false;
+            return $exc;
+            //return false;
         }
     }
 
@@ -1350,7 +1352,8 @@ class PHPMailer
                 throw $exc;
             }
         }
-        return false;
+        return $exc;
+        //return false;
     }
 
     /**

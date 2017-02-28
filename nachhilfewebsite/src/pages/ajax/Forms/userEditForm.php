@@ -55,7 +55,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $form_helper->return_error("Keine gültige Email-Adresse.");
 }
 
-if (((!$user_is_me && $logged_in_user->has_permission("editOtherRole") == true) || ($user_is_me && $logged_in_user->has_permission("editSelfRole"))) && $user_to_edit->has_permission("giveClasses")) {
+if ((!$user_is_me && $logged_in_user::get_logged_in_user()->has_permission("editOtherRole") && !$user_to_edit->has_permission("elevated_administrator")) || ($user_is_me &&  $user_to_edit->has_permission("editSelfRole") && !$user_to_edit->has_permission("administration"))) {
     $rolle = $_POST['rollenSelector'];
 } else {
     $rolle = $user_to_edit->idRolle;
@@ -84,8 +84,16 @@ if (((!$user_is_me && $logged_in_user->has_permission("editOtherYears") == true)
     }
 }
 
+if(!isset($_POST['wantsEmails'])){
+    $wantsEmails = $user_to_edit->wantsEmails;
+}
+else{
+    $wantsEmails = $_POST['wantsEmails'];
+    $wantsEmails = trim($wantsEmails, '"');
+}
+
 //Check if there is an existing user with these credentials
-$stmt = Connection::$PDO->prepare("UPDATE benutzer SET vorname = :vorname, name = :name, passwort = :passwort, telefonnummer = :telefonnummer, email = :email, idRolle = :rolle WHERE idBenutzer = :idBenutzer");
+$stmt = Connection::$PDO->prepare("UPDATE benutzer SET vorname = :vorname, name = :name, passwort = :passwort, telefonnummer = :telefonnummer, email = :email, idRolle = :rolle, wantsEmails = :wants WHERE idBenutzer = :idBenutzer");
 $stmt->bindParam(':vorname', $vorname);
 $stmt->bindParam(':name', $nachname);
 $stmt->bindParam(':passwort', $passwort);
@@ -93,6 +101,7 @@ $stmt->bindParam(':telefonnummer', $telefonnummer);
 $stmt->bindParam(':email', $email);
 $stmt->bindParam(':rolle', $rolle);
 $stmt->bindParam(':idBenutzer', $user_to_edit_id);
+$stmt->bindParam(':wants', $wantsEmails);
 $stmt->execute();
 
 

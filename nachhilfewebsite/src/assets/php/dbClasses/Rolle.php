@@ -39,4 +39,8 @@ class Rolle
         $rolle = $stmt->fetchAll(PDO::FETCH_CLASS, 'Rolle');
         return $rolle;
     }
+
+    public function has_right($right){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM rollenberechtigungen JOIN rolle as t1 ON t1.idRolle=rollenberechtigung.idRolle WHERE t1.idRolle= :idRolle AND rollenberechtigung.idBerechtigung= :right");
+    }
 }

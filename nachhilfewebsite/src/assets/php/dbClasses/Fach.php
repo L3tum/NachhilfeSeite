@@ -11,6 +11,7 @@ class Fach
 
     public $idFach;
     public $name;
+    public $blockiert;
 
     public static function get_by_id($id) {
 

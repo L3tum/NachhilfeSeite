@@ -14,6 +14,8 @@ include_once  "assets/php/general/ConfigStrings.php";
 include_once  "assets/php/general/Route.php";
 include_once  "assets/php/general/Connection.php";
 include_once  __DIR__ . "/assets/php/dbClasses/Benutzer.php";
+include_once  __DIR__ . "/assets/php/dbClasses/Rolle.php";
+include_once  __DIR__ . "/assets/php/dbClasses/Berechtigung.php";
 
 $root = ConfigStrings::get("root");
 if(!isset($root)) {
@@ -47,7 +49,7 @@ Route::add404(function(){
 });
 
 
-Route::add('($setup)*(insane=true)*',function($param, $param2){
+Route::add('($setup)*(insane=true)*',function($param = 0, $param2 = 0){
 
 
     include "main/home.php";
@@ -153,6 +155,9 @@ Route::add('tuition', function(){
 
 Route::add('role/(.+)/edit', function($param){
     if(Benutzer::get_logged_in_user()->has_permission("editRole")) {
+        if(!Benutzer::get_logged_in_user()->has_permission("elevated_administrator") && Rolle::get_by_id($param)->has_right(Berechtigung::get_by_name("administrator"))){
+            Route::redirect_to_root();
+        }
         $idRole = $param;
         include 'main/editRole.php';
     }

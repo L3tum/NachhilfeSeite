@@ -18,4 +18,12 @@ class Berechtigung
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Berechtigung');
     }
+
+    public static function get_by_name($name){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM berechtigung WHERE name = :name");
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Berechtigung');
+        return $stmt->fetch();
+    }
 }

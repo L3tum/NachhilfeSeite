@@ -46,6 +46,9 @@
         if (Benutzer::get_logged_in_user()->has_permission("delete_user")) {
             echo "<a id='del_user' class='button' type='submit' value='Submit'>Benutzer löschen</a><br>";
         }
+        if(Benutzer::get_logged_in_user()->has_permission("sendTestMail")){
+            echo '<button class="button" id="sendMail" type="submit">SendMail</button>';
+        }
         ?>
             </div>
 

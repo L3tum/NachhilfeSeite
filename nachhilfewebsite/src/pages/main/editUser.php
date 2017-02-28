@@ -93,6 +93,19 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                         </label>
 
                         <?php
+                        if($user_is_me || Benutzer::get_logged_in_user()->has_permission("editWantsEmails")){
+                            echo "<button class='editUserButton ";
+                            if($user->wantsEmails){
+                                echo "success'";
+                            }
+                            else{
+                                echo "alert'";
+                            }
+                            echo " id='wantsEmails' name='wantsEmails' type='submit'>Email-Benachrichtigungen</button><br><br>";
+                        }
+                        ?>
+
+                        <?php
                         if ((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherRole") && !$user->has_permission("elevated_administrator")) || ($user_is_me &&  $user->has_permission("editSelfRole") && !$user->has_permission("administration"))) {
                             echo "<label>Rolle
                         <select id='rollenSelector' name='rollenSelector'>";

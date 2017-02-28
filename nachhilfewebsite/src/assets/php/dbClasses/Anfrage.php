@@ -14,5 +14,4 @@ class Anfrage
     public $idFach;
     public $inhalt;
     public $idAnfrage;
-    
 }

@@ -96,4 +96,11 @@ class Stunde
             $stmt->execute();
         }
     }
+    public static function get_by_id($idStunde){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idStunde = :id");
+        $stmt->bindParam(':id', $idStunde);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Stunde');
+        return $stmt->fetch();
+    }
 }

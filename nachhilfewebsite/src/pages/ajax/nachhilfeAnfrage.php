@@ -64,9 +64,11 @@ foreach ($faecher as $fach) {
     $pays_self = true;
 }
 
-$subject = "Nachhilfeanfrage von {$logged_in->vorname} {$logged_in->name}";
-$body = "Du hast eine Nachhilfeanfrage von {$logged_in->vorname} {$logged_in->name} im Nachhilfeportal bekommen!";
-$form_helper->send_mail($user->email, $subject, $body);
+if($user->wantsEmails) {
+    $subject = "Nachhilfeanfrage von {$logged_in->vorname} {$logged_in->name}";
+    $body = "Du hast eine Nachhilfeanfrage von {$logged_in->vorname} {$logged_in->name} im Nachhilfeportal bekommen!";
+    $form_helper->send_mail($user->email, $subject, $body);
+}
 $form_helper->success = true;
 $form_helper->return_json();
 ?>
