@@ -3,7 +3,7 @@ layout: special
 ---
 <div class="row">
     <div class="small-12 columns">
-        <h1 class="text-center">Willkommen bei der Nachhilfe!</h1>
+        <h1 class="text-center">Willkommen bei der Nachhilfe des Gymnasium Lohmars!</h1>
     </div>
 </div>
 

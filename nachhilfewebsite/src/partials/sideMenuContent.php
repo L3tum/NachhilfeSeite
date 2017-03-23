@@ -20,6 +20,7 @@
     if(Benutzer::get_logged_in_user()->has_permission('administration')) {
         echo "<li><a href='{$root}admin'>Administration</a></li>";
     }
+    echo "<li><a href='{$root}credits'>Credits</a></li>";
     ?>
     <li><a href="<?php echo $root?>logout">Logout</a></li>
 </ul>

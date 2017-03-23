@@ -40,11 +40,11 @@
         if (Benutzer::get_logged_in_user()->has_permission("add_right")) {
             echo "<a id='add_right' class='button' type='submit' value='Submit'>Füge eine Berechtigung hinzu</a><br>";
         }
-        if (Benutzer::get_logged_in_user()->has_permission("execute_sql")) {
-            echo "<a id='exec_sql' class='button' type='submit' value='Submit'>Führe SQL in der Datenbank aus</a><br>";
-        }
         if (Benutzer::get_logged_in_user()->has_permission("delete_user")) {
-            echo "<a id='del_user' class='button' type='submit' value='Submit'>Benutzer löschen</a><br>";
+            echo "<a id='del_user' class='button alert' type='submit' value='Submit'>Benutzer löschen</a><br>";
+        }
+        if(Benutzer::get_logged_in_user()->has_permission("unblock_user")){
+            echo "<a id='unblock_user' class='button' type='submit' value='Submit'>Benutzer freischalten</a><br>";
         }
         if(Benutzer::get_logged_in_user()->has_permission("sendTestMail")){
             echo '<button class="button" id="sendMail" type="submit">SendMail</button>';

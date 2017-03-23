@@ -6,16 +6,17 @@ if (isset($user_to_show_id)) {
     $user = Benutzer::get_by_id($user_to_show_id);
 }
 
-$connections = $user->get_tutiution_connections(Benutzer::get_logged_in_user());
+$connections = Verbindung::get_by_user_ids(Benutzer::get_logged_in_user()->idBenutzer, $user_to_show_id);
+
 $connections_key_array = Array();
 foreach ($connections as $connection) {
-    $connections_key_array[Fach::get_by_id($connection->idFach)->name] = true;
+    $connections_key_array[$connection->idFach] = $connection;
 }
 
 $anfragen = $user->get_anfragen(Benutzer::get_logged_in_user()->idBenutzer);
 $anfragen_key_array = Array();
 foreach ($anfragen as $anfrage) {
-    $anfragen_key_array[Fach::get_by_id($anfrage->idFach)->name] = true;
+    $anfragen_key_array[Fach::get_by_id($anfrage->idFach)->name] = $anfrage;
 }
 
 $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
@@ -77,7 +78,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 </div>
 
                 <?php
-                if($user_is_me || Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
+                if ($user_is_me || Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
                     echo '<div class="data-label">';
                     $wants = $user->wantsEmails;
                     if ($wants == 1 || $wants == true) {
@@ -120,71 +121,93 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                     <?php
                     if ($user->has_permission("giveClasses")) {
                         $isnot = false;
-                        $first = Benutzer::get_logged_in_user()->get_first_connection();
-                        $first_request;
-                        if($first != false){
-                            $first_request = false;
-                        }
-                        else{
-                            $first_request = Benutzer::get_logged_in_user()->get_first_anfrage();
-                        }
                         foreach ($user->get_offered_subjects() as $subject) {
-                            $name = $subject->name;
+                            $id = $subject->idFach;
 
                             //Check if verbindung and first
-                            if ($first != false && isset($connections_key_array[$name]) && $first->idFach==$subject->idFach) {
+                            if (isset($connections_key_array[$id]) && $connections_key_array[$id]->kostenfrei == true) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label firstConnection\">
-                                <p class=\"center\">$name</p>
+                                <p class=\"center\">$subject->name</p>
                               </div>
                             </div>";
-                            }
-                            //Check if verbindung
-                            else if (isset($connections_key_array[$name])) {
+                            } //Check if verbindung and hasnt got first
+                            else if (isset($connections_key_array[$id]) && $user->get_first_connection() == false) {
+                                //Button for Anfrage
+                                if (!$user_is_me) {
+                                    $isnot = true;
+                                    echo
+                                    "<div class=\"small-6 medium-12 large-4 columns\">
+                              <p type=\"button\" id={$id} name='fachButton' class='labelled success center'>
+                              {$subject->name}
+                              </p>
+                            </div>";
+                                }
+                            } //Check if verbindung
+                            else if (isset($connections_key_array[$id])) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label alert\">
-                                <p class=\"center\">$name</p>
+                                <p class=\"center\">$subject->name</p>
                               </div>
                             </div>";
-                            }
-                            //Check if Anfrage and first
-                            else if ($first_request != false && isset($anfragen_key_array[$name]) && $subject->idFach==$first_request->idFach) {
+                            } //Check if Anfrage and first
+                            else if (isset($anfragen_key_array[$id]) && $anfragen_key_array[$id]->kostenfrei == true) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label firstRequest\">
-                                <p class=\"center\">$name</p>
+                                <p class=\"center\">$subject->name</p>
                               </div>
                             </div>";
-                            }
-
-                            //Check if Anfrage
-                            else if (isset($anfragen_key_array[$name])) {
+                            } //Check if anfrage and hasnt got first
+                            else if (isset($anfragen_key_array[$id]) && $user->get_first_anfrage() == false) {
+                                //Button for Anfrage
+                                if (!$user_is_me) {
+                                    $isnot = true;
+                                    echo
+                                    "<div class=\"small-6 medium-12 large-4 columns\">
+                              <p type=\"button\" id={$id} name='fachButton' class='labelled success center'>
+                              {$subject->name}
+                              </p>
+                            </div>";
+                                }
+                            } //Check if Anfrage
+                            else if (isset($anfragen_key_array[$id])) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label secondary\">
-                                <p class=\"center\">$name</p>
+                                <p class=\"center\">$subject->name</p>
                               </div>
                             </div>";
-                            }
-
-                            //Button for Anfrage
+                            } //Button for Anfrage
                             else if (!$user_is_me) {
                                 $isnot = true;
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
-                              <p type=\"button\" id={$subject->idFach} name='fachButton' class='labelled success center'>
-                              {$name}
+                              <p type=\"button\" id={$id} name='fachButton' class='labelled success center'>
+                              {$subject->name}
                               </p>
                             </div>";
                             } else {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label\">
-                                <p class=\"center\">$name</p>
+                                <p class=\"center\">$subject->name</p>
                               </div>
                             </div>";
+                            }
+                            if($user->get_first_connection() == false){
+                                echo "<input type='hidden' id='{$id}connection' value='false'>";
+                            }
+                            else{
+                                echo "<input type='hidden' id='{$id}connection' value='true'>";
+                            }
+                            if($user->get_first_anfrage() == false){
+                                echo "<input type='hidden' id='{$id}anfrage' value='false'>";
+                            }
+                            else{
+                                echo "<input type='hidden' id='{$id}anfrage' value='true'>";
                             }
                         }
 
@@ -199,7 +222,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                         if ($isnot) {
                             echo "<div class=\"small-12 columns\"><p>Die grün markierten Felder kannst du anklicken, um Nachhilfe in diesem Fach anzufragen!</p></div>";
                         }
-                        if(Benutzer::get_logged_in_user()->get_first_connection() == null && $isnot){
+                        if (Benutzer::get_logged_in_user()->get_first_connection() == null && $isnot) {
                             echo "<div class=\"small-12 columns\"><p>Wenn du doppelt klickst, wählst du das Fach als erstes Fach aus, wodurch du die Stunden nicht bezahlen musst!</p></div>";
                         }
                     }
@@ -245,7 +268,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <div class="row">
                     <div class="small-12 columns">
                         <?php
-                        if($user->has_permission("giveClasses") && count($user->get_all_qualifications()) > 0) {
+                        if ($user->has_permission("giveClasses") && count($user->get_all_qualifications()) > 0) {
                             echo "<h3> Qualifikationen: </h3>";
                         }
                         ?>
@@ -256,7 +279,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                     <?php
                     $quals = $user->get_all_qualifications();
-                    if(isset($quals) && count($quals) > 0) {
+                    if (isset($quals) && count($quals) > 0) {
                         foreach ($quals as $qual) {
                             $name = $qual->name;
                             echo
@@ -282,14 +305,14 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
         <?php
         if ($user_is_me || Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
-                echo '        
+            echo '        
         <div class="row actions">
             <div class="small-12 columns">
                 <a href="' . ConfigStrings::get("root") . "user/" . $user->idBenutzer . "/edit" . '" class="button success" type="submit" value="Submit">Profil bearbeiten</a>
             </div>
         </div>';
-            }
-            if($user_is_me){
+        }
+        if ($user_is_me) {
             echo '        
         <div class="row actions">
             <div class="small-12 columns">
@@ -299,13 +322,12 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
         }
 
 
-
         if (!($user_is_me)) {
 
             echo '
         <div class="row actions">
             <div class="small-12 columns">
-                <a href="' . ConfigStrings::get("root"). "user/" . $user->idBenutzer . "/chatMessagesTo/" . Benutzer::get_logged_in_user()->idBenutzer .  '" class="button" type="submit" value="Submit">Nachricht senden</a>
+                <a href="' . ConfigStrings::get("root") . "user/" . $user->idBenutzer . "/chatMessagesTo/" . Benutzer::get_logged_in_user()->idBenutzer . '" class="button" type="submit" value="Submit">Nachricht senden</a>
             </div>
         </div>';
 
@@ -329,15 +351,14 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
         </div>';
 
             if (Benutzer::get_logged_in_user()->has_permission("blockUser")) {
-                if($user->is_blocked() == "1" || $user->is_blocked() == "true") {
+                if ($user->is_blocked() == "1" || $user->is_blocked() == "true") {
                     echo '
                       <div class="row actions">
                         <div class="small-12 columns">
                           <a id="unblockUserButton" class="button alert" type="submit" value="Submit">Benutzer entblocken</a>
                         </div>
                       </div>';
-                }
-                else{
+                } else {
                     echo '
                       <div class="row actions">
                         <div class="small-12 columns">
@@ -358,10 +379,10 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
         $givenButton = "";
         $takenButton = "";
-        if($user->has_permission("giveClasses")) {
+        if ($user->has_permission("giveClasses")) {
             $givenButton = '<button type="submit" name="action" value="given" class="button" type="submit">PDF für gegebene Stunden generieren</button>';
         }
-        if($user->has_permission("takeClasses")) {
+        if ($user->has_permission("takeClasses")) {
             $takenButton = '<button type="submit" name="action" value="taken" class="button" >PDF für genommene Stunden generieren</a>';
         }
 
@@ -381,7 +402,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
     }
     ?>
 
-    </div>
+</div>
 </div>
 
 

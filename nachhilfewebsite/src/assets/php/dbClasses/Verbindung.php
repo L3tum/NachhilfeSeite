@@ -14,6 +14,7 @@ class Verbindung
     public $idNachhilfelehrer;
     public $idFach;
     public $blockiert;
+    public $kostenfrei;
 
     public function is_first() {
         $stmt = Connection::$PDO->prepare("SELECT * FROM `verbindung` WHERE idVerbindung = (SELECT idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idNehmer ORDER BY idVerbindung ASC LIMIT 1) && idVerbindung = :idVerbindung");
@@ -34,6 +35,14 @@ class Verbindung
         return $stmt->fetch();
     }
 
+    public static function get_by_user_ids($idBenutzer, $idAndererBenutzer){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE (verbindung.idNachhilfelehrer= :idBenutzer OR verbindung.idNachhilfenehmer = :idBenutzer) AND (verbindung.idNachhilfelehrer = :idandererBenutzer OR verbindung.idNachhilfenehmer = :idandererBenutzer)");
+        $stmt->bindParam(':idBenutzer', $idBenutzer);
+        $stmt->bindParam(':idandererBenutzer', $idAndererBenutzer);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
+    }
+
     public static function is_teacher($idBenutzer, $idVerbindung){
         $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idVerbindung = :idVerbindung");
         $stmt->bindParam(':idVerbindung', $idVerbindung);
@@ -49,11 +58,7 @@ class Verbindung
     }
 
     public static function is_first_connection($idVerbindung, $idBenutzer){
-        $idVerbindung2 = Benutzer::get_by_id($idBenutzer)->get_first_connection()->idVerbindung;
-        if($idVerbindung2 == $idVerbindung){
-            return true;
-        }
-        return false;
+        return Verbindung::get_by_id($idVerbindung)->kostenfrei;
     }
 
     public function has_appointments(){

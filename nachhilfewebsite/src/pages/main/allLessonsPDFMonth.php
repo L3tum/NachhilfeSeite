@@ -72,12 +72,12 @@ if ($taken == true) {
                     $tableHeadline = "Lehrer: " . $lehrer->vorname . " " . $lehrer->name;
 
                     if ($hour['kostenfrei'] == 1) {
-                        $kostenlos = "<span style='display: inline;' class='alert'> (Kostenlos)</span>";
+                        $kostenfrei = "<span style='display: inline;' class='alert'> (Kostenlos)</span>";
                     }
                     $entries .= "
         <div class='columns small-12'>
           <h4>" . $tableHeadline . "</h4>
-          <h5>Fach: " . $fach->name . $kostenlos . "</h5>
+          <h5>Fach: " . $fach->name . $kostenfrei . "</h5>
           <table>
             <thead>
                 
@@ -187,12 +187,12 @@ if ($given == true) {
                     $tableHeadline = "Schüler: " . $lehrer->vorname . " " . $lehrer->name;
 
                     if ($hour['kostenfrei'] == 1) {
-                        $kostenlos = "<span style='display: inline;' class='alert'> (Kostenlos)</span>";
+                        $kostenfrei = "<span style='display: inline;' class='alert'> (Kostenlos)</span>";
                     }
                     $entries .= "
         <div class='columns small-12'>
           <h4>" . $tableHeadline . "</h4>
-          <h5>Fach: " . $fach->name . $kostenlos . "</h5>
+          <h5>Fach: " . $fach->name . $kostenfrei . "</h5>
           <table>
             <thead>
                 

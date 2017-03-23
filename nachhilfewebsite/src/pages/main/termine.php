@@ -19,7 +19,7 @@ if ($user->has_permission("takeClasses")) {
     $appointments2 = $user->get_all_appointments_as_pupil(0);
     $appointments4 = $user->get_all_appointments_as_pupil(1);
 }
-$today = date("d.m.Y H:i:s");
+$today = date("Y-m-d");
 ?>
 
 <div class="row main">
@@ -60,7 +60,7 @@ $today = date("d.m.Y H:i:s");
                 if (isset($appointments1) && !empty($appointments1)) {
                     $set = true;
                     foreach ($appointments1 as $appointment) {
-                        $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
+                        $date = date('Y-m-d', strtotime($appointment['datum']));
 
 
                         echo "<tr><td>Du</td><td>{$appointment['vorname']} {$appointment['name']}</td><td>{$appointment['fachName']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
@@ -122,7 +122,7 @@ $today = date("d.m.Y H:i:s");
                 if (isset($appointments2) && !empty($appointments2)) {
                     foreach ($appointments2 as $appointment) {
                         $connection = Verbindung::is_first_connection($appointment['idVerbindung'], Benutzer::get_logged_in_user()->idBenutzer);
-                        $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
+                        $date = date('Y-m-d', strtotime($appointment['datum']));
 
                         echo "<tr><td>{$appointment['vorname']} {$appointment['name']}</td><td>Du</td><td>{$appointment['fachName']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
                         if ($appointment['bestaetigtSchueler'] == 0) {
@@ -223,7 +223,7 @@ $today = date("d.m.Y H:i:s");
                 if (isset($appointments3) && !empty($appointments3)) {
                     $set = true;
                     foreach ($appointments3 as $appointment) {
-                        $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
+                        $date = date('Y-m-d', strtotime($appointment['datum']));
 
                         if ($date < $today && $appointment['akzeptiert'] == 0) {
                             Stunde::deleteStunde($appointment['idStunde']);
@@ -291,7 +291,7 @@ $today = date("d.m.Y H:i:s");
                 if (isset($appointments4) && !empty($appointments4)) {
                     foreach ($appointments4 as $appointment) {
                         $connection = Verbindung::is_first_connection($appointment['idVerbindung'], Benutzer::get_logged_in_user()->idBenutzer);
-                        $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
+                        $date = date('Y-m-d', strtotime($appointment['datum']));
                         if ($date < $today && $appointment['akzeptiert'] == 0) {
                             Stunde::deleteStunde($appointment['idStunde']);
                             Benachrichtigung::add($appointment['idNachhilfelehrer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!", true);

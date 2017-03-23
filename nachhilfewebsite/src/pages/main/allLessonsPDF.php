@@ -88,16 +88,16 @@ foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung') as $verbindung) {
     $stmt->bindParam(':month', $month);
     $stmt->execute();
 
-    $kostenlos = "";
+    $kostenfrei = "";
 
     if ($taken_lessons) {
         if ($firstCon->idVerbindung == $verbindung->idVerbindung) {
-            $kostenlos = " <span style='display: inline;' class='alert'>(Kostenlos)</span>";
+            $kostenfrei = " <span style='display: inline;' class='alert'>(Kostenlos)</span>";
         }
     } else {
         if ($verbindung->is_first()) {
 
-            $kostenlos = " <span style='display: inline;' class='alert'>(Kostenlos)</span>";
+            $kostenfrei = " <span style='display: inline;' class='alert'>(Kostenlos)</span>";
         }
     }
 
@@ -105,7 +105,7 @@ foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung') as $verbindung) {
     $entries .= "
         <div class='columns small-12'>
           <h4>" . $tableHeadline . "</h4>
-          <h5>Fach: " . $fach->name . $kostenlos . "</h5>
+          <h5>Fach: " . $fach->name . $kostenfrei . "</h5>
           <table>
             <thead>
                 

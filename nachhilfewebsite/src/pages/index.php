@@ -226,6 +226,10 @@ Route::add('spdf/(.+)', function($param){
     include 'main/allLessonsPDFMonth.php';
 });
 
+Route::add('credits', function(){
+    include 'special/credits.php';
+});
+
 
 Route::run();
 //print_r($_SERVER);

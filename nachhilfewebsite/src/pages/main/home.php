@@ -42,7 +42,7 @@
         <p> 1. Drücke auf "Suche" und suche nach einem Nachhilfelehrer.</p>
         <p> 2. Rufe das Profil dieser Person auf. </p>
         <p> 3. Wähle die Fächer aus, in denen du Nachhilfe beantragen möchtest.</p>
-        <p> 4. Mit Doppelklick wählst du das Fach aus, das kostenlos sein wird.</p>
+        <p> 4. Mit Doppelklick wählst du das Fach aus, das kostenfrei sein wird.</p>
         <p> 5. Drücke auf "Nachhilfe anfragen". </p>
         <p> 6. Eine Anfrage wird an den Lehrer geschickt. </p>
         <p> 7. Sobald die Anfrage angenommen wurde, bekommst du eine Benachrichtigung sowie eine Email. </p>

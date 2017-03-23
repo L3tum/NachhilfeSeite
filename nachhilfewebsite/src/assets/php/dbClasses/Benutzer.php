@@ -401,14 +401,14 @@ verbindung as v ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t2 ON t2.i
     }
 
     public function get_first_connection() {
-        $stmt = Connection::$PDO->prepare("SELECT * FROM `verbindung` WHERE idVerbindung = (SELECT idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idNehmer ORDER BY idVerbindung ASC LIMIT 1)");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM `verbindung` WHERE verbindung.idNachhilfenehmer = :idNehmer AND verbindung.kostenfrei = 1 ORDER BY idVerbindung ASC LIMIT 1)");
         $stmt->bindParam(':idNehmer', $this->idBenutzer);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
         return $stmt->fetch();
     }
     public function get_first_anfrage() {
-        $stmt = Connection::$PDO->prepare("SELECT * FROM `anfrage` WHERE idAnfrage = (SELECT idAnfrage FROM anfrage WHERE idSender = :idNehmer ORDER BY idAnfrage ASC LIMIT 1)");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM `anfrage` WHERE idSender = :idNehmer AND kostenfrei = 1 ORDER BY idAnfrage ASC LIMIT 1)");
         $stmt->bindParam(':idNehmer', $this->idBenutzer);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Anfrage');
