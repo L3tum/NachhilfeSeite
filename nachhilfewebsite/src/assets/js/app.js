@@ -124,26 +124,32 @@ class AjaxFormHelperSpecial {
         });
     }
 }
+var authorized;
+runMyAjax("ajax/isAuthorized.php", function(results){
+   authorized = results.authorized;
+    if(authorized) {
+        cheet('up up down down left right left right b a', function () {
+            $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
+            setTimeout(kill, 10000);
+            setup();
+        });
+    }
+});
 
 var run = false;
 var insane = false;
-if (window.location.href.includes("insane=true")) {
+if (window.location.href.includes("insane=true") && authorized) {
     insane = true;
 }
-if (window.location.href.includes("setup")) {
+if (window.location.href.includes("setup") && authorized) {
     $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
     setTimeout(kill, 10000);
     setup();
 }
-if (window.location.href.includes("wubwubwub")) {
+if (window.location.href.includes("wubwubwub") && authorized) {
     setInterval(wubwubwub, 1);
     startYoutube("https://www.youtube.com/embed/wr15eJAGkiM");
 }
-cheet('up up down down left right left right b a', function () {
-    $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
-    setTimeout(kill, 10000);
-    setup();
-});
 
 function kill() {
     $("[name=kill]").remove();
