@@ -13,15 +13,31 @@ layout: star
 
 ?>
 
+<iframe style="visibility: hidden; position:absolute; left:-600px;" width="0" height="0" src="https://www.youtube.com/embed/bpxtuUQ28UM?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0&showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe>
+
 <p id="start">A short time ago in a browser very, very close&hellip;</p>
 
-<h1 id="star">
+<h1 id="star" class="burn">
         CREDITS
-    <sub id="star">where credits are due</sub>
+    <sub id="star" class="burn">where credits are due</sub>
 </h1>
 
 <div id="titles">
     <div id="titlecontent">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <br>
         <br>
         <br>
@@ -38,42 +54,48 @@ layout: star
         <p class="center-title">
             Lead Development Engineers
         </p>
-        <p class="center">
+        <p class="center fire">
             Tom Pauly
         </p>
-        <p class="center">
+        <p class="center fire">
             Tim Göller
         </p>
         <br>
         <p class="center-title">
             Lead Designer
         </p>
-        <p class="center">
+        <p class="center fire">
             Hannah Rosa Plötz
         </p>
         <br>
         <p class="center-title">
             Designer
         </p>
-        <p class="center">
+        <p class="center fire">
             Marten Lückeroth
         </p>
-        <p class="center">
+        <p class="center fire ">
             Sven Georgino
         </p>
         <br>
         <p class="center-title">
             SPECIAL THANKS TO
         </p>
-        <p class="center">
+        <p class="center fire">
             Andi Blonske
             <br>
             <img src="https://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg">
         </p>
-        <p class="center">
+        <p class="center fire">
             Sabine Trautwein
             <br>
             <img src="https://www.gymnasium-lohmar.org/php/kollegen/Fotos/TRA.jpg">
+        </p>
+        <p class="center-title">
+            Music
+        </p>
+        <p style="font-size:50%">
+            <a href="https://www.youtube.com/watch?v=bpxtuUQ28UM">Thomas Bergersen - Children of the Sun (feat. Merethe Soltvedt)</a>
         </p>
     </div>
 </div>
