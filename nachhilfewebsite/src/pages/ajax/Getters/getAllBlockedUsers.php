@@ -14,7 +14,7 @@ include_once __DIR__ . "/../../assets/php/general/AjaxFormHelper.php";
 include_once __DIR__ . "/../../assets/php/dbClasses/Benutzer.php";
 
 $form_helper = new AjaxFormHelper();
-$stmt = Connection::$PDO->prepare("SELECT * FROM benutzer WHERE blockiert=1");
+$stmt = Connection::$PDO->prepare("SELECT * FROM benutzer WHERE gesperrt=1");
 $stmt->execute();
 $form_helper->response['users'] = $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');
 $form_helper->success = true;

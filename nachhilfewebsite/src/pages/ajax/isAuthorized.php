@@ -17,10 +17,11 @@ include_once __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
 $form_helper = new AjaxFormHelper();
 
 $current = Benutzer::get_logged_in_user();
-if($current != false && $current->name=="Pauly" && $current->vorname=="Tom"){
+if(isset($current) && $current != false && $current->name=="Pauly" && $current->vorname=="Tom"){
     $form_helper->response['authorized'] = true;
 }
 else{
     $form_helper->response['authorized'] = false;
 }
+$form_helper->success = true;
 $form_helper->return_json();

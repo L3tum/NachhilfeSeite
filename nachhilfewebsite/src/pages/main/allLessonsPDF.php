@@ -46,13 +46,13 @@ class PDF extends FPDF
 
 $user = Benutzer::get_by_id($id);
 
-
+$date = date("m.Y", strtotime($month));
 
 if($taken_lessons) {
-    $header = "Von {$user->vorname} {$user->name} genommene Stunden {$month}";
+    $header = "Von {$user->vorname} {$user->name} genommene Stunden {$date}";
 }
 else {
-    $header = "Von {$user->vorname} {$user->name} gegebene Stunden {$month}";
+    $header = "Von {$user->vorname} {$user->name} gegebene Stunden {$date}";
 }
 
 $entries = "";

@@ -7,6 +7,9 @@
         if (Benutzer::get_logged_in_user()->has_permission("registerNewUser")) {
             echo "<a id='register_new_user' class='button' type='submit' value='Submit'>Registriere neuen Benutzer</a><br>";
         }
+        if(Benutzer::get_logged_in_user()->has_permission("addUser")){
+            echo "<a id='add_user' class='button' type='submit' value='Submit'>Füge einen neuen Benutzer hinzu</a><br>";
+        }
         if (Benutzer::get_logged_in_user()->has_permission("addNewSubject")) {
             echo "<a id='add_subject' class='button' type='submit' value='Submit'>Füge ein Fach hinzu</a><br>";
         }

@@ -14,7 +14,7 @@ class Stufe
 
     public static function get_all_years()
     {
-        $stmt = Connection::$PDO->prepare("SELECT * FROM Stufe");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM stufe");
         $stmt->execute();
         $user = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stufe');
         return $user;

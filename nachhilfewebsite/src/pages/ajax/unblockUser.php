@@ -19,9 +19,6 @@ $form_helper = new AjaxFormHelper();
 if(Benutzer::get_logged_in_user()->has_permission("unblockUser")) {
     $stmt = Connection::$PDO->prepare("UPDATE benutzer SET benutzer.gesperrt=0 WHERE benutzer.idBenutzer=".intval($_POST['user']));
     $stmt->execute();
-    $form_helper->response['name'] = Benutzer::get_by_id($_POST['user'])->vorname. " ".Benutzer::get_by_id($_POST['user'])->name;
-    $form_helper->success = true;
-    $form_helper->return_json();
     $conns = Benutzer::get_by_id($_POST['user'])->get_all_tutiution_connections();
     if($conns != null){
         foreach ($conns as $conn){
@@ -29,6 +26,9 @@ if(Benutzer::get_logged_in_user()->has_permission("unblockUser")) {
             Stunde::unblock_appos_connection($conn->idVerbindung);
         }
     }
+    $form_helper->response['name'] = Benutzer::get_by_id($_POST['user'])->vorname. " ".Benutzer::get_by_id($_POST['user'])->name;
+    $form_helper->success = true;
+    $form_helper->return_json();
 }
 else{
     $form_helper->return_error("Keine Zugriffrechte!");

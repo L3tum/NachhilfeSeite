@@ -13,7 +13,7 @@ layout: star
 
 ?>
 
-<iframe style="visibility: hidden; position:absolute; left:-600px;" width="0" height="0" src="https://www.youtube.com/embed/bpxtuUQ28UM?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0&showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe>
+<iframe style="visibility: hidden; position:absolute; left:-600px;" width="0" height="0" src="https://www.youtube.com/embed/bpxtuUQ28UM?autoplay=1&loop=1&vq=small&rel=0&showinfo=0&controls=0" frameborder="0"></iframe>
 
 <p id="start">A short time ago in a browser very, very close&hellip;</p>
 
@@ -52,7 +52,7 @@ layout: star
         <br>
         <br>
         <p class="center-title">
-            Lead Development Engineers
+            Lead Programmer
         </p>
         <p class="center fire">
             Tom Pauly
@@ -67,16 +67,13 @@ layout: star
         <p class="center fire">
             Hannah Rosa Plötz
         </p>
-        <br>
-        <p class="center-title">
-            Designer
-        </p>
         <p class="center fire">
             Marten Lückeroth
         </p>
         <p class="center fire ">
             Sven Georgino
         </p>
+        <br>
         <br>
         <p class="center-title">
             SPECIAL THANKS TO

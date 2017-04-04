@@ -16,7 +16,7 @@ class Fach
     public static function get_by_id($id) {
 
         if(isset($id)) {
-            $stmt = Connection::$PDO->prepare("SELECT * FROM Fach WHERE idFach = :idFach");
+            $stmt = Connection::$PDO->prepare("SELECT * FROM fach WHERE idFach = :idFach");
             $stmt->bindParam(':idFach', $id);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Fach');

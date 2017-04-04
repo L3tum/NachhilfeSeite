@@ -6,6 +6,7 @@ layout: noLayout
 include_once  __DIR__ . "/../../assets/php/dbClasses/Benutzer.php";
 include_once  __DIR__ . "/../../assets/php/general/AjaxFormHelper.php";
 include_once  __DIR__ . "/../../assets/php/general/Connection.php";
+include_once  __DIR__ . "/../../assets/php/general/tldextract.php";
 
 $form_helper = new AjaxFormHelper();
 
@@ -34,6 +35,16 @@ else if($user->emailActivated == false) {
     $form_helper->return_error("Sie haben ihre Email-Adresse noch nicht bestätigt!");
 }
 
+//session_name("GymloNachhilfe");
+//$url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+//var_dump($url);
+//$components = tldextract($url);
+
+//var_dump((string)$components->domain);
+//$real_host = (string)$components->domain . "." . (string)$components->tld;
+
+//session_set_cookie_params(0, "/", "." . $real_host, false, false);
+//var_dump(session_id());
 //Set the session id
 $user->log_in();
 

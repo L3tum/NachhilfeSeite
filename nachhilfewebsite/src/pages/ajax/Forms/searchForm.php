@@ -17,11 +17,36 @@ include_once  __DIR__ . "/../../assets/php/general/ConfigStrings.php";
 include_once  __DIR__ . "/../../assets/php/general/Route.php";
 
 $form_helper = new AjaxFormHelper();
-$vorname = $form_helper->test_search_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß ]{1,25}$/", "Vorname");
-$nachname = $form_helper->test_search_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß ]{1,25}$/", "Nachname");
-$fach = $form_helper->test_numeric($_POST['faecher']);
-$stufe = $form_helper->test_numeric($_POST['stufen']);
-$rolle = $form_helper->test_numeric($_POST['rollen']);
+if(isset($_POST['vorname'])) {
+    $vorname = $form_helper->test_search_string($_POST['vorname'], "/^[a-zA-ZÄÖÜäöüß ]{1,25}$/", "Vorname");
+}
+else{
+    $vorname = null;
+}
+if(isset($_POST['nachname'])) {
+    $nachname = $form_helper->test_search_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöüß ]{1,25}$/", "Nachname");
+}
+else{
+    $nachname = null;
+}
+if(isset($_POST['faecher'])) {
+    $fach = $form_helper->test_numeric($_POST['faecher']);
+}
+else{
+    $fach = null;
+}
+if(isset($_POST['stufen'])) {
+    $stufe = $form_helper->test_numeric($_POST['stufen']);
+}
+else{
+    $stufe = null;
+}
+if(isset($_POST['rollen'])) {
+    $rolle = $form_helper->test_numeric($_POST['rollen']);
+}
+else{
+    $rolle = null;
+}
 $sorting = $_POST['sort'];
 $ascDesc = $_POST['ascDesc'];
 
@@ -29,24 +54,20 @@ $otherTable = "JOIN angeboteneStufe AS t2 ON t2.idBenutzer=t1.idBenutzer JOIN st
 $otherTable2= "JOIN angebotenesFach AS t4 ON t4.idBenutzer=t1.idBenutzer JOIN fach AS t5 ON t5.idFach=t4.idFach ";
 $otherTable3= "JOIN rolle AS t6 ON t6.idRolle=t1.idRolle ";
 
-$firstParam = " t1.vorname LIKE ".$vorname;
-$secondParam = " AND t1.name LIKE ".$nachname;
-$thirdParam = " AND t2.idStufe = ".$stufe;
-$fourthParam = " AND t4.idFach = ".$fach;
-$fifthParam = " AND t6.idRolle = ".$rolle;
-
-$newUrl = Route::get_root();
+$newUrl = Route::get_root_forms();
 $newUrl = $newUrl."suche/?";
 if($vorname == null){
     $firstParam = " t1.vorname = t1.vorname";
 }
 else{
+    $firstParam = " t1.vorname LIKE ".$vorname;
     $newUrl = $newUrl."vorname=".$_POST['vorname']."&";
 }
 if($nachname == null){
     $secondParam = " AND t1.name = t1.name";
 }
 else{
+    $secondParam = " AND t1.name LIKE ".$nachname;
     $newUrl = $newUrl."name=".$_POST['nachname']."&";
 }
 if($stufe == null){
@@ -54,6 +75,7 @@ if($stufe == null){
     $thirdParam = "";
 }
 else{
+    $thirdParam = " AND t2.idStufe = ".$stufe;
     $newUrl = $newUrl."stufe=".$fach."&";
 }
 if($fach == null){
@@ -61,12 +83,15 @@ if($fach == null){
     $fourthParam = "";
 }
 else{
+    $fourthParam = " AND t4.idFach = ".$fach;
     $newUrl = $newUrl."fach=".$stufe."&";
 }
 if($rolle == null){
     $fifthParam = "";
 }
 else{
+
+    $fifthParam = " AND t6.idRolle = ".$rolle;
     $newUrl = $newUrl."rolle=".$rolle."&";
 }
 if($sorting != "no"){

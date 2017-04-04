@@ -29,7 +29,12 @@ class Route{
         }else{
             self::$path = '';
         }*/
-        self::$path = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        if(isset($_SERVER['HTTPS'])){
+            self::$path = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        }
+        else{
+            self::$path = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        }
     }
 
     public static function add($expression,$function){
@@ -103,14 +108,28 @@ class Route{
     public static function redirect_to_root() {
         $host  = $_SERVER['HTTP_HOST'];
         $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-        header("Location: http://$host$uri/");
+        header("Location: ".self::get_root_http_https($host, $uri));
         exit();
     }
 
     public static function get_root(){
         $host  = $_SERVER['HTTP_HOST'];
         $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/ajax');
-        return "http://$host$uri/";
+        return self::get_root_http_https($host, $uri);
+    }
+    public static function get_root_forms(){
+        $host  = $_SERVER['HTTP_HOST'];
+        $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/ajax/Forms');
+        return self::get_root_http_https($host, $uri);
+    }
+
+    public static function get_root_http_https($host, $uri){
+        if(isset($_SERVER['HTTPS'])) {
+            return "https://$host$uri/";
+        }
+        else{
+            return "http://$host$uri/";
+        }
     }
     
 }

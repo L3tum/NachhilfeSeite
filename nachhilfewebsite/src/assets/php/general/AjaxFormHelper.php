@@ -7,9 +7,14 @@
  * Time: 20:16
  */
 
+session_start();
+header('Set-Cookie: "PHPSESSID' . session_id() . ';path=/"');
+
 include_once __DIR__ . "/Connection.php";
-include_once  __DIR__ . "/../dbClasses/Benutzer.php";
-include_once  __DIR__ . "/../PHPMailer/PHPMailerAutoload.php";
+include_once __DIR__ . "/tldextract.php";
+include_once __DIR__ . "/../dbClasses/Benutzer.php";
+include_once __DIR__ . "/../PHPMailer/PHPMailerAutoload.php";
+
 class AjaxFormHelper
 {
 
@@ -17,24 +22,33 @@ class AjaxFormHelper
     public $response = Array();
     public $success;
 
-    function __construct() {
+    function __construct()
+    {
 
         $this->set_up_defaults();
 
     }
 
-    public function set_up_defaults() {
+    public function set_up_defaults()
+    {
 
         //Connect to database
-        if(!Connection::connect(false)) {
+        if (!Connection::connect(false)) {
             $this->return_error("Keine Verbindung zur Datenbank!");
         }
-        //Start the session to do account related things
-        session_start();
+
+
+//var_dump($real_host);
+        //session_name("GymloNachhilfe");
+        //session_set_cookie_params(0, "/", "." . $real_host, false, false);
+        //session_start();
+		$_SESSION['ayyylmao'] = "1";
+				//var_dump(session_id());
     }
 
     //return an error message and success false
-    public function return_error($text) {
+    public function return_error($text)
+    {
 
         $this->success = false;
         $this->response['errorReason'] = $text;
@@ -42,7 +56,8 @@ class AjaxFormHelper
     }
 
     //return the current response array as json
-    public function return_json() {
+    public function return_json()
+    {
 
         $this->response['success'] = $this->success;
         echo json_encode($this->response);
@@ -50,52 +65,54 @@ class AjaxFormHelper
     }
 
     //Check if the string is set and if it matches the regex pattern. Real name is a human readable name of the variable.
-    public function test_string($string, $pattern, $realname) {
+    public function test_string($string, $pattern, $realname)
+    {
 
-        if(isset($string)) {
-            if(!preg_match($pattern, $string)) {
+        if (isset($string)) {
+            if (!preg_match($pattern, $string)) {
                 $this->return_error($realname . " entspricht nicht den Kritierien!");
             }
             return $string;
-        }
-        else {
+        } else {
             $this->return_error($realname . " ist nicht gesetzt!");
         }
 
     }
 
     //Check if string exists and matches pattern, otherwise just null. Easier for search form
-    public function test_search_string($string, $pattern, $realname){
+    public function test_search_string($string, $pattern, $realname)
+    {
         $string = trim($string, '\'');
-        if(isset($string)) {
-            if(!preg_match($pattern, $string)) {
+        if (isset($string)) {
+            if (!preg_match($pattern, $string)) {
                 return null;
             }
-            return "'%".$string."%'";
-        }
-        else {
+            return "'%" . $string . "%'";
+        } else {
             return null;
         }
     }
 
-    public function test_numeric($number){
+    public function test_numeric($number)
+    {
         $number = trim($number, '\'');
-        if(is_numeric($number)){
+        if (is_numeric($number)) {
             return $number;
         }
         return null;
     }
 
-    public function get_user_by_external_id($id) {
-        if(!ctype_digit($id)) {
+    public function get_user_by_external_id($id)
+    {
+        if (!ctype_digit($id)) {
             $this->return_error("Interner Fehler: ID ist keine Zahl");
-        }
-        else {
+        } else {
             return Benutzer::get_by_id($id);
         }
     }
 
-    public function send_mail($email, $subject, $body) {
+    public function send_mail($email, $subject, $body)
+    {
         //Send mail using gmail
         $mail = new PHPMailer();
         $mail->CharSet = 'UTF-8';
@@ -113,9 +130,9 @@ class AjaxFormHelper
         $mail->Subject = $subject;
         $mail->Body = $body;
 
-        try{
+        try {
             $this->return_error($mail->Send());
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return_error("Email konnte nicht gesendet werden!");
         }
     }

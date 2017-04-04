@@ -1,7 +1,6 @@
 ---
 layout: noLayout
 ---
-
 <?php
 /**
  * Created by PhpStorm.
@@ -9,106 +8,130 @@ layout: noLayout
  * Date: 07.12.2016
  * Time: 21:03
  */
+//include_once "seite1.php";
+@session_start();
+header('Set-Cookie: "PHPSESSID' . session_id() . ';path=/"');
+ob_end_flush();
 
-include_once  "assets/php/general/ConfigStrings.php";
-include_once  "assets/php/general/Route.php";
-include_once  "assets/php/general/Connection.php";
-include_once  __DIR__ . "/assets/php/dbClasses/Benutzer.php";
-include_once  __DIR__ . "/assets/php/dbClasses/Rolle.php";
-include_once  __DIR__ . "/assets/php/dbClasses/Berechtigung.php";
+include_once __DIR__ . "/assets/php/general/ConfigStrings.php";
+include_once __DIR__ . "/assets/php/general/Route.php";
+include_once __DIR__ . "/assets/php/general/Connection.php";
+include_once __DIR__ . "/assets/php/dbClasses/Benutzer.php";
+include_once __DIR__ . "/assets/php/dbClasses/Rolle.php";
+include_once __DIR__ . "/assets/php/dbClasses/Berechtigung.php";
+include_once __DIR__ . "/assets/php/general/tldextract.php";
+
+
+
 
 $root = ConfigStrings::get("root");
-if(!isset($root)) {
-    $host  = $_SERVER['HTTP_HOST'];
-    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $root = "http://$host$uri/";
+if (!isset($root)) {
+    $host = $_SERVER['HTTP_HOST'];
+    $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    if (isset($_SERVER['HTTPS'])) {
+        $root = "https://$host$uri/";
+    } else {
+        $root = "http://$host$uri/";
+    }
     ConfigStrings::set("root", $root);
 }
 
+//echo "INDEX_ID: " . session_id();
+//var_dump(session_get_cookie_params());
+//var_dump(phpinfo(-1));
 
-session_start();
 
-if(!Connection::connect(true)) {
+if (!Connection::connect(true)) {
     exit;
 }
 
 $logged_in_user = Benutzer::get_logged_in_user();
 
-if(!$logged_in_user) {
+/*
+if($logged_in_user != false) {
+    var_dump("Currently: " . $logged_in_user->name);
+}
+else{
+    var_dump("Currently: None");
+}
+*/
+if (!$logged_in_user) {
     include "special/welcome.php";
     exit;
 }
 
 Route::init();
 
-Route::add404(function(){
+Route::add404(function () {
 
     Route::redirect_to_root();
-    
+
 
 });
 
 
-Route::add('($setup)*(insane=true)*',function($param = 0, $param2 = 0){
+Route::add('($setup)*(insane=true)*', function ($param = 0, $param2 = 0) {
 
 
     include "main/home.php";
-    
+
 });
 
-Route::add('logout',function(){
+Route::add('home', function(){
+    include "main/home.php";
+});
+
+Route::add('logout', function () {
 
     Benutzer::get_logged_in_user()->log_out();
     Route::redirect_to_root();
 });
 
-Route::add('user/(.+)/edit',function($id){
+Route::add('user/(.+)/edit', function ($id) {
     //Do something
     $user_to_edit_id = $id;
-    if($user_to_edit_id == Benutzer::get_logged_in_user()->idBenutzer || Benutzer::get_logged_in_user()->has_permission("editEveryUser")) {
+    if ($user_to_edit_id == Benutzer::get_logged_in_user()->idBenutzer || Benutzer::get_logged_in_user()->has_permission("editEveryUser")) {
         include 'main/editUser.php';
-    }
-    else {
+    } else {
         Route::redirect_to_root();
     }
 
 });
 
-Route::add('user/(.+)/pdf/taken/(.+)',function($id, $year){
+Route::add('user/(.+)/pdf/taken/(.+)', function ($id, $month) {
     //Do something
     $taken_lessons = true;
     include 'main/allLessonsPDF.php';
 
 });
 
-Route::add('user/(.+)/pdf/given/(.+)',function($id, $month){
+Route::add('user/(.+)/pdf/given/(.+)', function ($id, $month) {
     //Do something
     $taken_lessons = false;
     include 'main/allLessonsPDF.php';
 
 });
 
-Route::add('user/(.+)/view',function($id){
+Route::add('user/(.+)/view', function ($id) {
     //Do something
     $user_to_show_id = $id;
     include 'main/showUser.php';
 });
 
 
-Route::add('noDB',function(){
+Route::add('noDB', function () {
     //Do something
     include "special/noDBConnection.php";
 });
 
 
-
-Route::add('suche/?\??(.*)',function($param1 = null){
+Route::add('suche/?\??(.*)', function ($param1 = null) {
     //Do something
-    if(isset($param1)){
+    if (isset($param1)) {
         $params = explode('&', $param1);
-        foreach ($params as $param){
+        foreach ($params as $param) {
             $arr = explode('=', $param);
-            switch($arr[0]){
+            switch ($arr[0]) {
                 case 'vorname':
                     $vorname_sel = $arr[1];
                     break;
@@ -135,89 +158,85 @@ Route::add('suche/?\??(.*)',function($param1 = null){
     include 'main/search.php';
 });
 
-Route::add('notifications',function(){
+Route::add('notifications', function () {
     //Do something
     include 'main/notifications.php';
 });
 
-Route::add('user/(.*)/chatMessagesTo/(.*)',function($id_sender, $id_reciever){
+Route::add('user/(.*)/chatMessagesTo/(.*)', function ($id_sender, $id_reciever) {
 
     include 'main/viewChatMessages.php';
 });
 
-Route::add('admin', function(){
+Route::add('admin', function () {
     include 'main/administrator.php';
 });
 
-Route::add('tuition', function(){
+Route::add('tuition', function () {
     include 'main/tuition.php';
 });
 
-Route::add('role/(.+)/edit', function($param){
-    if(Benutzer::get_logged_in_user()->has_permission("editRole")) {
-        if(!Benutzer::get_logged_in_user()->has_permission("elevated_administrator") && Rolle::get_by_id($param)->has_right(Berechtigung::get_by_name("administrator"))){
+Route::add('role/(.+)/edit', function ($param) {
+    if (Benutzer::get_logged_in_user()->has_permission("editRole")) {
+        if (!Benutzer::get_logged_in_user()->has_permission("elevated_administrator") && Rolle::get_by_id($param)->has_right(Berechtigung::get_by_name("administrator"))) {
             Route::redirect_to_root();
         }
         $idRole = $param;
         include 'main/editRole.php';
-    }
-    else{
+    } else {
         Route::redirect_to_root();
     }
 });
 
-Route::add('role/(.+)/view', function($param){
-    if(Benutzer::get_logged_in_user()->has_permission("viewRole")) {
+Route::add('role/(.+)/view', function ($param) {
+    if (Benutzer::get_logged_in_user()->has_permission("viewRole")) {
         $idRole = $param;
         include 'main/viewRole.php';
-    }
-    else{
+    } else {
         Route::redirect_to_root();
     }
 });
 
-Route::add('role/add', function(){
-    if(Benutzer::get_logged_in_user()->has_permission("addRole")){
+Route::add('role/add', function () {
+    if (Benutzer::get_logged_in_user()->has_permission("addRole")) {
         include 'main/addRole.php';
-    }
-    else{
+    } else {
         Route::redirect_to_root();
     }
 });
 
-Route::add('termine', function(){
-    if(Benutzer::get_logged_in_user()->has_permission("termine")){
+Route::add('termine', function () {
+    if (Benutzer::get_logged_in_user()->has_permission("termine")) {
         include 'main/termine.php';
-    }
-    else{
+    } else {
         Route::redirect_to_root();
     }
 });
 
-Route::add('appointment', function(){
-   include 'main/appointment.php';
+Route::add('appointment', function () {
+    include 'main/appointment.php';
 });
 
-Route::add('verifyEmail/(.+)', function($hash){
+Route::add('verifyEmail/(.+)', function ($hash) {
     include 'special/verifyEmail.php';
 
 });
 
-Route::add('spdf/(.+)', function($param){
+Route::add('spdf/(.+)', function ($param) {
     $params = explode('/', $param);
     $taken = false;
     $given = false;
-    switch($params[0]){
-        case "all":{
+    switch ($params[0]) {
+        case "all": {
             $taken = true;
             $given = true;
             break;
         }
-        case "taken":{
+        case "taken": {
             $taken = true;
             break;
         }
-        case "given":{
+        case "given": {
             $given = true;
             break;
         }
@@ -226,11 +245,14 @@ Route::add('spdf/(.+)', function($param){
     include 'main/allLessonsPDFMonth.php';
 });
 
-Route::add('credits', function(){
+Route::add('credits', function () {
     include 'special/credits.php';
+});
+Route::add('goodcredits', function () {
+    include 'main/goodCredits.php';
 });
 
 
 Route::run();
 //print_r($_SERVER);
-    ?>
+?>

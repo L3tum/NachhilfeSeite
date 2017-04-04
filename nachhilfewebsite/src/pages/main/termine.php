@@ -29,11 +29,11 @@ $today = date("Y-m-d");
                 <h2 class="text-left">Anstehende Termine</h2>
             </div>
         </div>
-        <div class="result-boxes-inner appointments">
-            <br>
-            <a class="button success" href="<?php echo ConfigStrings::get("root") . "appointment" ?>">Termin
-                vereinbaren</a>
-            <br>
+        <br>
+        <a class="button success" href="<?php echo ConfigStrings::get("root") . "appointment" ?>">Termin
+            vereinbaren</a>
+        <br>
+        <div class="result-boxes-inner search">
             <table id="tableTermine">
                 <thead>
                 <tr>
@@ -60,7 +60,7 @@ $today = date("Y-m-d");
                 if (isset($appointments1) && !empty($appointments1)) {
                     $set = true;
                     foreach ($appointments1 as $appointment) {
-                        $date = date('Y-m-d', strtotime($appointment['datum']));
+                        $date = date('d.m.Y', strtotime($appointment['datum']));
 
 
                         echo "<tr><td>Du</td><td>{$appointment['vorname']} {$appointment['name']}</td><td>{$appointment['fachName']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
@@ -122,7 +122,7 @@ $today = date("Y-m-d");
                 if (isset($appointments2) && !empty($appointments2)) {
                     foreach ($appointments2 as $appointment) {
                         $connection = Verbindung::is_first_connection($appointment['idVerbindung'], Benutzer::get_logged_in_user()->idBenutzer);
-                        $date = date('Y-m-d', strtotime($appointment['datum']));
+                        $date = date('d.m.Y', strtotime($appointment['datum']));
 
                         echo "<tr><td>{$appointment['vorname']} {$appointment['name']}</td><td>Du</td><td>{$appointment['fachName']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
                         if ($appointment['bestaetigtSchueler'] == 0) {
@@ -195,7 +195,7 @@ $today = date("Y-m-d");
                 <h2 class="text-left">Abgelaufene Termine</h2>
             </div>
         </div>
-        <div class="result-boxes-inner appointments">
+        <div class="result-boxes-inner search">
             <br>
             <table id="tableTermine">
                 <thead>
@@ -223,7 +223,7 @@ $today = date("Y-m-d");
                 if (isset($appointments3) && !empty($appointments3)) {
                     $set = true;
                     foreach ($appointments3 as $appointment) {
-                        $date = date('Y-m-d', strtotime($appointment['datum']));
+                        $date = date('d.m.Y', strtotime($appointment['datum']));
 
                         if ($date < $today && $appointment['akzeptiert'] == 0) {
                             Stunde::deleteStunde($appointment['idStunde']);
@@ -291,7 +291,7 @@ $today = date("Y-m-d");
                 if (isset($appointments4) && !empty($appointments4)) {
                     foreach ($appointments4 as $appointment) {
                         $connection = Verbindung::is_first_connection($appointment['idVerbindung'], Benutzer::get_logged_in_user()->idBenutzer);
-                        $date = date('Y-m-d', strtotime($appointment['datum']));
+                        $date = date('d.m.Y', strtotime($appointment['datum']));
                         if ($date < $today && $appointment['akzeptiert'] == 0) {
                             Stunde::deleteStunde($appointment['idStunde']);
                             Benachrichtigung::add($appointment['idNachhilfelehrer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!", true);

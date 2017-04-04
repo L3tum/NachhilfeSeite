@@ -34,11 +34,11 @@ class AjaxFormHelper {
 
                 });
             if (ajaxPath == "ajax/Forms/searchForm.php") {
-                $(document).on("ready", function (ev) {
-                    ev.preventDefault();
+                $(document).ready(function (ev) {
+                    ev.target = element;
                     var url = window.location.href;
                     if (url.includes("?")) {
-                        $me.runAjax(ajaxPath, element, success, formDataAppend);
+                        $me.runAjaxSpecial(ajaxPath, element, success, element);
                     }
                 });
             }
@@ -75,6 +75,29 @@ class AjaxFormHelper {
             }
         });
     }
+    runAjaxSpecial(ajaxPath, element, success, ev){
+
+        var formData = new FormData(document.getElementById("search-form"));
+
+        //Send the ajax request
+        $.ajax({
+            url: getRootUrl() + ajaxPath,
+            dataType: 'json',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            success: function (result) {
+                var resultObj = result; //JSON object
+                if (resultObj.success == false) {
+                    toastr.error(resultObj.errorReason);
+                }
+                else {
+                    success(resultObj);
+                }
+            }
+        });
+    }
 }
 
 class AjaxFormHelperSpecial {
@@ -86,7 +109,6 @@ class AjaxFormHelperSpecial {
 
             element
                 .on("submit", function (ev) {
-                    console.log(1);
                     ev.preventDefault();
                     $me.runAjax(ajaxPath, element, success, formDataAppend);
                 });
@@ -124,17 +146,21 @@ class AjaxFormHelperSpecial {
         });
     }
 }
-var authorized;
-runMyAjax("ajax/isAuthorized.php", function(results){
-   authorized = results.authorized;
-    if(authorized) {
-        cheet('up up down down left right left right b a', function () {
-            $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
-            setTimeout(kill, 10000);
-            setup();
-        });
-    }
-});
+
+var authorized = false;
+
+if(document.getElementById("login-form") == null) {
+    runMyAjax("ajax/isAuthorized.php", function (results) {
+        authorized = results.authorized;
+        if (authorized) {
+            cheet('up up down down left right left right b a', function () {
+                $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
+                setTimeout(kill, 10000);
+                setup();
+            });
+        }
+    });
+}
 
 var run = false;
 var insane = false;
@@ -632,6 +658,13 @@ toastr
 }
 
 $(document).foundation();
+
+$(document).on("submit", "#user-add-form", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/Forms/userAddForm.php", function (result) {
+        toastr.success("Hinzufügen erfolgreich!");
+    }, {'vorname' : $("[name=vorname]").val(), 'nachname' : $("[name=nachname]").val(), 'tel' : $("[name=tel]").val(), 'passwort' : $("[name=password]").val(), 'passwortConfirm' : $("[name=passwordConfirm]").val(), 'email' : $("[name=email]").val(), 'rollen' : $("[name=rollen]").val()})
+});
 
 var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen!", "ajax/Forms/loginForm.php", function (result) {
     location.reload();
@@ -1722,26 +1755,26 @@ $(document).on("click", "#generate_pdf_given", function (ev) {
     var year = $('#pdf_month').val();
     window.location = getRootUrl() + "spdf/" + "given/" + year;
 });
-$(document).on("click", "#delete_all_hours", function(ev){
+$(document).on("click", "#delete_all_hours", function (ev) {
     ev.preventDefault();
     var month = $("#pdf_month").val();
-    runMyAjax("ajax/deleteAllHours.php", function(result){
+    runMyAjax("ajax/deleteAllHours.php", function (result) {
         toastr.success("Alle Stunden gelöscht!");
-    }, {'id' : month})
+    }, {'id': month})
 });
-$(document).on("click", "#delete_all_blocked_hours", function(ev){
+$(document).on("click", "#delete_all_blocked_hours", function (ev) {
     ev.preventDefault();
     var month = $("#pdf_month").val();
-    runMyAjax("ajax/deleteBlockedHours.php", function(result){
+    runMyAjax("ajax/deleteBlockedHours.php", function (result) {
         toastr.success("Alle Stunden gelöscht!");
-    }, {'id' : month})
+    }, {'id': month})
 });
-$(document).on("click", "#delete_all_finished_hours", function(ev){
+$(document).on("click", "#delete_all_finished_hours", function (ev) {
     ev.preventDefault();
     var month = $("#pdf_month").val();
-    runMyAjax("ajax/deleteFinishedHours.php", function(result){
+    runMyAjax("ajax/deleteFinishedHours.php", function (result) {
         toastr.success("Alle Stunden gelöscht!");
-    }, {'id' : month})
+    }, {'id': month})
 });
 
 $(document).on("click", "#del_user", function (ev) {
@@ -1749,18 +1782,19 @@ $(document).on("click", "#del_user", function (ev) {
     runMyAjax("ajax/Getters/getAllBlockedUsers.php", function (result) {
         var html = "<table><thead><tr><th>Benutzer</th><th>Löschen</th></tr></thead><tbody>";
         result.users.forEach(function (user) {
-            html += "<tr><td>" + user.vorname + " " + user.name + "</td><td><button class='tablebutton alert' name='delete_user' id='" + user.idBenutzer + "'</td></tr>";
+            html += "<tr><td>" + user.vorname + " " + user.name + "</td><td><button class='tablebutton alert' name='delete_user' id='" + user.idBenutzer + "'>Löschen</button></td></tr>";
         });
         html += "</tbody></table>";
         $("#results").empty();
         $("#results").append(html);
     });
 });
-$(document).on("click", "#delete_user", function (ev) {
+$(document).on("click", "[name=delete_user]", function (ev) {
     ev.preventDefault();
     if (window.confirm("Dadurch wird der Benutzer unwiderruflich gelöscht!")) {
         runMyAjax("ajax/deleteUser.php", function (result) {
             toastr.success("Benutzer erfolgreich gelöscht!");
+            $(ev.target).parent().parent().remove();
         }, {'id': $(ev.target).attr('id')});
     }
 });
@@ -1786,25 +1820,101 @@ $(document).on("click", "#wantsEmails", function (ev) {
         element.val(true);
     }
 });
-$(document).on("click", "#unblock_user", function(ev){
+$(document).on("click", "#unblock_user", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/Getters/getAllBlockedUsers.php", function(result){
+    runMyAjax("ajax/Getters/getAllBlockedUsers.php", function (result) {
         var html = "<table><thead><tr><th>Benutzer</th><th>Freischalten</th></tr></thead><tbody>";
         result.users.forEach(function (user) {
-            html += "<tr><td>" + user.vorname + " " + user.name + "</td><td><button class='tablebutton alert' name='unblock_user_id' id='" + user.idBenutzer + "'</td></tr>";
+            html += "<tr><td>" + user.vorname + " " + user.name + "</td><td><button class='tablebutton alert' name='unblock_user_id' id='" + user.idBenutzer + "'>Freischalten</button></td></tr>";
         });
         html += "</tbody></table>";
         $("#results").empty();
         $("#results").append(html);
     })
 });
-$(document).on("click", "#unblock_user_id", function (ev) {
+$(document).on("click", "[name=unblock_user_id]", function (ev) {
     ev.preventDefault();
     if (window.confirm("Dadurch wird der Benutzer freigeschaltet!")) {
         runMyAjax("ajax/unblockUser.php", function (result) {
             toastr.success("Benutzer erfolgreich freigeschaltet!");
+            $(ev.target).parent().parent().remove();
         }, {'user': $(ev.target).attr('id')});
     }
+});
+
+$(document).on("click", "#add_user", function (ev) {
+    ev.preventDefault();
+    $("#results").empty();
+    runMyAjax("ajax/Getters/getAllRoles.php", function (results) {
+        var html = "";
+        html = `<div class="row">
+<form data-abide novalidate id="user-add-form" method="post">
+                        <div class="small-12 medium-6 columns small-centered">
+                            <br>
+                            <label>Vorname
+                                <input name="vorname" type="text" placeholder="Max">
+                                <span class="form-error">
+                                    Der Vorname ist invalid!
+                                </span>
+                            </label>
+
+                            <label>Nachname
+                                <input name="nachname" type="text" placeholder="Mustermann">
+                                <span class="form-error">
+                                    Der Nachname ist invalid!
+                                </span>
+                            </label>
+                            
+                            <label>Email
+                                <input name="email" type="email" placeholder="abc@def.ghi">
+                                <span class="form-error">
+                                    Die Email ist invalid!
+                                </span>
+                            </label>
+                            
+                            <label>Telefonnummer
+                                <input name="tel" type="tel" placeholder="012345678">
+                                <span class="form-error">
+                                    Die Telefonnummer ist invalid!
+                                </span>
+                            </label>
+                            
+                            <label>Passwort
+                                <input name="password" type="password" placeholder="placeholder">
+                                <span class="form-error">
+                                    Das Passwort ist invalid!
+                                </span>
+                            </label>
+                            
+                            <label>Passwort bestätigen
+                                <input name="passwordConfirm" type="password" placeholder="placeholder">
+                                <span class="form-error">
+                                    Das Passwort ist invalid!
+                                </span>
+                            </label>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <label>Rollen
+                                        <select id="rollen" name="rollen">
+                                            <option value="hallo">Keine Rolle</option>`;
+
+        results.roles.forEach(function (role) {
+            html += "<option value='" + role.idRolle + "'>" + role.name + "</option>";
+        });
+
+        html += `</select>
+                                    </label>
+
+                                    <button class="button" type="submit" value="Submit" id="add">Hinzufügen</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        </form>
+                    </div>`
+        $("#results").append(html);
+    });
 });
 
 function updateRooms() {

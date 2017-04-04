@@ -41,6 +41,6 @@ class Rolle
     }
 
     public function has_right($right){
-        $stmt = Connection::$PDO->prepare("SELECT * FROM rollenberechtigungen JOIN rolle as t1 ON t1.idRolle=rollenberechtigung.idRolle WHERE t1.idRolle= :idRolle AND rollenberechtigung.idBerechtigung= :right");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM rollenberechtigung JOIN rolle as t1 ON t1.idRolle=rollenberechtigung.idRolle WHERE t1.idRolle= :idRolle AND rollenberechtigung.idBerechtigung= :right");
     }
 }

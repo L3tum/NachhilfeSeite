@@ -31,7 +31,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <h2>Profil</h2>
 
                 <?php
-                if ($user->has_permission("takeClasses") && !empty($connections)) {
+                if ($user->has_permission("takeClasses") && !empty($connections) && !$user_is_me) {
                     echo '<div class="data-label">
                     <p>Du nimmst bei dieser Person Nachhilfe!</p>
                     </div>';
@@ -125,7 +125,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                             $id = $subject->idFach;
 
                             //Check if verbindung and first
-                            if (isset($connections_key_array[$id]) && $connections_key_array[$id]->kostenfrei == true) {
+                            if (isset($connections_key_array[$id]) && $connections_key_array[$id]->kostenfrei == true && !$user_is_me) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label firstConnection\">
@@ -133,19 +133,17 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                               </div>
                             </div>";
                             } //Check if verbindung and hasnt got first
-                            else if (isset($connections_key_array[$id]) && $user->get_first_connection() == false) {
+                            else if (isset($connections_key_array[$id]) && $user->get_first_connection() == false && !$user_is_me) {
                                 //Button for Anfrage
-                                if (!$user_is_me) {
-                                    $isnot = true;
-                                    echo
-                                    "<div class=\"small-6 medium-12 large-4 columns\">
+                                $isnot = true;
+                                echo
+                                "<div class=\"small-6 medium-12 large-4 columns\">
                               <p type=\"button\" id={$id} name='fachButton' class='labelled success center'>
                               {$subject->name}
                               </p>
                             </div>";
-                                }
                             } //Check if verbindung
-                            else if (isset($connections_key_array[$id])) {
+                            else if (isset($connections_key_array[$id]) && !$user_is_me) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label alert\">
@@ -153,7 +151,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                               </div>
                             </div>";
                             } //Check if Anfrage and first
-                            else if (isset($anfragen_key_array[$id]) && $anfragen_key_array[$id]->kostenfrei == true) {
+                            else if (isset($anfragen_key_array[$id]) && $anfragen_key_array[$id]->kostenfrei == true && !$user_is_me) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label firstRequest\">
@@ -161,19 +159,17 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                               </div>
                             </div>";
                             } //Check if anfrage and hasnt got first
-                            else if (isset($anfragen_key_array[$id]) && $user->get_first_anfrage() == false) {
+                            else if (isset($anfragen_key_array[$id]) && $user->get_first_anfrage() == false && !$user_is_me) {
                                 //Button for Anfrage
-                                if (!$user_is_me) {
-                                    $isnot = true;
-                                    echo
-                                    "<div class=\"small-6 medium-12 large-4 columns\">
+                                $isnot = true;
+                                echo
+                                "<div class=\"small-6 medium-12 large-4 columns\">
                               <p type=\"button\" id={$id} name='fachButton' class='labelled success center'>
                               {$subject->name}
                               </p>
                             </div>";
-                                }
                             } //Check if Anfrage
-                            else if (isset($anfragen_key_array[$id])) {
+                            else if (isset($anfragen_key_array[$id]) && !$user_is_me) {
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <div class=\"data-label secondary\">
@@ -197,32 +193,30 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                               </div>
                             </div>";
                             }
-                            if($user->get_first_connection() == false){
+                            if ($user->get_first_connection() == false) {
                                 echo "<input type='hidden' id='{$id}connection' value='false'>";
-                            }
-                            else{
+                            } else {
                                 echo "<input type='hidden' id='{$id}connection' value='true'>";
                             }
-                            if($user->get_first_anfrage() == false){
+                            if ($user->get_first_anfrage() == false) {
                                 echo "<input type='hidden' id='{$id}anfrage' value='false'>";
-                            }
-                            else{
+                            } else {
                                 echo "<input type='hidden' id='{$id}anfrage' value='true'>";
                             }
                         }
 
-                        if (!empty($connections)) {
+                        if (!empty($connections) && !$user_is_me) {
                             echo "<div class=\"small-12 columns\"><p>In den rot markierten Fächern nimmst du bei dieser Person, oder gibst du dieser Person, Nachhilfe!</p></div>";
-                            echo "<div class=\"small-12 columns\"><p>Das pink markierte Fach ist das Fach, das du nicht selber bezahlen musst!</p></div>";
+                            echo "<div class=\"small-12 columns\"><p>Das lila markierte Fach ist das Fach, das du nicht selber bezahlen musst!</p></div>";
                         }
-                        if (!empty($anfragen)) {
-                            echo "<div class=\"small-12 columns\"><p>In den blau markierten Fächern hast du bereits eine Anfrage gesendet oder empfangen!</p></div>";
+                        if (!empty($anfragen) && !$user_is_me) {
+                            echo "<div class=\"small-12 columns\"><p>In den blau markierten Fächern hast du bereits eine Anfrage gesendet!</p></div>";
                             echo "<div class=\"small-12 columns\"><p>Das hellblau markierte Fach ist das Fach, das du nicht selber bezahlen musst!</p></div>";
                         }
                         if ($isnot) {
                             echo "<div class=\"small-12 columns\"><p>Die grün markierten Felder kannst du anklicken, um Nachhilfe in diesem Fach anzufragen!</p></div>";
                         }
-                        if (Benutzer::get_logged_in_user()->get_first_connection() == null && $isnot) {
+                        if (Benutzer::get_logged_in_user()->get_first_connection() == false && $isnot && !$user_is_me) {
                             echo "<div class=\"small-12 columns\"><p>Wenn du doppelt klickst, wählst du das Fach als erstes Fach aus, wodurch du die Stunden nicht bezahlen musst!</p></div>";
                         }
                     }

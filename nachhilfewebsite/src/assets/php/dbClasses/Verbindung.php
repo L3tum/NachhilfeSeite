@@ -17,7 +17,7 @@ class Verbindung
     public $kostenfrei;
 
     public function is_first() {
-        $stmt = Connection::$PDO->prepare("SELECT * FROM `verbindung` WHERE idVerbindung = (SELECT idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idNehmer ORDER BY idVerbindung ASC LIMIT 1) && idVerbindung = :idVerbindung");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idVerbindung = (SELECT idVerbindung FROM verbindung WHERE idNachhilfenehmer = :idNehmer ORDER BY idVerbindung ASC LIMIT 1) && idVerbindung = :idVerbindung");
         $stmt->bindParam(':idNehmer', $this->idNachhilfenehmer);
         $stmt->bindParam(':idVerbindung', $this->idVerbindung);
         $stmt->execute();

@@ -84,7 +84,7 @@ if (!$can_show) {
              
                             </td></tr>";
                 }
-                echo "</tbody></table>";
+                echo "</tbody></table></div>";
             }
 
             if (isset($connections2) && !empty($connections2)) {
