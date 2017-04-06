@@ -638,6 +638,7 @@ function runMyAjax(ajaxPath, success, data = 0) {
         },
         error: function (data) {
             //if error
+            console.log("Error!");
             console.log(data);
         }
     });
@@ -691,13 +692,13 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
 });
 
 var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden fehlgeschlagen!", "ajax/sendMessage.php", function (result) {
-
+    toastr.success("Senden erfolgreich!");
     location.reload();
 });
 
 var TuitionEndFormHelper = new AjaxFormHelper($(".tuition-end-form"), "Beenden fehlgeschlagen!", "ajax/tuitionEnd.php", function (result) {
-
-    location.reload();
+    toastr.success("Beenden erfolgreich!");
+    //location.reload();
 });
 
 var RemoveNotificationHelper = new AjaxFormHelper($(".remove-notification"), "Beenden fehlgeschlagen!", "ajax/Setters/removeNotification.php", function (result, element) {

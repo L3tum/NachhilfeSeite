@@ -63,7 +63,7 @@ if (!$can_show) {
                     else{
                         $button = "<form data-abide novalidate class='tuition-end-form' method='post'>
                                     <input type='hidden' name='idFach' value='" . $connection->idFach . "'>
-                                    <input type='hidden' name='idNehmer' value='" . $otherUser->idBenutzer . "'>
+                                    <input type='hidden' name='idConnection' value='" . $connection->idVerbindung . "'>
                                     <button class='button alert small no-margin-bottom' type='submit'>Beenden</button>
                               </form>";
                     }
@@ -117,7 +117,7 @@ if (!$can_show) {
                     else{
                         $button = "<form data-abide novalidate class='tuition-end-form' method='post'>
                                     <input type='hidden' name='idFach' value='" . $connection->idFach . "'>
-                                    <input type='hidden' name='idNehmer' value='" . $otherUser->idBenutzer . "'>
+                                    <input type='hidden' name='idConnection' value='" . $connection->idVerbindung . "'>
                                     <button class='button alert small no-margin-bottom' type='submit'>Beenden</button>
                               </form>";
                     }

@@ -1,7 +1,6 @@
 ---
 layout: star
 ---
-
 <?php
 /**
  * Created by PhpStorm.

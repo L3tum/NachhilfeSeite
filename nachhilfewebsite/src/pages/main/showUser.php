@@ -389,7 +389,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <input id='pdf-year' style='width:200px' type='month'>
                 <input id='pdf-user' type='hidden' name='idBenutzer' value='{$user->idBenutzer}'>
                 
-                {$givenButton}{$takenButton}
+                {$givenButton}<br>{$takenButton}
               </form>
             <div>
         ";

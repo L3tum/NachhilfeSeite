@@ -1,7 +1,6 @@
 ---
 layout: noLayout
 ---
-
 <?php
 /**
  * Created by PhpStorm.

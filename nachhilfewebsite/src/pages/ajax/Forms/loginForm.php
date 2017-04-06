@@ -1,7 +1,6 @@
 ---
 layout: noLayout
 ---
-
 <?php
 include_once  __DIR__ . "/../../assets/php/dbClasses/Benutzer.php";
 include_once  __DIR__ . "/../../assets/php/general/AjaxFormHelper.php";

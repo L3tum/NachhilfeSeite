@@ -1,7 +1,6 @@
 ---
 layout: noLayout
 ---
-
 <?php
 include_once __DIR__ . "/../../assets/php/dbClasses/Benutzer.php";
 include_once __DIR__ . "/../../assets/php/general/AjaxFormHelper.php";
@@ -91,6 +90,13 @@ else{
     $wantsEmails = $_POST['wantsEmails'];
     $wantsEmails = trim($wantsEmails, '"');
 }
+if($wantsEmails == "true"){
+    $wantsEmails = 1;
+}
+else if($wantsEmails == "false"){
+    $wantsEmails = 0;
+}
+
 
 //Check if there is an existing user with these credentials
 $stmt = Connection::$PDO->prepare("UPDATE benutzer SET vorname = :vorname, name = :name, passwort = :passwort, telefonnummer = :telefonnummer, email = :email, idRolle = :rolle, wantsEmails = :wants WHERE idBenutzer = :idBenutzer");

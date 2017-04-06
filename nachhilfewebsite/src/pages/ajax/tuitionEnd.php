@@ -1,7 +1,6 @@
 ---
 layout: noLayout
 ---
-
 <?php
 /**
  * Created by PhpStorm.
@@ -19,27 +18,8 @@ include_once __DIR__ . "/../assets/php/general/AjaxFormHelper.php";
 
 $form_helper = new AjaxFormHelper();
 
-if(isset($_POST["idNehmer"])) {
-    $idNehmer = $_POST["idNehmer"];
-
-    $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idNachhilfenehmer = :id");
-    $stmt->bindParam(':id', $idNehmer);
-
-    $stmt->execute();
-    $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
-    $verbindung = $stmt->fetch();
-
-}
-else if(isset($_POST["idGeber"])) {
-    $idGeber = $_POST["idGeber"];
-
-    $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idNachhilfelehrer = :id");
-    $stmt->bindParam(':id', $idGeber);
-
-    $stmt->execute();
-    $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
-    $verbindung = $stmt->fetch();
-
+if(isset($_POST["idConnection"])) {
+    $verbindung = Verbindung::get_by_id($_POST['idConnection']);
 }
 else {
     $form_helper->return_error("Interner Fehler: ID nicht gesetzt");
@@ -57,7 +37,9 @@ if(!empty($open)){
 else {
     $stmt = Connection::$PDO->prepare("DELETE FROM verbindung WHERE idVerbindung = :id");
     $stmt->bindParam(':id', $verbindung->idVerbindung);
-    $stmt->execute();
+    $form_helper->success = $stmt->execute();
+    $form_helper->response['verbindung'] = Verbindung::get_by_id($verbindung->idVerbindung);
+    $form_helper->return_json();
 }
 
 $form_helper->success = true;

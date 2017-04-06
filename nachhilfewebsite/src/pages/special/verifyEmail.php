@@ -1,7 +1,6 @@
 ---
 layout: special
 ---
-
 <?php
     include_once __DIR__ . "/../assets/php/general/Route.php";
     include_once __DIR__ . "/../assets/php/general/Connection.php";
