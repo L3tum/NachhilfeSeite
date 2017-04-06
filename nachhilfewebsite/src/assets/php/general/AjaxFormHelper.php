@@ -31,19 +31,10 @@ class AjaxFormHelper
 
     public function set_up_defaults()
     {
-
         //Connect to database
         if (!Connection::connect(false)) {
             $this->return_error("Keine Verbindung zur Datenbank!");
         }
-
-
-//var_dump($real_host);
-        //session_name("GymloNachhilfe");
-        //session_set_cookie_params(0, "/", "." . $real_host, false, false);
-        //session_start();
-		$_SESSION['ayyylmao'] = "1";
-				//var_dump(session_id());
     }
 
     //return an error message and success false

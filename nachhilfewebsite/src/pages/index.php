@@ -2,6 +2,10 @@
 layout: noLayout
 ---
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 /**
  * Created by PhpStorm.
  * User: Tim
@@ -9,9 +13,9 @@ layout: noLayout
  * Time: 21:03
  */
 //include_once "seite1.php";
-@session_start();
-header('Set-Cookie: "PHPSESSID' . session_id() . ';path=/"');
-ob_end_flush();
+/*@session_start();
+header('Set-Cookie: "PHPSESSID ' . session_id() . ';path=/"');
+ob_end_flush();*/
 
 include_once __DIR__ . "/assets/php/general/ConfigStrings.php";
 include_once __DIR__ . "/assets/php/general/Route.php";
@@ -23,44 +27,22 @@ include_once __DIR__ . "/assets/php/general/tldextract.php";
 
 
 
-
-$root = ConfigStrings::get("root");
-if (!isset($root)) {
-    $host = $_SERVER['HTTP_HOST'];
-    $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    if (isset($_SERVER['HTTPS'])) {
-        $root = "https://$host$uri/";
-    } else {
-        $root = "http://$host$uri/";
-    }
-    ConfigStrings::set("root", $root);
-}
-
-//echo "INDEX_ID: " . session_id();
-//var_dump(session_get_cookie_params());
-//var_dump(phpinfo(-1));
+session_start();
+//echo session_id();
 
 
 if (!Connection::connect(true)) {
     exit;
 }
 
+
 $logged_in_user = Benutzer::get_logged_in_user();
 
-/*
-if($logged_in_user != false) {
-    var_dump("Currently: " . $logged_in_user->name);
-}
-else{
-    var_dump("Currently: None");
-}
-*/
-if (!$logged_in_user) {
-    include "special/welcome.php";
-    exit;
-}
+
+
 
 Route::init();
+
 
 Route::add404(function () {
 
@@ -78,6 +60,13 @@ Route::add('($setup)*(insane=true)*', function ($param = 0, $param2 = 0) {
 });
 
 Route::add('home', function(){
+
+    include "main/home.php";
+});
+
+Route::add('/', function(){
+
+
     include "main/home.php";
 });
 
@@ -254,5 +243,6 @@ Route::add('goodcredits', function () {
 
 
 Route::run();
+
 //print_r($_SERVER);
 ?>

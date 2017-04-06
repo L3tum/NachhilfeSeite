@@ -36,7 +36,3 @@ layout: special
         </div>
     </div>
 </form>
-
-<div class="row" id="bullshittery">
-
-</div>

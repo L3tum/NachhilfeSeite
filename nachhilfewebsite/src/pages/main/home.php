@@ -18,7 +18,7 @@
             </div>
 
             <div class="small-6 columns" style="margin-top:15px">
-                <img class="float-center" src="http://gymnasium-lohmar.org/images/Logo/Schullogo_Homepage.png"/>
+                <img class="float-center" src="https://gymnasium-lohmar.org/images/Logo/Schullogo_Homepage.png"/>
             </div>
         </div>
 

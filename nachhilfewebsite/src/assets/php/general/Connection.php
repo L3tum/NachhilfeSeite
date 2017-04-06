@@ -14,9 +14,9 @@ class Connection
 
     public static $PDO;
     //Needed to specify details about the connection to the PDO interface
-    private static $DSN = "mysql:host=localhost;dbname=nachhilfe;mysql:charset=UTF-8";
-    private static $DBUser = "nachhilfeDBUser";
-    private static $DBPass = "nachhilfe";
+    private static $DSN = "mysql:host=mysql5.gymnasium-lohmar.webseiten.cc;dbname=db299111_20;mysql:charset=UTF-8";
+    private static $DBUser = "db299111_20";
+    private static $DBPass = '4fsz4gyh7Z$a';
 
     public static function connect($redirectOnError) {
         try {

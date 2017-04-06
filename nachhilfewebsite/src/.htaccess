@@ -1,5 +1,4 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [NC,L,QSA]
-#php_flag session.auto_start 1
+RewriteRule ^(.*)$ /index.php [NC,L,QSA]

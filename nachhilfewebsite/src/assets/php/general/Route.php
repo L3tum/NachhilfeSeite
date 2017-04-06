@@ -17,31 +17,30 @@ class Route{
 
     public static function init(){
 
-        /*$parsed_url = parse_url($_SERVER['REQUEST_URI']);//URI zerlegen
+        $parsed_url = parse_url($_SERVER['REQUEST_URI']);//URI zerlegen
 
         if(isset($parsed_url['path'])){
-            self::$path = trim($parsed_url['path'],'/');
 
-            if(self::$path  == ConfigStrings::get("basepath")) {
+            if($parsed_url['path']  == '/') {
 
-                self::$path = self::$path . "/";
+                self::$path = $parsed_url['path'];
+            }
+            else {
+                self::$path = trim($parsed_url['path'],'/');
             }
         }else{
             self::$path = '';
-        }*/
-        if(isset($_SERVER['HTTPS'])){
-            self::$path = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         }
-        else{
-            self::$path = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        }
+
+
     }
 
-    public static function add($expression,$function){
+    public static function add($expression,$function,$needsUser = true){
 
         array_push(self::$routes,Array(
             'expression'=>$expression,
-            'function'=>$function
+            'function'=>$function,
+            'userNeeded' => $needsUser
         ));
 
     }
@@ -53,6 +52,8 @@ class Route{
     }
 
     public static function run(){
+
+
 
         $route_found = false;
 
@@ -85,7 +86,16 @@ class Route{
 
                 }
 
-                call_user_func_array($route['function'], $matches);
+                if($route['userNeeded'] == true) {
+                    if (!Benutzer::get_logged_in_user()) {
+
+                        include "special/welcome.php";
+                    }
+                    else {
+                        call_user_func_array($route['function'], $matches);
+                    }
+                }
+
 
                 $route_found = true;
 
@@ -103,12 +113,14 @@ class Route{
 
         }
 
+
+
     }
 
     public static function redirect_to_root() {
         $host  = $_SERVER['HTTP_HOST'];
         $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-        header("Location: ".self::get_root_http_https($host, $uri));
+        header("Location: "."https://$host$uri/");
         exit();
     }
 
@@ -121,15 +133,6 @@ class Route{
         $host  = $_SERVER['HTTP_HOST'];
         $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/ajax/Forms');
         return self::get_root_http_https($host, $uri);
-    }
-
-    public static function get_root_http_https($host, $uri){
-        if(isset($_SERVER['HTTPS'])) {
-            return "https://$host$uri/";
-        }
-        else{
-            return "http://$host$uri/";
-        }
     }
     
 }
