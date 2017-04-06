@@ -25,8 +25,10 @@ include_once __DIR__ . "/assets/php/dbClasses/Rolle.php";
 include_once __DIR__ . "/assets/php/dbClasses/Berechtigung.php";
 include_once __DIR__ . "/assets/php/general/tldextract.php";
 
-
-
+/*
+echo $_SERVER['REQUEST_URI'];
+exit();
+*/
 session_start();
 //echo session_id();
 
