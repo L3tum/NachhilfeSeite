@@ -179,7 +179,7 @@ if (window.location.href.includes("wubwubwub") && authorized) {
 
 function kill() {
     $("[name=kill]").remove();
-    clearTimeout()
+    clearTimeout();
 }
 
 function setup() {
@@ -531,6 +531,7 @@ var TuitionEndFormHelper = new AjaxFormHelper($(".tuition-end-form"), "Beenden f
 });
 
 var RemoveNotificationHelper = new AjaxFormHelper($(".remove-notification"), "Beenden fehlgeschlagen!", "ajax/Setters/removeNotification.php", function (result, element) {
+    toastr.success("Beenden erfolgreich!");
     $(element).parents('.result-box').remove();
 });
 

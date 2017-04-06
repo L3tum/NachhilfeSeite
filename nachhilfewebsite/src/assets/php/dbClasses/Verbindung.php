@@ -58,7 +58,7 @@ class Verbindung
     }
 
     public static function is_first_connection($idVerbindung, $idBenutzer){
-        return Verbindung::get_by_id($idVerbindung)->kostenfrei;
+        return Verbindung::get_by_id($idVerbindung)['kostenfrei'];
     }
 
     public function has_appointments(){
