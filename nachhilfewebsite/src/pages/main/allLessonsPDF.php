@@ -1,48 +1,11 @@
 ---
 layout: noLayout
 ---
-
 <?php
 include_once __DIR__ . "/../assets/php/PDF/mpdf.php";
 include_once __DIR__ . "/../assets/php/dbClasses/Fach.php";
 include_once __DIR__ . "/../assets/php/dbClasses/Stunde.php";
 
-/*
-class PDF extends FPDF
-{
-    function taken_lessons() {
-
-
-        $user = Benutzer::get_logged_in_user();
-        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfenehmer = :idBenutzer");
-        $stmt->bindParam(':idBenutzer', $user->idBenutzer);
-        $stmt->execute();
-
-        $y_axis = 5;
-        $y_line_height = 20;
-
-        foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung') as $verbindung) {
-            $fach = Fach::get_by_id($verbindung->idFach);
-            $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idVerbindung = :idVerbindung");
-            $stmt->bindParam(':idVerbindung', $verbindung->idVerbindung);
-            $stmt->execute();
-
-            foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde') as $stunde) {
-
-
-                $this->Cell(40,10,'Hallo Welt!',1);
-                $this->Cell(40,10,'Hallo Welt!',1);
-                $this->Ln(10);
-            }
-        }
-    }
-
-    function given_lessons() {
-        $user = Benutzer::get_logged_in_user();
-
-    }
-}
-*/
 
 $user = Benutzer::get_by_id($id);
 

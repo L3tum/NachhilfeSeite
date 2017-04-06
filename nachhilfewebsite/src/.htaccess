@@ -1,4 +1,10 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://nachhilfe.gymnasium-lohmar.org/index.php [NC,L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{HTTPS} on
 RewriteRule ^(.*)$ /index.php [NC,L,QSA]

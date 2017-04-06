@@ -27,8 +27,7 @@ if (!$can_show) {
                 <h2>Nachhilfe</h2>
             </div>
         </div>
-    </div>
-    <div class="small-12 smallmedium-12 medium-7 columns small-centered" data-equalizer_watch>
+
         <div class="row">
 
 
@@ -149,7 +148,6 @@ if (!$can_show) {
             ?>
 
         </div>
-
     </div>
 
 </div>
