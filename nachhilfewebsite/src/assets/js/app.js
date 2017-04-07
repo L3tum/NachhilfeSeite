@@ -56,6 +56,8 @@ class AjaxFormHelper {
             formDataAppend(formData);
         }
 
+        //console.log(getRootUrl() + ajaxPath);
+
         //Send the ajax request
         $.ajax({
             url: getRootUrl() + ajaxPath,
@@ -78,6 +80,7 @@ class AjaxFormHelper {
     runAjaxSpecial(ajaxPath, element, success, ev){
 
         var formData = new FormData(document.getElementById("search-form"));
+        //console.log(getRootUrl() + ajaxPath);
 
         //Send the ajax request
         $.ajax({
@@ -146,7 +149,7 @@ class AjaxFormHelperSpecial {
         });
     }
 }
-
+/*
 var authorized = false;
 
 if(document.getElementById("login-form") == null) {
@@ -437,6 +440,7 @@ function rainbow(numOfSteps, step) {
     var c = "#" + ("00" + (~~(r * 255)).toString(16)).slice(-2) + ("00" + (~~(g * 255)).toString(16)).slice(-2) + ("00" + (~~(b * 255)).toString(16)).slice(-2);
     return (c);
 }
+*/
 
 function isNodeList(nodes) {
     var stringRepr = Object.prototype.toString.call(nodes);

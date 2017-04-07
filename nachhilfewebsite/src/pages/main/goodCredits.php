@@ -41,10 +41,6 @@ $root = ConfigStrings::get("root");
             </div>
             <div class="small-4 columns"><p></p></div>
         </div>
-        <div class="row align-self-right align-self-bottom">
-            <?php
-            echo "<a style='font-size: 10%' href='{$root}credits'>Weniger seriöse aber bessere Credits</a>";
-            ?>
-        </div>
     </div>
 </div>
+

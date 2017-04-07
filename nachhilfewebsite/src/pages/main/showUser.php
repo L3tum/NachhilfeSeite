@@ -108,7 +108,8 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 <div class="row">
                     <div class="small-12 columns">
-                        <?php if ($user->has_permission("giveClasses") && count($user->get_offered_subjects()) > 0) {
+                        <?php
+                        if ($user->has_permission("giveClasses") && count($user->get_offered_subjects()) > 0) {
                             echo "<h3 > Fächer: </h3 >";
                         }
                         ?>

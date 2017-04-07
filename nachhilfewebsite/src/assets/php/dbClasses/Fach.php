@@ -26,7 +26,7 @@ class Fach
     }
 
     public static function get_all_subjects(){
-        $stmt = Connection::$PDO->prepare("SELECT * FROM Fach");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM fach");
         $stmt->execute();
         $user = $stmt->fetchAll(PDO::FETCH_CLASS, 'Fach');
         return $user;

@@ -39,6 +39,7 @@ else {
     $stmt->bindParam(':id', $verbindung->idVerbindung);
     $form_helper->success = $stmt->execute();
     $form_helper->response['verbindung'] = Verbindung::get_by_id($verbindung->idVerbindung);
+    $form_helper->response['verbindunge'] = Verbindung::get_by_user_ids($verbindung->idNachhilfenehmer, $verbindung->idNachhilfelehrer)[$verbindung->idVerbindung];
     $form_helper->return_json();
 }
 

@@ -16,6 +16,7 @@ include_once __DIR__ . "/Stufe.php";
 include_once __DIR__ . "/Verbindung.php";
 include_once __DIR__ . "/Anfrage.php";
 include_once __DIR__ . "/Qualifikation.php";
+include_once __DIR__ . "/AngebotenesFach.php";
 
 class Benutzer
 {
@@ -174,7 +175,7 @@ class Benutzer
     public function get_offered_subjects()
     {
 
-        $stmt = Connection::$PDO->prepare("SELECT * FROM fach JOIN angebotenesfach ON angebotenesfach.idBenutzer = :idBenutzer WHERE angebotenesfach.idFach = fach.idFach");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM fach JOIN angebotenesfach ON angebotenesfach.idFach = fach.idFach WHERE angebotenesfach.idBenutzer = :idBenutzer");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
         $stmt->execute();
 
@@ -183,11 +184,11 @@ class Benutzer
 
     public function offers_subject($idSubject)
     {
-        $stmt = Connection::$PDO->prepare("SELECT * FROM angebotenesfach WHERE angebotenesfach.idFach = " . $idSubject . " AND angebotenesFach.idBenutzer=" . $this->idBenutzer);
+        $stmt = Connection::$PDO->prepare("SELECT * FROM angebotenesfach WHERE angebotenesfach.idFach = " . $idSubject . " AND angebotenesfach.idBenutzer=" . $this->idBenutzer);
         $stmt->execute();
-
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'AngebotenesFach');
         $subject = $stmt->fetch();
-        if ($subject != null) {
+        if (isset($subject) && $subject != false) {
             return true;
         }
         return false;

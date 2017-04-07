@@ -3,7 +3,7 @@
 @import 'settings';
 @import 'foundation';
 @import 'motion-ui';
-@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+//@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 
 @include foundation-global-styles;
 @include foundation-grid;
@@ -892,4 +892,9 @@ h1 sub#star
 
 .selected{
   background-color: $secondary-color;
+}
+
+.newText{
+  color: $primary-color;
+  font-size: 0.1%;
 }
