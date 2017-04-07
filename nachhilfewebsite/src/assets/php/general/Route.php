@@ -127,12 +127,12 @@ class Route{
     public static function get_root(){
         $host  = $_SERVER['HTTP_HOST'];
         $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/ajax');
-        return self::get_root_http_https($host, $uri);
+        return "https://$host$uri/";
     }
     public static function get_root_forms(){
         $host  = $_SERVER['HTTP_HOST'];
         $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/ajax/Forms');
-        return self::get_root_http_https($host, $uri);
+        return "https://$host$uri/";
     }
     
 }

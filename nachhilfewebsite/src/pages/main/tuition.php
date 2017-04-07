@@ -27,14 +27,15 @@ if (!$can_show) {
                 <h2>Nachhilfe</h2>
             </div>
         </div>
-
+    </div>
+    <div class="small-12 smallmedium-12 medium-7 columns small-centered" data-equalizer_watch>
         <div class="row">
 
 
             <?php
             if (isset($connections) && !empty($connections)) {
                 echo '<div class="small-8 columns"><h4>Du gibst Nachhilfe für:</h4></div><br>';
-                echo '<div class="small-12 columns"><table><thead><tr><th>Schüler</th><th>Fach</th><th>Schüler bezahlt</th><th>Blockiert</th><th>Beenden</th></tr></thead><tbody>';
+                echo '<div class="small-12 columns"><div class="result-boxes-inner search"><table><thead><tr><th>Schüler</th><th>Fach</th><th>Schüler bezahlt</th><th>Blockiert</th><th>Beenden</th></tr></thead><tbody>';
                 foreach ($connections as $connection) {
 
 
@@ -42,24 +43,21 @@ if (!$can_show) {
                     $userpath = $root . "user/" . $connection->idNachhilfenehmer . "/view";
                     $fach = Fach::get_by_id($connection->idFach);
                     $schuelerBezahlt;
-                    if($connection->kostenfrei == 1 || $connection->kostenfrei == true){
+                    if ($connection->kostenfrei == 1 || $connection->kostenfrei == true) {
                         $schuelerBezahlt = "<p class='warning'>Ja</p>";
-                    }
-                    else{
+                    } else {
                         $schuelerBezahlt = "<p class='success'>Nein</p>";
                     }
                     $blockiert;
-                    if($connection->blockiert){
+                    if ($connection->blockiert) {
                         $blockiert = "<p class='alert'>Blockiert!</p>";
-                    }
-                    else{
+                    } else {
                         $blockiert = "<p class='success'>Alles gut</p>";
                     }
                     $button;
-                    if($connection->blockiert){
+                    if ($connection->blockiert) {
                         $button = "<p class='alert'>Beenden nicht möglich</p>";
-                    }
-                    else{
+                    } else {
                         $button = "<form data-abide novalidate class='tuition-end-form' method='post'>
                                     <input type='hidden' name='idFach' value='" . $connection->idFach . "'>
                                     <input type='hidden' name='idConnection' value='" . $connection->idVerbindung . "'>
@@ -83,12 +81,12 @@ if (!$can_show) {
              
                             </td></tr>";
                 }
-                echo "</tbody></table></div>";
+                echo "</tbody></table></div></div>";
             }
 
             if (isset($connections2) && !empty($connections2)) {
                 echo '<div class="small-8 columns"><h4>Du nimmst Nachhilfe bei:</h4></div><br>';
-                echo '<div class="small-12 columns"><table><thead><tr><th>Lehrer</th><th>Fach</th><th>Schüler bezahlt</th><th>Blockiert</th><th>Beenden</th></tr></thead><tbody>';
+                echo '<div class="small-12 columns"><div class="result-boxes-inner search"><table><thead><tr><th>Lehrer</th><th>Fach</th><th>Schüler bezahlt</th><th>Blockiert</th><th>Beenden</th></tr></thead><tbody>';
                 foreach ($connections2 as $connection) {
 
 
@@ -96,24 +94,21 @@ if (!$can_show) {
                     $userpath = $root . "user/" . $connection->idNachhilfelehrer . "/view";
                     $fach = Fach::get_by_id($connection->idFach);
                     $schuelerBezahlt;
-                    if($connection->kostenfrei == 1 || $connection->kostenfrei == true){
+                    if ($connection->kostenfrei == 1 || $connection->kostenfrei == true) {
                         $schuelerBezahlt = "<p class='warning'>Ja</p>";
-                    }
-                    else{
+                    } else {
                         $schuelerBezahlt = "<p class='success'>Nein</p>";
                     }
                     $blockiert;
-                    if($connection->blockiert){
+                    if ($connection->blockiert) {
                         $blockiert = "<p class='alert'>Blockiert!</p>";
-                    }
-                    else{
+                    } else {
                         $blockiert = "<p class='success'>Alles gut</p>";
                     }
                     $button;
-                    if($connection->blockiert){
+                    if ($connection->blockiert) {
                         $button = "<p class='alert'>Beenden nicht möglich</p>";
-                    }
-                    else{
+                    } else {
                         $button = "<form data-abide novalidate class='tuition-end-form' method='post'>
                                     <input type='hidden' name='idFach' value='" . $connection->idFach . "'>
                                     <input type='hidden' name='idConnection' value='" . $connection->idVerbindung . "'>
@@ -137,7 +132,7 @@ if (!$can_show) {
              
                             </td></tr>";
                 }
-                echo "</tbody></table>";
+                echo "</tbody></table></div></div>";
             }
 
             if ((!isset($connections2) || empty($connections2)) && (!isset($connections) || empty($connections))) {
@@ -146,6 +141,7 @@ if (!$can_show) {
 
 
             ?>
+
 
         </div>
     </div>
