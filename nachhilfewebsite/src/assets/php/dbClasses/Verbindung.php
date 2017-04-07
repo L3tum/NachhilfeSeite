@@ -71,12 +71,12 @@ class Verbindung
     }
 
     public static function get_by_id($idVerbindung){
-        $stmt = Connection::$PDO->prepare("SELECT * FROM Verbindung WHERE idVerbindung = :idBenutzer");
-        $stmt->bindParam(':idBenutzer', $idVerbindung);
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idVerbindung = :idVerbindung");
+        $stmt->bindParam(':idVerbindung', $idVerbindung);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
-        $user = $stmt->fetch();
-        return $user;
+        $verbindung = $stmt->fetch();
+        return $verbindung;
     }
     public static function block($idVerbindung){
         $stmt = Connection::$PDO->prepare("UPDATE verbindung SET verbindung.blockiert=1 WHERE verbindung.idVerbindung = :idVerbindung");
