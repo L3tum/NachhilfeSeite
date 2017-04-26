@@ -51,7 +51,6 @@ foreach ($rights as $allright) {
                         <table>
                             <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Beschreibung</th>
                                 <th>Besitzt</th>
@@ -61,9 +60,9 @@ foreach ($rights as $allright) {
                             <?php
                             foreach ($allrights as $allright) {
                                 if (array_key_exists($allright->idBerechtigung, $rights_key_array)) {
-                                    echo "<tr><td><p class='success'>{$allright->idBerechtigung}</p></td><td><p class='success'>{$allright->name}</p></td><td><p class='success'>{$allright->beschreibung}</p></td><td><button class='tablebutton success' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
+                                    echo "<tr><td><p class='success'>{$allright->name}</p></td><td><p class='success'>{$allright->beschreibung}</p></td><td><button class='tablebutton success' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
                                 } else {
-                                    echo "<tr><td><p class='alert'>{$allright->idBerechtigung}</p></td><td><p class='alert'>{$allright->name}</p></td><td><p class='alert'>{$allright->beschreibung}</p></td><td><button class='tablebutton alert' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
+                                    echo "<tr><td><p class='alert'>{$allright->name}</p></td><td><p class='alert'>{$allright->beschreibung}</p></td><td><button class='tablebutton alert' name='rollenButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
                                 }
                             }
                             ?>

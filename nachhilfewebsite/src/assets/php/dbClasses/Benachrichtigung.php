@@ -8,6 +8,7 @@
  */
 
 include_once  __DIR__ . "/../PHPMailer/PHPMailerAutoload.php";
+include_once  __DIR__ . "/../dbClasses/Benutzer.php";
 
 class Benachrichtigung
 {
@@ -25,14 +26,17 @@ class Benachrichtigung
     }
 
     public static function add($idBenutzer, $titel, $inhalt, $email = false){
+        $logged_in = Benutzer::get_logged_in_user();
         $stmt = Connection::$PDO->prepare("INSERT INTO benachrichtigung (idBenutzer, titel, inhalt) VALUES(:idBenutzer, :titel, :inhalt)");
         $stmt->bindParam(':idBenutzer', $idBenutzer);
         $stmt->bindParam(':titel', $titel);
         $stmt->bindParam(':inhalt', $inhalt);
         $stmt->execute();
-        if($email == true && Benutzer::get_by_id($idBenutzer)->wantsEmails) {
+        $benutzer = Benutzer::get_by_id($idBenutzer);
+        if($email == true && $benutzer->wantsEmails) {
             Benachrichtigung::send_mail(Benutzer::get_by_id($idBenutzer)->email, $titel, $inhalt);
         }
+        $benutzer->set_notified(false);
     }
 
     public static function send_mail($email, $subject, $body) {

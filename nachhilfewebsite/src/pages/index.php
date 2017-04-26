@@ -23,6 +23,7 @@ include_once __DIR__ . "/assets/php/general/Connection.php";
 include_once __DIR__ . "/assets/php/dbClasses/Benutzer.php";
 include_once __DIR__ . "/assets/php/dbClasses/Rolle.php";
 include_once __DIR__ . "/assets/php/dbClasses/Berechtigung.php";
+include_once __DIR__ . "/assets/php/dbClasses/Settings.php";
 include_once __DIR__ . "/assets/php/general/tldextract.php";
 
 /*
@@ -39,9 +40,6 @@ if (!Connection::connect(true)) {
 
 
 $logged_in_user = Benutzer::get_logged_in_user();
-
-
-
 
 Route::init();
 
@@ -61,12 +59,12 @@ Route::add('($setup)*(insane=true)*', function ($param = 0, $param2 = 0) {
 
 });
 
-Route::add('home', function(){
+Route::add('home', function () {
 
     include "main/home.php";
 });
 
-Route::add('/', function(){
+Route::add('/', function () {
 
 
     include "main/home.php";
@@ -241,6 +239,9 @@ Route::add('credits', function () {
 });
 Route::add('goodcredits', function () {
     include 'main/goodCredits.php';
+});
+Route::add('chats', function () {
+    include 'main/chats.php';
 });
 
 

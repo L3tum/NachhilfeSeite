@@ -20,15 +20,12 @@ if (!$can_show) {
 ?>
 
 <div class="row main" data-equalizer data-equalize-on="medium">
-
     <div class="small-12 smallmedium-12 medium-7 columns small-centered" data-equalizer_watch>
         <div class="row">
             <div class="small-8 columns">
                 <h2>Nachhilfe</h2>
             </div>
         </div>
-    </div>
-    <div class="small-12 smallmedium-12 medium-7 columns small-centered" data-equalizer_watch>
         <div class="row">
 
 
@@ -44,9 +41,9 @@ if (!$can_show) {
                     $fach = Fach::get_by_id($connection->idFach);
                     $schuelerBezahlt;
                     if ($connection->kostenfrei == 1 || $connection->kostenfrei == true) {
-                        $schuelerBezahlt = "<p class='warning'>Ja</p>";
-                    } else {
                         $schuelerBezahlt = "<p class='success'>Nein</p>";
+                    } else {
+                        $schuelerBezahlt = "<p class='warning'>Ja</p>";
                     }
                     $blockiert;
                     if ($connection->blockiert) {
@@ -95,9 +92,9 @@ if (!$can_show) {
                     $fach = Fach::get_by_id($connection->idFach);
                     $schuelerBezahlt;
                     if ($connection->kostenfrei == 1 || $connection->kostenfrei == true) {
-                        $schuelerBezahlt = "<p class='warning'>Ja</p>";
-                    } else {
                         $schuelerBezahlt = "<p class='success'>Nein</p>";
+                    } else {
+                        $schuelerBezahlt = "<p class='warning'>Ja</p>";
                     }
                     $blockiert;
                     if ($connection->blockiert) {

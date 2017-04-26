@@ -37,13 +37,13 @@ $allrights = Berechtigung::get_all_rights();
                     <table>
                         <thead>
                         <tr>
-                            <th>ID</th><th>Name</th><th>Besitzt</th>
+                            <th>ID</th><th>Name</th><th>Beschreibung</th><th>Besitzt</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                         foreach ($allrights as $allright){
-                                echo "<tr><td class='alert'>{$allright->idBerechtigung}</td><td class='alert'>{$allright->name}</td><td><button class='tablebutton alert' name='rollenAddingButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
+                                echo "<tr><td class='alert'>{$allright->idBerechtigung}</td><td class='alert'>{$allright->name}</td><td class='alert'>{$allright->beschreibung}</td><td><button class='tablebutton alert' name='rollenAddingButton' value='{$allright->idBerechtigung}'>Besitzt</button></td></tr>";
                         }
                         ?>
                         </tbody>

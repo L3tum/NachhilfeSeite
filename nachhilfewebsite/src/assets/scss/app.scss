@@ -168,6 +168,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
+  height:41px;
 
   .fi-list {
 
@@ -178,7 +179,7 @@ header {
 }
 
 .off-canvas {
-  top: 41px;
+  top: 42px;
   bottom: 0;
 }
 
@@ -247,11 +248,11 @@ header {
 
 .off-canvas-content {
 
-  margin-top:41px;
+  margin-top:41px; //41px
   >.row {
     >.columns {
       background-color: scale-color($primary-color, $lightness: 20%);
-      padding: -5px;
+      padding: -5px; //-5px
       border: 10px solid $primary-color;
     }
   }
@@ -271,7 +272,7 @@ header {
   margin-bottom: 15px;
   .result-boxes-inner {
 
-    border: 1px solid white;
+    border: 0px solid white;
     //background-color: $primary-color;
     //display: table-cell;
     padding-bottom: 15px;
@@ -384,23 +385,45 @@ header {
   &.success{
     border: 1px solid white;
     background-color: $success-color;
-    color: $white;
+    p{
+      color:white;
+    }
   }
   &.warning{
     background-color: $warning-color;
-    color: $white;
+    p{
+      color:white;
+    }
   }
   &.pending{
     background-color: $primary-color;
-    color: $white;
+    p{
+      color:white;
+    }
   }
   &.alter{
-    background-color: red;
-    color: $white;
+    background-color: $alert-color;
+    p{
+      color:white;
+    }
+  }
+  &.secondary {
+    background-color: $secondary-color;
+    p{
+      color:white;
+    }
   }
   &.firstConnection{
-    background-color: #e94a78;
-    color: $white;
+    background-color: #8036d8;
+    p{
+      color:white;
+    }
+  }
+  &.firstRequest{
+    background-color: #30b6e5;
+    p{
+      color:white;
+    }
   }
 }
 

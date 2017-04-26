@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="<?php echo $root?>assets/css/app.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10, user-scalable=0"/>
+    <link rel="shortcut icon" href="favicon.ico" >
+    <link rel="icon" href="animated_favicon.gif" type="image/gif" >
   </head>
   <body>
 

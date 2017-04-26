@@ -8,10 +8,10 @@
  */
 class Anfrage
 {
-
     public $idSender;
     public $idEmpfänger;
     public $idFach;
     public $inhalt;
     public $idAnfrage;
+    public $kostenfrei;
 }

@@ -1,7 +1,6 @@
 ---
 layout: noLayout
 ---
-
 <?php
 include_once __DIR__ . "/../assets/php/PDF/mpdf.php";
 include_once __DIR__ . "/../assets/php/dbClasses/Fach.php";

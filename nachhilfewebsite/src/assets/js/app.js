@@ -77,7 +77,8 @@ class AjaxFormHelper {
             }
         });
     }
-    runAjaxSpecial(ajaxPath, element, success, ev){
+
+    runAjaxSpecial(ajaxPath, element, success, ev) {
 
         var formData = new FormData(document.getElementById("search-form"));
         //console.log(getRootUrl() + ajaxPath);
@@ -149,298 +150,74 @@ class AjaxFormHelperSpecial {
         });
     }
 }
-/*
-var authorized = false;
 
-if(document.getElementById("login-form") == null) {
-    runMyAjax("ajax/isAuthorized.php", function (results) {
-        authorized = results.authorized;
-        if (authorized) {
-            cheet('up up down down left right left right b a', function () {
-                $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
-                setTimeout(kill, 10000);
-                setup();
-            });
-        }
-    });
-}
+/**
+ * JS Implementation of MurmurHash3 (r136) (as of May 20, 2011)
+ *
+ * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
+ * @see http://github.com/garycourt/murmurhash-js
+ * @author <a href="mailto:aappleby@gmail.com">Austin Appleby</a>
+ * @see http://sites.google.com/site/murmurhash/
+ *
+ * @param {string} key ASCII only
+ * @param {number} seed Positive integer only
+ * @return {number} 32-bit positive integer hash
+ */
 
-var run = false;
-var insane = false;
-if (window.location.href.includes("insane=true") && authorized) {
-    insane = true;
-}
-if (window.location.href.includes("setup") && authorized) {
-    $(document.body).append(`<div name="kill" class="error" style="position:fixed; top:50%; left:45%;z-index:999;"><p>Konami detected #FucKonami</p></div>`);
-    setTimeout(kill, 10000);
-    setup();
-}
-if (window.location.href.includes("wubwubwub") && authorized) {
-    setInterval(wubwubwub, 1);
-    startYoutube("https://www.youtube.com/embed/wr15eJAGkiM");
-}
+function murmurhash3_32_gc(key, seed) {
+    var remainder, bytes, h1, h1b, c1, c1b, c2, c2b, k1, i;
 
-function kill() {
-    $("[name=kill]").remove();
-    clearTimeout();
-}
+    remainder = key.length & 3; // key.length % 4
+    bytes = key.length - remainder;
+    h1 = seed;
+    c1 = 0xcc9e2d51;
+    c2 = 0x1b873593;
+    i = 0;
 
-function setup() {
-    if (run == false) {
-        if ($("#bullshittery") != null) {
-            $("#bullshittery").append(`<div class="small-12 medium-6 columns">
-        <h1>Umweltschutz.</h1>
+    while (i < bytes) {
+        k1 =
+            ((key.charCodeAt(i) & 0xff)) |
+            ((key.charCodeAt(++i) & 0xff) << 8) |
+            ((key.charCodeAt(++i) & 0xff) << 16) |
+            ((key.charCodeAt(++i) & 0xff) << 24);
+        ++i;
 
-        <label>
-            Uns liegen Tiere und Pflanzen sehr am Herzen. Da trifft es sich um so besser, dass wir dazu beitragen können,
-            Deinen Papierverbrauch und den Deiner Schule deutlich zu reduzieren.
-            Denn auch wenn wir alle beim Papierfliegerbasteln viel Spaß hatten, haben wir festgestellt,
-            dass Papier und Druckfarben der Umwelt schaden.
-            Nun ist diese Seite für deine Nachhilfeplanung zuständig!
-        </label><br>
-        <label>
-            Darüber hinaus leisten auch wir gerne unseren Beitrag mit einem klimaneutralen Hosting unseres Angebots.
-            Das bedeutet, dass entstandene Emissionen von unserem Hosting-Partner durch die Unterstützung von Projekten
-            für den Klimaschutz ausgeglichen werden.
-        </label>
-    </div>
-    <div class="small-12 medium-6 columns">
-        <img src="https://farm3.static.flickr.com/2904/14598404786_f7a5f0c8b5_b.jpg">
-    </div>`);
-        }
+        k1 = ((((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16))) & 0xffffffff;
+        k1 = (k1 << 15) | (k1 >>> 17);
+        k1 = ((((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16))) & 0xffffffff;
+
+        h1 ^= k1;
+        h1 = (h1 << 13) | (h1 >>> 19);
+        h1b = ((((h1 & 0xffff) * 5) + ((((h1 >>> 16) * 5) & 0xffff) << 16))) & 0xffffffff;
+        h1 = (((h1b & 0xffff) + 0x6b64) + ((((h1b >>> 16) + 0xe654) & 0xffff) << 16));
     }
-    if (window.location.href.includes("user") && !run) {
-        startYoutube("https://www.youtube.com/embed/wjXUBG15eZ8");
-    }
-    else if (window.location.href.includes("suche") && !run) {
-        startYoutube("https://www.youtube.com/embed/drFsXLChrWc");
-    }
-    else if (window.location.href.includes("termine") && !run) {
-        startYoutube("https://www.youtube.com/embed/Afl9WFGJE0M");
-    }
-    else if (run == false || insane == true) {
-        var rand = Math.floor((Math.random() * 14) + 1);
-        switch (rand) {
-            case 1: {
-                startYoutube("https://www.youtube.com/embed/_-tF5h5WHMs");
-                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg", "Blonski", "bln");
-                break;
-            }
-            case 2: {
-                startYoutube("https://www.youtube.com/embed/pdcMQjXqDMg");
-                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BAR.jpg", "Barti", "bar");
-                break;
-            }
-            case 3: {
-                startYoutube("https://www.youtube.com/embed/j4WGWg8e_oE");
-                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/FRA.jpg", "Franki", "fra");
-                break;
-            }
-            case 4: {
-                startYoutube("https://www.youtube.com/embed/2tmc8rJgxUI");
-                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BTL.jpg", "Hänsel und Bretl", "btl");
-                break;
-            }
-            case 5: {
-                startYoutube("https://www.youtube.com/embed/2qetI-4XvRg");
-                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/RIC.jpg", "Richter in Bernburg", "ric");
-                break;
-            }
-            case 6: {
-                startYoutube("https://www.youtube.com/embed/lcYDbPluL1g");
-                startBlonske("http://www.gymnasium-lohmar.org/php/kollegen/Fotos/BGM.jpg", "Bergmann", "bgm");
-                break;
-            }
-            case 7: {
-                startYoutube("https://www.youtube.com/embed/iILl1CyKYaA");
-                startBlonske("http://bilder1.n-tv.de/img/incoming/crop19692704/9974992653-cImg_16_9-w680/Der-designierte-SPD-Kanzlerkandidat-Martin-Schulz-blickt-am-07.jpg", "Schulz", "schulz");
-                break;
-            }
-            case 8: {
-                startYoutube("https://www.youtube.com/embed/epNbV-bx2L0");
-                startBlonske("https://i.redd.it/jy0usj55fl0y.jpg", "Kepetry", "kpt");
-                break;
-            }
-            case 9: {
-                startYoutube("https://www.youtube.com/embed/u9Dg-g7t2l4");
-                break;
-            }
-            case 10: {
-                startYoutube("https://www.youtube.com/embed/-iiAtLFkVps");
-                break;
-            }
-            case 11: {
-                startYoutube("https://www.youtube.com/embed/QwhPOlIuSXM");
-                break;
-            }
-            case 12: {
-                startYoutube("https://www.youtube.com/embed/g4LofIXbvrM");
-                break;
-            }
-            case 13: {
-                startYoutube("https://www.youtube.com/embed/reOLeLX0Q9U");
-                break;
 
-            }
-            case 14: {
-                startYoutube("https://www.youtube.com/embed/Bqfk7oBMsW4");
-                break;
-            }
-        }
-        run = true;
-    }
-    else if (run == true && insane == false) {
-        if (window.location.href.includes("setup")) {
-            window.location.reload();
-        }
-        else {
-            window.location.replace(window.location + "&setup");
-        }
-    }
-}
-function startBlonske(src, name, id) {
-    var rand = Math.random();
-    $(document.body).append(`<div name="blonski` + rand + `" style="position:fixed; top:50%; left:0px"><img src="` + src + `" alt="` + name + `"></div>`);
-    animateDiv("blonski" + rand);
-}
+    k1 = 0;
 
-function startYoutube(src) {
-    var rand = Math.random();
-    $(document.body).append(`<div style="position:fixed;top:25%;left:0px" name="bull` + rand + `"><iframe id="holz" width="560" height="315" src="` + src + `?autoplay=1&loop=1&vq=small&enablejsapi=1rel=0&showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe></div>`)
-    animateDiv("bull" + rand);
-}
-
-function makeNewPosition(element) {
-
-    // Get viewport dimensions (remove the dimension of the div)
-    var h = $(window).height() - element.clientHeight;
-    var w = $(window).width() - element.clientWidth;
-
-    var nh = Math.floor(Math.random() * h);
-    var nw = Math.floor(Math.random() * w);
-
-    return [nh, nw];
-
-}
-
-function animateDiv(elementName) {
-    var elements = document.getElementsByName(elementName);
-    if (isNodeList(elements)) {
-        Array.from(elements).forEach(function (element) {
-            var newq = makeNewPosition(element);
-            var oldq = $(element).offset();
-            var speed = calcSpeed([oldq.top, oldq.left], newq);
-            $(element).animate({top: newq[0], left: newq[1]}, speed, function () {
-                animateDiv(elementName);
-            });
-        })
-    }
-    else {
-        var newq = makeNewPosition();
-        var oldq = $(elements).offset();
-        var speed = calcSpeed([oldq.top, oldq.left], newq);
-        $(elements).animate({top: newq[0], left: newq[1]}, speed, function () {
-            animateDiv();
-        });
-    }
-};
-
-function calcSpeed(prev, next) {
-
-    var x = Math.abs(prev[1] - next[1]);
-    var y = Math.abs(prev[0] - next[0]);
-
-    var greatest = x > y ? x : y;
-
-    var speedModifier = 0.1;
-
-    var speed = Math.ceil(greatest / speedModifier);
-
-    return speed;
-
-}
-
-function wubwubwub() {
-    var color = rainbow(1000, Math.floor((Math.random() * 1000) + 0));
-    var random = Math.floor((Math.random() * 2) + 0);
-    if (random == 0) {
-        var elements = document.getElementsByTagName("*");
-        var rand = Math.floor((Math.random() * elements.length) + 0);
-        if (elements[rand].name != "blonski") {
-            elements[rand].style.backgroundColor = color;
-        }
-    }
-    else {
-        document.body.style.backgroundColor = color;
-    }
-}
-
-// the horizontal displacement
-var deltaX = 1;
-var qCounter = 0;
-function quake() {
-    // make sure the browser support the moveBy method
-    if (window.moveBy) {
-        // shake left
-        if ((qCounter % 4) == 0) {
-            window.moveBy(deltaX, 0);
-        }
-        // shake right
-        else if ((qCounter % 4) == 2) {
-            window.moveBy(-deltaX, 0);
-        }
-        qCounter++;
-    }
-    else {
-        console.log("hi");
-    }
-}
-
-function rainbow(numOfSteps, step) {
-    // This function generates vibrant, "evenly spaced" colours (i.e. no clustering). This is ideal for creating easily distinguishable vibrant markers in Google Maps and other apps.
-    // Adam Cole, 2011-Sept-14
-    // HSV to RBG adapted from: http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
-    var r, g, b;
-    var h = step / numOfSteps;
-    var i = ~~(h * 6);
-    var f = h * 6 - i;
-    var q = 1 - f;
-    switch (i % 6) {
-        case 0:
-            r = 1;
-            g = f;
-            b = 0;
-            break;
-        case 1:
-            r = q;
-            g = 1;
-            b = 0;
-            break;
-        case 2:
-            r = 0;
-            g = 1;
-            b = f;
-            break;
+    switch (remainder) {
         case 3:
-            r = 0;
-            g = q;
-            b = 1;
-            break;
-        case 4:
-            r = f;
-            g = 0;
-            b = 1;
-            break;
-        case 5:
-            r = 1;
-            g = 0;
-            b = q;
-            break;
+            k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
+        case 2:
+            k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
+        case 1:
+            k1 ^= (key.charCodeAt(i) & 0xff);
+
+            k1 = (((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff;
+            k1 = (k1 << 15) | (k1 >>> 17);
+            k1 = (((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff;
+            h1 ^= k1;
     }
-    var c = "#" + ("00" + (~~(r * 255)).toString(16)).slice(-2) + ("00" + (~~(g * 255)).toString(16)).slice(-2) + ("00" + (~~(b * 255)).toString(16)).slice(-2);
-    return (c);
+
+    h1 ^= key.length;
+
+    h1 ^= h1 >>> 16;
+    h1 = (((h1 & 0xffff) * 0x85ebca6b) + ((((h1 >>> 16) * 0x85ebca6b) & 0xffff) << 16)) & 0xffffffff;
+    h1 ^= h1 >>> 13;
+    h1 = ((((h1 & 0xffff) * 0xc2b2ae35) + ((((h1 >>> 16) * 0xc2b2ae35) & 0xffff) << 16))) & 0xffffffff;
+    h1 ^= h1 >>> 16;
+
+    return h1 >>> 0;
 }
-*/
 
 function isNodeList(nodes) {
     var stringRepr = Object.prototype.toString.call(nodes);
@@ -459,6 +236,8 @@ function runMyAjax(ajaxPath, success, data = 0) {
         dataType: 'json',
         type: "POST",
         data: data,
+        processData: false,
+        contentType: false,
         success: function (result) {
             var resultObj = result; //JSON object
 
@@ -497,11 +276,21 @@ $(document).on("submit", "#user-add-form", function (ev) {
     ev.preventDefault();
     runMyAjax("ajax/Forms/userAddForm.php", function (result) {
         toastr.success("Hinzufügen erfolgreich!");
-    }, {'vorname' : $("[name=vorname]").val(), 'nachname' : $("[name=nachname]").val(), 'tel' : $("[name=tel]").val(), 'passwort' : $("[name=password]").val(), 'passwortConfirm' : $("[name=passwordConfirm]").val(), 'email' : $("[name=email]").val(), 'rollen' : $("[name=rollen]").val()})
+    }, {
+        'vorname': $("[name=vorname]").val(),
+        'nachname': $("[name=nachname]").val(),
+        'tel': $("[name=tel]").val(),
+        'passwort': murmurhash3_32_gc($("[name=password]").val(), 2476),
+        'passwortConfirm': murmurhash3_32_gc($("[name=passwordConfirm]").val(), 2476),
+        'email': $("[name=email]").val(),
+        'rollen': $("[name=rollen]").val()
+    })
 });
 
 var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen!", "ajax/Forms/loginForm.php", function (result) {
     location.reload();
+}, function (formData) {
+    formData.set("passwort", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
 });
 
 var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung fehlgeschlagen!", "ajax/Forms/userEditForm.php", function (result) {
@@ -522,6 +311,8 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
     });
     formdata.append('stufen', JSON.stringify(stufen));
     formdata.append('wantsEmails', JSON.stringify($("#wantsEmails").val()));
+    formdata.set("passwort", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
+    formdata.set("passwort-wiederholung", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
 });
 
 var sendMessageFormHelper = new AjaxFormHelper($("#send-message-form"), "Senden fehlgeschlagen!", "ajax/sendMessage.php", function (result) {
@@ -669,10 +460,35 @@ var addRoleFormHelper = new AjaxFormHelper($("#rolle-add-form"), "Rolle nicht hi
     formdata.append('rollen', JSON.stringify(rollen));
 });
 
-var appointmentFormHelper = new AjaxFormHelperSpecial($("#appointment-form"), "Termin nicht hinzufügbar!", "ajax/Forms/appointmentForm.php", function (result) {
-    toastr.success("Termin erfolgreich hinzugefügt!");
+$(document).on("submit", "#appointment-form", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/Getters/isFreeLessonsAndHasFreeHours.php", function (result) {
+        if (result.isFirst && !result.hasFree) {
+            var results = window.confirm("Du hast bereits dein wöchentliches Kontingent ausgeschöpft und müsstest diese Stunde bezahlen! Fortfahren?");
+            if (results) {
+                var formData = new FormData(ev.target);
+                formData.append("hasToPay", JSON.stringify(true));
+                runMyAjax("ajax/Forms/appointmentForm.php", function (result) {
+                    toastr.success("Termin erfolgreich hinzugefügt!");
+                }, formData);
+            }
+        }
+        else if (result.isFirst && result.hasFree) {
+            var formData = new FormData(ev.target);
+            formData.append("hasToPay", JSON.stringify(false));
+            runMyAjax("ajax/Forms/appointmentForm.php", function (result) {
+                toastr.success("Termin erfolgreich hinzugefügt!");
+            }, formData);
+        }
+        else {
+            var formData = new FormData(ev.target);
+            formData.append("hasToPay", JSON.stringify(true));
+            runMyAjax("ajax/Forms/appointmentForm.php", function (result) {
+                toastr.success("Termin erfolgreich hinzugefügt!");
+            }, formData);
+        }
+    })
 });
-
 
 $(document).on("submit", '#register-form', function (ev) {
     ev.preventDefault();
@@ -696,10 +512,14 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     var faecher = $('[name=fachButton]');
     var selectedFaecher = [];
     var firstConnection = null;
+    var firstRequest = null;
 
     $.each(faecher, function (i, fach) {
         if ($(fach).hasClass("warning")) {
             selectedFaecher.push($(fach).attr('id'));
+        }
+        else if ($(fach).hasClass("firstRequest")) {
+            firstRequest = $(fach).attr('id');
         }
         else if ($(fach).hasClass("firstConnection")) {
             firstConnection = $(fach).attr('id');
@@ -709,19 +529,44 @@ $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {
     runMyAjax("ajax/nachhilfeAnfrage.php", function (result) {
 
         toastr.success("Anfrage gesendet!");
+        /*
         selectedFaecher.forEach(function (fache) {
             var parent = $("#" + fache).parent();
             var fachen = $("#" + fache).text();
             parent.empty();
-            parent.append("<div class='data-label secondary'><p class='center'>" + fachen + "</p></div>")
+            if (firstRequest == null && firstConnection == null) {
+                parent.append("<p type='button' id=" + fache + " name='fachButton' class='labelled secondary center'>" + fachen + "</p><input type='hidden' value='Ja' id='" + fache + "isAnfrage'>");
+            }
+            else {
+                parent.append("<div class='data-label secondary'><p class='center'>" + fachen + "</p></div>")
+            }
         });
         if (firstConnection != null) {
             var parent = $("#" + firstConnection).parent();
             var fachen = $("#" + firstConnection).text();
             parent.empty();
-            parent.append("<div class='data-label firstRequest'><p class='center'>" + fachen + "</p></div>")
+            parent.append("<div class='data-label firstConnection'><p class='center'>" + fachen + "</p></div>");
+            $("#connectionFirst").val("Ja");
+            buttons = $("[name=fachButton]");
+            buttons.forEach(function(button){
+
+            });
         }
-    }, {'user': $("#user_to_show").val(), 'faecher': selectedFaecher, 'first': firstConnection})
+        else if (firstRequest != null) {
+            var parent = $("#" + firstConnection).parent();
+            var fachen = $("#" + firstConnection).text();
+            parent.empty();
+            parent.append("<div class='data-label firstRequest'><p class='center'>" + fachen + "</p></div>")
+            $("#anfrageFirst").val("Ja");
+        }
+        */
+        location.reload();
+    }, {
+        'user': $("#user_to_show").val(),
+        'faecher': selectedFaecher,
+        'firstConnection': firstConnection,
+        'firstRequest': firstRequest
+    })
 });
 
 $(document).on("click", "#add_qual", function (ev) {
@@ -797,24 +642,49 @@ $(document).on("click", '[name=fachButton]', function (ev) {
         element.addClass("warning");
     }
     else if (ev.target.className.includes("warning")) {
-        if ($("#" + element.attr('id') + "connection").val() == false) {
-            if ($("#" + element.attr('id') + "anfrage").val() == false) {
-                element.removeClass("warning");
-                element.addClass("firstConnection");
-            }
-            else {
-                element.removeClass("warning");
-                element.addClass("success");
-            }
+        if ($("#" + element.attr('id') + "connection").val() == "Nein" && $("#anfrageFirst").val() == "Nein") {
+            element.removeClass("warning");
+            element.addClass("firstRequest");
+            $("#anfrageFirst").val("Ja");
         }
         else {
             element.removeClass("warning");
             element.addClass("success");
         }
     }
-    else {
+    else if (ev.target.className.includes("firstRequest")) {
+        if ($("#" + element.attr('id') + "ísAnfrage").val() == "Ja") {
+            element.removeClass("firstRequest");
+            element.addClass("secondary");
+            $("#anfrageFirst").val("Nein");
+        }
+        else {
+            element.removeClass("firstRequest");
+            element.addClass("success");
+            $("#anfrageFirst").val("Nein");
+        }
+    }
+    else if (ev.target.className.includes("secondary")) {
+        if ($("#anfrageFirst").val() == "Nein" && $("#connectionFirst").val() == "Nein") {
+            element.removeClass("secondary");
+            element.addClass("firstRequest");
+            $("#anfrageFirst").val("Ja");
+        }
+    }
+    else if (ev.target.className.includes("alter")) {
+        if ($("#connectionFirst").val() == "Nein" && $("#anfrageFirst").val() == "Nein") {
+            element.removeClass("alter");
+            element.addClass("firstConnection");
+            $("#connectionFirst").val("Ja");
+        }
+        else{
+            toastr.info("Anscheinend hast du bereits eine kostenlose Verbindung/Anfrage!");
+        }
+    }
+    else if (ev.target.className.includes("firstConnection")) {
         element.removeClass("firstConnection");
-        element.addClass("success");
+        element.addClass("alter");
+        $("#connectionFirst").val("Nein");
     }
 });
 
@@ -1015,27 +885,20 @@ $("#show_connections").on("click", function (ev) {
     ev.preventDefault();
     $('#results').empty();
     runMyAjax("ajax/Getters/getConnectionsWithNames.php", function (result) {
-        var html = "<div class='row'><div class='small-6 columns'><input type='text' id='filter'></div></div><table class='hover'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Fach</th><th>Löschen</th></tr></thead><tbody id='connections'>";
+        var html = "<table class='hover'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Fach</th><th>Freigeben</th><th>Löschen</th></tr></thead><tbody id='connections'>";
         result.data.forEach(function (data) {
-            html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.fachName + "</td><td><button class='tablebutton alert' id='" + data.idVerbindung + "' name='deleteConny'</td>Löschen</tr>";
+            html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.fachName + "</td>";
+            if (data.blockiert) {
+                html += "<td><button class='tablebutton alert' id='" + data.idVerbindung + "' name='unblockConny'>Freigeben</button></td>";
+            }
+            else {
+                html += "<td><p>Freigegeben</p></td>";
+            }
+            html += "<td><button class='tablebutton alert' id='" + data.idVerbindung + "' name='deleteConny'>Löschen</button></td></tr>";
         });
         html += "</tbody></table>";
         $('#results').append(html);
-        $rows = $("#connections tr");
-        var i = 0;
-        $.each($rows, function () {
-            rowsTextArray[i] = $(ev.target).text().replace(/\s+/g, ' ').toLowerCase();
-            i++;
-        });
     });
-});
-$(document).on('keyup', "#filter", function () {
-    var val = $.trim($("#filter").val()).replace(/ +/g, ' ').toLowerCase();
-    if (typeof $rows !== 'undefined') {
-        $rows.show().filter(function (index) {
-            return (rowsTextArray[index].indexOf(val) === -1);
-        }).hide();
-    }
 });
 
 $(document).on("click", "[name=deleteConny]", function (ev) {
@@ -1046,6 +909,15 @@ $(document).on("click", "[name=deleteConny]", function (ev) {
         ev.target.text = "Gelöscht";
     }, {'id': $(ev.target).attr('id')})
 });
+$(document).on("click", "[name=unblockConny]", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/unblockConnection.php", function (result) {
+        toastr.success("Verbindung freigegeben!");
+        $(ev.target).removeClass("alert").addClass("success");
+        ev.target.text = "Freigegeben";
+    }, {'id': $(ev.target).attr('id')})
+});
+
 
 $("#show_pending_hours").on("click", function (ev) {
     ev.preventDefault();
@@ -1290,108 +1162,95 @@ $(document).on("click", "[name=denyAppointment]", function (ev) {
     }, {'id': $(ev.target).attr('id')});
 });
 
+function updateBenutzer(array, jQueryObject, selected=null){
+    jQueryObject.empty();
+    jQueryObject.append("<option value='no'>Nichts</option>");
+    if(array != false) {
+        array.forEach(function (arr) {
+            if (selected != null && selected == arr['ID']) {
+                jQueryObject("<option value='" + arr['ID'] + "' selected>" + arr['vorname'] + " " + arr['name'] + "</option>");
+            }
+            else {
+                jQueryObject.append("<option value='" + arr['ID'] + "'>" + arr['vorname'] + " " + arr['name'] + "</option>");
+            }
+        })
+    }
+}
+function updateFächer(array, jQueryObject, selected=null){
+    jQueryObject.empty();
+    jQueryObject.append("<option value='no'>Nichts</option>");
+    if(array != false) {
+        array.forEach(function (arr) {
+            if (selected != null && selected == arr['idFach']) {
+                jQueryObject("<option value='" + arr['idFach'] + "' selected>" + arr['name'] + "</option>");
+            }
+            else {
+                jQueryObject.append("<option value='" + arr['idFach'] + "'>" + arr['name'] + "</option>");
+            }
+        })
+    }
+}
+
 $(document).on("change", "#idUser", function (ev) {
     ev.preventDefault();
     var subjects = $("#idSubject");
+    //Benutzer wurde abgewählt und Fach war nie ausgewählt
     if ($(ev.target).val() == "no" && subjects.val() == "no") {
+        //Update Fächer
         runMyAjax("ajax/Getters/getAllSubjects.php", function (result) {
-            subjects.empty();
-            subjects.append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
-                result.subjects.forEach(function (subject) {
-                    subjects.append("<option value='" + subject['idFach'] + "'>" + subject['name'] + "</option>");
-                });
-            }
+            updateFächer(result.subjects, subjects);
         });
+        //Update Benutzer
         runMyAjax("ajax/Getters/getAllConnectionUsers.php", function (result) {
-            $(ev.target).empty();
-            $(ev.target).append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.users) === '[object Array]') {
-                result.users.forEach(function (user) {
-                    $(ev.target).append("<option value='" + user['ID'] + "'>" + user['vorname'] + " " + user['name'] + "</option>");
-                });
-            }
+            updateBenutzer(result.users, $(ev.target));
         });
     }
+    //Benutzer wurde ausgewählt und Fach war nie ausgewählt
     else if ($(ev.target).val() != "no" && subjects.val() == "no") {
+        //Update Fächer
         runMyAjax("ajax/Getters/getOfferedSubjects.php", function (result) {
-            subjects.empty();
-            subjects.append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
-                result.subjects.forEach(function (subject) {
-                    subjects.append("<option value='" + subject['idFach'] + "'>" + subject['name'] + "</option>");
-                });
-            }
+            updateFächer(result.subjects, subjects);
         }, {'user': $(ev.target).val()});
     }
+    //Benutzer wurde abgewählt und Fach war ausgewählt
     else if (subjects.val() != "no" && $(ev.target).val() == "no") {
+        //Update Benutzer
         runMyAjax("ajax/Getters/getUsersBySubject.php", function (result) {
-            $(ev.target).empty();
-            $(ev.target).append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.users) === '[object Array]') {
-                result.users.forEach(function (user) {
-                    $(ev.target).append("<option value='" + user['ID'] + "'>" + user['vorname'] + " " + user['name'] + "</option>");
-                });
-            }
+            updateBenutzer(result.users, $(ev.target));
         }, {'fach': subjects.val()});
+        //Update Fächer und select das ausgewählte Fach
         runMyAjax("ajax/Getters/getAllSubjects.php", function (result) {
             var idFach = subjects.val();
-            subjects.empty();
-            subjects.append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
-                result.subjects.forEach(function (subject) {
-                    var html = "<option value='" + subject['idFach'] + "'";
-                    if (subject['idFach'] == idFach) {
-                        html += " selected ";
-                    }
-                    html += ">" + subject['name'] + "</option>";
-                    subjects.append(html);
-                });
-            }
+            updateFächer(result.subjects, subjects, idFach);
         });
     }
+    //Benutzer wurde ausgewählt und Fach war ausgewählt
     else if (subjects.val() != "no" && $(ev.target).val() != "no") {
+        //Update Fächer und wähle das ausgewählte Fach aus
         runMyAjax("ajax/Getters/getOfferedSubjects.php", function (result) {
             var idFach = subjects.val();
-            subjects.empty();
-            subjects.append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
-                result.subjects.forEach(function (subject) {
-                    var html = "<option value='" + subject['idFach'] + "'";
-                    if (subject['idFach'] == idFach) {
-                        html += " selected ";
-                    }
-                    html += ">" + subject['name'] + "</option>";
-                    subjects.append(html);
-                });
-            }
+            updateFächer(result.subjects, subjects, idFach);
         }, {'user': $(ev.target).val()})
     }
 });
 $(document).on("change", "#idSubject", function (ev) {
     ev.preventDefault();
     var users = $("#idUser");
+    //Fach wurde ausgewählt und Benutzer war nie ausgewählt
     if (users.val() == "no" && $(ev.target).val() != "no") {
+        //Update Benutzer
         runMyAjax("ajax/Getters/getUsersBySubject.php", function (result) {
-            users.empty();
-            users.append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.users) === '[object Array]') {
-                result.users.forEach(function (user) {
-                    users.append("<option value='" + user['ID'] + "'>" + user['vorname'] + " " + user['name'] + "</option>");
-                });
-            }
+            updateBenutzer(result.users, users);
         }, {'fach': $(ev.target).val()});
     }
+    //Fach wurde abgewählt und Benutzer war nie ausgewählt
     else if (users.val() == "no" && $(ev.target).val() == "no") {
+        //Update Benutzer
         runMyAjax("ajax/Getters/getAllConnectionUsers.php", function (result) {
-            users.empty();
-            users.append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.users) === '[object Array]') {
-                result.users.forEach(function (user) {
-                    users.append("<option value='" + user['ID'] + "'>" + user['vorname'] + " " + user['name'] + "</option>");
-                });
-            }
+            updateBenutzer(result.users, users);
         });
+        /* unnecessary (I think)
+        //Update Fächer
         runMyAjax("ajax/Getters/getAllSubjects.php", function (result) {
             $(ev.target).empty();
             $(ev.target).append("<option value='no'>Nichts</option>");
@@ -1401,40 +1260,34 @@ $(document).on("change", "#idSubject", function (ev) {
                 });
             }
         });
+        */
     }
+    //Fach wurde abgewählt und Benutzer war ausgewählt
     else if ($(ev.target).val() == "no" && users.val() != "no") {
+        //Update Fächer
         runMyAjax("ajax/Getters/getOfferedSubjects.php", function (result) {
             var idFach = $(ev.target).val();
-            $(ev.target).empty();
-            $(ev.target).append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
-                result.subjects.forEach(function (subject) {
-                    var html = "<option value='" + subject['idFach'] + "'";
-                    if (subject['idFach'] == idFach) {
-                        html += " selected ";
-                    }
-                    html += ">" + subject['name'] + "</option>";
-                    $(ev.target).append(html);
-                });
-            }
-        }, {'user': users.val()})
+            updateFächer(result.subjects, $(ev.target), idFach);
+        }, {'user': users.val()});
+
+        //Update Benutzer und selecte den ausgewählten
+        var idBenutzer = users.val();
+        runMyAjax("ajax/Getters/getAllConnectionUsers.php", function(result){
+           updateBenutzer(result.users, users, idBenutzer);
+        });
     }
+    //Fach wurde ausgewählt und Benutzer war ausgewählt
     else if (users.val() != "no" && $(ev.target).val() != "no") {
+        //Update Fächer und selecte ausgewähltes
         runMyAjax("ajax/Getters/getOfferedSubjects.php", function (result) {
             var idFach = $(ev.target).val();
-            $(ev.target).empty();
-            $(ev.target).append("<option value='no'>Nichts</option>");
-            if (Object.prototype.toString.call(result.subjects) === '[object Array]') {
-                result.subjects.forEach(function (subject) {
-                    var html = "<option value='" + subject['idFach'] + "'";
-                    if (subject['idFach'] == idFach) {
-                        html += " selected ";
-                    }
-                    html += ">" + subject['name'] + "</option>";
-                    $(ev.target).append(html);
-                });
-            }
-        }, {'user': users.val()})
+            updateFächer(result.subjects, $(ev.target), idFach);
+        }, {'user': users.val()});
+        //Update Benutzer und selecte den ausgewählten
+        var idBenutzer = users.val();
+        runMyAjax("ajax/Getters/getUsersBySubject.php", function (result) {
+            updateBenutzer(result.users, users, idBenutzer);
+        }, {'fach': $(ev.target).val()});
     }
 });
 
@@ -1493,7 +1346,7 @@ $(document).on("click", "#show_all_hours", function (ev) {
 $(document).on("click", "#submit_pdf_month", function (ev) {
     ev.preventDefault();
     runMyAjax("ajax/Getters/getAllHours.php", function (result) {
-        var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div><div class='small-12 columns result-boxes'><div class='result-boxes-inner search'><table><thead><tr><th>Schüler</th><th>Lehrer</th><th>Datum</th><th>Stattgefunden</th><th>Verbindung Blockiert</th><th>Stunde löschen</th></tr></thead><tbody>";
+        var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div><div class='small-12 columns result-boxes'><div class='result-boxes-inner search'><table><thead><tr><th>Schüler</th><th>Lehrer</th><th>Datum</th><th>Stattgefunden</th><th>Verbindung Blockiert</th><th>Stunde freigeben</th><th>Stunde löschen</th></tr></thead><tbody>";
         if (Object.prototype.toString.call(result.hours) === '[object Array]') {
             result.hours.forEach(function (hour) {
                 html += "<tr><td>" + hour.studentVorname + " " + hour.studentName + "</td><td>" + hour.teacherVorname + " " + hour.teacherName + "</td><td>" + hour.date + "</td><td>";
@@ -1517,12 +1370,11 @@ $(document).on("click", "#submit_pdf_month", function (ev) {
                 }
                 html += "</td><td>";
                 if (hour.blockiert == 1) {
-                    html += "<p class='alert'>Verbindung blockiert</p>";
+                    html += "<p class='alert'>Verbindung blockiert</p></td><td><button class='tablebutton alert' name='unblockHour' id='" + hour.idStunde + "'>Stunde freigeben</button></td>";
                 }
                 else {
-                    html += "<p class='success'>Verbindung nicht blockiert</p>";
+                    html += "<p class='success'>Verbindung nicht blockiert</p></td><td><p>Nichts</p></td>";
                 }
-                html += "</td>";
                 html += "<td><button class='tablebutton alert' name='deleteHour' id='" + hour.idStunde + "'>Stunde löschen</button></td></tr>";
             });
         }
@@ -1546,11 +1398,11 @@ $(document).on("click", "#submit_pdf_month", function (ev) {
             else {
                 html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
             }
-            if (hours.blockiert == 1) {
-                html += "<p class='alert'>Verbindung blockiert</p>";
+            if (hour.blockiert == 1) {
+                html += "<p class='alert'>Verbindung blockiert</p></td><td><button class='tablebutton alert' name='unblockHour' id='" + hour.idStunde + "'>Stunde freigeben</button></td>";
             }
             else {
-                html += "<p class='success'>Verbindung nicht blockiert</p>";
+                html += "<p class='success'>Verbindung nicht blockiert</p></td><td><p>Nichts</p></td>";
             }
             html += "</td>";
             html += "<td><button class='tablebutton alert' name='deleteHour' id='" + hours.idStunde + "'>Stunde löschen</button></td></tr>"
@@ -1575,6 +1427,15 @@ $(document).on("click", "[name=deleteHour]", function (ev) {
         }, {'id': $(ev.target).attr('id')})
     }
 });
+$(document).on("click", "[name=unblockHour]", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/unblockHour.php", function (result) {
+        toastr.success("Stunde freigegeben!");
+        $(ev.target).removeClass("alert").addClass("success");
+        ev.target.text = "Freigegeben";
+    }, {'id': $(ev.target).attr('id')})
+});
+
 $(document).on("click", "#generate_pdf", function (ev) {
     ev.preventDefault();
     var year = $('#pdf_month').val();
@@ -1749,6 +1610,43 @@ $(document).on("click", "#add_user", function (ev) {
                         </form>
                     </div>`
         $("#results").append(html);
+    });
+});
+
+$(document).on("click", "#setMaxNumberStudents", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/Getters/getMaxNumberOfStudents.php", function (result) {
+        var html = "<div class='small-12-centered columns'><input type='text' placeholder='" + result.number + "' id='maxNumber' required><br><button class='button success' id='submit_maxNumberStudents' name='Submit'>Submit</button>";
+        $("#results").empty();
+        $("#results").append(html);
+    });
+});
+$(document).on("click", "#submit_maxNumberStudents", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/Setters/setMaxNumberOfStudents.php", function (result) {
+        toastr.success("Erfolgreich gesetzt!");
+    }, {'number': $("#maxNumber").val()})
+});
+
+$(document).on("click", "#setMaxNumberLessons", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/Getters/getMaxNumberOfFreeLessons.php", function (result) {
+        var html = "<div class='small-12-centered columns'><input type='text' placeholder='" + result.number + "' id='maxNumber' required><br><button class='button success' id='submit_maxNumberLessons' name='Submit'>Submit</button>";
+        $("#results").empty();
+        $("#results").append(html);
+    });
+});
+$(document).on("click", "#submit_maxNumberLessons", function (ev) {
+    ev.preventDefault();
+    runMyAjax("ajax/Setters/setMaxNumberOfFreeLessons.php", function (result) {
+        toastr.success("Erfolgreich gesetzt!");
+    }, {'number': $("#maxNumber").val()})
+});
+$(document).ready(function (ev) {
+    runMyAjax("ajax/Getters/needsNotification.php", function (result) {
+        if (result.ja) {
+            toastr.info("Du hast neue Nachrichten!");
+        }
     });
 });
 

@@ -5,6 +5,9 @@ include_once __DIR__ . "/../assets/php/dbClasses/Fach.php";
 if (isset($user_to_show_id)) {
     $user = Benutzer::get_by_id($user_to_show_id);
 }
+else{
+    exit();
+}
 
 $connections = Verbindung::get_by_user_ids(Benutzer::get_logged_in_user()->idBenutzer, $user_to_show_id);
 
@@ -16,10 +19,10 @@ foreach ($connections as $connection) {
 $anfragen = $user->get_anfragen(Benutzer::get_logged_in_user()->idBenutzer);
 $anfragen_key_array = Array();
 foreach ($anfragen as $anfrage) {
-    $anfragen_key_array[Fach::get_by_id($anfrage->idFach)->name] = $anfrage;
+    $anfragen_key_array[$anfrage->idFach] = $anfrage;
 }
-
-$user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
+$logged_in_user = Benutzer::get_logged_in_user();
+$user_is_me = $logged_in_user->idBenutzer == $user->idBenutzer;
 ?>
 
 <div class="row main" data-equalizer data-equalize-on="medium">
@@ -31,7 +34,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <h2>Profil</h2>
 
                 <?php
-                if ($user->has_permission("takeClasses") && !empty($connections) && !$user_is_me) {
+                if ($logged_in_user->has_permission("takeClasses") && !empty($connections) && !$user_is_me) {
                     echo '<div class="data-label">
                     <p>Du nimmst bei dieser Person Nachhilfe!</p>
                     </div>';
@@ -50,7 +53,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <div class="data-label">
                     <?php
 
-                    if (!empty($connections) || (Benutzer::get_logged_in_user()->has_permission("showCredentials")) || $user_is_me) {
+                    if (!empty($connections) || ($logged_in_user->has_permission("showCredentials")) || $user_is_me) {
                         $number = $user->telefonnummer;
                         echo "<p>Telefonnummer: {$number}</p>";
                     } else {
@@ -66,7 +69,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 <div class="data-label">
                     <?php
 
-                    if (!empty($connections) || (Benutzer::get_logged_in_user()->has_permission("showCredentials")) || $user_is_me) {
+                    if (!empty($connections) || ($logged_in_user->has_permission("showCredentials")) || $user_is_me) {
                         $email = $user->email;
                         echo "<p>Email: {$email}</p>";
                     } else {
@@ -78,7 +81,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                 </div>
 
                 <?php
-                if ($user_is_me || Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
+                if ($user_is_me || $logged_in_user->has_permission("showProfileExtended")) {
                     echo '<div class="data-label">';
                     $wants = $user->wantsEmails;
                     if ($wants == 1 || $wants == true) {
@@ -93,7 +96,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
 
                 <?php
 
-                if (empty($connections) && !(Benutzer::get_logged_in_user()->has_permission("showCredentials")) && !$user_is_me) {
+                if (empty($connections) && !($logged_in_user->has_permission("showCredentials")) && !$user_is_me) {
 
                     echo '<p>Du kannst die Email und die Telefonnummer eines Nutzers nur sehen, wenn du ihm Nachhilfe gibst oder
                     bei ihm Nachhilfe nimmst!</p>';
@@ -134,12 +137,11 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                               </div>
                             </div>";
                             } //Check if verbindung and hasnt got first
-                            else if (isset($connections_key_array[$id]) && $user->get_first_connection() == false && !$user_is_me) {
+                            else if (isset($connections_key_array[$id]) && !isset($anfragen_key_array[$id]) && $logged_in_user->get_first_connection() == false && $logged_in_user->get_first_anfrage() == false && !$user_is_me) {
                                 //Button for Anfrage
-                                $isnot = true;
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
-                              <p type=\"button\" id={$id} name='fachButton' class='labelled success center'>
+                              <p type=\"button\" id={$id} name='fachButton' class='labelled alter center'>
                               {$subject->name}
                               </p>
                             </div>";
@@ -160,14 +162,13 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                               </div>
                             </div>";
                             } //Check if anfrage and hasnt got first
-                            else if (isset($anfragen_key_array[$id]) && $user->get_first_anfrage() == false && !$user_is_me) {
+                            else if (isset($anfragen_key_array[$id]) && $logged_in_user->get_first_anfrage() == false && $logged_in_user->get_first_connection() == false && !$user_is_me) {
                                 //Button for Anfrage
-                                $isnot = true;
                                 echo
                                 "<div class=\"small-6 medium-12 large-4 columns\">
-                              <p type=\"button\" id={$id} name='fachButton' class='labelled success center'>
+                              <p type=\"button\" id={$id} name='fachButton' class='labelled secondary center'>
                               {$subject->name}
-                              </p>
+                              </p><input type='hidden' value='Ja' id='{$id}isAnfrage'>
                             </div>";
                             } //Check if Anfrage
                             else if (isset($anfragen_key_array[$id]) && !$user_is_me) {
@@ -184,7 +185,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                                 "<div class=\"small-6 medium-12 large-4 columns\">
                               <p type=\"button\" id={$id} name='fachButton' class='labelled success center'>
                               {$subject->name}
-                              </p>
+                              </p><input type='hidden' value='Nein' id='{$id}isAnfrage'>
                             </div>";
                             } else {
                                 echo
@@ -194,30 +195,34 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
                               </div>
                             </div>";
                             }
-                            if ($user->get_first_connection() == false) {
-                                echo "<input type='hidden' id='{$id}connection' value='false'>";
-                            } else {
-                                echo "<input type='hidden' id='{$id}connection' value='true'>";
-                            }
-                            if ($user->get_first_anfrage() == false) {
-                                echo "<input type='hidden' id='{$id}anfrage' value='false'>";
-                            } else {
-                                echo "<input type='hidden' id='{$id}anfrage' value='true'>";
-                            }
+                        }
+                        if ($logged_in_user->get_first_connection() == false) {
+                            echo "<input type='hidden' id='connectionFirst' value='Nein'>";
+                        } else {
+                            echo "<input type='hidden' id='connectionFirst' value='Ja'>";
+                        }
+                        if ($logged_in_user->get_first_anfrage() == false) {
+                            echo "<input type='hidden' id='anfrageFirst' value='Nein'>";
+                        } else {
+                            echo "<input type='hidden' id='anfrageFirst' value='Ja'>";
                         }
 
                         if (!empty($connections) && !$user_is_me) {
                             echo "<div class=\"small-12 columns\"><p>In den rot markierten Fächern nimmst du bei dieser Person, oder gibst du dieser Person, Nachhilfe!</p></div>";
-                            echo "<div class=\"small-12 columns\"><p>Das lila markierte Fach ist das Fach, das du nicht selber bezahlen musst!</p></div>";
+                            if($logged_in_user->get_first_connection() != false) {
+                                echo "<div class=\"small-12 columns\"><p>Das lila markierte Fach ist das Fach, das du nicht selber bezahlen musst!</p></div>";
+                            }
                         }
                         if (!empty($anfragen) && !$user_is_me) {
                             echo "<div class=\"small-12 columns\"><p>In den blau markierten Fächern hast du bereits eine Anfrage gesendet!</p></div>";
-                            echo "<div class=\"small-12 columns\"><p>Das hellblau markierte Fach ist das Fach, das du nicht selber bezahlen musst!</p></div>";
+                            if($logged_in_user->get_first_anfrage() != false) {
+                                echo "<div class=\"small-12 columns\"><p>Das hellblau markierte Fach ist das Fach, das du nicht selber bezahlen musst!</p></div>";
+                            }
                         }
                         if ($isnot) {
                             echo "<div class=\"small-12 columns\"><p>Die grün markierten Felder kannst du anklicken, um Nachhilfe in diesem Fach anzufragen!</p></div>";
                         }
-                        if (Benutzer::get_logged_in_user()->get_first_connection() == false && $isnot && !$user_is_me) {
+                        if ($logged_in_user->get_first_connection() == false && $logged_in_user->get_first_anfrage() == false && (!empty($connections) || !empty($anfragen))&& !$user_is_me) {
                             echo "<div class=\"small-12 columns\"><p>Wenn du doppelt klickst, wählst du das Fach als erstes Fach aus, wodurch du die Stunden nicht bezahlen musst!</p></div>";
                         }
                     }
@@ -299,7 +304,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
         <h2>Aktionen</h2>
 
         <?php
-        if ($user_is_me || Benutzer::get_logged_in_user()->has_permission("showProfileExtended")) {
+        if ($user_is_me || $logged_in_user->has_permission("showProfileExtended")) {
             echo '        
         <div class="row actions">
             <div class="small-12 columns">
@@ -322,7 +327,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             echo '
         <div class="row actions">
             <div class="small-12 columns">
-                <a href="' . ConfigStrings::get("root") . "user/" . $user->idBenutzer . "/chatMessagesTo/" . Benutzer::get_logged_in_user()->idBenutzer . '" class="button" type="submit" value="Submit">Nachricht senden</a>
+                <a href="' . ConfigStrings::get("root") . "user/" . $user->idBenutzer . "/chatMessagesTo/" . $logged_in_user->idBenutzer . '" class="button" type="submit" value="Submit">Nachricht senden</a>
             </div>
         </div>';
 
@@ -345,7 +350,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
             </div>
         </div>';
 
-            if (Benutzer::get_logged_in_user()->has_permission("blockUser")) {
+            if ($logged_in_user->has_permission("blockUser")) {
                 if ($user->is_blocked() == "1" || $user->is_blocked() == "true") {
                     echo '
                       <div class="row actions">
@@ -370,7 +375,7 @@ $user_is_me = Benutzer::get_logged_in_user()->idBenutzer == $user->idBenutzer;
     </div>
 
     <?php
-    if (($user_is_me && Benutzer::get_logged_in_user()->has_permission("getSelfPDFReports")) || (!$user_is_me && Benutzer::get_logged_in_user()->has_permission("getOtherPDFReports"))) {
+    if (($user_is_me && $user->has_permission("getSelfPDFReports")) || (!$user_is_me && $logged_in_user->has_permission("getOtherPDFReports"))) {
 
         $givenButton = "";
         $takenButton = "";

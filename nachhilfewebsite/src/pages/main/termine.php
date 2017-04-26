@@ -227,8 +227,8 @@ $today = date("d.m.Y H:i:s");
 
                         if ($date < $today && $appointment['akzeptiert'] == 0) {
                             Stunde::deleteStunde($appointment['idStunde']);
-                            Benachrichtigung::add($appointment['idNachhilfelehrer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!", true);
-                            Benachrichtigung::add($appointment['idNachhilfenehmer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . "wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!", true);
+                            Benachrichtigung::add($appointment['idNachhilfelehrer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . " wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!", true);
+                            Benachrichtigung::add($appointment['idNachhilfenehmer'], "Eine Stunde wurde gelöscht!", "Die Stunde am " . $date . " mit " . $appointment['vorname'] . " " . $appointment['name'] . " wurde gelöscht, da sie nicht akzeptiert oder abgesagt wurde!", true);
                             continue;
                         }
 

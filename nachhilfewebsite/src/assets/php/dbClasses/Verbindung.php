@@ -6,6 +6,9 @@
  * Date: 14.12.2016
  * Time: 22:27
  */
+
+include_once __DIR__ . "/Stunde.php";
+
 class Verbindung
 {
 
@@ -62,12 +65,10 @@ class Verbindung
     }
 
     public function has_appointments(){
-        $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idVerbindung = :idBenutzer");
-        $stmt->bindParam(':idBenutzer', $this->idVerbindung);
+        $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idVerbindung = :idVerbindung LIMIT 1");
+        $stmt->bindParam(':idVerbindung', $this->idVerbindung);
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Stunde');
-        $user = $stmt->fetch();
-        return $user;
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde');
     }
 
     public static function get_by_id($idVerbindung){

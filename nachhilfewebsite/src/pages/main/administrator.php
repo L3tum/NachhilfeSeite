@@ -49,6 +49,12 @@
         if(Benutzer::get_logged_in_user()->has_permission("unblock_user")){
             echo "<a id='unblock_user' class='button' type='submit' value='Submit'>Benutzer freischalten</a><br>";
         }
+        if(Benutzer::get_logged_in_user()->has_permission("set_maxNumberOfStudents")){
+            echo "<a id='setMaxNumberStudents' class='button' type='submit' value='Submit'>Setze Schüler pro Lehrer</a><br>";
+        }
+        if(Benutzer::get_logged_in_user()->has_permission("set_maxNumberOfFreeLessons")){
+            echo "<a id='setMaxNumberLessons' class='button' type='submit' value='Submit'>Setze maximale Anzahl an freien Stunden pro Woche</a><br>";
+        }
         if(Benutzer::get_logged_in_user()->has_permission("sendTestMail")){
             echo '<button class="button" id="sendMail" type="submit">SendMail</button>';
         }

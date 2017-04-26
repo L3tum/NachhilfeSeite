@@ -183,12 +183,20 @@ $stmt = Connection::$PDO->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');
 
-
+$maxNumber = Settings::getSettings()->maxNumberOfStudents;
+$newUsers = Array();
+$counter = 0;
+foreach ($users as $user){
+    if(count($user->get_all_tutiution_connections_teacher()) < $maxNumber){
+        $newUsers[$counter] = $user;
+        $counter++;
+    }
+}
 
 $form_helper->success = true;
 //set url in form helper
 $form_helper->response['newUrl']=$newUrl;
-$form_helper->response['users']=$users;
+$form_helper->response['users']=$newUsers;
 $form_helper->response['canDelete'] = Benutzer::get_logged_in_user()->has_permission("blockUser");
 $form_helper->response['canUnblockUsers'] = Benutzer::get_logged_in_user()->has_permission("unblockUser");
 $form_helper->return_json();

@@ -14,11 +14,14 @@ include_once __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
 
 $form_helper = new AjaxFormHelper();
 if(Benutzer::get_logged_in_user()->has_permission("del_hour")) {
+    if(!isset($_POST['id'])){
+        $form_helper->success = false;
+        $form_helper->return_error("Interner Fehler!");
+    }
     $stmt = Connection::$PDO->prepare("DELETE FROM stunde WHERE idStunde = :id");
     $stmt->bindParam(':id', $_POST['id']);
-    $stmt->execute();
     $form_helper->response['id'] = $_POST['id'];
-    $form_helper->success = true;
+    $form_helper->success = $stmt->execute();
     $form_helper->return_json();
 }
 else{

@@ -23,15 +23,17 @@ $date = $_POST['datetime_app'];
 $time = $_POST['time_app'];
 $datumsZeit = $date. " ".$time;
 $room = $_POST['idRoom'];
+$hasToPay = $_POST['hasToPay'];
 
 if(Stunde::stundeExists($idandererBenutzer, $idFach, $date, $time, $room)){
     $form_helper->return_error("Eine Stunde in diesem Zeitraum existiert bereits!");
 }
 else{
     $idBenutzer = Benutzer::get_logged_in_user()->idBenutzer;
-    $idVerbindung = Verbindung::get_id_by_ids($idandererBenutzer, $idFach)->idVerbindung;
+    $verbindung = Verbindung::get_id_by_ids($idandererBenutzer, $idFach);
+    $idVerbindung = $verbindung->idVerbindung;
     $isTeacher = Verbindung::is_teacher($idBenutzer, $idVerbindung);
-    $stmt = Connection::$PDO->prepare("INSERT INTO stunde (stunde.raumNummer, stunde.idVerbindung, stunde.datum, stunde.lehrerVorgeschlagen) VALUES(:raumNummer, :idVerbindung, :datum, :lehrerVorgeschlagen)");
+    $stmt = Connection::$PDO->prepare("INSERT INTO stunde (stunde.raumNummer, stunde.idVerbindung, stunde.datum, stunde.lehrerVorgeschlagen, stunde.kostenfrei) VALUES(:raumNummer, :idVerbindung, :datum, :lehrerVorgeschlagen , :kostenfrei)");
     $stmt->bindParam(':raumNummer', $room);
     $stmt->bindParam('idVerbindung', $idVerbindung);
     $stmt->bindParam(':datum', $datumsZeit);
@@ -40,6 +42,12 @@ else{
     }
     else{
         $stmt->bindValue(':lehrerVorgeschlagen', 0);
+    }
+    if($hasToPay){
+        $stmt->bindValue(':kostenfrei', "FALSE");
+    }
+    else{
+        $stmt->bindValue(':kostenfrei', "TRUE");
     }
     $stmt->execute();
     $form_helper->success = true;

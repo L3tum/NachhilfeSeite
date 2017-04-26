@@ -13,6 +13,7 @@ header('Set-Cookie: "PHPSESSID' . session_id() . ';path=/"');
 include_once __DIR__ . "/Connection.php";
 include_once __DIR__ . "/tldextract.php";
 include_once __DIR__ . "/../dbClasses/Benutzer.php";
+include_once __DIR__ . "/../dbClasses/Settings.php";
 include_once __DIR__ . "/../PHPMailer/PHPMailerAutoload.php";
 
 class AjaxFormHelper
@@ -122,9 +123,9 @@ class AjaxFormHelper
         $mail->Body = $body;
 
         try {
-            $this->return_error($mail->Send());
+            $mail->Send();
         } catch (Exception $e) {
-            return_error("Email konnte nicht gesendet werden!");
+            return_error($e->getMessage());
         }
     }
 }

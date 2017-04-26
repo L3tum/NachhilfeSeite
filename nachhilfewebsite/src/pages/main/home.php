@@ -1,6 +1,6 @@
-<div class="row main" data-equalizer data-equalize-on="medium">
+<div class="row main" data-equalizer="main" data-equalize-on="medium">
 
-    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
+    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch="main">
 
         <div class="row">
             <div class="small-6 columns">
@@ -25,20 +25,20 @@
 
     </div>
 
-    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch>
+    <div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch="main">
 
         <h2>Willkommen!</h2>
         <p>Willkommen bei der Nachhilfe des Gymnasiums Lohmar! Auf dieser Seite wird die Organsiation der Nachhilfe
             geregelt.</p>
         <p>Ansprechpartnerin: Sabine Trautwein</p>
         <p>Email: <a class="link" href="mailto:trautwein@gymnasium-lohmar.org">trautwein@gymnasium-lohmar.org</a></p>
-        <p>Projektkursleiter: Andreas Blonske</p>
-        <p>Email: <a class="link" href="mailto:blonske@gymnasium-lohmar.org">blonske@gymnasium-lohmar.org</a></p>
     </div>
+</div>
+<div class="row main" data-equalizer="hi" data-equalize-on="medium">
     <?php
     $root = ConfigStrings::get('root');
     if (Benutzer::get_logged_in_user()->has_permission("takeClasses")) {
-        echo '<div class="small-12 smallmedium-12 medium-6 columns">
+        echo '<div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch="hi">
 
         <h2> Der 15 Punkte Plan!</h2>
         <p> 1. Drücke auf "Suche" und suche nach einem Nachhilfelehrer.</p>
@@ -55,11 +55,11 @@
         <p> 12. In "Termine" kannst du auf "Termin vereinbaren" klicken, um einen Termin auszuwählen. Dieser muss dann von deinem Lehrer akzeptiert werden.</p>
         <p> 13. Hat der Termin stattgefunden musst du dies wieder dort abhaken.</p>
         <p> 14. Sollte dein Lehrer dir ein Vorschlag machen, erscheint dieser auch in "Termine" und du musst ihn annehmen. </p>
-        <p> 15. <a class="link" href="'.$root.'goodcredits">Credits</a></p>
+        <p> 15. <a class="link" href="' . $root . 'goodcredits">Credits</a></p>
     </div>';
     }
-    if(Benutzer::get_logged_in_user()->has_permission("giveClasses")){
-        echo '<div class="small-12 smallmedium-12 medium-6 columns">
+    if (Benutzer::get_logged_in_user()->has_permission("giveClasses")) {
+        echo '<div class="small-12 smallmedium-12 medium-6 columns" data-equalizer-watch="hi">
 
         <h2> Der 15 Punkte Plan!</h2>
         <p> 1. Du kannst dich erst mal relaxen. </p>
@@ -76,7 +76,7 @@
         <p> 12. Solltest du nun nach einigem Warten einen Termin gehabt haben, so hake ihn bitte in "Termine" ab.</p>
         <p> 13. Dort solltest du außerdem vorher den Termin akzeptieren, sollte er von dem Schüler gesendet worden sein.</p>
         <p> 14. Viel Spaß auf dieser Seite :) </p>
-        <p> 15. <a class="link" href="'.$root.'goodcredits">Credits</a></p>
+        <p> 15. <a class="link" href="' . $root . 'goodcredits">Credits</a></p>
     </div>';
     }
     ?>

@@ -5,7 +5,7 @@
     $root = ConfigStrings::get("root");
     ?>
 
-    <li <?php if(strlen($request) == 1) echo "class='selected'" ?>><a href="<?php echo $root?>home">Home</a></li>
+    <li <?php if(strlen($request) == 1 || strpos($request, 'home') !== false) echo "class='selected'" ?>><a href="<?php echo $root?>home">Home</a></li>
     <li <?php if(strpos($request, 'suche') !== false) echo "class='selected'" ?>><a href="<?php echo $root?>suche">Suche</a></li>
     <li <?php if(strpos($request, 'user') !== false) echo "class='selected'" ?>><a href="<?php echo $root?>user/<?php echo Benutzer::get_logged_in_user()->idBenutzer?>/view">Profil</a></li>
     <li <?php if(strpos($request, 'notifications') !== false) echo "class='selected'" ?>><a href="<?php echo $root?>notifications">Nachrichten</a></li>
@@ -26,6 +26,11 @@
         }
         echo "<li $isTrue><a href='{$root}tuition'>Nachhilfe</a></li>";
     }
+    $isTrue = "";
+    if((strpos($request, 'chats') !== false)){
+        $isTrue = "class='selected'";
+    }
+    echo "<li $isTrue><a href='{$root}chats'>Chat</a></li>";
     if(Benutzer::get_logged_in_user()->has_permission('administration')) {
         $isTrue = "";
         if(strpos($request, 'admin') !== false){

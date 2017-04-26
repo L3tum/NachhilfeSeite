@@ -17,6 +17,8 @@ include_once __DIR__ . "/Verbindung.php";
 include_once __DIR__ . "/Anfrage.php";
 include_once __DIR__ . "/Qualifikation.php";
 include_once __DIR__ . "/AngebotenesFach.php";
+include_once __DIR__ . "/Benachrichtigung.php";
+include_once __DIR__ . "/Chatnachricht.php";
 
 class Benutzer
 {
@@ -33,6 +35,7 @@ class Benutzer
     public $rollenname;
     public $emailActivated;
     public $wantsEmails;
+    public $hasBeenNotifiedAboutNotifications;
 
     private $permissions;
     private $roleName;
@@ -262,11 +265,22 @@ class Benutzer
         $stmt->bindParam(':idFach', $fach);
         $stmt->execute();
 
-        $tutiution = $stmt->fetch();
-        if ($tutiution != null) {
+        $tutiution = $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
+        if ($tutiution != false) {
             return true;
         }
         return false;
+    }
+
+    public function get_tuition_connection($user_id, $fach)
+    {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE verbindung.idNachhilfelehrer = :idAndererBenutzer AND verbindung.idNachhilfenehmer = :idBenutzer AND verbindung.idFach = :idFach");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->bindParam(':idAndererBenutzer', $user_id);
+        $stmt->bindParam(':idFach', $fach);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung');
     }
 
     public function get_subjects_by_connection($idOtherUser)
@@ -305,11 +319,22 @@ class Benutzer
         $stmt->bindParam(':idFach', $fach);
         $stmt->execute();
 
-        $anfrage = $stmt->fetch();
-        if ($anfrage != null) {
+        $anfrage = $stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage');
+        if ($anfrage != false) {
             return true;
         }
         return false;
+    }
+
+    public function get_anfrage($user_id, $fach)
+    {
+        $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE anfrage.idSender = :idBenutzer AND anfrage.idEmpfänger = :idAndererBenutzer AND anfrage.idFach = :idFach");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->bindParam(':idAndererBenutzer', $user_id);
+        $stmt->bindParam(':idFach', $fach);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage');
     }
 
     public function get_all_qualifications()
@@ -458,5 +483,78 @@ verbindung as v ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t2 ON t2.i
         $stmt->bindParam(':name', $right_name);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');
+    }
+    public function get_all_chats(){
+        $stmt = Connection::$PDO->prepare("SELECT t1.vorname as t1vorname, t1.name as t1name, t1.idBenutzer as t1idBenutzer, t2.vorname as t2vorname, t2.name as t2name, t2.idBenutzer as t2idBenutzer FROM benutzer as t1 JOIN chatnachricht ON chatnachricht.idEmpfänger=t1.idBenutzer JOIN benutzer as t2 ON chatnachricht.idSender=t2.idBenutzer WHERE t2.idBenutzer = :idBenutzer OR t1.idBenutzer = :idBenutzer ORDER BY t1idBenutzer, t2idBenutzer");
+        $stmt->bindParam(':idBenutzer', $this->idBenutzer);
+        $stmt->execute();
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $user_key_array = Array();
+        foreach ($users as $user){
+            if($user['t1idBenutzer'] == $this->idBenutzer){
+                $user_key_array[$user['t2idBenutzer']] = Array();
+                $user_key_array[$user['t2idBenutzer']]['vorname'] = $user['t2vorname'];
+                $user_key_array[$user['t2idBenutzer']]['nachname'] = $user['t2name'];
+                $user_key_array[$user['t2idBenutzer']]['idBenutzer'] = $user['t2idBenutzer'];
+            }
+            else{
+                $user_key_array[$user['t1idBenutzer']] = Array();
+                $user_key_array[$user['t1idBenutzer']]['vorname'] = $user['t1vorname'];
+                $user_key_array[$user['t1idBenutzer']]['nachname'] = $user['t1name'];
+                $user_key_array[$user['t1idBenutzer']]['idBenutzer'] = $user['t1idBenutzer'];
+            }
+        }
+        return $user_key_array;
+    }
+    public function get_all_benachrichtigungen(){
+        return Benachrichtigung::get_all_by_user($this->idBenutzer);
+    }
+    public function has_benachrichtigungen(){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM benachrichtigung WHERE idBenutzer = :id LIMIT 1");
+        $stmt->bindParam(':id', $this->idBenutzer);
+        $stmt->execute();
+        if($stmt->fetchAll(PDO::FETCH_CLASS, 'Benachrichtigung') != false){
+            return true;
+        }
+        return false;
+    }
+
+    public function get_unread_messages(){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM chatnachricht WHERE gelesen=0 AND idEmpfänger = :id");
+        $stmt->bindParam(':id', $this->idBenutzer);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Chatnachricht');
+    }
+    public function has_unread_messages(){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM chatnachricht WHERE gelesen=0 AND idEmpfänger = :id LIMIT 1");
+        $stmt->bindParam(':id', $this->idBenutzer);
+        $stmt->execute();
+        if($stmt->fetchAll(PDO::FETCH_CLASS, 'Chatnachricht') != false){
+            return true;
+        }
+        return false;
+    }
+
+    public function get_received_anfragen(){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE idEmpfänger = :id");
+        $stmt->bindParam(':id', $this->idBenutzer);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage');
+    }
+    public function has_received_anfragen(){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM anfrage WHERE idEmpfänger = :id LIMIT 1");
+        $stmt->bindParam(':id', $this->idBenutzer);
+        $stmt->execute();
+        if($stmt->fetchAll(PDO::FETCH_CLASS, 'Anfrage') != false){
+            return true;
+        }
+        return false;
+    }
+
+    public function set_notified($bool = true){
+        $stmt = Connection::$PDO->prepare("UPDATE benutzer SET hasBeenNotifiedAboutNotifications = :bool WHERE idBenutzer = :id");
+        $stmt->bindParam(':bool', $bool);
+        $stmt->bindParam(':id', $this->idBenutzer);
+        $stmt->execute();
     }
 }

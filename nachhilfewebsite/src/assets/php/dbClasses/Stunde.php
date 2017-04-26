@@ -18,6 +18,7 @@ class Stunde
     public $bestaetigtLehrer;
     public $akzeptiert;
     public $lehrerVorgeschlagen;
+    public $kostenfrei;
 
     public static function stundeExists($idAndererBenutzer, $idFach, $date, $time, $idRoom){
         $endTime = date("H:i:s", strtotime("+45 minutes", strtotime($time)));
@@ -45,6 +46,8 @@ class Stunde
         $stmt->bindParam(':idStunde', $idStunde);
         $stmt->execute();
     }
+
+    //$date = Y-m
     public static function get_all_lessons($date){
         if ($date != "") {
             $stmt = Connection::$PDO->prepare("SELECT t1.vorname as studentVorname, t1.name as studentName, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE DATE_FORMAT(stunde.datum, '%Y-%m')= :datum ORDER BY stunde.datum");
@@ -102,5 +105,12 @@ class Stunde
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Stunde');
         return $stmt->fetch();
+    }
+    public static function get_all_lessons_by_user_and_week_free($user, $week){
+        $stmt = Connection::$PDO->prepare("SELECT stunde.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung WHERE DATE_FORMAT(stunde.datum, '%u') = :week AND verbindung.idNachhilfenehmer = :id AND stunde.kostenfrei = 1");
+        $stmt->bindParam(':week', $week);
+        $stmt->bindParam(':id', $user);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde');
     }
 }
