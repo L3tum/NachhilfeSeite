@@ -183,7 +183,7 @@ $stmt = Connection::$PDO->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'Benutzer');
 
-$maxNumber = Settings::getSettings()->maxNumberOfStudents;
+$maxNumber = Settings::getSetting('maxNumberOfStudents');
 $newUsers = Array();
 $counter = 0;
 foreach ($users as $user){

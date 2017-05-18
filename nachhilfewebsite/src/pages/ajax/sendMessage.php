@@ -18,8 +18,8 @@ include_once __DIR__ . "/../assets/php/dbClasses/Chatnachricht.php";
 
 $form_helper = new AjaxFormHelper();
 
-Chatnachricht::add($_POST['reciever'], $_POST['content']);
-
+$message = Chatnachricht::add($_POST['reciever'], $_POST['content']);
+$form_helper->response['id'] = $message->idChatnachricht;
 $form_helper->success = true;
 $form_helper->return_json();
 ?>

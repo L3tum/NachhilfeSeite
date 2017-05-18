@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {{!-- This is the base layout for your project, and will be used on every page. --}}
 {{> getRootPath}}
 <html class="no-js" lang="en">
@@ -16,6 +17,17 @@
     <link rel="stylesheet" href="<?php echo $root?>assets/css/app.css">
   </head>
   <body>
+  <!--
+Nadine, gib mir die Kraft, diese Seite TOTALLY AWESOME zu machen!
+
+Danke für die Bergmannsche Regel, Nina!
+<div class="row">
+    <div class="small-12 columns">
+        <a class="labelled success float-right" href="<?php //echo ConfigStrings::get('root') . "login" ?>"><p>Login</p>
+        </a>
+    </div>
+</div>
+-->
 
     {{!-- Pages you create in the src/pages/ folder are inserted here when the flattened page is created. --}}
     {{> body}}

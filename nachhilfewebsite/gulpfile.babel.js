@@ -26,7 +26,7 @@ function loadConfig() {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel(pages, sass, javascript, images, copy, htaccess), styleGuide));
+ gulp.series(clean, gulp.parallel(pages, sass, javascript, jsAjax, images, copy, htaccess), styleGuide));
 
 // Build the site, run the server, and watch for file changes
 gulp.task('default',
@@ -92,6 +92,31 @@ function sass() {
     .pipe(browser.reload({ stream: true }));
 }
 
+function jsAjax(){
+  return gulp.src("src/assets/jsAjax/*.js").pipe($.sourcemaps.init())
+      .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+        ))
+      .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+      .pipe(gulp.dest(PATHS.dist + '/assets/jsAjax'));
+}
+
+function cssAjax(){
+  return gulp.src('src/assets/cssAjax/*.scss')
+      .pipe($.sourcemaps.init())
+      .pipe($.sass()
+          .on('error', $.sass.logError))
+      .pipe($.autoprefixer({
+        browsers: COMPATIBILITY
+      }))
+      // Comment in the pipe below to run UnCSS in production
+      //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
+      .pipe($.if(PRODUCTION, $.cssnano()))
+      .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+      .pipe(gulp.dest(PATHS.dist + '/assets/cssAjax'))
+      .pipe(browser.reload({ stream: true }));
+}
+
 // Combine JavaScript into one file
 // In production, the file is minified
 function javascript() {
@@ -144,6 +169,7 @@ function watch() {
   gulp.watch('src/{layouts,partials}/**/*.php').on('all', gulp.series(resetPages, pages, browser.reload));
   gulp.watch('src/assets/scss/**/*.scss').on('all', gulp.series(sass, browser.reload));
   gulp.watch('src/assets/js/**/*.js').on('all', gulp.series(javascript, browser.reload));
+  gulp.watch('src/assets/jsAjax/**/*.js').on('all', gulp.series(jsAjax, browser.reload));
   gulp.watch('src/assets/img/**/*').on('all', gulp.series(images, browser.reload));
   gulp.watch('src/assets/php/**/*').on('all', gulp.series(browser.reload));
   gulp.watch('src/styleguide/**').on('all', gulp.series(styleGuide, browser.reload));

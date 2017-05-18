@@ -8,6 +8,7 @@
  */
 
 include_once __DIR__ . "/Stunde.php";
+include_once __DIR__ . "/Benutzer.php";
 
 class Verbindung
 {
@@ -33,6 +34,16 @@ class Verbindung
         $stmt->bindParam(':idBenutzer', Benutzer::get_logged_in_user()->idBenutzer);
         $stmt->bindParam(':idandererBenutzer', $idandererBenutzer);
         $stmt->bindParam(':idFach', $idFach);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
+        return $stmt->fetch();
+    }
+
+    public static function get_by_ids($idandererBenutzer, $idFach){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM verbindung WHERE idFach = :idFach AND (idNachhilfelehrer = :idBenutzer || idNachhilfenehmer = :idBenutzer ) AND (idNachhilfelehrer = :idandererBenutzer || idNachhilfenehmer = :idandererBenutzer ) LIMIT 1");
+        $stmt->bindValue(':idBenutzer', intval(Benutzer::get_logged_in_user()->idBenutzer));
+        $stmt->bindValue(':idandererBenutzer', intval($idandererBenutzer));
+        $stmt->bindValue(':idFach', intval($idFach));
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Verbindung');
         return $stmt->fetch();

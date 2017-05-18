@@ -30,8 +30,6 @@ $stmt->bindParam(':idBenutzer', $user->idBenutzer);
 
 $stmt->execute();
 
-$firstCon = Benutzer::get_by_id($id)->get_first_connection();
-
 foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung') as $verbindung) {
     $fach = Fach::get_by_id($verbindung->idFach);
 
@@ -50,25 +48,12 @@ foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung') as $verbindung) {
     $stmt->bindParam(':idVerbindung', $verbindung->idVerbindung);
     $stmt->bindParam(':month', $month);
     $stmt->execute();
-
-    $kostenfrei = "";
-
-    if ($taken_lessons) {
-        if ($firstCon->idVerbindung == $verbindung->idVerbindung) {
-            $kostenfrei = " <span style='display: inline;' class='alert'>(Kostenlos)</span>";
-        }
-    } else {
-        if ($verbindung->is_first()) {
-
-            $kostenfrei = " <span style='display: inline;' class='alert'>(Kostenlos)</span>";
-        }
-    }
-
+    $stunden = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde');
 
     $entries .= "
         <div class='columns small-12'>
           <h4>" . $tableHeadline . "</h4>
-          <h5>Fach: " . $fach->name . $kostenfrei . "</h5>
+          <h5>Fach: " . $fach->name . "</h5>
           <table>
             <thead>
                 
@@ -76,60 +61,68 @@ foreach ($stmt->fetchAll(PDO::FETCH_CLASS, 'Verbindung') as $verbindung) {
                   
                     <th id='date-header' class='header'>Datum</th>
                     <th id='room-header' class='header'>Raum</th>
+                    <th id='kostenfrei-header' class='header'>Kostenlos</th>
                     <th id='state-header' class='header'>Status</th>
                     <th id='state-icon-header' class='header'>?</th>
                 </tr>
             <thead>";
 
-    $stunden = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde');
     if (empty($stunden)) {
         $entries .= '<tr><th colspan="4">Kein Termin!</th></tr>';
     }
-    foreach ($stunden as $stunde) {
-        $date = $date = date('d.m h:m', strtotime(str_replace('-', '/', $stunde->datum)));
-
-        $status = "";
-        $icon = "";
-
-        if (strtotime($stunde->datum) > strtotime('now')) {
-            $status = "Findet noch statt.";
-            $icon = "❯";
-        } else {
-            $icon = "✘";
-            if ($stunde->akzeptiert) {
-                if ($stunde->bestaetigtSchueler) {
-                    if ($stunde->bestaetigtLehrer) {
-                        $status = "Akzeptiert und von beiden bestätigt";
-                        $icon = "✔";
-                    } else {
-                        $status = "Akzeptiert aber vom Lehrer <em>nicht</em> bestätigt.";
-                    }
-                } else if ($stunde->bestaetigtLehrer) {
-                    $status = "Akzeptiert aber vom Schüler <em>nicht</em> bestätigt.";
-                } else {
-                    $status = "Akzeptiert aber von <em>keinem</em> bestätigt.";
-                }
+    else {
+        foreach ($stunden as $stunde) {
+            $date = $date = date('d.m h:m', strtotime(str_replace('-', '/', $stunde->datum)));
+            if ($stunde->kostenfrei) {
+                $kosten = "✔";
             } else {
-                if ($stunde->bestaetigtSchueler) {
-                    if ($stunde->bestaetigtLehrer) {
-                        $status = "Nicht akzeptiert aber von beiden bestätigt";
+                $kosten = "✘";
+            }
+
+            $status = "";
+            $icon = "";
+
+            if (strtotime($stunde->datum) > strtotime('now')) {
+                $status = "Findet noch statt.";
+                $icon = "❯";
+            } else {
+                $icon = "✘";
+                if ($stunde->akzeptiert) {
+                    if ($stunde->bestaetigtSchueler) {
+                        if ($stunde->bestaetigtLehrer) {
+                            $status = "Akzeptiert und von beiden bestätigt";
+                            $icon = "✔";
+                        } else {
+                            $status = "Akzeptiert aber vom Lehrer <em>nicht</em> bestätigt.";
+                        }
+                    } else if ($stunde->bestaetigtLehrer) {
+                        $status = "Akzeptiert aber vom Schüler <em>nicht</em> bestätigt.";
                     } else {
-                        $status = "Nicht akzeptiert <em>nur</b> vom Schüler bestätigt";
+                        $status = "Akzeptiert aber von <em>keinem</em> bestätigt.";
                     }
-                } else if ($stunde->bestaetigtLehrer) {
-                    $status = "Nicht akzeptiert und <em>nur</em> vom Lehrer bestätigt.";
                 } else {
-                    $status = "Nicht akzeptiert und von <em>keinem</em> bestätigt.";
+                    if ($stunde->bestaetigtSchueler) {
+                        if ($stunde->bestaetigtLehrer) {
+                            $status = "Nicht akzeptiert aber von beiden bestätigt";
+                        } else {
+                            $status = "Nicht akzeptiert <em>nur</b> vom Schüler bestätigt";
+                        }
+                    } else if ($stunde->bestaetigtLehrer) {
+                        $status = "Nicht akzeptiert und <em>nur</em> vom Lehrer bestätigt.";
+                    } else {
+                        $status = "Nicht akzeptiert und von <em>keinem</em> bestätigt.";
+                    }
                 }
             }
-        }
 
-        $entries .= "<tr>
+            $entries .= "<tr>
               <th>{$date}</th>
               <th>{$stunde->raumNummer}</th>
+              <th>{$kosten}</th>
               <th>{$status}</th>
               <th>{$icon}</th>
             </tr>";
+        }
     }
     $entries .= "</table></div>";
 }

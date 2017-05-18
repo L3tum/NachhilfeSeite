@@ -22,14 +22,14 @@ $idandererBenutzer = $_POST['idUser'];
 $idFach = $_POST['idSubject'];
 $date = $_POST['datetime_app'];
 $idBenutzer = Benutzer::get_logged_in_user()->idBenutzer;
-$verbindung = Verbindung::get_id_by_ids($idandererBenutzer, $idFach);
+$verbindung = Verbindung::get_by_ids($idandererBenutzer, $idFach);
 if($verbindung->kostenfrei){
     $form_helper->response['isFirst'] = true;
 }
 else{
     $form_helper->response['isFirst'] = false;
 }
-$currDate = new DateTime();
+$currDate = new DateTime($date);
 $week = $currDate->format("W");
 $lessons = Stunde::get_all_lessons_by_user_and_week_free($idBenutzer, $week);
 if($lessons != false) {

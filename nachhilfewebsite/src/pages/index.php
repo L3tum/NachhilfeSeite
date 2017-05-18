@@ -30,7 +30,10 @@ include_once __DIR__ . "/assets/php/general/tldextract.php";
 echo $_SERVER['REQUEST_URI'];
 exit();
 */
-session_start();
+$var = headers_sent($filename, $linenum);
+if(session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 //echo session_id();
 
 
@@ -52,7 +55,7 @@ Route::add404(function () {
 });
 
 
-Route::add('($setup)*(insane=true)*', function ($param = 0, $param2 = 0) {
+Route::add('', function () {
 
 
     include "main/home.php";
@@ -157,7 +160,8 @@ Route::add('user/(.*)/chatMessagesTo/(.*)', function ($id_sender, $id_reciever) 
     include 'main/viewChatMessages.php';
 });
 
-Route::add('admin', function () {
+Route::add('admin/?(.*)', function ($param1 = null) {
+    $parameters = $param1;
     include 'main/administrator.php';
 });
 
@@ -233,8 +237,8 @@ Route::add('spdf/(.+)', function ($param) {
     $month = $params[1];
     include 'main/allLessonsPDFMonth.php';
 });
-
-Route::add('credits', function () {
+//($setup)*(insane=true)*
+Route::add('credits/?\??(.*)', function ($param = 0) {
     include 'special/credits.php';
 });
 Route::add('goodcredits', function () {
@@ -243,9 +247,10 @@ Route::add('goodcredits', function () {
 Route::add('chats', function () {
     include 'main/chats.php';
 });
-
+Route::add('login', function(){
+    include 'special/login.php';
+});
 
 Route::run();
-
 //print_r($_SERVER);
 ?>

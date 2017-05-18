@@ -12,16 +12,20 @@ layout: star
 
 ?>
 
-<iframe style="visibility: hidden; position:absolute; left:-600px;" width="0" height="0" src="https://www.youtube.com/embed/bpxtuUQ28UM?autoplay=1&loop=1&vq=small&rel=0&showinfo=0&controls=0" frameborder="0"></iframe>
+<div style="z-index: 10;" class="float-right">
+    <p style="z-index: 10;" id="timer"></p>
+</div>
 
-<p id="start">A short time ago in a browser very, very close&hellip;</p>
+<iframe id="videos" style="visibility: hidden; position:absolute; left:-600px;" width="0" height="0" src="" frameborder="0"></iframe>
 
-<h1 id="star" class="burn">
+<p style="z-index: 10;" id="start">A short time ago in a browser very, very close&hellip;</p>
+
+<h1 style="z-index: 10;" id="star" class="burn">
         CREDITS
-    <sub id="star" class="burn">where credits are due</sub>
+    <sub style="z-index: 10;" id="star" class="burn">where credits are due</sub>
 </h1>
 
-<div id="titles">
+<div style="z-index: 10;" id="titles">
     <div id="titlecontent">
         <br>
         <br>
@@ -40,7 +44,7 @@ layout: star
         <br>
         <br>
         <br>
-        <p class="center">
+        <p style="z-index: 10;" class="center">
             Render therefore to all their dues: <br>
             tribute to whom tribute is due; <br>
             custom to whom custom; <br>
@@ -50,47 +54,47 @@ layout: star
         </p>
         <br>
         <br>
-        <p class="center-title">
+        <p style="z-index: 10;" class="center-title">
             Lead Programmer
         </p>
-        <p class="center fire">
+        <p style="z-index: 10;" class="center fire">
             Tom Pauly
         </p>
-        <p class="center fire">
+        <p style="z-index: 10;" class="center fire">
             Tim Göller
         </p>
         <br>
-        <p class="center-title">
+        <p style="z-index: 10;" class="center-title">
             Lead Designer
         </p>
-        <p class="center fire">
+        <p style="z-index: 10;" class="center fire">
             Hannah Rosa Plötz
         </p>
-        <p class="center fire">
+        <p style="z-index: 10;" class="center fire">
             Marten Lückeroth
         </p>
-        <p class="center fire ">
+        <p style="z-index: 10;" class="center fire ">
             Sven Georgino
         </p>
         <br>
         <br>
-        <p class="center-title">
+        <p style="z-index: 10;" class="center-title">
             SPECIAL THANKS TO
         </p>
-        <p class="center fire">
+        <p style="z-index: 10;" class="center fire">
             Andi Blonske
             <br>
             <img src="https://www.gymnasium-lohmar.org/php/kollegen/Fotos/BLN.jpg">
         </p>
-        <p class="center fire">
+        <p style="z-index: 10;" class="center fire">
             Sabine Trautwein
             <br>
             <img src="https://www.gymnasium-lohmar.org/php/kollegen/Fotos/TRA.jpg">
         </p>
-        <p class="center-title">
+        <p style="z-index: 10;" class="center-title">
             Music
         </p>
-        <p style="font-size:50%">
+        <p style="z-index: 10;" style="font-size:50%">
             <a href="https://www.youtube.com/watch?v=bpxtuUQ28UM">Thomas Bergersen - Children of the Sun (feat. Merethe Soltvedt)</a>
         </p>
     </div>

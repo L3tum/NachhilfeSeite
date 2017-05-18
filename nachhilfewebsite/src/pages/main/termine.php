@@ -121,7 +121,6 @@ $today = date("d.m.Y H:i:s");
                 }
                 if (isset($appointments2) && !empty($appointments2)) {
                     foreach ($appointments2 as $appointment) {
-                        $connection = Verbindung::is_first_connection($appointment['idVerbindung'], Benutzer::get_logged_in_user()->idBenutzer);
                         $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
 
                         echo "<tr><td>{$appointment['vorname']} {$appointment['name']}</td><td>Du</td><td>{$appointment['fachName']}</td><td>{$date}</td><td>{$appointment['raumNummer']}</td>";
@@ -161,7 +160,7 @@ $today = date("d.m.Y H:i:s");
                             echo "<td class='success'>Ja</td>";
                         }
 
-                        if ($connection) {
+                        if ($appointment['kostenfrei'] == "TRUE" || $appointment['kostenfrei'] == "1" || $appointment['kostenfrei'] == true) {
                             echo "<td class='success'>Nein</td>";
                         } else {
                             echo "<td class='warning'>Ja</td>";
@@ -290,7 +289,6 @@ $today = date("d.m.Y H:i:s");
                 }
                 if (isset($appointments4) && !empty($appointments4)) {
                     foreach ($appointments4 as $appointment) {
-                        $connection = Verbindung::is_first_connection($appointment['idVerbindung'], Benutzer::get_logged_in_user()->idBenutzer);
                         $date = date('d.m.Y H:i:s', strtotime($appointment['datum']));
                         if ($date < $today && $appointment['akzeptiert'] == 0) {
                             Stunde::deleteStunde($appointment['idStunde']);
@@ -335,7 +333,7 @@ $today = date("d.m.Y H:i:s");
                             echo "<td class='success'>Ja</td>";
                         }
 
-                        if ($connection) {
+                        if ($appointment['kostenfrei']) {
                             echo "<td class='success'>Nein</td>";
                         } else {
                             echo "<td class='warning'>Ja</td>";

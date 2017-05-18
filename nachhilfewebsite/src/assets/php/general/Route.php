@@ -87,8 +87,7 @@ class Route{
                 }
 
                 if($route['userNeeded'] == true) {
-                    if (!Benutzer::get_logged_in_user()) {
-
+                    if (!Benutzer::get_logged_in_user() && strpos(self::$path, 'login') === false) {
                         include "special/welcome.php";
                     }
                     else {

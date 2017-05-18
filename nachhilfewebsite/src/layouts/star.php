@@ -29,6 +29,5 @@
 
 
 <script src="<?php echo $root?>assets/js/app.js"></script>
-<script src="<?php echo $root?>assets/js/temporary.js"></script>
 </body>
 </html>

@@ -7,9 +7,6 @@
  * Time: 20:16
  */
 
-session_start();
-header('Set-Cookie: "PHPSESSID' . session_id() . ';path=/"');
-
 include_once __DIR__ . "/Connection.php";
 include_once __DIR__ . "/tldextract.php";
 include_once __DIR__ . "/../dbClasses/Benutzer.php";
@@ -25,7 +22,7 @@ class AjaxFormHelper
 
     function __construct()
     {
-
+        session_start();
         $this->set_up_defaults();
 
     }

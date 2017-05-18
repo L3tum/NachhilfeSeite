@@ -10,7 +10,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
         Route::redirect_to_root();
     }
 }
-
+$logged_in_user = Benutzer::get_logged_in_user();
 ?>
 
 <div class="row main" data-equalizer data-equalize-on="medium">
@@ -27,7 +27,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                 <div class="small-12-centered medium-6-centered columns">
                     <div class="small-10-centered medium-5-centered columns no-padding both">
                         <label>Vorname
-                            <input <?php if (!Benutzer::get_logged_in_user()->has_permission("canEditName")) {
+                            <input <?php if (!$logged_in_user->has_permission("canEditName")) {
                                 echo "readonly";
                             } ?> value="<?php echo $user->vorname ?>" name="vorname" type="text" placeholder="Max"
                                  required
@@ -38,7 +38,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                         </label>
 
                         <label>Nachname
-                            <input <?php if (!Benutzer::get_logged_in_user()->has_permission("canEditName")) {
+                            <input <?php if (!$logged_in_user->has_permission("canEditName")) {
                                 echo "readonly";
                             } ?> value="<?php echo $user->name ?>" name="nachname" type="text" placeholder="Mustermann"
                                  required pattern="^[a-zA-ZÄÖÜäöüß ]{1,25}$">
@@ -48,7 +48,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                         </label>
                         <label>Neues Passwort
                             <input <?php
-                            if(!$user_is_me && (!Benutzer::get_logged_in_user()->has_permission("editOtherPasswords")  || $user->has_permission("elevated_administrator"))){
+                            if(!$user_is_me && (!$logged_in_user->has_permission("editOtherPasswords") || $user->has_permission("elevated_administrator"))){
                                 echo "readonly";
                             }
                             ?> name="passwort" type="password" id="passwort">
@@ -57,9 +57,9 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                 </span>
                         </label>
 
-                        <label style="display:none" id="passwort-wiederholung">Neues Passwort Wiederholung
+                        <label style="display:none" id="passwort-wiederholung">Neues Passwort Wiederholen
                             <input <?php
-                            if(!$user_is_me && (!Benutzer::get_logged_in_user()->has_permission("editOtherPasswords") || $user->has_permission("elevated_administrator"))){
+                            if(!$user_is_me && (!$logged_in_user->has_permission("editOtherPasswords") || $user->has_permission("elevated_administrator"))){
                                 echo "readonly";
                             }
                             ?> name="passwort-wiederholung" type="password" data-equalto="passwort">
@@ -70,7 +70,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
 
                         <label>Telefonnummer
                             <input <?php
-                            if(!$user_is_me && !Benutzer::get_logged_in_user()->has_permission("editOtherTel")){
+                            if((!$user_is_me && !$logged_in_user->has_permission("editOtherTel"))){
                                 echo "readonly";
                             }
                             ?> value="<?php echo $user->telefonnummer ?>" pattern="^[0-9]{0,15}$"
@@ -83,7 +83,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
 
                         <label>Email
                             <input <?php
-                            if(!$user_is_me && !Benutzer::get_logged_in_user()->has_permission("editOtherEmails")){
+                            if(!$user_is_me && !$logged_in_user->has_permission("editOtherEmails")){
                                 echo "readonly";
                             }
                             ?> value="<?php echo $user->email ?>" name="email" type="email">
@@ -93,7 +93,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                         </label>
 
                         <?php
-                        if($user_is_me || Benutzer::get_logged_in_user()->has_permission("editWantsEmails")){
+                        if($user_is_me || $logged_in_user->has_permission("editWantsEmails")){
                             echo "<button class='editUserButton ";
                             if($user->wantsEmails){
                                 echo "success'";
@@ -106,7 +106,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                         ?>
 
                         <?php
-                        if ((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherRole") && !$user->has_permission("elevated_administrator")) || ($user_is_me &&  $user->has_permission("editSelfRole") && !$user->has_permission("administration"))) {
+                        if ((!$user_is_me && $logged_in_user->has_permission("editOtherRole") && !$user->has_permission("elevated_administrator")) || ($user_is_me &&  $user->has_permission("editSelfRole"))) {
                             echo "<label>Rolle
                         <select id='rollenSelector' name='rollenSelector'>";
                             $rollen = Rolle::get_all_roles();
@@ -121,7 +121,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                             echo "</select>
                         </label>";
                         }
-                        if (((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherSubjects") == true) || ($user_is_me && $user->has_permission("editSelfSubjects"))) && $user->has_permission("giveClasses")) {
+                        if (((!$user_is_me && $logged_in_user->has_permission("editOtherSubjects") == true) || ($user_is_me && $user->has_permission("editSelfSubjects"))) && $user->has_permission("giveClasses")) {
                             echo "<div class='data-label'><label>Fächer</label>";
                             $subjects = Fach::get_all_subjects();
                             $user_to_edit = $user;
@@ -140,7 +140,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                             }
                             echo "</div>";
                         }
-                        if (((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherYears") == true) || ($user_is_me && $user->has_permission("editSelfYears"))) && $user->has_permission("giveClasses")) {
+                        if (((!$user_is_me && $logged_in_user->has_permission("editOtherYears") == true) || ($user_is_me && $user->has_permission("editSelfYears"))) && $user->has_permission("giveClasses")) {
                             echo "<div class='data-label'><label>Stufen</label>";
                             $subjects = Stufe::get_all_years();
                             $user_to_edit = $user;
@@ -159,7 +159,7 @@ if (Benutzer::get_logged_in_user()->idBenutzer == $user_to_edit_id) {
                             }
                             echo "</div>";
                         }
-                        if (((!$user_is_me && Benutzer::get_logged_in_user()->has_permission("editOtherQuals") == true) || ($user_is_me && $user->has_permission("editSelfQuals"))) && $user->has_permission("giveClasses")) {
+                        if (((!$user_is_me && $logged_in_user->has_permission("editOtherQuals") == true) || ($user_is_me && $user->has_permission("editSelfQuals"))) && $user->has_permission("giveClasses")) {
                             echo "<div class='data-label'>";
                             echo "<label>Qualifikationen Hinzufügen</label>";
                             echo "<input type='text' id='qual_name' name='qual_name' placeholder='Name'>";

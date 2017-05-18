@@ -285,7 +285,7 @@ class Benutzer
 
     public function get_subjects_by_connection($idOtherUser)
     {
-        $stmt = Connection::$PDO->prepare("SELECT f.idFach as idFach, f.name as name FROM verbindung as v JOIN fach as f ON f.idFach=v.idFach WHERE v.blockiert=0 AND f.blockiert=0 AND ((v.idNachhilfelehrer = :idBenutzer AND v.idNachhilfenehmer = :idanderer) OR (v.idNachhilfelehrer = :idanderer AND v.idNachhilfenehmer = :idBenutzer)) GROUP BY v.idFach");
+        $stmt = Connection::$PDO->prepare("SELECT f.idFach as idFach, f.name as name, v.kostenfrei as kostenfrei FROM verbindung as v JOIN fach as f ON f.idFach=v.idFach WHERE v.blockiert=0 AND f.blockiert=0 AND ((v.idNachhilfelehrer = :idBenutzer AND v.idNachhilfenehmer = :idanderer) OR (v.idNachhilfelehrer = :idanderer AND v.idNachhilfenehmer = :idBenutzer)) GROUP BY v.idFach");
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
         $stmt->bindParam(':idanderer', $idOtherUser);
         $stmt->execute();
@@ -347,10 +347,10 @@ class Benutzer
     public function get_all_appointments_as_teacher($past)
     {
         if ($past == 1) {
-            $stmt = Connection::$PDO->prepare("SELECT stunde.*, t3.idBenutzer as idBenutzer, t3.vorname as vorname, t3.name as name, v.kostenfrei as kostenfrei, v.idNachhilfelehrer as idNachhilfelehrer, v.idNachhilfenehmer as idNachhilfenehmer, v.blockiert as vblockiert, fach.name as fachName FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN 
+            $stmt = Connection::$PDO->prepare("SELECT stunde.*, t3.idBenutzer as idBenutzer, t3.vorname as vorname, t3.name as name, v.idNachhilfelehrer as idNachhilfelehrer, v.idNachhilfenehmer as idNachhilfenehmer, v.blockiert as vblockiert, fach.name as fachName FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN 
 benutzer as t1 ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t3 ON t3.idBenutzer=v.idNachhilfenehmer JOIN fach ON fach.idFach=v.idFach WHERE v.idNachhilfelehrer = :idBenutzer AND (stunde.datum < NOW())");
         } else {
-            $stmt = Connection::$PDO->prepare("SELECT stunde.*, t3.idBenutzer as idBenutzer, t3.vorname as vorname, t3.name as name, v.kostenfrei as kostenfrei, v.idNachhilfelehrer as idNachhilfelehrer, v.idNachhilfenehmer as idNachhilfenehmer, v.blockiert as vblockiert, fach.name as fachName FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN 
+            $stmt = Connection::$PDO->prepare("SELECT stunde.*, t3.idBenutzer as idBenutzer, t3.vorname as vorname, t3.name as name, v.idNachhilfelehrer as idNachhilfelehrer, v.idNachhilfenehmer as idNachhilfenehmer, v.blockiert as vblockiert, fach.name as fachName FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN 
 benutzer as t1 ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t3 ON t3.idBenutzer=v.idNachhilfenehmer JOIN fach ON fach.idFach=v.idFach WHERE v.idNachhilfelehrer = :idBenutzer AND (stunde.datum >= NOW())");
         }
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);
@@ -361,10 +361,10 @@ benutzer as t1 ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t3 ON t3.id
     public function get_all_appointments_as_pupil($past)
     {
         if ($past == 1) {
-            $stmt = Connection::$PDO->prepare("SELECT stunde.*, t1.idBenutzer as idBenutzer, t1.vorname as vorname, t1.name as name, v.kostenfrei as kostenfrei, v.idNachhilfelehrer as idNachhilfelehrer, v.idNachhilfenehmer as idNachhilfenehmer, v.blockiert as vblockiert, fach.name as fachName FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN 
+            $stmt = Connection::$PDO->prepare("SELECT stunde.*, t1.idBenutzer as idBenutzer, t1.vorname as vorname, t1.name as name, v.idNachhilfelehrer as idNachhilfelehrer, v.idNachhilfenehmer as idNachhilfenehmer, v.blockiert as vblockiert, fach.name as fachName FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN 
 benutzer as t1 ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t3 ON t3.idBenutzer=v.idNachhilfenehmer JOIN fach ON fach.idFach=v.idFach WHERE v.idNachhilfenehmer = :idBenutzer AND (stunde.datum < NOW())");
         } else {
-            $stmt = Connection::$PDO->prepare("SELECT stunde.*, t1.idBenutzer as idBenutzer, t1.vorname as vorname, t1.name as name, v.kostenfrei as kostenfrei, v.idNachhilfelehrer as idNachhilfelehrer, v.idNachhilfenehmer as idNachhilfenehmer, v.blockiert as vblockiert, fach.name as fachName FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN 
+            $stmt = Connection::$PDO->prepare("SELECT stunde.*, t1.idBenutzer as idBenutzer, t1.vorname as vorname, t1.name as name, v.idNachhilfelehrer as idNachhilfelehrer, v.idNachhilfenehmer as idNachhilfenehmer, v.blockiert as vblockiert, fach.name as fachName FROM stunde JOIN verbindung as v ON stunde.idVerbindung=v.idVerbindung JOIN 
 benutzer as t1 ON t1.idBenutzer=v.idNachhilfelehrer JOIN benutzer as t3 ON t3.idBenutzer=v.idNachhilfenehmer JOIN fach ON fach.idFach=v.idFach WHERE v.idNachhilfenehmer = :idBenutzer AND (stunde.datum >= NOW())");
         }
         $stmt->bindParam(':idBenutzer', $this->idBenutzer);

@@ -70,13 +70,10 @@ if ($taken == true) {
                     $lehrer = Benutzer::get_by_id($hours[0]['idTeacher']);
                     $tableHeadline = "Lehrer: " . $lehrer->vorname . " " . $lehrer->name;
 
-                    if ($hour['kostenfrei'] == 1) {
-                        $kostenfrei = "<span style='display: inline;' class='alert'> (Kostenlos)</span>";
-                    }
                     $entries .= "
         <div class='columns small-12'>
           <h4>" . $tableHeadline . "</h4>
-          <h5>Fach: " . $fach->name . $kostenfrei . "</h5>
+          <h5>Fach: " . $fach->name . "</h5>
           <table>
             <thead>
                 
@@ -84,6 +81,7 @@ if ($taken == true) {
                   
                     <th id='date-header' class='header'>Datum</th>
                     <th id='room-header' class='header'>Raum</th>
+                    <th id='kostenfrei-header' class='header'>Kostenlos</th>
                     <th id='state-header' class='header'>Status</th>
                     <th id='state-icon-header' class='header'>?</th>
                 </tr>
@@ -91,6 +89,12 @@ if ($taken == true) {
                     foreach ($hours as $hour) {
                         $date = $hour['date'];
 
+                        if($hour['kosten'] == 1){
+                            $kosten = "✔";
+                        }
+                        else{
+                            $kosten = "✘";
+                        }
                         $status = "";
                         $icon = "";
 
@@ -130,6 +134,7 @@ if ($taken == true) {
                         $entries .= "<tr>
               <th>{$date}</th>
               <th>{$hour['raumNummer']}</th>
+              <th>{$kosten}</th>
               <th>{$status}</th>
               <th>{$icon}</th>
             </tr>";
@@ -185,13 +190,10 @@ if ($given == true) {
                     $lehrer = Benutzer::get_by_id($hours[0]['idStudent']);
                     $tableHeadline = "Schüler: " . $lehrer->vorname . " " . $lehrer->name;
 
-                    if ($hour['kostenfrei'] == 1) {
-                        $kostenfrei = "<span style='display: inline;' class='alert'> (Kostenlos)</span>";
-                    }
                     $entries .= "
         <div class='columns small-12'>
           <h4>" . $tableHeadline . "</h4>
-          <h5>Fach: " . $fach->name . $kostenfrei . "</h5>
+          <h5>Fach: " . $fach->name . "</h5>
           <table>
             <thead>
                 
@@ -199,6 +201,7 @@ if ($given == true) {
                   
                     <th id='date-header' class='header'>Datum</th>
                     <th id='room-header' class='header'>Raum</th>
+                    <th id='kostenfrei-header' class='header'>Kostenlos</th>
                     <th id='state-header' class='header'>Status</th>
                     <th id='state-icon-header' class='header'>?</th>
                 </tr>
@@ -242,12 +245,19 @@ if ($given == true) {
                             }
                         }
 
+                        if($hour['kosten'] == 1){
+                            $kosten = "✔";
+                        }
+                        else{
+                            $kosten = "✘";
+                        }
+
                         $entries .= "<tr>
               <th>{$date}</th>
               <th>{$hour['raumNummer']}</th>
+              <th>{$kosten}</th>
               <th>{$status}</th>
-              <th>{$icon}</th>
-            </tr>";
+              <th>{$icon}</th>";
                     }
                     $entries .= "</table></div>";
                 }

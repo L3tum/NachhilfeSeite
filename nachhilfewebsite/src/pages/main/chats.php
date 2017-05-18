@@ -30,7 +30,7 @@ $connections = Benutzer::get_logged_in_user()->get_all_connections_single();
                 <?php
 
                 foreach ($partners as $partner) {
-                    echo "<tr><th>" . $partner['vorname'] . " " . $partner['nachname'] . "</th><th><a class='tablebutton' href='" . $root . "user/" . $partner['idBenutzer'] . "/chatMessagesTo/" . Benutzer::get_logged_in_user()->idBenutzer . "'>Chat</a></th></tr>";
+                    echo "<tr><th><a class='tablebutton success' href='" . $root . "user/ " . $partner['idBenutzer'] . "/view'>" . $partner['vorname'] . " " . $partner['nachname'] . "</a></th><th><a class='tablebutton' href='" . $root . "user/" . $partner['idBenutzer'] . "/chatMessagesTo/" . Benutzer::get_logged_in_user()->idBenutzer . "'>Chat</a></th></tr>";
                 }
 
                 ?>
@@ -56,7 +56,9 @@ $connections = Benutzer::get_logged_in_user()->get_all_connections_single();
                 <?php
 
                 foreach ($connections as $partner) {
-                    echo "<tr><th>" . $partner['vorname'] . " " . $partner['name'] . "</th><th><a href='" . $root . "user/" . Benutzer::get_logged_in_user()->idBenutzer . "/chatMessagesTo/" . $partner['ID'] . "'>Chat</a></th></tr>";
+                    if (!array_key_exists($partner['ID'], $partners)) {
+                        echo "<tr><th><a class='tablebutton success' href='" . $root . "user/ " . $partner['ID'] . "/view'>" . $partner['vorname'] . " " . $partner['name'] . "</a></th><th><a class='tablebutton' href='" . $root . "user/" . Benutzer::get_logged_in_user()->idBenutzer . "/chatMessagesTo/" . $partner['ID'] . "'>Chat</a></th></tr>";
+                    }
                 }
 
                 ?>

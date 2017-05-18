@@ -1,0 +1,2 @@
+cd nachhilfewebsite
+npm start

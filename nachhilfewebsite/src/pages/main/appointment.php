@@ -21,6 +21,7 @@ $rooms = Raum::get_all_rooms();
 
 <div class="row main">
     <div class="small-12 columns">
+        <br>
         <form id="appointment-form">
             <table>
                 <thead>

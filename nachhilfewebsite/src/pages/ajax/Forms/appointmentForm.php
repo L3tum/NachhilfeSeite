@@ -30,7 +30,7 @@ if(Stunde::stundeExists($idandererBenutzer, $idFach, $date, $time, $room)){
 }
 else{
     $idBenutzer = Benutzer::get_logged_in_user()->idBenutzer;
-    $verbindung = Verbindung::get_id_by_ids($idandererBenutzer, $idFach);
+    $verbindung = Verbindung::get_by_ids($idandererBenutzer, $idFach);
     $idVerbindung = $verbindung->idVerbindung;
     $isTeacher = Verbindung::is_teacher($idBenutzer, $idVerbindung);
     $stmt = Connection::$PDO->prepare("INSERT INTO stunde (stunde.raumNummer, stunde.idVerbindung, stunde.datum, stunde.lehrerVorgeschlagen, stunde.kostenfrei) VALUES(:raumNummer, :idVerbindung, :datum, :lehrerVorgeschlagen , :kostenfrei)");
@@ -43,11 +43,11 @@ else{
     else{
         $stmt->bindValue(':lehrerVorgeschlagen', 0);
     }
-    if($hasToPay){
-        $stmt->bindValue(':kostenfrei', "FALSE");
+    if($hasToPay == "true"){
+        $stmt->bindValue(':kostenfrei', 0);
     }
     else{
-        $stmt->bindValue(':kostenfrei', "TRUE");
+        $stmt->bindValue(':kostenfrei', 1);
     }
     $stmt->execute();
     $form_helper->success = true;

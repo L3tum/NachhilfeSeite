@@ -74,11 +74,11 @@ class Stunde
 
     public static function get_lessons_by_user_date_connection($date, $idVerbindung){
         if ($date != "") {
-            $stmt = Connection::$PDO->prepare("SELECT verbindung.idNachhilfenehmer as idStudent, t1.vorname as studentVorname, t1.name as studentName, verbindung.idNachhilfelehrer as idTeacher, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert, verbindung.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE DATE_FORMAT(stunde.datum, '%Y-%m')= :datum AND verbindung.idVerbindung= :idVerbindung ORDER BY stunde.datum");
+            $stmt = Connection::$PDO->prepare("SELECT verbindung.idNachhilfenehmer as idStudent, t1.vorname as studentVorname, t1.name as studentName, verbindung.idNachhilfelehrer as idTeacher, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert, verbindung.*, stunde.kostenfrei as kosten, stunde.raumnummer as raumNummer FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE DATE_FORMAT(stunde.datum, '%Y-%m')= :datum AND verbindung.idVerbindung= :idVerbindung ORDER BY stunde.datum");
             $stmt->bindParam(':datum', $date);
         }
         else{
-            $stmt = $stmt = Connection::$PDO->prepare("SELECT verbindung.idNachhilfenehmer as idStudent, t1.vorname as studentVorname, t1.name as studentName, verbindung.idNachhilfelehrer as idTeacher, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert, verbindung.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE verbindung.idVerbindung= :idVerbindung ORDER BY stunde.datum");
+            $stmt = $stmt = Connection::$PDO->prepare("SELECT verbindung.idNachhilfenehmer as idStudent, t1.vorname as studentVorname, t1.name as studentName, verbindung.idNachhilfelehrer as idTeacher, t2.vorname as teacherVorname, t2.name as teacherName, DATE_FORMAT(stunde.datum, '%d.%m.%Y %T') as date, stunde.bestaetigtSchueler, stunde.bestaetigtLehrer, stunde.akzeptiert, verbindung.*, stunde.kostenfrei as kosten FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung JOIN benutzer as t1 ON verbindung.idNachhilfenehmer=t1.idBenutzer JOIN benutzer as t2 ON verbindung.idNachhilfelehrer=t2.idBenutzer WHERE verbindung.idVerbindung= :idVerbindung ORDER BY stunde.datum");
         }
         $stmt->bindParam(':idVerbindung', $idVerbindung);
         $stmt->execute();
@@ -100,16 +100,16 @@ class Stunde
         }
     }
     public static function get_by_id($idStunde){
-        $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idStunde = :id");
-        $stmt->bindParam(':id', $idStunde);
+        $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE idStunde =" . $idStunde . " LIMIT 1");
+        //$stmt->bindParam(':id', $idStunde);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Stunde');
         return $stmt->fetch();
     }
     public static function get_all_lessons_by_user_and_week_free($user, $week){
         $stmt = Connection::$PDO->prepare("SELECT stunde.* FROM stunde JOIN verbindung ON verbindung.idVerbindung=stunde.idVerbindung WHERE DATE_FORMAT(stunde.datum, '%u') = :week AND verbindung.idNachhilfenehmer = :id AND stunde.kostenfrei = 1");
-        $stmt->bindParam(':week', $week);
-        $stmt->bindParam(':id', $user);
+        $stmt->bindValue(':week', intval($week));
+        $stmt->bindValue(':id', intval($user));
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde');
     }
