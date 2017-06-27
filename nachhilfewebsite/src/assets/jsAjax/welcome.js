@@ -3148,8 +3148,6 @@ var distance = now - countDownDate;
 // Time calculations for days, hours, minutes and seconds
 var years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365.25));
 var days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24));
-years = 1;
-days = 0;
 
 function checkKey(e) {
 
