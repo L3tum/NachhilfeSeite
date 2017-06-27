@@ -5,7 +5,12 @@
 var loginFormHelper = new AjaxFormHelper($("#login-form"), "Login fehlgeschlagen!", "ajax/Forms/loginForm.php", function (result) {
     location.reload();
 }, function (formData) {
-    formData.set("passwort", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
+    if(FormData.set) {
+        formData.set("passwort", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
+    }
+    else{
+        formData.append("passwort", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
+    }
 });
 
 var TuitionEndFormHelper = new AjaxFormHelper($(".tuition-end-form"), "Beenden fehlgeschlagen!", "ajax/tuitionEnd.php", function (result) {
