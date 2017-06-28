@@ -14,6 +14,6 @@ include_once __DIR__ . "/../assets/php/dbClasses/Benutzer.php";
 include_once  __DIR__ . "/../assets/php/general/Connection.php";
 
 $ajax_form_helper = new AjaxFormHelper();
-$ajax_form_helper->response["hi"] = $ajax_form_helper->send_mail("nachhilfegylo@gmail.com", "Test", "Dies ist ein Test.Danke");
+$ajax_form_helper->response["hi"] = $ajax_form_helper->send_mail(Benutzer::get_logged_in_user()->email, "Test", "Dies ist ein Test.Danke");
 $ajax_form_helper->success = true;
 $ajax_form_helper->return_json();

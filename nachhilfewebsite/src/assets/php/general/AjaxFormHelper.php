@@ -110,12 +110,11 @@ class AjaxFormHelper
         $mail->SMTPSecure = "ssl"; // sets the prefix to the servier
         $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
         $mail->Port = 465; // set the SMTP port for the GMAIL server
-        $mail->Username = "nachhilfegylo@gmail.com"; // GMAIL username
-        $mail->Password = "NSsrQ(@aMmd(57nEFW8r"; // GMAIL password
-
+        $mail->Username = "nachhilfe@gymnasium-lohmar.org"; // GMAIL username
+        $mail->Password = "UHHygG9Yf6pzDj8A2ymYYYwR"; // GMAIL password
 //Typical mail data
         $mail->AddAddress($email);
-        $mail->SetFrom('admin@gylo-nachhilfe.de', "Nachhilfe");
+        $mail->SetFrom('nachhilfe@gymnasium-lohmar.org', "Nachhilfe");
         $mail->Subject = $subject;
         $mail->Body = $body;
 
