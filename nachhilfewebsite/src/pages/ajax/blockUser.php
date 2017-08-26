@@ -20,13 +20,6 @@ if(Benutzer::get_logged_in_user()->has_permission("blockUser")) {
         $form_helper->response['name'] = Benutzer::get_by_id($_POST['user'])->vorname . " " . Benutzer::get_by_id($_POST['user'])->name;
         $form_helper->success = true;
         $form_helper->return_json();
-        $conns = Benutzer::get_logged_in_user()->get_all_tutiution_connections();
-        if($conns != null){
-            foreach ($conns as $conn){
-                Verbindung::block($conn->idVerbindung);
-                Stunde::block_appos_connection($conn->idVerbindung);
-            }
-        }
     }
     else{
         $form_helper->return_error("Sie können sich nicht selber sperren!");

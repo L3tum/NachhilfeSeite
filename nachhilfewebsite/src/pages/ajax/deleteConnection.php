@@ -27,10 +27,8 @@ if(Benutzer::get_logged_in_user()->has_permission("deleteConnection")) {
         $form_helper->success = $stmt->execute();
     }
     else{
-        Stunde::block_appos_connection($_POST['id']);
-        Verbindung::block($_POST['id']);
         $form_helper->success = false;
-        $form_helper->return_error("Es gab noch offene Stunden! Verbindung blockiert!");
+        $form_helper->return_error("Es gibt noch Stunden unter dieser Verbindung! Diese müssen erst gelöscht werden!");
     }
     $form_helper->return_json();
 }

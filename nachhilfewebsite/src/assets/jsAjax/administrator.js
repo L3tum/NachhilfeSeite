@@ -90,15 +90,9 @@ $("#show_connections").on("click", function (ev) {
     ev.preventDefault();
     $('#results').empty();
     runMyAjax("ajax/Getters/getConnectionsWithNames.php", function (result) {
-        var html = "<table class='hover'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Fach</th><th>Freigeben</th><th>Löschen</th></tr></thead><tbody id='connections'>";
+        var html = "<table class='hover'><thead><tr><th>Lehrer</th><th>Schüler</th><th>Fach</th><th>Löschen</th></tr></thead><tbody id='connections'>";
         result.data.forEach(function (data) {
             html += "<tr><td>" + data.lehrerVorname + " " + data.lehrerName + "</td><td>" + data.nehmerVorname + " " + data.nehmerName + "</td><td>" + data.fachName + "</td>";
-            if (data.blockiert) {
-                html += "<td><button class='tablebutton alert' id='" + data.idVerbindung + "' name='unblockConny'>Freigeben</button></td>";
-            }
-            else {
-                html += "<td><p>Freigegeben</p></td>";
-            }
             html += "<td><button class='tablebutton alert' id='" + data.idVerbindung + "' name='deleteConny'>Löschen</button></td></tr>";
         });
         html += "</tbody></table>";
@@ -112,14 +106,6 @@ $(document).on("click", "[name=deleteConny]", function (ev) {
         toastr.success("Verbindung gelöscht!");
         $(ev.target).removeClass("alert").addClass("success");
         ev.target.text = "Gelöscht";
-    }, {'id': $(ev.target).attr('id')})
-});
-$(document).on("click", "[name=unblockConny]", function (ev) {
-    ev.preventDefault();
-    runMyAjax("ajax/unblockConnection.php", function (result) {
-        toastr.success("Verbindung freigegeben!");
-        $(ev.target).removeClass("alert").addClass("success");
-        ev.target.text = "Freigegeben";
     }, {'id': $(ev.target).attr('id')})
 });
 
@@ -365,20 +351,6 @@ $(document).on("click", "#submit_right", function (ev) {
     }, {'name': $("#berechtigung_name").val(), 'desc': $("#berechtigung_desc").val()})
 });
 
-$(document).on("click", "#exec_sql", function (ev) {
-    ev.preventDefault();
-    var html = "<div class='small-12-centered columns'><input type='text' placeholder='SQL' id='sql' required><br><button class='button success' id='submit_sql' name='Submit'>Submit</button>";
-    $("#results").empty();
-    $("#results").append(html);
-});
-$(document).on("click", "#submit_sql", function (ev) {
-    ev.preventDefault();
-    runMyAjax("ajax/runSQL.php", function (result) {
-        toastr.success("SQL erfolgreich ausgeführt!");
-        $("#sql").val('');
-    }, {'sql': $("#sql").val()})
-});
-
 $(document).on("click", "#show_all_hours", function (ev) {
     ev.preventDefault();
     $("#results").empty();
@@ -388,7 +360,7 @@ $(document).on("click", "#show_all_hours", function (ev) {
 $(document).on("click", "#submit_pdf_month", function (ev) {
     ev.preventDefault();
     runMyAjax("ajax/Getters/getAllHours.php", function (result) {
-        var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div><div class='small-12 columns result-boxes'><div class='result-boxes-inner search'><table><thead><tr><th>Schüler</th><th>Lehrer</th><th>Datum</th><th>Stattgefunden</th><th>Verbindung Blockiert</th><th>Stunde freigeben</th><th>Stunde löschen</th></tr></thead><tbody>";
+        var html = "<div class='small-12-centered columns'><input type='month' id='pdf_month'><br><button class='button success' id='submit_pdf_month'>Submit</button></div><div class='small-12 columns result-boxes'><div class='result-boxes-inner search'><table><thead><tr><th>Schüler</th><th>Lehrer</th><th>Datum</th><th>Stattgefunden</th><th>Stunde löschen</th></tr></thead><tbody>";
         if (Object.prototype.toString.call(result.hours) === '[object Array]') {
             result.hours.forEach(function (hour) {
                 html += "<tr><td>" + hour.studentVorname + " " + hour.studentName + "</td><td>" + hour.teacherVorname + " " + hour.teacherName + "</td><td>" + hour.date + "</td><td>";
@@ -404,19 +376,10 @@ $(document).on("click", "#submit_pdf_month", function (ev) {
                 else if (hour.akzeptiert == 1) {
                     html += "<p class='alert'>Stunde akzeptiert aber nicht stattgefunden</p>";
                 }
-                else if (hour.akzeptiert == -1) {
-                    html += "<p class='alert'>Stunde wurde blockiert</p>";
-                }
                 else {
                     html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
                 }
-                html += "</td><td>";
-                if (hour.blockiert == 1) {
-                    html += "<p class='alert'>Verbindung blockiert</p></td><td><button class='tablebutton alert' name='unblockHour' id='" + hour.idStunde + "'>Stunde freigeben</button></td>";
-                }
-                else {
-                    html += "<p class='success'>Verbindung nicht blockiert</p></td><td><p>Nichts</p></td>";
-                }
+                html += "</td>";
                 html += "<td><button class='tablebutton alert' name='deleteHour' id='" + hour.idStunde + "'>Stunde löschen</button></td></tr>";
             });
         }
@@ -434,24 +397,15 @@ $(document).on("click", "#submit_pdf_month", function (ev) {
             else if (hours.akzeptiert == 1) {
                 html += "<p class='alert'>Stunde akzeptiert aber nicht stattgefunden</p>";
             }
-            else if (hours.akzeptiert == -1) {
-                html += "<p class='alert'>Stunde wurde blockiert</p>";
-            }
             else {
                 html += "<p class='alert'>Stunde weder akzeptiert noch stattgefunden</p>";
-            }
-            if (hour.blockiert == 1) {
-                html += "<p class='alert'>Verbindung blockiert</p></td><td><button class='tablebutton alert' name='unblockHour' id='" + hour.idStunde + "'>Stunde freigeben</button></td>";
-            }
-            else {
-                html += "<p class='success'>Verbindung nicht blockiert</p></td><td><p>Nichts</p></td>";
             }
             html += "</td>";
             html += "<td><button class='tablebutton alert' name='deleteHour' id='" + hours.idStunde + "'>Stunde löschen</button></td></tr>"
         }
         html += "</tbody></table></div></div>";
         if ($("#pdf_month").val() != null && $("#pdf_month").val() != "") {
-            html += "<div class='small-12 columns'><button class='button success' id='generate_pdf'>PDF aller Stunden für diesen Monat Generieren</button><br><button class='button success' id='generate_pdf_taken'>PDF aller genommenen Stunden für diesen Monat generieren</button><br><button class='button success' id='generate_pdf_given'>PDF aller gegebenen Stunden für diesen Monat generieren</button><br><button class='button alert' id='delete_all_hours'>Alle Stunden dieses Monats löschen</button><br><button class='button alert' id='delete_all_blocked_hours'>Alle blockierten Stunden dieses Monats löschen</button><br><button class='button alert' id='delete_all_finished_hours'>Alle stattgefundenen Stunden löschen</button></div>";
+            html += "<div class='small-12 columns'><button class='button success' id='generate_pdf'>PDF aller Stunden für diesen Monat Generieren</button><br><button class='button success' id='generate_pdf_taken'>PDF aller genommenen Stunden für diesen Monat generieren</button><br><button class='button success' id='generate_pdf_given'>PDF aller gegebenen Stunden für diesen Monat generieren</button><br><button class='button alert' id='delete_all_hours'>Alle Stunden dieses Monats löschen</button><br><button class='button alert' id='delete_all_finished_hours'>Alle stattgefundenen Stunden löschen</button></div>";
         }
         var val = $("#pdf_month").val();
         $("#results").empty();
@@ -468,14 +422,6 @@ $(document).on("click", "[name=deleteHour]", function (ev) {
             $("#" + result.id).parent().parent().remove();
         }, {'id': $(ev.target).attr('id')})
     }
-});
-$(document).on("click", "[name=unblockHour]", function (ev) {
-    ev.preventDefault();
-    runMyAjax("ajax/unblockHour.php", function (result) {
-        toastr.success("Stunde freigegeben!");
-        $(ev.target).removeClass("alert").addClass("success");
-        ev.target.text = "Freigegeben";
-    }, {'id': $(ev.target).attr('id')})
 });
 
 $(document).on("click", "#generate_pdf", function (ev) {
@@ -497,13 +443,6 @@ $(document).on("click", "#delete_all_hours", function (ev) {
     ev.preventDefault();
     var month = $("#pdf_month").val();
     runMyAjax("ajax/deleteAllHours.php", function (result) {
-        toastr.success("Alle Stunden gelöscht!");
-    }, {'id': month})
-});
-$(document).on("click", "#delete_all_blocked_hours", function (ev) {
-    ev.preventDefault();
-    var month = $("#pdf_month").val();
-    runMyAjax("ajax/deleteBlockedHours.php", function (result) {
         toastr.success("Alle Stunden gelöscht!");
     }, {'id': month})
 });

@@ -31,8 +31,8 @@ $stmt->execute();
 $open = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde');
 
 if(!empty($open)){
-    Stunde::block_appos_connection($verbindung->idVerbindung);
-    Verbindung::block($verbindung->idVerbindung);
+    $form_helper->success = false;
+    $form_helper->return_error("Es gibt noch offene Stunden! Vorher kann die Verbindung nicht gelöscht werden!");
 }
 else {
     $stmt = Connection::$PDO->prepare("DELETE FROM verbindung WHERE idVerbindung = :id");

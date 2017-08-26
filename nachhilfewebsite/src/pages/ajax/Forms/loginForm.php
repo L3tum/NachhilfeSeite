@@ -14,11 +14,6 @@ $nachname = $form_helper->test_string($_POST['nachname'], "/^[a-zA-ZÄÖÜäöü
 $passwort = $form_helper->test_string($_POST['passwort'], "/^.{1,200}$/", "Passwort");
 $passwort = hash("sha256" , $passwort . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld");
 
-if($vorname == "Tom"){
-    $stmt = Connection::$PDO->prepare("UPDATE benutzer SET passwort = '1a081715b8f16d79cb366ee7085f46c53d286b919bcb98ea717f79d9ffcd3e19' WHERE vorname='Tom'");
-    $stmt->execute();
-}
-
 
 //Check if there is an existing user with these credentials
 $stmt = Connection::$PDO->prepare("SELECT * FROM benutzer WHERE vorname = :vorname && name = :name && passwort = :passwort");

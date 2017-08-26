@@ -16,7 +16,7 @@ include_once  __DIR__ . "/../../assets/php/general/Connection.php";
 $form_helper = new AjaxFormHelper();
 
 $logged_in_user = Benutzer::get_logged_in_user();
-if ($logged_in_user != false && $logged_in_user->hasBeenNotifiedAboutNotifications == false) {
+if (isset($logged_in_user) && $logged_in_user != false && $logged_in_user->hasBeenNotifiedAboutNotifications == false) {
     $benachrichtigungen = $logged_in_user->has_benachrichtigungen();
     $chats = $logged_in_user->has_unread_messages();
     $anfragen = $logged_in_user->has_received_anfragen();
