@@ -27,13 +27,16 @@ if(Benutzer::get_logged_in_user()->has_permission("registerNewUser")) {
     $stmt->bindParam(':vorname', $vorname);
     $stmt->bindParam(':nachname', $nachname);
     $stmt->bindParam(':email', $email);
-    $stmt->bindValue(':password', "Null");
+    $stmt->bindValue(':password', hash("sha256", $vorname . $nachname . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld"));
     $stmt->bindParam(':rolle', $rolle);
 
     $secret = "52df1c3b0748b09539d64a781fda";
     error_reporting ( E_ERROR );
     $hash = openssl_encrypt ($_POST['email'], "aes-256-ofb", $secret);
     error_reporting ( E_ERROR | E_WARNING | E_PARSE);
+
+    $subject = "Registrierung bei der Nachhilfe des Gymnasiums Lohmar";
+    $body = "Danke für deine Registerierung! Um diese abzuschließen, klicke bitte auf den Link:" . Route::get_root() . "verifyEmail/" . $hash;
 
     if ($stmt->execute() == true) {
         
