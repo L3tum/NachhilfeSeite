@@ -21,15 +21,15 @@ if(Benutzer::get_logged_in_user()->has_permission("deleteConnection")) {
         $form_helper->success = false;
         $form_helper->return_error("Internet Fehler!");
     }
-    if(Verbindung::get_by_id($_POST['id'])->has_appointments() == false || Verbindung::get_by_id($_POST['id'])->has_appointments() == null) {
-        $stmt = Connection::$PDO->prepare("DELETE FROM verbindung WHERE verbindung.idVerbindung = :idVerbindung");
-        $stmt->bindParam(':idVerbindung', $_POST['id']);
-        $form_helper->success = $stmt->execute();
+    $hours = Verbindung::get_by_id($_POST['id'])->has_appointments();
+    if(isset($hours) && $hours != false){
+        foreach ($hours as $hour){
+            Stunde::deleteStunde($hour->idStunde);
+        }
     }
-    else{
-        $form_helper->success = false;
-        $form_helper->return_error("Es gibt noch Stunden unter dieser Verbindung! Diese müssen erst gelöscht werden!");
-    }
+    $stmt = Connection::$PDO->prepare("DELETE FROM verbindung WHERE verbindung.idVerbindung = :idVerbindung");
+    $stmt->bindParam(':idVerbindung', $_POST['id']);
+    $form_helper->success = $stmt->execute();
     $form_helper->return_json();
 }
 else{

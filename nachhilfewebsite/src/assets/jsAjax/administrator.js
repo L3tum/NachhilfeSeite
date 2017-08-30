@@ -102,11 +102,13 @@ $("#show_connections").on("click", function (ev) {
 
 $(document).on("click", "[name=deleteConny]", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/deleteConnection.php", function (result) {
-        toastr.success("Verbindung gelöscht!");
-        $(ev.target).removeClass("alert").addClass("success");
-        ev.target.text = "Gelöscht";
-    }, {'id': $(ev.target).attr('id')})
+    if (window.confirm("Alle Stunden und diese Verbindung werden unwiderruflich gelöscht! Fortfahren?")) {
+        runMyAjax("ajax/deleteConnection.php", function (result) {
+            toastr.success("Verbindung gelöscht!");
+            $(ev.target).removeClass("alert").addClass("success");
+            ev.target.text = "Gelöscht";
+        }, {'id': $(ev.target).attr('id')})
+    }
 });
 
 
@@ -295,10 +297,12 @@ $("#del_subject").on("click", function (ev) {
 });
 $(document).on("click", "#deleteSUBJECT", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/deleteSubject.php", function (result) {
-        toastr.success("Fach gelöscht!");
-        $("#" + result.id).remove();
-    }, {'id': $("#sel_subject").find(':selected').attr('id')})
+    if (window.confirm("Dadurch wird das Fach, alle Verbindungen und alle Stunden für dieses Fach gelöscht! Fortfahren?")) {
+        runMyAjax("ajax/deleteSubject.php", function (result) {
+            toastr.success("Fach gelöscht!");
+            $("#" + result.id).remove();
+        }, {'id': $("#sel_subject").find(':selected').attr('id')})
+    }
 });
 
 $("#add_year").on("click", function (ev) {
@@ -614,7 +618,7 @@ $(document).on("click", "#update_settings", function (ev) {
     var settings = $("[name=setting_id]");
     var i = 0;
     settings.each(function (integer, setting) {
-        if($(setting).val() != "") {
+        if ($(setting).val() != "") {
             names[i] = $(setting).attr('id');
             values[i] = $(setting).val();
             i++;
@@ -640,9 +644,21 @@ $(document).on("click", "#add_setting", function (ev) {
     $("#results").append("<div class='small-12-centered columns'><input name='setting_name' type='text' placeholder='Name...' id='setting_name'><br><input name='setting_value' type='text' placeholder='Wert...' id='setting_value'></div>");
     $("#results").append("<div class='small-12-centered columns'><button class='button success' id='insert_setting'>Füge Einstellung ein</button></div>")
 });
-$(document).on("click", "#insert_setting", function(ev){
+$(document).on("click", "#insert_setting", function (ev) {
     ev.preventDefault();
-    runMyAjax("ajax/Setters/setSetting.php", function(result){
+    runMyAjax("ajax/Setters/setSetting.php", function (result) {
         toastr.success("Einstellung erfolgreich hinzugefügt!");
-    }, {'name' : $("#setting_name").val(), 'value' : $("#setting_value").val()})
+    }, {'name': $("#setting_name").val(), 'value': $("#setting_value").val()})
+});
+$(document).on("click", "#exec_sql", function (ev) {
+    ev.preventDefault();
+    var html = "<div class='small-12-centered columns'><input name='sql' type='text' id='sql'><br><button class='button success' id='execute_sql'>Führe SQL aus</button></div>";
+    $("#results").append(html);
+});
+$(document).on("click", "#execute_sql", function (ev) {
+    ev.preventDefault();
+    var sql = $("#sql").val();
+    runMyAjax("ajax/runSQL.php", function(result){
+        toastr.success("Erfolgreich ausgeführt!");
+    }, {'sql' : sql});
 });

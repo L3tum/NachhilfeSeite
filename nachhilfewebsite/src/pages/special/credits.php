@@ -16,7 +16,7 @@ layout: star
     <p style="z-index: 10;" id="timer"></p>
 </div>
 
-<iframe id="videos" style="visibility: hidden; position:absolute; left:-600px;" width="0" height="0" src="" frameborder="0"></iframe>
+<iframe id="videos" style="visibility: hidden; position:absolute; left:-600px;" width="1" height="1" src="https://www.youtube.com/embed/bpxtuUQ28UM?autoplay=1&loop=1" frameborder="0"></iframe>
 
 <p style="z-index: 10;" id="start">A short time ago in a browser very, very close&hellip;</p>
 
