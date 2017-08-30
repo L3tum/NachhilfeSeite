@@ -19,8 +19,14 @@ var userEditFormHelper = new AjaxFormHelper($("#user-edit-form"), "Änderung feh
     });
     formdata.append('stufen', JSON.stringify(stufen));
     formdata.append('wantsEmails', JSON.stringify($("#wantsEmails").val()));
-    formdata.set("passwort", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
-    formdata.set("passwort-wiederholung", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
+    if(FormData.set) {
+        formdata.set("passwort", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
+        formdata.set("passwort-wiederholung", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
+    }
+    else{
+        formdata.append("passwort", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
+        formdata.append("passwort-wiederholung", murmurhash3_32_gc($("[name=passwort]").val(), 2476));
+    }
 });
 $(document).on("click", "#wantsEmails", function (ev) {
     ev.preventDefault();

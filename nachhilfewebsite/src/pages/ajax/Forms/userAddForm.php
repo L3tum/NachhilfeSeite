@@ -21,7 +21,7 @@ $passwort = $form_helper->test_string($_POST['passwort'], "/^.{1,200}$/", "Passw
 if($passwort != $_POST['passwortConfirm']){
     $form_helper->return_error("Die Passwörter stimmen nicht überein!");
 }
-$passwort = hash("sha256" , $passwort . "349692058673618402393234575763ß23ß25230" );
+$passwort = hash("sha256", $passwort . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld");
 
 $stmt = Connection::$PDO->prepare("INSERT INTO benutzer (vorname, name, email, telefonnummer, passwort, idRolle, emailActivated, wantsEmails) VALUES(:vorname, :name, :email, :tel , :passwort, :rolle, 1, 1)");
 $stmt->bindParam(':vorname', $vorname);

@@ -24,6 +24,9 @@ if(Benutzer::get_logged_in_user()->has_permission("registerNewUser")) {
     $rolle = $_POST['rolle'];
     $passwort = $_POST['passwort'];
 
+    $form_helper->response['passwort'] = $passwort;
+    $form_helper->response['hash'] = hash("sha256", $passwort . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld");
+
     $stmt = Connection::$PDO->prepare("INSERT INTO benutzer (vorname, name, email, passwort, idRolle) VALUES( :vorname , :nachname , :email , :password , :rolle )");
     $stmt->bindParam(':vorname', $vorname);
     $stmt->bindParam(':nachname', $nachname);
