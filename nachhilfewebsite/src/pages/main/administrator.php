@@ -81,6 +81,9 @@
                 if(Benutzer::get_logged_in_user()->has_permission("add_settings")){
                     echo "<a id='add_setting' class='button' type='submit' value='Submit'>Füge eine Einstellung hinzu</a><br>";
                 }
+                if(Benutzer::get_logged_in_user()->has_permission("execute_sql")){
+                    echo "<a id='exec_sql' class='button' type='submit' value='Submit'>Führe SQL aus</a><br>";
+                }
                 if(Benutzer::get_logged_in_user()->has_permission("sendTestMail")){
                     echo '<button class="button" id="sendMail" type="submit">SendMail</button>';
                 }

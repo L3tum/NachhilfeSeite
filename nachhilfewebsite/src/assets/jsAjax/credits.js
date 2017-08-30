@@ -69,7 +69,7 @@ var x = setInterval(function () {
 }, 1000);
 
 $(document).ready(function (ev) {
-    $("#videos").attr('src', "https://www.youtube.com/embed/bpxtuUQ28UM?autoplay=1&loop=1&vq=small&rel=0&showinfo=0&controls=0");
+    $("#videos").attr('src', "https://www.youtube.com/embed/bpxtuUQ28UM?autoplay=1&loop=1");
     var authorized = false;
 
     if (document.getElementById("login-form") == null) {
