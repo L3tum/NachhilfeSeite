@@ -22,12 +22,13 @@ if(Benutzer::get_logged_in_user()->has_permission("registerNewUser")) {
     $nachname = $_POST['nachname'];
     $email = $_POST['email'];
     $rolle = $_POST['rolle'];
+    $passwort = $_POST['passwort'];
 
     $stmt = Connection::$PDO->prepare("INSERT INTO benutzer (vorname, name, email, passwort, idRolle) VALUES( :vorname , :nachname , :email , :password , :rolle )");
     $stmt->bindParam(':vorname', $vorname);
     $stmt->bindParam(':nachname', $nachname);
     $stmt->bindParam(':email', $email);
-    $stmt->bindValue(':password', hash("sha256", $vorname . $nachname . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld"));
+    $stmt->bindValue(':password', hash("sha256", $passwort . $vorname . $nachname . "ei waas mach ich hier ich bin ein star bringt mich nach Bielefeld"));
     $stmt->bindParam(':rolle', $rolle);
 
     $secret = "52df1c3b0748b09539d64a781fda";

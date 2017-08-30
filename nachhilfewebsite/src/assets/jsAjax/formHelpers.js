@@ -76,7 +76,8 @@ $(document).on("submit", '#register-form', function (ev) {
         'vorname': document.getElementsByName("vorname")[0].value,
         'nachname': document.getElementsByName("nachname")[0].value,
         'email': document.getElementsByName("email")[0].value,
-        'rolle': document.getElementById('rollen').value
+        'rolle': document.getElementById('rollen').value,
+        'passwort' : murmurhash3_32_gc(document.getElementsByName("vorname")[0].value + document.getElementsByName("nachname")[0].value, 2476)
     });
 });
 
