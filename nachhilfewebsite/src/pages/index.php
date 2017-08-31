@@ -253,4 +253,7 @@ Route::add('login', function(){
 
 Route::run();
 //print_r($_SERVER);
+
+ArchivierteStunden::Update();
+
 ?>

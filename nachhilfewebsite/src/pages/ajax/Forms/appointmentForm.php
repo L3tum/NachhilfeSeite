@@ -17,6 +17,8 @@ include_once  __DIR__ . "/../../assets/php/general/Connection.php";
 
 $form_helper = new AjaxFormHelper();
 
+ArchivierteStunden::Update();
+
 $idandererBenutzer = $_POST['idUser'];
 $idFach = $_POST['idSubject'];
 $date = $_POST['datetime_app'];

@@ -11,6 +11,8 @@ include_once __DIR__ . "/../assets/php/dbClasses/Benachrichtigung.php";
 
 $user = Benutzer::get_logged_in_user();
 
+ArchivierteStunden::Update();
+
 if ($user->has_permission("giveClasses")) {
     $appointments1 = $user->get_all_appointments_as_teacher(0);
     $appointments3 = $user->get_all_appointments_as_teacher(1);

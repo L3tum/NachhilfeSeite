@@ -38,6 +38,25 @@ class ArchivierteStunden{
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'ArchivierteStunden');
     }
+    //text
+    public static function getAllByStudentAndTeacherNameAndDate($stdName, $teaName, $date){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM archivierteStunden WHERE studentName = :studentName AND teacherName = :teacherName AND DATE_FORMAT(datum, '%m.%Y') = DATE_FORMAT(:date, '%m.%Y')");
+        $stmt->bindParam(':studentName', $stdName);
+        $stmt->bindParam(':teacherName', $teaName);
+        $stmt->bindParam(':date', $date);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'ArchivierteStunden');
+    }
+    //text
+    public static function getAllByStudentAndTeacherNameAndDateAndSubject($stdName, $teaName, $date, $subject){
+        $stmt = Connection::$PDO->prepare("SELECT * FROM archivierteStunden WHERE studentName = :studentName AND teacherName = :teacherName AND DATE_FORMAT(datum, '%m.%Y') = DATE_FORMAT(:date, '%m.%Y') AND fach = :fach");
+        $stmt->bindParam(':studentName', $stdName);
+        $stmt->bindParam(':teacherName', $teaName);
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':fach', $subject);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'ArchivierteStunden');
+    }
     //date object
     public static function getAllByDate($date){
         $stmt = Connection::$PDO->prepare("SELECT * FROM archivierteStunden WHERE datum = :date");
@@ -60,7 +79,7 @@ class ArchivierteStunden{
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'ArchivierteStunden');
     }
     public static function getAllByNameAndDate($name, $date){
-        $stmt = Connection::$PDO->prepare("SELECT * FROM archivierteStunden WHERE datum = :date AND (studentName = :name OR teacherName = :name)");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM archivierteStunden WHERE DATE_FORMAT(datum, '%m.%Y') = :date AND (studentName = :name OR teacherName = :name)");
         $stmt->bindParam(':date', $date);
         $stmt->bindParam(':name', $name);
         $stmt->execute();
@@ -99,13 +118,29 @@ class ArchivierteStunden{
             }
         }
 
-        $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE datum < :today AND akzeptiert = FALSE");
+        $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE DATE_FORMAT(datum, '%d.%m.%Y') < :today AND akzeptiert = FALSE");
         $stmt->bindParam(':today', date("d.m.Y H:i:s"));
         $stmt->execute();
         $hours = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde');
         if(isset($hours) && $hours != false) {
             foreach ($hours as $hour){
                 Stunde::deleteStunde($hour->idStunde);
+            }
+        }
+
+        $last = date('d.m.Y', strtotime('-7 days'));
+        $stmt = Connection::$PDO->prepare("SELECT * FROM stunde WHERE DATE_FORMAT(datum, '%d.%m.%Y') < :last AND akzeptiert = TRUE AND (bestaetigtSchueler = FALSE OR bestaetigtLehrer = FALSE)");
+        $stmt->bindParam(':last', $last);
+        $stmt->execute();
+        $hours = $stmt->fetchAll(PDO::FETCH_CLASS, 'Stunde');
+        if(isset($hours) && $hours != false){
+            foreach ($hours as $hour){
+                if($hour->bestaetigtSchueler == false){
+                    Benachrichtigung::add($hour->idNachhilfenehmer, "Stunde bestätigen!", "Du hast eine Stunde, die schon mehr als eine Woche alt ist, noch nicht bestätigt!");
+                }
+                if($hour->bestaetigtLehrer == false){
+                    Benachrichtigung::add($hour->idNachhilfelehrer, "Stunde bestätigen!", "Du hast eine Stunde, die schon mehr als eine Woche alt ist, noch nicht bestätigt!");
+                }
             }
         }
     }

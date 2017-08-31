@@ -11,6 +11,8 @@ include_once __DIR__ . "/../assets/php/dbClasses/Raum.php";
 include_once __DIR__ . "/../assets/php/dbClasses/Fach.php";
 include_once __DIR__ . "/../assets/php/dbClasses/AngebotenesFach.php";
 
+ArchivierteStunden::Update();
+
 $current_user = Benutzer::get_logged_in_user();
 $others = $current_user->get_all_connections_single();
 
