@@ -9,7 +9,7 @@ var generatePDFFormHelper = new AjaxFormHelper($("#show-pdf-form"), "Fehlgeschla
     var buttonVal = btn.attr('value');
     var idBenutzer = $('#pdf-user').val();
     var year = $('#pdf-year').val();
-    window.location = getRootUrl() + "user/" + idBenutzer + "/pdf/" + buttonVal + "/" + year;
+    window.location = getRootUrl() + "pdf?id:" + idBenutzer + "&" + buttonVal + "&month:" + year;
 });
 
 $(document).on("click", "#nachhilfeAnfragenButton", function (ev) {

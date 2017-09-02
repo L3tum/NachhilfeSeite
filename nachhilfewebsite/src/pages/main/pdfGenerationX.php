@@ -43,7 +43,7 @@ $date = date('m.Y', strtotime($month));
 $students = array();
 $teachers = array();
 
-if (isset($id)) {
+if (isset($id) && $id != -1) {
     $user = Benutzer::get_by_id($id);
     if ($user->has_permissions("takeClasses")) {
         $students[0] = $user;
@@ -51,12 +51,10 @@ if (isset($id)) {
     if ($user->has_permission("giveClasses")) {
         $teachers[0] = $user;
     }
-} else {
-    $students = Benutzer::get_all_users_with_right("takeClasses");
-    $teachers = Benutzer::get_all_users_with_right("giveClasses");
 }
 
 if (isset($taken) && $taken == true) {
+    $students = array_merge($students, Benutzer::get_all_users_with_right("takeClasses"));
     if ($students != false) {
         for ($i = 0; $i < count($students); $i++) {
             $isTrue = false;
@@ -64,6 +62,17 @@ if (isset($taken) && $taken == true) {
 
             $hours = ArchivierteStunden::getAllByNameAndDate($students[$i]->vorname . $students[$i]->name, $date);
             if ($hours != false) {
+
+                $connectionString = "";
+
+                $connections = Benutzer::get_by_id($students[$i]->idBenutzer)->get_all_tutiution_connections_student();
+                if($connections != false){
+                    foreach ($connections as $connection){
+                        $connectionString .= Fach::get_by_id($connection->idFach)->name . ", ";
+                    }
+                }
+                trim($connectionString, ',');
+
                 $isTrue = true;
                 foreach ($hours as $houry) {
                     $sortedHours = ArchivierteStunden::getAllByStudentAndTeacherNameAndDateAndSubject($houry->studentName, $houry->teacherName, $houry->datum, $houry->subject);
@@ -72,6 +81,7 @@ if (isset($taken) && $taken == true) {
         <div class='columns small-12'>
           <h4>" . $tableHeadline . "</h4>
           <h5>Fach: " . $sortedHours->fach . "</h5>
+          <h6>Nachhilfeverbindungen: " . $connectionString . "</h6>
           <table>
             <thead>
                 
@@ -99,7 +109,7 @@ if (isset($taken) && $taken == true) {
                             $mpdf->AddPage();
                         }
                     }
-                    push($currDate, $header, $entries, $mpdf);
+                    push($date, $header, $entries, $mpdf);
                     $header = "";
                     $entries = "";
                 }
@@ -109,6 +119,7 @@ if (isset($taken) && $taken == true) {
 }
 
 if (isset($given) && $given == true) {
+    $teachers = array_merge($teachers, Benutzer::get_all_users_with_right("giveClasses"));
     if ($teachers != false) {
         for ($i = 0; $i < count($teachers); $i++) {
             $isTrue = false;
@@ -116,6 +127,25 @@ if (isset($given) && $given == true) {
 
             $hours = ArchivierteStunden::getAllByNameAndDate($teachers[$i]->vorname . $teachers[$i]->name, $date);
             if ($hours != false) {
+
+                $connectionString = "";
+                $subjectsString = "";
+                $connections = Benutzer::get_by_id($students[$i]->idBenutzer)->get_all_tutiution_connections_teacher();
+                if($connections != false){
+                    foreach ($connections as $connection){
+                        $connectionString .= Fach::get_by_id($connection->idFach)->name . ", ";
+                    }
+                }
+                trim($connectionString, ',');
+
+                $subjects = Benutzer::get_by_id($students[$i]->idBenutzer)->get_offered_subjects();
+                if($subjects != false){
+                    foreach ($subjects as $subject){
+                        $subjectsString .= $subject->name . ", ";
+                    }
+                }
+                trim($subjectsString, ',');
+
                 $isTrue = true;
                 foreach ($hours as $houry) {
                     $sortedHours = ArchivierteStunden::getAllByStudentAndTeacherNameAndDateAndSubject($houry->studentName, $houry->teacherName, $houry->datum, $houry->subject);
@@ -124,6 +154,8 @@ if (isset($given) && $given == true) {
         <div class='columns small-12'>
           <h4>" . $tableHeadline . "</h4>
           <h5>Fach: " . $sortedHours->fach . "</h5>
+          <h6>Nachhilfeverbindungen: " . $connectionString . "</h6>
+          <h6>Angebotene Fächer: " . $subjectsString . "</h6>
           <table>
             <thead>
                 
@@ -151,7 +183,7 @@ if (isset($given) && $given == true) {
                             $mpdf->AddPage();
                         }
                     }
-                    push($currDate, $header, $entries, $mpdf);
+                    push($date, $header, $entries, $mpdf);
                     $header = "";
                     $entries = "";
                 }
@@ -160,5 +192,5 @@ if (isset($given) && $given == true) {
     }
 }
 
-$mpdf->Output('Aufstellung ' . $newMonth, 'I');
+$mpdf->Output('Aufstellung ' . $date, 'I');
 

@@ -430,18 +430,18 @@ $(document).on("click", "[name=deleteHour]", function (ev) {
 
 $(document).on("click", "#generate_pdf", function (ev) {
     ev.preventDefault();
-    var year = $('#pdf_month').val();
-    window.location = getRootUrl() + "spdf/" + "all/" + year;
+    var month = $('#pdf_month').val();
+    window.location = getRootUrl() + "pdf?" + "all&month:" + month;
 });
 $(document).on("click", "#generate_pdf_taken", function (ev) {
     ev.preventDefault();
-    var year = $('#pdf_month').val();
-    window.location = getRootUrl() + "spdf/" + "taken/" + year;
+    var month = $('#pdf_month').val();
+    window.location = getRootUrl() + "pdf?" + "taken&month:" + month;
 });
 $(document).on("click", "#generate_pdf_given", function (ev) {
     ev.preventDefault();
-    var year = $('#pdf_month').val();
-    window.location = getRootUrl() + "spdf/" + "given/" + year;
+    var month = $('#pdf_month').val();
+    window.location = getRootUrl() + "pdf?" + "given&month:" + month;
 });
 $(document).on("click", "#delete_all_hours", function (ev) {
     ev.preventDefault();

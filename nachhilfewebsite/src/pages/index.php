@@ -215,6 +215,39 @@ Route::add('verifyEmail/(.+)', function ($hash) {
 
 });
 
+Route::add('pdf?(.+)', function($param){
+    $params = explode('&', $param);
+    $taken = false;
+    $given = false;
+    $id = -1;
+    $month = -1;
+    foreach ($params as $param){
+        switch ($param) {
+            case "all": {
+                $taken = true;
+                $given = true;
+                break;
+            }
+            case "taken": {
+                $taken = true;
+                break;
+            }
+            case "given": {
+                $given = true;
+                break;
+            }
+            case "month":{
+                $month = explode(':', $param)[1];
+            }
+            case "id":{
+                $id = intval(explode(':', $param)[1]);
+            }
+            default:{
+                Route::redirect_to_root();
+            }
+        }
+    }
+});
 Route::add('spdf/(.+)', function ($param) {
     $params = explode('/', $param);
     $taken = false;
